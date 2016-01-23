@@ -13,7 +13,6 @@
 #include "room-state.h"
 
 #include "couple-scenario.h"
-#include "boss-mode-scenario.h"
 #include "zombie-scenario.h"
 
 #include <QFile>
@@ -53,7 +52,6 @@ void Engine::_loadModScenarios()
 {
     addScenario(new CoupleScenario());
     addScenario(new ZombieScenario());
-    addScenario(new ImpasseScenario());
 }
 
 void Engine::addPackage(const QString &name)
