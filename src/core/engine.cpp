@@ -15,7 +15,6 @@
 #include "couple-scenario.h"
 #include "boss-mode-scenario.h"
 #include "zombie-scenario.h"
-#include "fancheng-scenario.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -53,7 +52,6 @@ void Engine::_loadMiniScenarios()
 void Engine::_loadModScenarios()
 {
     addScenario(new CoupleScenario());
-    addScenario(new FanchengScenario());
     addScenario(new ZombieScenario());
     addScenario(new ImpasseScenario());
 }
