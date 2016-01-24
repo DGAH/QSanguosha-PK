@@ -999,6 +999,33 @@ void Collateral::onEffect(const CardEffectStruct &effect) const
     }
 }
 
+ExtraCollateralCard::ExtraCollateralCard()
+{
+}
+
+bool ExtraCollateralCard::targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const
+{
+	const Card *coll = Card::Parse(Self->property("extra_collateral").toString());
+	if (!coll) return false;
+	QStringList tos = Self->property("extra_collateral_current_targets").toString().split("+");
+
+	if (targets.isEmpty())
+		return !tos.contains(to_select->objectName())
+		&& !Self->isProhibited(to_select, coll) && coll->targetFilter(targets, to_select, Self);
+	else
+		return coll->targetFilter(targets, to_select, Self);
+}
+
+void ExtraCollateralCard::onUse(Room *, const CardUseStruct &card_use) const
+{
+	Q_ASSERT(card_use.to.length() == 2);
+	ServerPlayer *killer = card_use.to.first();
+	ServerPlayer *victim = card_use.to.last();
+
+	killer->setFlags("ExtraCollateralTarget");
+	killer->tag["collateralVictim"] = QVariant::fromValue(victim);
+}
+
 Nullification::Nullification(Suit suit, int number)
     : SingleTargetTrick(suit, number)
 {
@@ -1605,6 +1632,8 @@ StandardCardPackage::StandardCardPackage()
 
     foreach(Card *card, cards)
         card->setParent(this);
+
+	addMetaObject<ExtraCollateralCard>();
 }
 
 StandardExCardPackage::StandardExCardPackage()

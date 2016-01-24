@@ -672,6 +672,58 @@ public:
     }
 };
 
+Chengxiang::Chengxiang() : MasochismSkill("chengxiang")
+{
+	frequency = Frequent;
+	total_point = 13;
+}
+
+void Chengxiang::onDamaged(ServerPlayer *target, const DamageStruct &damage) const
+{
+	Room *room = target->getRoom();
+	if (!target->askForSkillInvoke(this, QVariant::fromValue(damage))) return;
+	room->broadcastSkillInvoke("chengxiang");
+
+	QList<int> card_ids = room->getNCards(4);
+	room->fillAG(card_ids);
+
+	QList<int> to_get, to_throw;
+	while (true) {
+		int sum = 0;
+		foreach(int id, to_get)
+			sum += Sanguosha->getCard(id)->getNumber();
+		foreach(int id, card_ids) {
+			if (sum + Sanguosha->getCard(id)->getNumber() > total_point) {
+				room->takeAG(NULL, id, false);
+				card_ids.removeOne(id);
+				to_throw << id;
+			}
+		}
+		if (card_ids.isEmpty()) break;
+
+		int card_id = room->askForAG(target, card_ids, card_ids.length() < 4, objectName());
+		if (card_id == -1) break;
+		card_ids.removeOne(card_id);
+		to_get << card_id;
+		room->takeAG(target, card_id, false);
+		if (card_ids.isEmpty()) break;
+	}
+	DummyCard *dummy = new DummyCard;
+	if (!to_get.isEmpty()) {
+		dummy->addSubcards(to_get);
+		target->obtainCard(dummy);
+	}
+	dummy->clearSubcards();
+	if (!to_throw.isEmpty() || !card_ids.isEmpty()) {
+		dummy->addSubcards(to_throw + card_ids);
+		CardMoveReason reason(CardMoveReason::S_REASON_NATURAL_ENTER, target->objectName(), objectName(), QString());
+		room->throwCard(dummy, reason, NULL);
+	}
+	delete dummy;
+
+	room->clearAG();
+}
+
 class NosChengxiang : public Chengxiang
 {
 public:

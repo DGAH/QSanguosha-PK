@@ -183,6 +183,17 @@ private:
     bool doCollateral(Room *room, ServerPlayer *killer, ServerPlayer *victim, const QString &prompt) const;
 };
 
+class ExtraCollateralCard : public SkillCard
+{
+	Q_OBJECT
+
+public:
+	Q_INVOKABLE ExtraCollateralCard();
+
+	virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const;
+	virtual void onUse(Room *room, const CardUseStruct &card_use) const;
+};
+
 class ExNihilo : public SingleTargetTrick
 {
     Q_OBJECT

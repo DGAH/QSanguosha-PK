@@ -62,6 +62,16 @@ public:
     NostalYJCM2013Package();
 };
 
+class Chengxiang : public MasochismSkill
+{
+public:
+	Chengxiang();
+	virtual void onDamaged(ServerPlayer *target, const DamageStruct &damage) const;
+
+protected:
+	int total_point;
+};
+
 class NosJujianCard : public SkillCard
 {
     Q_OBJECT
