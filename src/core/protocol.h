@@ -68,7 +68,7 @@ namespace QSanProtocol {
         S_COMMAND_CHOOSE_KINGDOM,
         S_COMMAND_CHOOSE_SUIT,
         S_COMMAND_CHOOSE_ROLE,
-        S_COMMAND_CHOOSE_ROLE_3V3,
+		S_COMMAND_CHOOSE_ROLE_3V3,
         S_COMMAND_CHOOSE_DIRECTION,
         S_COMMAND_CHOOSE_PLAYER,
         S_COMMAND_CHOOSE_ORDER,
@@ -175,11 +175,11 @@ namespace QSanProtocol {
         S_ANIMATE_LIGHTNING
     };
 
-    enum Game3v3ChooseOrderCommand
-    {
-        S_REASON_CHOOSE_ORDER_TURN,
-        S_REASON_CHOOSE_ORDER_SELECT
-    };
+	enum Game3v3ChooseOrderCommand
+	{
+		S_REASON_CHOOSE_ORDER_TURN,
+		S_REASON_CHOOSE_ORDER_SELECT
+	};
 
     enum Game3v3Camp
     {

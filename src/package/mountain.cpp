@@ -1106,9 +1106,7 @@ public:
     {
         QSet<QString> all = Sanguosha->getLimitedGeneralNames().toSet();
         Room *room = zuoci->getRoom();
-        if (isNormalGameMode(room->getMode())
-            || room->getMode().contains("_mini_")
-            || room->getMode() == "custom_scenario")
+        if (isNormalGameMode(room->getMode()))
             all.subtract(Config.value("Banlist/Roles", "").toStringList().toSet());
         else if (room->getMode() == "02_1v1") {
             all.subtract(Config.value("Banlist/1v1", "").toStringList().toSet());

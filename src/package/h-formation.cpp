@@ -444,9 +444,7 @@ void ShangyiCard::onEffect(const CardEffectStruct &effect) const
     QStringList choicelist;
     if (!effect.to->isKongcheng())
         choicelist.append("handcards");
-    if (room->getMode() == "06_3v3") {
-        ;
-    } else if (room->getMode() == "02_1v1") {
+    if (room->getMode() == "02_1v1") {
         QStringList list = player->tag["1v1Arrange"].toStringList();
         if (list.length() > 0)
             choicelist.append("remainedgenerals");

@@ -131,9 +131,7 @@ AI::Relation AI::relationTo(const ServerPlayer *other) const
     if (scenario)
         return scenario->relationTo(self, other);
 
-    if (room->getMode() == "06_3v3")
-        return GetRelation3v3(self, other);
-    else if (Config.EnableHegemony)
+    if (Config.EnableHegemony)
         return GetRelationHegemony(self, other);
 
     return GetRelation(self, other);

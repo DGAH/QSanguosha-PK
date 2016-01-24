@@ -6,8 +6,6 @@
 #include "banpair.h"
 #include "scenario.h"
 #include "choosegeneraldialog.h"
-#include "customassigndialog.h"
-#include "miniscenarios.h"
 #include "skin-bank.h"
 #include "json.h"
 #include "gamerule.h"
@@ -433,7 +431,6 @@ void ServerDialog::updateButtonEnablility(QAbstractButton *button)
 {
     if (!button) return;
     if (button->objectName().contains("scenario")
-        || button->objectName().contains("mini")
         || button->objectName().contains("1v1")
         || button->objectName().contains("1v3")) {
         basara_checkbox->setChecked(false);
@@ -441,15 +438,7 @@ void ServerDialog::updateButtonEnablility(QAbstractButton *button)
     } else {
         basara_checkbox->setEnabled(true);
     }
-
-    if (button->objectName().contains("mini")) {
-        mini_scene_button->setEnabled(true);
-        second_general_checkbox->setChecked(false);
-        second_general_checkbox->setEnabled(false);
-    } else {
         second_general_checkbox->setEnabled(true);
-        mini_scene_button->setEnabled(false);
-    }
 }
 
 void BanlistDialog::switchTo(int item)
@@ -695,66 +684,6 @@ QGroupBox *ServerDialog::create1v1Box()
     return box;
 }
 
-QGroupBox *ServerDialog::create3v3Box()
-{
-    QGroupBox *box = new QGroupBox(tr("3v3 options"));
-    box->setEnabled(Config.GameMode == "06_3v3");
-    box->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout *vlayout = new QVBoxLayout;
-
-    official_3v3_radiobutton = new QRadioButton(tr("Official mode"));
-
-    QComboBox *officialComboBox = new QComboBox;
-    officialComboBox->addItem(tr("Classical"), "Classical");
-    officialComboBox->addItem("2012", "2012");
-    officialComboBox->addItem("2013", "2013");
-
-    official_3v3_ComboBox = officialComboBox;
-
-    QString rule = Config.value("3v3/OfficialRule", "2013").toString();
-    if (rule == "2012")
-        officialComboBox->setCurrentIndex(1);
-    else if (rule == "2013")
-        officialComboBox->setCurrentIndex(2);
-
-    QRadioButton *extend = new QRadioButton(tr("Extension mode"));
-    QPushButton *extend_edit_button = new QPushButton(tr("General selection ..."));
-    extend_edit_button->setEnabled(false);
-    connect(extend, SIGNAL(toggled(bool)), extend_edit_button, SLOT(setEnabled(bool)));
-    connect(extend_edit_button, SIGNAL(clicked()), this, SLOT(select3v3Generals()));
-
-    exclude_disaster_checkbox = new QCheckBox(tr("Exclude disasters"));
-    exclude_disaster_checkbox->setChecked(Config.value("3v3/ExcludeDisasters", true).toBool());
-
-    QComboBox *roleChooseComboBox = new QComboBox;
-    roleChooseComboBox->addItem(tr("Normal"), "Normal");
-    roleChooseComboBox->addItem(tr("Random"), "Random");
-    roleChooseComboBox->addItem(tr("All roles"), "AllRoles");
-
-    role_choose_ComboBox = roleChooseComboBox;
-
-    QString scheme = Config.value("3v3/RoleChoose", "Normal").toString();
-    if (scheme == "Random")
-        roleChooseComboBox->setCurrentIndex(1);
-    else if (scheme == "AllRoles")
-        roleChooseComboBox->setCurrentIndex(2);
-
-    vlayout->addLayout(HLay(official_3v3_radiobutton, official_3v3_ComboBox));
-    vlayout->addLayout(HLay(extend, extend_edit_button));
-    vlayout->addWidget(exclude_disaster_checkbox);
-    vlayout->addLayout(HLay(new QLabel(tr("Role choose")), role_choose_ComboBox));
-    box->setLayout(vlayout);
-
-    bool using_extension = Config.value("3v3/UsingExtension", false).toBool();
-    if (using_extension)
-        extend->setChecked(true);
-    else
-        official_3v3_radiobutton->setChecked(true);
-
-    return box;
-}
-
 QGroupBox *ServerDialog::createGameModeBox()
 {
     QGroupBox *mode_box = new QGroupBox(tr("Game mode"));
@@ -774,11 +703,6 @@ QGroupBox *ServerDialog::createGameModeBox()
 
         if (itor.key() == "02_1v1") {
             QGroupBox *box = create1v1Box();
-            connect(button, SIGNAL(toggled(bool)), box, SLOT(setEnabled(bool)));
-
-            item_list << button << box;
-        } else if (itor.key() == "06_3v3") {
-            QGroupBox *box = create3v3Box();
             connect(button, SIGNAL(toggled(bool)), box, SLOT(setEnabled(bool)));
 
             item_list << button << box;
@@ -814,42 +738,7 @@ QGroupBox *ServerDialog::createGameModeBox()
         }
     }
 
-    //mini scenes
-    QRadioButton *mini_scenes = new QRadioButton(tr("Mini Scenes"));
-    mini_scenes->setObjectName("mini");
-    mode_group->addButton(mini_scenes);
-
-    mini_scene_ComboBox = new QComboBox;
-    int index = -1;
-    int stage = qMin(Sanguosha->getMiniSceneCounts(), Config.value("MiniSceneStage", 1).toInt());
-
-    for (int i = 1; i <= stage; i++) {
-        QString name = QString(MiniScene::S_KEY_MINISCENE).arg(QString::number(i));
-        QString scenario_name = Sanguosha->translate(name);
-        const Scenario *scenario = Sanguosha->getScenario(name);
-        int count = scenario->getPlayerCount();
-        QString text = tr("%1 (%2 persons)").arg(scenario_name).arg(count);
-        mini_scene_ComboBox->addItem(text, name);
-
-        if (name == Config.GameMode) index = i - 1;
-    }
-
-    if (index >= 0) {
-        mini_scene_ComboBox->setCurrentIndex(index);
-        mini_scenes->setChecked(true);
-    } else if (Config.GameMode == "custom_scenario")
-        mini_scenes->setChecked(true);
-
-    mini_scene_button = new QPushButton(tr("Custom Mini Scene"));
-    connect(mini_scene_button, SIGNAL(clicked()), this, SLOT(doCustomAssign()));
-
-    mini_scene_button->setEnabled(mode_group->checkedButton() ?
-        mode_group->checkedButton()->objectName() == "mini" :
-        false);
-
     item_list << HLay(scenario_button, scenario_ComboBox);
-    item_list << HLay(mini_scenes, mini_scene_ComboBox);
-    item_list << HLay(mini_scenes, mini_scene_button);
 
     // ============
 
@@ -928,128 +817,6 @@ void ServerDialog::onServerButtonClicked()
     accept();
 }
 
-Select3v3GeneralDialog::Select3v3GeneralDialog(QDialog *parent)
-    : QDialog(parent)
-{
-    setWindowTitle(tr("Select generals in extend 3v3 mode"));
-    ex_generals = Config.value("3v3/ExtensionGenerals").toStringList().toSet();
-    QVBoxLayout *layout = new QVBoxLayout;
-    tab_widget = new QTabWidget;
-    fillTabWidget();
-
-    QPushButton *ok_button = new QPushButton(tr("OK"));
-    connect(ok_button, SIGNAL(clicked()), this, SLOT(accept()));
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addStretch();
-    hlayout->addWidget(ok_button);
-
-    layout->addWidget(tab_widget);
-    layout->addLayout(hlayout);
-    setLayout(layout);
-    setMinimumWidth(550);
-
-    connect(this, SIGNAL(accepted()), this, SLOT(save3v3Generals()));
-}
-
-void Select3v3GeneralDialog::fillTabWidget()
-{
-    QList<const Package *> packages = Sanguosha->findChildren<const Package *>();
-    foreach (const Package *package, packages) {
-        if (package->getType() == Package::GeneralPack) {
-            QListWidget *list = new QListWidget;
-            list->setViewMode(QListView::IconMode);
-            list->setDragDropMode(QListView::NoDragDrop);
-            fillListWidget(list, package);
-
-            tab_widget->addTab(list, Sanguosha->translate(package->objectName()));
-        }
-    }
-}
-
-void Select3v3GeneralDialog::fillListWidget(QListWidget *list, const Package *pack)
-{
-    QList<const General *> generals = pack->findChildren<const General *>();
-    foreach (const General *general, generals) {
-        if (Sanguosha->isGeneralHidden(general->objectName())) continue;
-
-        QListWidgetItem *item = new QListWidgetItem(list);
-        item->setData(Qt::UserRole, general->objectName());
-        item->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(general->objectName(), QSanRoomSkin::S_GENERAL_ICON_SIZE_TINY)));
-
-        bool checked = false;
-        if (ex_generals.isEmpty()) {
-            checked = (pack->objectName() == "standard" || pack->objectName() == "wind")
-                && general->objectName() != "yuji";
-        } else
-            checked = ex_generals.contains(general->objectName());
-
-        if (checked)
-            item->setCheckState(Qt::Checked);
-        else
-            item->setCheckState(Qt::Unchecked);
-    }
-
-    QAction *action = new QAction(tr("Check/Uncheck all"), list);
-    list->addAction(action);
-    list->setContextMenuPolicy(Qt::ActionsContextMenu);
-    list->setResizeMode(QListView::Adjust);
-
-    connect(action, SIGNAL(triggered()), this, SLOT(toggleCheck()));
-}
-
-void ServerDialog::doCustomAssign()
-{
-    CustomAssignDialog *dialog = new CustomAssignDialog(this);
-
-    connect(dialog, SIGNAL(scenario_changed()), this, SLOT(setMiniCheckBox()));
-    dialog->exec();
-}
-
-void ServerDialog::setMiniCheckBox()
-{
-    mini_scene_ComboBox->setEnabled(false);
-}
-
-void Select3v3GeneralDialog::toggleCheck()
-{
-    QWidget *widget = tab_widget->currentWidget();
-    QListWidget *list = qobject_cast<QListWidget *>(widget);
-
-    if (list == NULL || list->item(0) == NULL) return;
-
-    bool checked = list->item(0)->checkState() != Qt::Checked;
-
-    for (int i = 0; i < list->count(); i++)
-        list->item(i)->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
-}
-
-void Select3v3GeneralDialog::save3v3Generals()
-{
-    ex_generals.clear();
-
-    for (int i = 0; i < tab_widget->count(); i++) {
-        QWidget *widget = tab_widget->widget(i);
-        QListWidget *list = qobject_cast<QListWidget *>(widget);
-        if (list) {
-            for (int j = 0; j < list->count(); j++) {
-                QListWidgetItem *item = list->item(j);
-                if (item->checkState() == Qt::Checked)
-                    ex_generals << item->data(Qt::UserRole).toString();
-            }
-        }
-    }
-
-    QStringList list = ex_generals.toList();
-    QVariant data = QVariant::fromValue(list);
-    Config.setValue("3v3/ExtensionGenerals", data);
-}
-
-void ServerDialog::select3v3Generals()
-{
-    QDialog *dialog = new Select3v3GeneralDialog(this);
-    dialog->exec();
-}
-
 int ServerDialog::config()
 {
     exec();
@@ -1097,12 +864,7 @@ int ServerDialog::config()
         QString objname = mode_group->checkedButton()->objectName();
         if (objname == "scenario")
             Config.GameMode = scenario_ComboBox->itemData(scenario_ComboBox->currentIndex()).toString();
-        else if (objname == "mini") {
-            if (mini_scene_ComboBox->isEnabled())
-                Config.GameMode = mini_scene_ComboBox->itemData(mini_scene_ComboBox->currentIndex()).toString();
-            else
-                Config.GameMode = "custom_scenario";
-        } else
+        else
             Config.GameMode = objname;
     }
 
@@ -1144,13 +906,6 @@ int ServerDialog::config()
     Config.setValue("ServerPort", Config.ServerPort);
     Config.setValue("Address", Config.Address);
     Config.setValue("DisableLua", disable_lua_checkbox->isChecked());
-
-    Config.beginGroup("3v3");
-    Config.setValue("UsingExtension", !official_3v3_radiobutton->isChecked());
-    Config.setValue("RoleChoose", role_choose_ComboBox->itemData(role_choose_ComboBox->currentIndex()).toString());
-    Config.setValue("ExcludeDisaster", exclude_disaster_checkbox->isChecked());
-    Config.setValue("OfficialRule", official_3v3_ComboBox->itemData(official_3v3_ComboBox->currentIndex()).toString());
-    Config.endGroup();
 
     Config.beginGroup("1v1");
     Config.setValue("Rule", official_1v1_ComboBox->itemData(official_1v1_ComboBox->currentIndex()).toString());

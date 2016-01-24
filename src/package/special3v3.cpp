@@ -239,7 +239,6 @@ public:
         QString mode = room->getMode();
         QList<ServerPlayer *> targets;
         foreach (ServerPlayer *p, room->getOtherPlayers(xiahou)) {
-            if ((!mode.startsWith("06_") && !mode.startsWith("04_")) || AI::GetRelation3v3(xiahou, p) == AI::Enemy)
                 targets << p;
         }
 
@@ -308,7 +307,7 @@ class ZhongyiAction : public TriggerSkill
 public:
     ZhongyiAction() : TriggerSkill("#zhongyi-action")
     {
-        events << DamageCaused << EventPhaseStart << ActionedReset;
+        events << DamageCaused << EventPhaseStart;
     }
 
     virtual bool triggerable(const ServerPlayer *target) const
@@ -342,7 +341,7 @@ public:
                 }
             }
             data = QVariant::fromValue(damage);
-        } else if ((mode == "06_3v3" && triggerEvent == ActionedReset) || (mode != "06_3v3" && triggerEvent == EventPhaseStart)) {
+        } else if (triggerEvent == EventPhaseStart) {
             if (triggerEvent == EventPhaseStart && player->getPhase() != Player::RoundStart)
                 return false;
             if (player->getPile("loyal").length() > 0)

@@ -6,13 +6,11 @@
 #include "scenario.h"
 #include "gamerule.h"
 #include "banpair.h"
-#include "roomthread3v3.h"
 #include "roomthread1v1.h"
 #include "server.h"
 #include "generalselector.h"
 #include "json.h"
 #include "structs.h"
-#include "miniscenarios.h"
 #include "lua.hpp"
 
 #include <QStringList>
@@ -36,7 +34,7 @@ Room::Room(QObject *parent, const QString &mode)
     : QThread(parent), mode(mode), current(NULL), pile1(Sanguosha->getRandomCards()),
     m_drawPile(&pile1), m_discardPile(&pile2),
     game_started(false), game_finished(false), game_paused(false), L(NULL), thread(NULL),
-    thread_3v3(NULL), thread_1v1(NULL), _m_semRaceRequest(0), _m_semRoomMutex(1),
+    thread_1v1(NULL), _m_semRaceRequest(0), _m_semRoomMutex(1),
     _m_raceStarted(false), provided(NULL), has_provided(false),
     m_surrenderRequestReceived(false), _virtual(false), _m_roomState(false)
 {
@@ -480,31 +478,6 @@ void Room::gameOver(const QString &winner)
 
     emit game_over(winner);
 
-    if (mode.contains("_mini_")) {
-        ServerPlayer *playerWinner = NULL;
-        QStringList winners = winner.split("+");
-        foreach (ServerPlayer *sp, m_players) {
-            if (sp->getState() != "robot"
-                && (winners.contains(sp->getRole())
-                || winners.contains(sp->objectName()))) {
-                playerWinner = sp;
-                break;
-            }
-        }
-
-        if (playerWinner) {
-            QString id = Config.GameMode;
-            id.replace("_mini_", "");
-            int stage = Config.value("MiniSceneStage", 1).toInt();
-            int current = id.toInt();
-            if (current < Sanguosha->getMiniSceneCounts()) {
-                if (current + 1 > stage) Config.setValue("MiniSceneStage", current + 1);
-                QString mode = QString(MiniScene::S_KEY_MINISCENE).arg(QString::number(current + 1));
-                Config.setValue("GameMode", mode);
-                Config.GameMode = mode;
-            }
-        }
-    }
     Config.AIDelay = Config.OriginAIDelay;
 
     if (!getTag("NextGameMode").toString().isNull()) {
@@ -2037,44 +2010,6 @@ void Room::removeAttackRangePair(Player *from, const Player *to)
     doBroadcastNotify(S_COMMAND_ATTACK_RANGE, arg);
 }
 
-void Room::reverseFor3v3(const Card *card, ServerPlayer *player, QList<ServerPlayer *> &list)
-{
-    tryPause();
-    notifyMoveFocus(player, S_COMMAND_CHOOSE_DIRECTION);
-
-    bool isClockwise = false;
-    if (player->isOnline()) {
-        bool success = doRequest(player, S_COMMAND_CHOOSE_DIRECTION, QVariant(), true);
-        QVariant clientReply = player->getClientReply();
-        if (success && JsonUtils::isString(clientReply))
-            isClockwise = (clientReply.toString() == "cw");
-    } else {
-        QVariant data = QVariant::fromValue(card);
-        isClockwise = (askForChoice(player, "3v3_direction", "cw+ccw", data) == "cw");
-    }
-
-    LogMessage log;
-    log.type = "#TrickDirection";
-    log.from = player;
-    log.arg = isClockwise ? "cw" : "ccw";
-    log.arg2 = card->objectName();
-    sendLog(log);
-
-    if (isClockwise) {
-        QList<ServerPlayer *> new_list;
-
-        while (!list.isEmpty())
-            new_list << list.takeLast();
-
-        if (card->isKindOf("GlobalEffect")) {
-            new_list.removeLast();
-            new_list.prepend(player);
-        }
-
-        list = new_list;
-    }
-}
-
 const ProhibitSkill *Room::isProhibited(const Player *from, const Player *to, const Card *card, const QList<const Player *> &others) const
 {
     return Sanguosha->isProhibited(from, to, card, others);
@@ -2111,7 +2046,7 @@ void Room::prepareForStart()
             else
                 notifyProperty(player, player, "role");
         }
-    } else if (mode == "06_3v3" || mode == "02_1v1") {
+    } else if (mode == "02_1v1") {
         return;
     } else if (!Config.EnableHegemony && Config.EnableCheat && Config.value("FreeAssign", false).toBool()) {
         ServerPlayer *owner = getOwner();
@@ -2673,13 +2608,7 @@ void Room::run()
 
     if (scenario && !scenario->generalSelection())
         startGame();
-    else if (mode == "06_3v3") {
-        thread_3v3 = new RoomThread3v3(this);
-        thread_3v3->start();
-
-        connect(thread_3v3, SIGNAL(finished()), this, SLOT(startGame()));
-        connect(thread_3v3, SIGNAL(finished()), thread_3v3, SLOT(deleteLater()));
-    } else if (mode == "02_1v1") {
+    else if (mode == "02_1v1") {
         thread_1v1 = new RoomThread1v1(this);
         thread_1v1->start();
 
@@ -3381,9 +3310,7 @@ void Room::damage(const DamageStruct &data)
 
 bool Room::hasWelfare(const ServerPlayer *player) const
 {
-    if (mode == "06_3v3")
-        return player->isLord() || player->getRole() == "renegade";
-    else if (Config.EnableHegemony)
+    if (Config.EnableHegemony)
         return false;
     else
         return player->isLord() && player_count > 4;
@@ -3482,22 +3409,19 @@ void Room::startGame()
 
     foreach (ServerPlayer *player, m_players) {
         if (!Config.EnableBasara
-            && (mode == "06_3v3" || mode == "02_1v1" || !player->isLord()))
+            && (mode == "02_1v1" || !player->isLord()))
             broadcastProperty(player, "general");
 
         if (mode == "02_1v1")
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
         if (Config.Enable2ndGeneral
-            && mode != "02_1v1" && mode != "06_3v3"
+            && mode != "02_1v1"
             && !Config.EnableBasara)
             broadcastProperty(player, "general2");
 
         broadcastProperty(player, "hp");
         broadcastProperty(player, "maxhp");
-
-        if (mode == "06_3v3")
-            broadcastProperty(player, "role");
     }
 
     preparePlayers();
@@ -3523,7 +3447,7 @@ void Room::startGame()
     doBroadcastNotify(S_COMMAND_UPDATE_PILE, QVariant(m_drawPile->length()));
 
     thread = new RoomThread(this);
-    if (mode != "02_1v1" && mode != "06_3v3")
+    if (mode != "02_1v1")
         _m_roomState.reset();
     connect(thread, SIGNAL(started()), this, SIGNAL(game_start()));
 
@@ -5106,7 +5030,7 @@ QString Room::askForGeneral(ServerPlayer *player, const QStringList &generals, Q
         bool success = doRequest(player, S_COMMAND_CHOOSE_GENERAL, options, true);
 
         QVariant clientResponse = player->getClientReply();
-        bool free = Config.FreeChoose || mode.startsWith("_mini_") || mode == "custom_scenario";
+        bool free = Config.FreeChoose;
         if (!success || !JsonUtils::isString(clientResponse) || (!free && !generals.contains(clientResponse.toString())))
             return default_choice;
         else
@@ -5630,19 +5554,19 @@ QString Room::askForOrder(ServerPlayer *player, const QString &default_choice)
 
 QString Room::askForRole(ServerPlayer *player, const QStringList &roles, const QString &scheme)
 {
-    tryPause();
-    notifyMoveFocus(player, S_COMMAND_CHOOSE_ROLE_3V3);
+	tryPause();
+	notifyMoveFocus(player, S_COMMAND_CHOOSE_ROLE_3V3);
 
-    QStringList squeezed = roles.toSet().toList();
-    
-    JsonArray arg;
-    arg << scheme << JsonUtils::toJsonArray(squeezed);
-    bool success = doRequest(player, S_COMMAND_CHOOSE_ROLE_3V3, arg, true);
-    QVariant clientReply = player->getClientReply();
-    QString result = "abstain";
-    if (success && JsonUtils::isString(clientReply))
-        result = clientReply.toString();
-    return result;
+	QStringList squeezed = roles.toSet().toList();
+
+	JsonArray arg;
+	arg << scheme << JsonUtils::toJsonArray(squeezed);
+	bool success = doRequest(player, S_COMMAND_CHOOSE_ROLE_3V3, arg, true);
+	QVariant clientReply = player->getClientReply();
+	QString result = "abstain";
+	if (success && JsonUtils::isString(clientReply))
+		result = clientReply.toString();
+	return result;
 }
 
 void Room::networkDelayTestCommand(ServerPlayer *player, const QVariant &)

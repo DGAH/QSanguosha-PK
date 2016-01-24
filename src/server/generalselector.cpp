@@ -25,7 +25,6 @@ GeneralSelector::GeneralSelector()
 {
     loadFirstGeneralTable();
     loadSecondGeneralTable();
-    load3v3Table();
     load1v1Table();
 }
 
@@ -111,11 +110,6 @@ QString GeneralSelector::selectSecond(ServerPlayer *player, const QStringList &c
     return max_general;
 }
 
-QString GeneralSelector::select3v3(ServerPlayer *, const QStringList &candidates)
-{
-    return selectHighest(priority_3v3_table, candidates, 5);
-}
-
 QString GeneralSelector::select1v1(const QStringList &candidates)
 {
     return selectHighest(priority_1v1_table, candidates, 50);
@@ -146,18 +140,6 @@ static bool CompareByMaxHp(const QString &a, const QString &b)
     const General *g2 = Sanguosha->getGeneral(b);
 
     return g1->getMaxHp() < g2->getMaxHp();
-}
-
-QStringList GeneralSelector::arrange3v3(ServerPlayer *player)
-{
-    QStringList arranged = player->getSelected();
-    qShuffle(arranged);
-    arranged = arranged.mid(0, 3);
-
-    qSort(arranged.begin(), arranged.end(), CompareByMaxHp);
-    arranged.swap(0, 1);
-
-    return arranged;
 }
 
 static bool CompareFunction(const QString &first, const QString &second)
@@ -241,24 +223,6 @@ void GeneralSelector::loadSecondGeneralTable()
 
             QString key = QString("%1+%2").arg(first).arg(second);
             second_general_table.insert(key, value);
-        }
-
-        file.close();
-    }
-}
-
-void GeneralSelector::load3v3Table()
-{
-    QFile file("etc/3v3-priority.txt");
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream stream(&file);
-        while (!stream.atEnd()) {
-            QString name;
-            int priority;
-
-            stream >> name >> priority;
-
-            priority_3v3_table.insert(name, priority);
         }
 
         file.close();

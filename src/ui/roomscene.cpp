@@ -148,9 +148,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
     connect(ClientInstance, SIGNAL(options_got(QString, QStringList)), this, SLOT(chooseOption(QString, QStringList)));
     connect(ClientInstance, SIGNAL(cards_got(const ClientPlayer *, QString, QString, bool, Card::HandlingMethod, QList<int>)),
         this, SLOT(chooseCard(const ClientPlayer *, QString, QString, bool, Card::HandlingMethod, QList<int>)));
-    connect(ClientInstance, SIGNAL(roles_got(QString, QStringList)), this, SLOT(chooseRole(QString, QStringList)));
-    connect(ClientInstance, SIGNAL(directions_got()), this, SLOT(chooseDirection()));
-    connect(ClientInstance, SIGNAL(orders_got(QSanProtocol::Game3v3ChooseOrderCommand)), this, SLOT(chooseOrder(QSanProtocol::Game3v3ChooseOrderCommand)));
+	connect(ClientInstance, SIGNAL(orders_got(QSanProtocol::Game3v3ChooseOrderCommand)), this, SLOT(chooseOrder(QSanProtocol::Game3v3ChooseOrderCommand)));
     connect(ClientInstance, SIGNAL(kingdoms_got(QStringList)), this, SLOT(chooseKingdom(QStringList)));
     connect(ClientInstance, SIGNAL(seats_arranged(QList<const ClientPlayer *>)), SLOT(arrangeSeats(QList<const ClientPlayer *>)));
     connect(ClientInstance, SIGNAL(status_changed(Client::Status, Client::Status)), this, SLOT(updateStatus(Client::Status, Client::Status)));
@@ -212,7 +210,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
     enemy_box = NULL;
     self_box = NULL;
 
-    if (ServerInfo.GameMode == "06_3v3" || ServerInfo.GameMode == "02_1v1") {
+    if (ServerInfo.GameMode == "02_1v1") {
             connect(ClientInstance, SIGNAL(generals_filled(QStringList)), this, SLOT(fillGenerals(QStringList)));
             connect(ClientInstance, SIGNAL(general_asked()), this, SLOT(startGeneralSelection()));
             connect(ClientInstance, SIGNAL(general_taken(QString, QString, QString)), this, SLOT(takeGeneral(QString, QString, QString)));
@@ -887,8 +885,6 @@ void RoomScene::updateTable()
     int pad = _m_roomLayout->m_scenePadding + _m_roomLayout->m_photoRoomPadding;
     int tablew = log_box_widget->x() - pad * 2;
     int tableh = sceneRect().height() - pad * 2 - dashboard->boundingRect().height();
-    if (ServerInfo.GameMode == "06_3v3" && game_started)
-        tableh -= _m_roomLayout->m_photoVDistance;
     int photow = _m_photoLayout->m_normalWidth;
     int photoh = _m_photoLayout->m_normalHeight;
 
@@ -913,12 +909,6 @@ void RoomScene::updateTable()
         { 5, 5, 1, 1, 1, 6, 6 },
         { 3, 3, 7, 7, 7, 7, 4, 4 },
         { 3, 3, 7, 7, 7, 7, 7, 4, 4 }
-    };
-
-    static int kof3v3SeatIndex[][5] = {
-        { 3, 1, 1, 1, 4 }, // lord
-        { 1, 1, 1, 4, 4 }, // rebel (left), same with loyalist (left)
-        { 3, 3, 1, 1, 1 } // loyalist (right), same with rebel (right)
     };
 
     double hGap = _m_roomLayout->m_photoHDistance;
@@ -994,12 +984,7 @@ void RoomScene::updateTable()
 
     int *seatToRegion;
     bool pkMode = false;
-    if (ServerInfo.GameMode == "06_3v3" && game_started) {
-        seatToRegion = kof3v3SeatIndex[(Self->getSeat() - 1) % 3];
-        pkMode = true;
-    } else {
         seatToRegion = regularSeatIndex[photos.length() - 1];
-    }
     QList<Photo *> photosInRegion[C_NUM_REGIONS];
     int n = photos.length();
     for (int i = 0; i < n; i++) {
@@ -1677,111 +1662,34 @@ void RoomScene::chooseCard(const ClientPlayer *player, const QString &flags, con
 
 void RoomScene::chooseOrder(QSanProtocol::Game3v3ChooseOrderCommand reason)
 {
-    QDialog *dialog = new QDialog;
-    if (reason == S_REASON_CHOOSE_ORDER_SELECT)
-        dialog->setWindowTitle(tr("The order who first choose general"));
-    else if (reason == S_REASON_CHOOSE_ORDER_TURN)
-        dialog->setWindowTitle(tr("The order who first in turn"));
+	QDialog *dialog = new QDialog;
+	if (reason == S_REASON_CHOOSE_ORDER_SELECT)
+		dialog->setWindowTitle(tr("The order who first choose general"));
+	else if (reason == S_REASON_CHOOSE_ORDER_TURN)
+		dialog->setWindowTitle(tr("The order who first in turn"));
 
-    QLabel *prompt = new QLabel(tr("Please select the order"));
-    OptionButton *warm_button = new OptionButton("image/system/3v3/warm.png", tr("Warm"));
-    warm_button->setObjectName("warm");
-    OptionButton *cool_button = new OptionButton("image/system/3v3/cool.png", tr("Cool"));
-    cool_button->setObjectName("cool");
+	QLabel *prompt = new QLabel(tr("Please select the order"));
+	OptionButton *warm_button = new OptionButton("image/system/3v3/warm.png", tr("Warm"));
+	warm_button->setObjectName("warm");
+	OptionButton *cool_button = new OptionButton("image/system/3v3/cool.png", tr("Cool"));
+	cool_button->setObjectName("cool");
 
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(warm_button);
-    hlayout->addWidget(cool_button);
+	QHBoxLayout *hlayout = new QHBoxLayout;
+	hlayout->addWidget(warm_button);
+	hlayout->addWidget(cool_button);
 
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(prompt);
-    layout->addLayout(hlayout);
-    dialog->setLayout(layout);
+	QVBoxLayout *layout = new QVBoxLayout;
+	layout->addWidget(prompt);
+	layout->addLayout(hlayout);
+	dialog->setLayout(layout);
 
-    connect(warm_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerChooseOrder()));
-    connect(cool_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerChooseOrder()));
-    connect(warm_button, SIGNAL(clicked()), dialog, SLOT(accept()));
-    connect(cool_button, SIGNAL(clicked()), dialog, SLOT(accept()));
-    connect(dialog, SIGNAL(rejected()), ClientInstance, SLOT(onPlayerChooseOrder()));
-    delete m_choiceDialog;
-    m_choiceDialog = dialog;
-}
-
-void RoomScene::chooseRole(const QString &scheme, const QStringList &roles)
-{
-    QDialog *dialog = new QDialog;
-    dialog->setWindowTitle(tr("Select role"));
-
-    QLabel *prompt = new QLabel(tr("Please select a role"));
-    QVBoxLayout *layout = new QVBoxLayout;
-
-    layout->addWidget(prompt);
-
-    static QMap<QString, QString> jargon;
-    if (jargon.isEmpty()) {
-        jargon["lord"] = tr("Warm leader");
-        jargon["loyalist"] = tr("Warm guard");
-        jargon["renegade"] = tr("Cool leader");
-        jargon["rebel"] = tr("Cool guard");
-
-        jargon["leader1"] = tr("Leader of Team 1");
-        jargon["guard1"] = tr("Guard of Team 1");
-        jargon["leader2"] = tr("Leader of Team 2");
-        jargon["guard2"] = tr("Guard of Team 2");
-    }
-
-    foreach (QString role, roles) {
-        QCommandLinkButton *button = new QCommandLinkButton(jargon[role]);
-        if (scheme == "AllRoles")
-            button->setIcon(QIcon(QString("image/system/roles/%1.png").arg(role)));
-        layout->addWidget(button);
-        button->setObjectName(role);
-        connect(button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerChooseRole3v3()));
-        connect(button, SIGNAL(clicked()), dialog, SLOT(accept()));
-    }
-
-    QCommandLinkButton *abstain_button = new QCommandLinkButton(tr("Abstain"));
-    connect(abstain_button, SIGNAL(clicked()), dialog, SLOT(reject()));
-    layout->addWidget(abstain_button);
-
-    dialog->setObjectName("abstain");
-    connect(dialog, SIGNAL(rejected()), ClientInstance, SLOT(onPlayerChooseRole3v3()));
-
-    dialog->setLayout(layout);
-    delete m_choiceDialog;
-    m_choiceDialog = dialog;
-}
-
-void RoomScene::chooseDirection()
-{
-    QDialog *dialog = new QDialog;
-    dialog->setWindowTitle(tr("Please select the direction"));
-
-    QLabel *prompt = new QLabel(dialog->windowTitle());
-
-    OptionButton *cw_button = new OptionButton("image/system/3v3/cw.png", tr("CW"));
-    cw_button->setObjectName("cw");
-
-    OptionButton *ccw_button = new OptionButton("image/system/3v3/ccw.png", tr("CCW"));
-    ccw_button->setObjectName("ccw");
-
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(cw_button);
-    hlayout->addWidget(ccw_button);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(prompt);
-    layout->addLayout(hlayout);
-    dialog->setLayout(layout);
-
-    dialog->setObjectName("ccw");
-    connect(ccw_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerMakeChoice()));
-    connect(ccw_button, SIGNAL(clicked()), dialog, SLOT(accept()));
-    connect(cw_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerMakeChoice()));
-    connect(cw_button, SIGNAL(clicked()), dialog, SLOT(accept()));
-    connect(dialog, SIGNAL(rejected()), ClientInstance, SLOT(onPlayerMakeChoice()));
-    delete m_choiceDialog;
-    m_choiceDialog = dialog;
+	connect(warm_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerChooseOrder()));
+	connect(cool_button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerChooseOrder()));
+	connect(warm_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+	connect(cool_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+	connect(dialog, SIGNAL(rejected()), ClientInstance, SLOT(onPlayerChooseOrder()));
+	delete m_choiceDialog;
+	m_choiceDialog = dialog;
 }
 
 void RoomScene::toggleDiscards()
@@ -2158,7 +2066,6 @@ void RoomScene::updateSkillButtons(bool isPrepare)
     foreach (const Skill *skill, skill_list) {
         if (skill->isLordSkill()
             && (Self->getRole() != "lord"
-            || ServerInfo.GameMode == "06_3v3"
             || ServerInfo.GameMode == "02_1v1"
             || Config.value("WithoutLordskill", false).toBool()))
             continue;
@@ -3010,8 +2917,6 @@ void RoomScene::addRestartButton(QDialog *dialog)
 {
     dialog->resize(main_window->width() / 2, dialog->height());
     bool goto_next = false;
-    if (ServerInfo.GameMode.contains("_mini_") && Self->property("win").toBool())
-        goto_next = (_m_currentStage < Sanguosha->getMiniSceneCounts());
 
     QPushButton *restart_button = new QPushButton(goto_next ? tr("Next Stage") : tr("Restart Game"));
     QPushButton *return_button = new QPushButton(tr("Return to main menu"));
@@ -3704,11 +3609,7 @@ void KOFOrderBox::killPlayer(const QString &general_name)
 void RoomScene::onGameStart()
 {
     main_window->activateWindow();
-    if (ServerInfo.GameMode.contains("_mini_")) {
-        QString id = Config.GameMode;
-        id.replace("_mini_", "");
-        _m_currentStage = id.toInt();
-    } else if (ServerInfo.GameMode == "06_3v3" || ServerInfo.GameMode == "02_1v1") {
+    if (ServerInfo.GameMode == "02_1v1") {
         log_box->show();
 
         if (self_box && enemy_box) {
@@ -4176,53 +4077,9 @@ void RoomScene::fillGenerals1v1(const QStringList &names)
     }
 }
 
-void RoomScene::fillGenerals3v3(const QStringList &names)
-{
-    QString temperature;
-    if (Self->getRole().startsWith("l"))
-        temperature = "warm";
-    else
-        temperature = "cool";
-
-    QString path = QString("image/system/3v3/select-%1.png").arg(temperature);
-    selector_box = new QSanSelectableItem(path, true);
-    selector_box->setFlag(QGraphicsItem::ItemIsMovable);
-    addItem(selector_box);
-    selector_box->setZValue(10000);
-    selector_box->setPos(m_tableCenterPos);
-
-    const static int start_x = 109;
-    const static int width = 86;
-    const static int row_y[4] = { 150, 271, 394, 516 };
-
-    int n = names.length();
-    double scaleRatio = 116.0 / G_COMMON_LAYOUT.m_cardNormalHeight;
-    for (int i = 0; i < n; i++) {
-        int row, column;
-        if (i < 8) {
-            row = 1;
-            column = i;
-        } else {
-            row = 2;
-            column = i - 8;
-        }
-
-        CardItem *general_item = new CardItem(names.at(i));
-        general_item->scaleSmoothly(scaleRatio);
-        general_item->setParentItem(selector_box);
-        general_item->setPos(start_x + width * column, row_y[row]);
-        general_item->setHomePos(general_item->pos());
-        general_item->setObjectName(names.at(i));
-
-        general_items << general_item;
-    }
-}
-
 void RoomScene::fillGenerals(const QStringList &names)
 {
-    if (ServerInfo.GameMode == "06_3v3")
-        fillGenerals3v3(names);
-    else if (ServerInfo.GameMode == "02_1v1")
+    if (ServerInfo.GameMode == "02_1v1")
         fillGenerals1v1(names);
 }
 
@@ -4268,20 +4125,14 @@ void RoomScene::takeGeneral(const QString &who, const QString &name, const QStri
     to_add->append(general_item);
 
     int x, y;
-    if (ServerInfo.GameMode == "06_3v3") {
-        x = 63 + (to_add->length() - 1) * (148 - 62);
-        y = self_taken ? 452 : 85;
-    } else {
         x = 43 + (to_add->length() - 1) * 86;
         y = self_taken ? 60 + 120 * 3 : 60;
-    }
     x = x + G_COMMON_LAYOUT.m_cardNormalWidth / 2;
     y = y + G_COMMON_LAYOUT.m_cardNormalHeight / 2;
     general_item->setHomePos(QPointF(x, y));
     general_item->goBack(true);
 
-    if (((ServerInfo.GameMode == "06_3v3" && Self->getRole() != "lord" && Self->getRole() != "renegade")
-        || (ServerInfo.GameMode == "02_1v1" && rule == "2013"))
+    if (((ServerInfo.GameMode == "02_1v1" && rule == "2013"))
         && general_items.isEmpty()) {
         if (selector_box) {
             selector_box->hide();
@@ -4348,10 +4199,7 @@ void RoomScene::startArrange(const QString &to_arrange)
     arrange_items.clear();
     QString mode;
     QList<QPointF> positions;
-    if (ServerInfo.GameMode == "06_3v3") {
-        mode = "3v3";
-        positions << QPointF(279, 356) << QPointF(407, 356) << QPointF(535, 356);
-    } else if (ServerInfo.GameMode == "02_1v1") {
+    if (ServerInfo.GameMode == "02_1v1") {
         mode = "1v1";
         if (down_generals.length() == 5)
             positions << QPointF(130, 335) << QPointF(260, 335) << QPointF(390, 335);
@@ -4426,10 +4274,6 @@ void RoomScene::toggleArrange()
 
     for (int i = 0; i < down_generals.length(); i++) {
         QPointF pos;
-        if (ServerInfo.GameMode == "06_3v3")
-            pos = QPointF(65 + G_COMMON_LAYOUT.m_cardNormalWidth / 2 + i * 86,
-            452 + G_COMMON_LAYOUT.m_cardNormalHeight / 2);
-        else
             pos = QPointF(43 + G_COMMON_LAYOUT.m_cardNormalWidth / 2 + i * 86,
             60 + G_COMMON_LAYOUT.m_cardNormalHeight / 2 + 3 * 120);
         CardItem *item = down_generals.at(i);

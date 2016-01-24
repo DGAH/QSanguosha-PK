@@ -165,8 +165,7 @@ public:
     void handleGameEvent(const QVariant &);
     //3v3 & 1v1
     void askForOrder(const QVariant &);
-    void askForRole3v3(const QVariant &);
-    void askForDirection(const QVariant &);
+	void askForRole3v3(const QVariant &);
 
     // 3v3 & 1v1 methods
     void fillGenerals(const QVariant &generals);
@@ -296,8 +295,7 @@ signals:
     void cards_got(const ClientPlayer *player, const QString &flags, const QString &reason, bool handcard_visible,
         Card::HandlingMethod method, QList<int> disabled_ids);
     void roles_got(const QString &scheme, const QStringList &roles);
-    void directions_got();
-    void orders_got(QSanProtocol::Game3v3ChooseOrderCommand reason);
+	void orders_got(QSanProtocol::Game3v3ChooseOrderCommand reason);
 
     void seats_arranged(const QList<const ClientPlayer *> &seats);
     void hp_changed(const QString &who, int delta, DamageStruct::Nature nature, bool losthp);

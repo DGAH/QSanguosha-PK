@@ -710,17 +710,10 @@ void GameRule::rewardAndPunish(ServerPlayer *killer, ServerPlayer *victim) const
     if (killer->isDead())
         return;
 
-    if (killer->getRoom()->getMode() == "06_3v3") {
-        if (Config.value("3v3/OfficialRule", "2013").toString().startsWith("201"))
-            killer->drawCards(2, "kill");
-        else
-            killer->drawCards(3, "kill");
-    } else {
         if (victim->getRole() == "rebel" && killer != victim)
             killer->drawCards(3, "kill");
         else if (victim->getRole() == "loyalist" && killer->getRole() == "lord")
             killer->throwAllHandCardsAndEquips();
-    }
 }
 
 QString GameRule::getWinner(ServerPlayer *victim) const
@@ -728,14 +721,7 @@ QString GameRule::getWinner(ServerPlayer *victim) const
     Room *room = victim->getRoom();
     QString winner;
 
-    if (room->getMode() == "06_3v3") {
-        switch (victim->getRoleEnum()) {
-        case Player::Lord: winner = "renegade+rebel"; break;
-        case Player::Renegade: winner = "lord+loyalist"; break;
-        default:
-            break;
-        }
-    } else if (Config.EnableHegemony) {
+    if (Config.EnableHegemony) {
         bool has_anjiang = false, has_diff_kingdoms = false;
         QString init_kingdom;
         foreach (ServerPlayer *p, room->getAlivePlayers()) {

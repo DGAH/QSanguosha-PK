@@ -290,98 +290,6 @@ void RoomThread::constructTriggerTable()
         addPlayerSkills(player, true);
 }
 
-ServerPlayer *RoomThread::find3v3Next(QList<ServerPlayer *> &first, QList<ServerPlayer *> &second)
-{
-    bool all_actioned = true;
-    foreach (ServerPlayer *player, room->m_alivePlayers) {
-        if (!player->hasFlag("actioned")) {
-            all_actioned = false;
-            break;
-        }
-    }
-
-    if (all_actioned) {
-        foreach (ServerPlayer *player, room->m_alivePlayers) {
-            room->setPlayerFlag(player, "-actioned");
-            trigger(ActionedReset, room, player);
-        }
-
-        qSwap(first, second);
-        QList<ServerPlayer *> first_alive;
-        foreach (ServerPlayer *p, first) {
-            if (p->isAlive())
-                first_alive << p;
-        }
-        return room->askForPlayerChosen(first.first(), first_alive, "3v3-action", "@3v3-action");
-    }
-
-    ServerPlayer *current = room->getCurrent();
-    if (current != first.first()) {
-        ServerPlayer *another = NULL;
-        if (current == first.last())
-            another = first.at(1);
-        else
-            another = first.last();
-        if (!another->hasFlag("actioned") && another->isAlive())
-            return another;
-    }
-
-    QList<ServerPlayer *> targets;
-    do {
-        targets.clear();
-        qSwap(first, second);
-        foreach (ServerPlayer *player, first) {
-            if (!player->hasFlag("actioned") && player->isAlive())
-                targets << player;
-        }
-    } while (targets.isEmpty());
-
-    return room->askForPlayerChosen(first.first(), targets, "3v3-action", "@3v3-action");
-}
-
-void RoomThread::run3v3(QList<ServerPlayer *> &first, QList<ServerPlayer *> &second, GameRule *game_rule, ServerPlayer *current)
-{
-    try {
-        forever{
-            room->setCurrent(current);
-            trigger(TurnStart, room, room->getCurrent());
-            room->setPlayerFlag(current, "actioned");
-            current = find3v3Next(first, second);
-        }
-    }
-    catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken)
-            _handleTurnBroken3v3(first, second, game_rule);
-        else
-            throw triggerEvent;
-    }
-}
-
-void RoomThread::_handleTurnBroken3v3(QList<ServerPlayer *> &first, QList<ServerPlayer *> &second, GameRule *game_rule)
-{
-    try {
-        ServerPlayer *player = room->getCurrent();
-        trigger(TurnBroken, room, player);
-        if (player->getPhase() != Player::NotActive) {
-            QVariant v;
-            game_rule->trigger(EventPhaseEnd, room, player, v);
-            player->changePhase(player->getPhase(), Player::NotActive);
-        }
-        if (!player->hasFlag("actioned"))
-            room->setPlayerFlag(player, "actioned");
-
-        ServerPlayer *next = find3v3Next(first, second);
-        run3v3(first, second, game_rule, next);
-    }
-    catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken) {
-            _handleTurnBroken3v3(first, second, game_rule);
-        } else {
-            throw triggerEvent;
-        }
-    }
-}
-
 void RoomThread::actionNormal(GameRule *game_rule)
 {
     try {
@@ -445,29 +353,10 @@ void RoomThread::run()
         QString order;
         QList<ServerPlayer *> warm, cool;
         QList<ServerPlayer *> first, second;
-        if (room->getMode() == "06_3v3") {
-            foreach (ServerPlayer *player, room->m_players) {
-                switch (player->getRoleEnum()) {
-                case Player::Lord: warm.prepend(player); break;
-                case Player::Loyalist: warm.append(player); break;
-                case Player::Renegade: cool.prepend(player); break;
-                case Player::Rebel: cool.append(player); break;
-                }
-            }
-            order = room->askForOrder(cool.first(), "cool");
-            if (order == "warm") {
-                first = warm;
-                second = cool;
-            } else {
-                first = cool;
-                second = warm;
-            }
-        }
+
         constructTriggerTable();
         trigger(GameStart, (Room *)room, NULL);
-        if (room->getMode() == "06_3v3") {
-            run3v3(first, second, game_rule, first.first());
-        } else {
+        
             if (room->getMode() == "02_1v1") {
                 ServerPlayer *first = room->getPlayers().first();
                 if (first->getRole() != "renegade")
@@ -479,7 +368,7 @@ void RoomThread::run()
             }
 
             actionNormal(game_rule);
-        }
+        
     }
     catch (TriggerEvent triggerEvent) {
         if (triggerEvent == GameFinished) {

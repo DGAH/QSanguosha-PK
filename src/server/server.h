@@ -24,25 +24,6 @@ class QRadioButton;
 
 class Package;
 
-class Select3v3GeneralDialog : public QDialog
-{
-    Q_OBJECT
-
-public:
-    Select3v3GeneralDialog(QDialog *parent);
-
-private:
-    QTabWidget *tab_widget;
-    QSet<QString> ex_generals;
-
-    void fillTabWidget();
-    void fillListWidget(QListWidget *list, const Package *pack);
-
-private slots:
-    void save3v3Generals();
-    void toggleCheck();
-};
-
 class BanlistDialog : public QDialog
 {
     Q_OBJECT
@@ -88,7 +69,6 @@ private:
 
     QGroupBox *createGameModeBox();
     QGroupBox *create1v1Box();
-    QGroupBox *create3v3Box();
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -122,8 +102,6 @@ private:
     QSpinBox *scheme0_subtraction_spinbox;
     QCheckBox *prevent_awaken_below3_checkbox;
     QComboBox *scenario_ComboBox;
-    QComboBox *mini_scene_ComboBox;
-    QPushButton *mini_scene_button;
     QLineEdit *address_edit;
     QLineEdit *port_edit;
     QSpinBox *game_start_spinbox;
@@ -135,8 +113,6 @@ private:
     QSpinBox *ai_delay_ad_spinbox;
     QCheckBox *surrender_at_death_checkbox;
     QCheckBox *luck_card_checkbox;
-    QRadioButton *official_3v3_radiobutton;
-    QComboBox *official_3v3_ComboBox;
     QComboBox *role_choose_ComboBox;
     QCheckBox *exclude_disaster_checkbox;
     QComboBox *official_1v1_ComboBox;
@@ -155,12 +131,8 @@ private slots:
     void onConsoleButtonClicked();
     void onServerButtonClicked();
     void onDetectButtonClicked();
-    void select3v3Generals();
     void edit1v1Banlist();
     void updateButtonEnablility(QAbstractButton *button);
-
-    void doCustomAssign();
-    void setMiniCheckBox();
 };
 
 class Scenario;

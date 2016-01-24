@@ -39,8 +39,6 @@ public:
     QString translate(const QString &to_translate) const;
     lua_State *getLuaState() const;
 
-    int getMiniSceneCounts();
-
     void addPackage(Package *package);
     void addBanPackage(const QString &package_name);
     QList<const Package *> getPackages() const;
@@ -129,7 +127,6 @@ public:
     bool isGeneralHidden(const QString &general_name) const;
 
 private:
-    void _loadMiniScenarios();
     void _loadModScenarios();
 
     QMutex m_mutex;
@@ -156,8 +153,6 @@ private:
     QStringList lord_list;
     QSet<QString> ban_package;
     QHash<QString, Scenario *> m_scenarios;
-    QHash<QString, Scenario *> m_miniScenes;
-    Scenario *m_customScene;
 
     lua_State *lua;
 

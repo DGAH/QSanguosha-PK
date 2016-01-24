@@ -20,30 +20,8 @@
 #include <QFile>
 #include <QApplication>
 #include <scenario.h>
-#include <miniscenarios.h>
 
 Engine *Sanguosha = NULL;
-
-int Engine::getMiniSceneCounts()
-{
-    return m_miniScenes.size();
-}
-
-void Engine::_loadMiniScenarios()
-{
-    static bool loaded = false;
-    if (loaded) return;
-    int i = 1;
-    while (true) {
-        if (!QFile::exists(QString("etc/customScenes/%1.txt").arg(QString::number(i))))
-            break;
-
-        QString sceneKey = QString(MiniScene::S_KEY_MINISCENE).arg(QString::number(i));
-        m_miniScenes[sceneKey] = new LoadedScenario(QString::number(i));
-        i++;
-    }
-    loaded = true;
-}
 
 void Engine::_loadModScenarios()
 {
@@ -82,9 +60,7 @@ Engine::Engine()
     foreach(QString name, package_names)
         addPackage(name);
 
-    _loadMiniScenarios();
     _loadModScenarios();
-    m_customScene = new CustomScenario;
 
     if (!DoLuaScript(lua, "lua/sanguosha.lua")) exit(1);
 
@@ -97,7 +73,6 @@ Engine::Engine()
     modes["05p"] = tr("5 players");
     modes["06p"] = tr("6 players");
     modes["06pd"] = tr("6 players (2 renegades)");
-    modes["06_3v3"] = tr("6 players (3v3)");
     modes["07p"] = tr("7 players");
     modes["08p"] = tr("8 players");
     modes["08pd"] = tr("8 players (2 renegades)");
@@ -128,7 +103,6 @@ void Engine::addTranslationEntry(const char *key, const char *value)
 Engine::~Engine()
 {
     lua_close(lua);
-    delete m_customScene;
 #ifdef AUDIO_SUPPORT
     Audio::quit();
 #endif
@@ -150,10 +124,6 @@ const Scenario *Engine::getScenario(const QString &name) const
 {
     if (m_scenarios.contains(name))
         return m_scenarios[name];
-    else if (m_miniScenes.contains(name))
-        return m_miniScenes[name];
-    else if (name == "custom_scenario")
-        return m_customScene;
     else return NULL;
 }
 
@@ -328,9 +298,7 @@ QString Engine::translate(const QString &to_translate) const
 
 int Engine::getRoleIndex() const
 {
-    if (ServerInfo.GameMode == "06_3v3") {
-        return 4;
-    } else if (ServerInfo.EnableHegemony) {
+    if (ServerInfo.EnableHegemony) {
         return 5;
     } else
         return 1;
@@ -407,9 +375,7 @@ int Engine::getGeneralCount(bool include_banned, const QString &kingdom) const
             continue;
         if (getBanPackages().contains(general->getPackage()))
             isBanned = true;
-        else if ((isNormalGameMode(ServerInfo.GameMode)
-            || ServerInfo.GameMode.contains("_mini_")
-            || ServerInfo.GameMode == "custom_scenario")
+        else if ((isNormalGameMode(ServerInfo.GameMode))
             && Config.value("Banlist/Roles").toStringList().contains(general->objectName()))
             isBanned = true;
         else if (ServerInfo.Enable2ndGeneral && BanPair::isBanned(general->objectName()))
@@ -766,8 +732,6 @@ QString Engine::getSetupString() const
     QString mode = Config.GameMode;
     if (mode == "02_1v1")
         mode = mode + Config.value("1v1/Rule", "2013").toString();
-    else if (mode == "06_3v3")
-        mode = mode + Config.value("3v3/OfficialRule", "2013").toString();
     setup_items << server_name
         << mode
         << QString::number(timeout)
@@ -906,9 +870,7 @@ QStringList Engine::getLords(bool contain_banned) const
         if (!contain_banned) {
             if (ServerInfo.GameMode.endsWith("p")
                 || ServerInfo.GameMode.endsWith("pd")
-                || ServerInfo.GameMode.endsWith("pz")
-                || ServerInfo.GameMode.contains("_mini_")
-                || ServerInfo.GameMode == "custom_scenario")
+                || ServerInfo.GameMode.endsWith("pz"))
                 if (Config.value("Banlist/Roles", "").toStringList().contains(lord))
                     continue;
             if (Config.Enable2ndGeneral && BanPair::isBanned(lord))
@@ -1009,9 +971,7 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
     if (Config.EnableHegemony)
         general_set = general_set.subtract(Config.value("Banlist/Hegemony", "").toStringList().toSet());
 
-    if (isNormalGameMode(ServerInfo.GameMode)
-        || ServerInfo.GameMode.contains("_mini_")
-        || ServerInfo.GameMode == "custom_scenario")
+    if (isNormalGameMode(ServerInfo.GameMode))
         general_set.subtract(Config.value("Banlist/Roles", "").toStringList().toSet());
 
     all_generals = general_set.subtract(ban_set).toList();
@@ -1027,13 +987,7 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
 
 QList<int> Engine::getRandomCards() const
 {
-    bool exclude_disaters = false, using_2012_3v3 = false, using_2013_3v3 = false;
-
-    if (Config.GameMode == "06_3v3") {
-        using_2012_3v3 = (Config.value("3v3/OfficialRule", "2013").toString() == "2012");
-        using_2013_3v3 = (Config.value("3v3/OfficialRule", "2013").toString() == "2013");
-        exclude_disaters = !Config.value("3v3/UsingExtension", false).toBool() || Config.value("3v3/ExcludeDisasters", true).toBool();
-    }
+    bool exclude_disaters = false;
 
     QList<int> list;
     foreach (Card *card, cards) {
@@ -1053,28 +1007,14 @@ QList<int> Engine::getRandomCards() const
         if (exclude_disaters && card->isKindOf("Disaster"))
             continue;
 
-        if (card->getPackage() == "New3v3Card" && (using_2012_3v3 || using_2013_3v3))
-            list << card->getId();
-        else if (card->getPackage() == "New3v3_2013Card" && using_2013_3v3)
-            list << card->getId();
-
         if (Config.GameMode == "02_1v1" && !Config.value("1v1/UsingCardExtension", false).toBool()) {
             if (card->getPackage() == "New1v1Card")
                 list << card->getId();
             continue;
         }
 
-        if (Config.GameMode == "06_3v3" && !Config.value("3v3/UsingExtension", false).toBool()
-            && card->getPackage() != "standard_cards" && card->getPackage() != "standard_ex_cards")
-            continue;
         if (!getBanPackages().contains(card->getPackage()))
             list << card->getId();
-    }
-    if (using_2012_3v3 || using_2013_3v3)
-        list.removeOne(98);
-    if (using_2013_3v3) {
-        list.removeOne(53);
-        list.removeOne(54);
     }
 
     qShuffle(list);

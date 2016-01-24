@@ -174,9 +174,7 @@ public slots:
         bool handcard_visible, Card::HandlingMethod method, QList<int> disabled_ids);
     void chooseKingdom(const QStringList &kingdoms);
     void chooseOption(const QString &skillName, const QStringList &options);
-    void chooseOrder(QSanProtocol::Game3v3ChooseOrderCommand reason);
-    void chooseRole(const QString &scheme, const QStringList &roles);
-    void chooseDirection();
+	void chooseOrder(QSanProtocol::Game3v3ChooseOrderCommand reason);
 
     void bringToFront(QGraphicsItem *item);
     void arrangeSeats(const QList<const ClientPlayer *> &seats);
@@ -344,7 +342,6 @@ private:
     void createReplayControlBar();
 
     void fillGenerals1v1(const QStringList &names);
-    void fillGenerals3v3(const QStringList &names);
 
     void showPindianBox(const QString &from_name, int from_id, const QString &to_name, int to_id, const QString &reason);
     void setChatBoxVisible(bool show);
@@ -367,8 +364,6 @@ private:
     void _dispersePhotos(QList<Photo *> &photos, QRectF disperseRegion, Qt::Orientation orientation, Qt::Alignment align);
 
     void _cancelAllFocus();
-    // for miniscenes
-    int _m_currentStage;
 
     QRectF _m_infoPlane;
 

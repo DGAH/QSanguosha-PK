@@ -545,7 +545,6 @@ enum TriggerEvent
     ChoiceMade,
 
     FetchDrawPileCard, // For miniscenarios only
-    ActionedReset, // For 3v3 only
     Debut, // For 1v1 only
 
     TurnBroken, // For the skill 'DanShou'. Do not use it to trigger events
