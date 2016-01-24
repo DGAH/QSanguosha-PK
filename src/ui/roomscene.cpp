@@ -18,7 +18,6 @@
 #include "record-analysis.h"
 #include "mountain.h"
 #include "bubblechatbox.h"
-#include "yjcm2012.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -1275,10 +1274,6 @@ void RoomScene::updateTargetsEnablity(const Card *card)
         if (card) {
             if (card->isKindOf("Collateral"))
                 isCollateral = true;
-            else if (card->isKindOf("QiceCard")) {
-                const QiceCard *qice_card = qobject_cast<const QiceCard *>(card);
-                isCollateral = (qice_card->getUserString() == "collateral");
-            }
         }
         bool weimuFailure = isCollateral && selected_targets.length() == 1;
         //=====================================
