@@ -479,8 +479,7 @@ public:
 
     virtual int getCorrect(const Player *from, const Player *to) const
     {
-        if (ServerInfo.GameMode.startsWith("06_") || ServerInfo.GameMode.startsWith("04_")
-            || ServerInfo.GameMode == "08_defense") {
+        if (ServerInfo.GameMode.startsWith("06_") || ServerInfo.GameMode.startsWith("04_")) {
             int dist = 0;
             if (from->getRole().at(0) != to->getRole().at(0)) {
                 foreach (const Player *p, to->getAliveSiblings()) {
@@ -541,7 +540,7 @@ public:
     virtual bool triggerable(const ServerPlayer *target) const
     {
         QString mode = target->getRoom()->getMode();
-        return !mode.startsWith("06_") && !mode.startsWith("04_") && mode != "08_defense";
+        return !mode.startsWith("06_") && !mode.startsWith("04_");
     }
 
     virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const

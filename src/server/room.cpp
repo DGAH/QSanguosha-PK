@@ -1861,8 +1861,7 @@ void Room::swapPile()
     int limit = Config.value("PileSwappingLimitation", 5).toInt() + 1;
     if (mode == "04_1v3")
         limit = qMin(limit, Config.BanPackages.contains("maneuvering") ? 3 : 2);
-    else if (mode == "08_defense")
-        limit = qMin(limit, Config.BanPackages.contains("maneuvering") ? 9 : 6);
+
     if (limit > 0 && times == limit)
         gameOver(".");
 
@@ -2149,7 +2148,7 @@ void Room::prepareForStart()
                     if (role == "lord" && !ServerInfo.EnableHegemony)
                         broadcastProperty(player, "role", "lord");
                     else {
-                        if (mode == "04_1v3" || mode == "08_defense")
+                        if (mode == "04_1v3")
                             broadcastProperty(player, "role", role);
                         else
                             notifyProperty(player, player, "role");
@@ -2759,7 +2758,7 @@ void Room::assignRoles()
     int n = m_players.count();
 
     QStringList roles = Sanguosha->getRoleList(mode);
-    if (mode != "08_defense")
+
         qShuffle(roles);
 
     for (int i = 0; i < n; i++) {
@@ -2768,7 +2767,7 @@ void Room::assignRoles()
 
         player->setRole(role);
         if ((role == "lord" && !ServerInfo.EnableHegemony)
-            || mode == "04_1v3" || mode == "08_defense")
+            || mode == "04_1v3")
             broadcastProperty(player, "role", player->getRole());
         else
             notifyProperty(player, player, "role");
@@ -3529,17 +3528,10 @@ void Room::marshal(ServerPlayer *player)
 void Room::startGame()
 {
     m_alivePlayers = m_players;
-    if (mode != "08_defense") {
+
         for (int i = 0; i < player_count - 1; i++)
             m_players.at(i)->setNext(m_players.at(i + 1));
         m_players.last()->setNext(m_players.first());
-    } else {
-        QList<int> next_list;
-        next_list << 0 << 7 << 1 << 6 << 2 << 5 << 3 << 4;
-        for (int i = 0; i < player_count - 1; i++)
-            m_players.at(next_list.at(i))->setNext(m_players.at(next_list.at(i + 1)));
-        m_players.at(4)->setNext(m_players.first());
-    }
 
     foreach (ServerPlayer *player, m_players) {
         Q_ASSERT(player->getGeneral());

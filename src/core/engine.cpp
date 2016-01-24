@@ -818,8 +818,6 @@ QString Engine::getRoles(const QString &mode) const
         return "ZN";
     } else if (mode == "04_1v3") {
         return "ZFFF";
-    } else if (mode == "08_defense") {
-        return "FFFFCCCC";
     }
 
     if (modes.contains(mode) || isNormalGameMode(mode)) { // hidden pz settings?
