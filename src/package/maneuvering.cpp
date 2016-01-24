@@ -423,6 +423,12 @@ void SupplyShortage::takeEffect(ServerPlayer *target) const
     target->skip(Player::Draw);
 }
 
+GanranEquip::GanranEquip(Card::Suit suit, int number)
+:IronChain(suit, number)
+{
+
+}
+
 ManeuveringPackage::ManeuveringPackage()
     : Package("maneuvering", Package::CardPack)
 {
@@ -496,6 +502,8 @@ ManeuveringPackage::ManeuveringPackage()
 
     skills << new GudingBladeSkill << new FanSkill
         << new VineSkill << new SilverLionSkill;
+
+	addMetaObject<GanranEquip>();
 }
 
 ADD_PACKAGE(Maneuvering)

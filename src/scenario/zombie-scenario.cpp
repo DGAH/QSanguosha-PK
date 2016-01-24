@@ -205,91 +205,6 @@ AI::Relation ZombieScenario::relationTo(const ServerPlayer *a, const ServerPlaye
     return AI::Enemy;
 }
 
-class Zaibian : public TriggerSkill
-{
-public:
-    Zaibian() :TriggerSkill("zaibian")
-    {
-        events << EventPhaseStart;
-        frequency = Compulsory;
-    }
-
-    int getNumDiff(ServerPlayer *zombie) const
-    {
-        int human = 0, zombies = 0;
-        foreach (ServerPlayer *player, zombie->getRoom()->getAlivePlayers()) {
-            switch (player->getRoleEnum()) {
-            case Player::Lord:
-            case Player::Loyalist: human++; break;
-            case Player::Rebel: zombies++; break;
-            case Player::Renegade: zombies++; break;
-            default:
-                break;
-            }
-        }
-
-        int x = human - zombies + 1;
-        if (x < 0)
-            return 0;
-        else
-            return x;
-    }
-
-    virtual bool trigger(TriggerEvent triggerEvent, Room *, ServerPlayer *zombie, QVariant &) const
-    {
-        if (triggerEvent == EventPhaseStart && zombie->getPhase() == Player::Play) {
-            int x = getNumDiff(zombie);
-            if (x > 0) {
-                Room *room = zombie->getRoom();
-                LogMessage log;
-                log.type = "#ZaibianGood";
-                log.from = zombie;
-                log.arg = QString::number(x);
-                log.arg2 = objectName();
-                room->sendLog(log);
-                zombie->drawCards(x);
-            }
-
-        }
-        return false;
-    }
-};
-
-class Xunmeng : public TriggerSkill
-{
-public:
-    Xunmeng() :TriggerSkill("xunmeng")
-    {
-        events << ConfirmDamage;
-
-        frequency = Compulsory;
-    }
-
-    virtual bool trigger(TriggerEvent, Room* room, ServerPlayer *zombie, QVariant &data) const
-    {
-        DamageStruct damage = data.value<DamageStruct>();
-
-        const Card *reason = damage.card;
-        if (reason == NULL)
-            return false;
-
-        if (reason->isKindOf("Slash")) {
-            LogMessage log;
-            log.type = "#Xunmeng";
-            log.from = zombie;
-            log.to << damage.to;
-            log.arg = QString::number(damage.damage);
-            log.arg2 = QString::number(++damage.damage);
-            room->sendLog(log);
-
-            data = QVariant::fromValue(damage);
-            if (zombie->getHp() > 1) room->loseHp(zombie);
-        }
-
-        return false;
-    }
-};
-
 PeachingCard::PeachingCard()
     :QingnangCard()
 {
@@ -329,37 +244,6 @@ public:
     }
 };
 
-GanranEquip::GanranEquip(Card::Suit suit, int number)
-    :IronChain(suit, number)
-{
-
-}
-
-
-class Ganran : public FilterSkill
-{
-public:
-    Ganran() :FilterSkill("ganran")
-    {
-    }
-
-    virtual bool viewFilter(const Card* to_select) const
-    {
-        Room *room = Sanguosha->currentRoom();
-        Player::Place place = room->getCardPlace(to_select->getEffectiveId());
-        return place == Player::PlaceHand && to_select->getTypeId() == Card::TypeEquip;
-    }
-
-    virtual const Card *viewAs(const Card *originalCard) const
-    {
-        GanranEquip *ironchain = new GanranEquip(originalCard->getSuit(), originalCard->getNumber());
-        ironchain->setSkillName(objectName());
-        WrappedCard *card = Sanguosha->getWrappedCard(originalCard->getEffectiveId());
-        card->takeOver(ironchain);
-        return card;
-    }
-};
-
 ZombieScenario::ZombieScenario()
     : Scenario("zombie_mode")
 {
@@ -367,15 +251,6 @@ ZombieScenario::ZombieScenario()
 
     skills << new Peaching;
 
-    General *zombie = new General(this, "zombie", "die", 3, true, true);
-    zombie->addSkill(new Xunmeng);
-    zombie->addSkill(new Ganran);
-    zombie->addSkill(new Zaibian);
-
-    zombie->addSkill("paoxiao");
-    zombie->addSkill("wansha");
-
     addMetaObject<PeachingCard>();
-    addMetaObject<GanranEquip>();
 }
 

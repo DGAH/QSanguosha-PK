@@ -13,7 +13,6 @@
 #include "room-state.h"
 
 #include "couple-scenario.h"
-#include "zombie-scenario.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -51,7 +50,6 @@ void Engine::_loadMiniScenarios()
 void Engine::_loadModScenarios()
 {
     addScenario(new CoupleScenario());
-    addScenario(new ZombieScenario());
 }
 
 void Engine::addPackage(const QString &name)
@@ -939,9 +937,7 @@ QStringList Engine::getRandomLords() const
     if (Config.EnableBasara)
         banlist_ban = Config.value("Banlist/Basara").toStringList();
 
-    if (Config.GameMode == "zombie_mode")
-        banlist_ban.append(Config.value("Banlist/Zombie").toStringList());
-    else if (isNormalGameMode(Config.GameMode))
+    if (isNormalGameMode(Config.GameMode))
         banlist_ban.append(Config.value("Banlist/Roles").toStringList());
 
     QStringList lords;
