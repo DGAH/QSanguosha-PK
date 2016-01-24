@@ -595,9 +595,6 @@ void RoomScene::handleGameEvent(const QVariant &args)
                 bringToFront(pausing_text);
             }
             pausing_item->setVisible(paused);
-            if (ServerInfo.GameMode == "04_boss")
-                pausing_text->setText(tr("Boss Mode Level %1").arg(ClientInstance->m_bossLevel + 1));
-            else
                 pausing_text->setText(tr("Paused ..."));
             pausing_text->setVisible(paused);
         }
@@ -1007,7 +1004,7 @@ void RoomScene::updateTable()
 
     int *seatToRegion;
     bool pkMode = false;
-    if ((ServerInfo.GameMode == "04_1v3" || ServerInfo.GameMode == "04_boss") && game_started) {
+    if ((ServerInfo.GameMode == "04_1v3") && game_started) {
         seatToRegion = hulaoSeatIndex[Self->getSeat() - 1];
         pkMode = true;
     } else if (ServerInfo.GameMode == "06_3v3" && game_started) {
@@ -1645,84 +1642,8 @@ void RoomScene::chooseOption(const QString &skillName, const QStringList &option
 
         guhuo_log = QString();
     }
-    if (skillName.startsWith("BossModeExpStore")) {
-        QString objectname = Self->property("bossmodeexp").toString();
-        ClientPlayer *clientplayer = ClientInstance->getPlayer(objectname);
-        QString labelname = ClientInstance->getPlayerName(objectname);
-        labelname = QString("%1 %2").arg(labelname).arg(clientplayer->getMark("@bossExp"));
-        layout->addWidget(new QLabel(labelname));
-    } else {
         layout->addWidget(new QLabel(tr("Please choose:")));
-    }
 
-    if (skillName == "BossModeExpStore") {
-        QGroupBox *box = NULL;
-        QGridLayout *gridlayout = NULL;
-        int index = 0, row = 0, column = 0;
-        QCommandLinkButton *cancel_button = NULL;
-        QList<QCommandLinkButton *> buttons;
-        QStringList alloptions = Self->property("bossmodeexpallchoices").toString().split("+");
-        QStringList acquiredskills = Self->property("bossmodeacquiredskills").toString().split("+");
-        foreach (QString option, alloptions) {
-            QCommandLinkButton *button = new QCommandLinkButton;
-            QStringList optionlist = option.split("|");
-            if (optionlist.length() == 2) {
-                QString text = QString("%1:%2").arg(skillName).arg(optionlist.last());
-                QString translated = optionlist.first() + Sanguosha->translate(text);
-                button->setObjectName(option);
-                button->setText(translated);
-                if (!options.contains(option))
-                    button->setEnabled(false);
-                buttons << button;
-            } else if (optionlist.length() == 3) { // skill names
-                if (!box) {
-                    box = new QGroupBox(dialog);
-                    box->setTitle(Sanguosha->translate("skill"));
-                    gridlayout = new QGridLayout;
-                }
-                QString skill = optionlist.last();
-                QString translated = optionlist.first() + Sanguosha->translate(skill);
-                if (skill.startsWith("nos"))
-                    translated.append(Sanguosha->translate("nosskill"));
-                if (acquiredskills.contains(skill))
-                    translated.append(Sanguosha->translate("(acquired)"));
-                button->setObjectName(option);
-                button->setText(translated);
-                if (!options.contains(option))
-                    button->setEnabled(false);
-
-                QString tooltip = Sanguosha->translate(":" + skill);
-                button->setToolTip(tooltip);
-
-                Q_ASSERT(box && gridlayout);
-                row = index / 6;
-                column = index % 6;
-                index++;
-                gridlayout->addWidget(button, row, column);
-            } else if (option == "cancel") {
-                QString text = QString("%1:%2").arg(skillName).arg(option);
-                QString translated = Sanguosha->translate(text);
-
-                button->setObjectName(option);
-                button->setText(translated);
-                cancel_button = button;
-            }
-            connect(button, SIGNAL(clicked()), dialog, SLOT(accept()));
-            connect(button, SIGNAL(clicked()), ClientInstance, SLOT(onPlayerMakeChoice()));
-        }
-        if (buttons.length() > 0) {
-            QHBoxLayout *hlayout = new QHBoxLayout;
-            foreach(QCommandLinkButton *button, buttons)
-                hlayout->addWidget(button);
-            layout->addLayout(hlayout);
-        }
-        if (box) {
-            box->setLayout(gridlayout);
-            layout->addWidget(box);
-        }
-        if (cancel_button)
-            layout->addWidget(cancel_button);
-    } else {
         foreach (QString option, options) {
             QCommandLinkButton *button = new QCommandLinkButton;
             QString text = QString("%1:%2").arg(skillName).arg(option);
@@ -1746,7 +1667,6 @@ void RoomScene::chooseOption(const QString &skillName, const QStringList &option
 
             layout->addWidget(button);
         }
-    }
 
     dialog->setObjectName("cancel");
     connect(dialog, SIGNAL(rejected()), ClientInstance, SLOT(onPlayerMakeChoice()));

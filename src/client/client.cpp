@@ -16,7 +16,7 @@ using namespace QSanProtocol;
 Client *ClientInstance = NULL;
 
 Client::Client(QObject *parent, const QString &filename)
-    : QObject(parent), m_isDiscardActionRefusable(true), m_bossLevel(0),
+    : QObject(parent), m_isDiscardActionRefusable(true),
     status(NotActive), alive_count(1), swap_pile(0), _m_roomState(true),
     player_count(1) // Self is not included!! Be care!!!
 {
@@ -63,7 +63,6 @@ Client::Client(QObject *parent, const QString &filename)
     m_callbacks[S_COMMAND_SET_KNOWN_CARDS] = &Client::setKnownCards;
     m_callbacks[S_COMMAND_VIEW_GENERALS] = &Client::viewGenerals;
 
-    m_callbacks[S_COMMAND_UPDATE_BOSS_LEVEL] = &Client::updateBossLevel;
     m_callbacks[S_COMMAND_UPDATE_STATE_ITEM] = &Client::updateStateItem;
     m_callbacks[S_COMMAND_AVAILABLE_CARDS] = &Client::setAvailableCards;
 
@@ -1151,9 +1150,6 @@ void Client::updatePileNum()
 {
     QString pile_str = tr("Draw pile: <b>%1</b>, discard pile: <b>%2</b>, swap times: <b>%3</b>")
         .arg(pile_num).arg(discarded_list.length()).arg(swap_pile);
-    if (ServerInfo.GameMode == "04_boss") {
-        pile_str.prepend(tr("Level: <b>%1</b>,").arg(m_bossLevel + 1));
-    }
     lines_doc->setHtml(QString("<font color='%1'><p align = \"center\">" + pile_str + "</p></font>").arg(Config.TextEditColor.name()));
 }
 
@@ -2046,12 +2042,6 @@ void Client::updateStateItem(const QVariant &state)
 {
     if (!JsonUtils::isString(state)) return;
     emit role_state_changed(state.toString());
-}
-
-void Client::updateBossLevel(const QVariant &arg)
-{
-    if (!JsonUtils::isNumber(arg)) return;
-    m_bossLevel = arg.toInt();
 }
 
 void Client::setAvailableCards(const QVariant &pile)

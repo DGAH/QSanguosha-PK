@@ -134,7 +134,6 @@ public:
     void setAvailableCards(const QVariant &pile);
     void setCardFlag(const QVariant &pattern_str);
     void updateCard(const QVariant &arg);
-    void updateBossLevel(const QVariant &arg);
 
     void fillAG(const QVariant &cards_str);
     void takeAG(const QVariant &take_str);
@@ -222,7 +221,6 @@ public:
     QString skill_name;
     QList<const Card *> discarded_list;
     QStringList players_to_choose;
-    int m_bossLevel;
 
 public slots:
     void signup();

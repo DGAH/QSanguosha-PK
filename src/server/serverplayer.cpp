@@ -124,7 +124,7 @@ void ServerPlayer::throwAllMarks(bool visible_only)
 {
     // throw all marks
     foreach (QString mark_name, marks.keys()) {
-        if (mark_name == "@bossExp" || (visible_only && !mark_name.startsWith("@")))
+        if (visible_only && !mark_name.startsWith("@"))
             continue;
 
         int n = marks.value(mark_name, 0);

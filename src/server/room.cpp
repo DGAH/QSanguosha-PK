@@ -2149,7 +2149,7 @@ void Room::prepareForStart()
                     if (role == "lord" && !ServerInfo.EnableHegemony)
                         broadcastProperty(player, "role", "lord");
                     else {
-                        if (mode == "04_1v3" || mode == "04_boss" || mode == "08_defense")
+                        if (mode == "04_1v3" || mode == "08_defense")
                             broadcastProperty(player, "role", role);
                         else
                             notifyProperty(player, player, "role");
@@ -2169,7 +2169,7 @@ void Room::prepareForStart()
                     m_players.swap(i, m_players.indexOf(player));
                 }
             }
-        } else if (mode == "04_1v3" || mode == "04_boss") {
+        } else if (mode == "04_1v3") {
             if (Config.RandomSeat)
                 qShuffle(m_players);
             ServerPlayer *lord = m_players.at(qrand() % 4);
@@ -2748,21 +2748,6 @@ void Room::run()
         }
 
         startGame();
-    } else if (mode == "04_boss") {
-        ServerPlayer *lord = m_players.first();
-        QStringList boss_lv_1 = Config.BossGenerals.first().split("+");
-        if (Config.value("OptionalBoss", false).toBool()) {
-            QString gen = askForGeneral(lord, boss_lv_1);
-            setPlayerProperty(lord, "general", gen);
-        } else {
-            setPlayerProperty(lord, "general", boss_lv_1.at(qrand() % 4));
-        }
-        setPlayerMark(lord, "BossMode_Boss", 1);
-
-        QList<ServerPlayer *> players = m_players;
-        players.removeOne(lord);
-        chooseGenerals(players);
-        startGame();
     } else {
         chooseGenerals();
         startGame();
@@ -2783,7 +2768,7 @@ void Room::assignRoles()
 
         player->setRole(role);
         if ((role == "lord" && !ServerInfo.EnableHegemony)
-            || mode == "04_1v3" || mode == "04_boss" || mode == "08_defense")
+            || mode == "04_1v3" || mode == "08_defense")
             broadcastProperty(player, "role", player->getRole());
         else
             notifyProperty(player, player, "role");
@@ -5746,15 +5731,3 @@ void Room::sortByActionOrder(QList<ServerPlayer *> &players)
         qSort(players.begin(), players.end(), ServerPlayer::CompareByActionOrder);
 }
 
-int Room::getBossModeExpMult(int level) const
-{
-    lua_getglobal(L, "bossModeExpMult");
-    lua_pushinteger(L, level);
-    int ret = lua_pcall(L, 1, 1, 0);
-    int res = 0;
-    if (ret == 0) {
-        res = lua_tointeger(L, -1);
-        lua_pop(L, 1);
-    }
-    return res;
-}

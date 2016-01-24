@@ -71,7 +71,7 @@ void Settings::init()
             << "nostal_standard" << "nostal_general" << "nostal_wind"
             << "nostal_yjcm" << "nostal_yjcm2012" << "nostal_yjcm2013"
             << "Special3v3" << "Special1v1"
-            << "BossMode" << "test" << "GreenHand" << "dragon"
+            << "test" << "GreenHand" << "dragon"
             << "sp_cards" << "GreenHandCard"
             << "New3v3Card" << "New3v3_2013Card" << "New1v1Card"
             << "yitian" << "wisdom" << "BGM" << "BGMDIY"
@@ -141,13 +141,12 @@ void Settings::init()
 
     BubbleChatBoxKeepTime = value("BubbleChatboxKeepTime", 2000).toInt();
 
-    QStringList roles_ban, kof_ban, hulao_ban, xmode_ban, bossmode_ban, basara_ban, hegemony_ban, pairs_ban;
+    QStringList roles_ban, kof_ban, hulao_ban, xmode_ban, basara_ban, hegemony_ban, pairs_ban;
 
     roles_ban = GetConfigFromLuaState(lua, "roles_ban").toStringList();
     kof_ban = GetConfigFromLuaState(lua, "kof_ban").toStringList();
     hulao_ban = GetConfigFromLuaState(lua, "hulao_ban").toStringList();
     xmode_ban = GetConfigFromLuaState(lua, "xmode_ban").toStringList();
-    bossmode_ban = GetConfigFromLuaState(lua, "bossmode_ban").toStringList();
     basara_ban = GetConfigFromLuaState(lua, "basara_ban").toStringList();
     hegemony_ban = GetConfigFromLuaState(lua, "hegemony_ban").toStringList();
     hegemony_ban.append(basara_ban);
@@ -171,14 +170,6 @@ void Settings::init()
             banlist << ban_general;
 
         setValue("Banlist/1v1", banlist);
-    }
-
-    banlist = value("Banlist/BossMode").toStringList();
-    if (banlist.isEmpty()) {
-        foreach(QString ban_general, bossmode_ban)
-            banlist << ban_general;
-
-        setValue("Banlist/BossMode", banlist);
     }
 
     banlist = value("Banlist/Basara").toStringList();
@@ -206,22 +197,8 @@ void Settings::init()
 
     QStringList forbid_packages = value("ForbidPackages").toStringList();
     if (forbid_packages.isEmpty()) {
-        forbid_packages << "New3v3Card" << "New3v3_2013Card" << "New1v1Card" << "BossMode" << "test";
+        forbid_packages << "New3v3Card" << "New3v3_2013Card" << "New1v1Card" << "test";
 
         setValue("ForbidPackages", forbid_packages);
     }
-
-    Config.BossGenerals = GetConfigFromLuaState(lua, "bossmode_default_boss").toStringList();
-    Config.BossLevel = Config.BossGenerals.length();
-    Config.BossEndlessSkills = GetConfigFromLuaState(lua, "bossmode_endless_skills").toStringList();
-
-
-    QStringList exp_skills = GetConfigFromLuaState(lua, "bossmode_exp_skills").toStringList();
-    QMap<QString, int> exp_skill_map;
-    foreach (QString skill, exp_skills) {
-        QString name = skill.split(":").first();
-        int cost = skill.split(":").last().toInt();
-        exp_skill_map.insert(name, cost);
-    }
-    Config.BossExpSkills = exp_skill_map;
 }

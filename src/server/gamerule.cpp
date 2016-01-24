@@ -114,22 +114,8 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
     // Handle global events
     if (player == NULL) {
         if (triggerEvent == GameStart) {
-            if (room->getMode() == "04_boss") {
-                int difficulty = Config.value("BossModeDifficulty", 0).toInt();
-                if ((difficulty & (1 << GameRule::BMDIncMaxHp)) > 0) {
-                    foreach (ServerPlayer *p, room->getPlayers()) {
-                        if (p->isLord()) continue;
-                        int m = p->getMaxHp() + 2;
-                        p->setProperty("maxhp", m);
-                        p->setProperty("hp", m);
-                        room->broadcastProperty(p, "maxhp");
-                        room->broadcastProperty(p, "hp");
-                    }
-                }
-            }
             foreach (ServerPlayer *player, room->getPlayers()) {
-                if (player->getGeneral()->getKingdom() == "god" && player->getGeneralName() != "anjiang"
-                    && !player->getGeneralName().startsWith("boss_"))
+                if (player->getGeneral()->getKingdom() == "god" && player->getGeneralName() != "anjiang")
                     room->setPlayerProperty(player, "kingdom", room->askForKingdom(player));
                 foreach (const Skill *skill, player->getVisibleSkillList()) {
                     if (skill->getFrequency() == Skill::Limited && !skill->getLimitMark().isEmpty()
@@ -171,22 +157,6 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
         log.type = "$AppendSeparator";
         room->sendLog(log);
         room->addPlayerMark(player, "Global_TurnCount");
-        if (room->getMode() == "04_boss" && player->isLord()) {
-            int turn = player->getMark("Global_TurnCount");
-            if (turn == 1)
-                room->doLightbox("BossLevelA\\ 1 \\BossLevelB", 2000, 100);
-
-            LogMessage log2;
-            log2.type = "#BossTurnCount";
-            log2.from = player;
-            log2.arg = QString::number(turn);
-            room->sendLog(log2);
-
-            int limit = Config.value("BossModeTurnLimit", 70).toInt();
-            int level = room->getTag("BossModeLevel").toInt();
-            if (limit >= 0 && level < Config.BossLevel && player->getMark("Global_TurnCount") > limit)
-                room->gameOver("lord");
-        }
         if (!player->faceUp()) {
             room->setPlayerFlag(player, "-Global_FirstRound");
             player->turnOver();
@@ -562,9 +532,6 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
         break;
     }
     case GameOverJudge: {
-        if (room->getMode() == "04_boss" && player->isLord()
-            && (Config.value("BossModeEndless", false).toBool() || room->getTag("BossModeLevel").toInt() < Config.BossLevel - 1))
-            break;
         if (room->getMode() == "02_1v1") {
             QStringList list = player->tag["1v1Arrange"].toStringList();
             QString rule = Config.value("1v1/Rule", "2013").toString();
@@ -612,16 +579,6 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
             changeGeneralXMode(player);
             if (death.damage != NULL)
                 player->setFlags("Global_DebutFlag");
-            return false;
-        } else if (room->getMode() == "04_boss" && player->isLord()) {
-            int level = room->getTag("BossModeLevel").toInt();
-            level++;
-            room->setTag("BossModeLevel", level);
-            doBossModeDifficultySettings(player);
-            changeGeneralBossMode(player);
-            if (death.damage != NULL)
-                player->setFlags("Global_DebutFlag");
-            room->doLightbox(QString("BossLevelA\\ %1 \\BossLevelB").arg(level + 1), 2000, 100);
             return false;
         }
 
@@ -804,292 +761,9 @@ void GameRule::changeGeneralXMode(ServerPlayer *player) const
     room->getThread()->trigger(AfterDrawInitialCards, room, player, _num);
 }
 
-void GameRule::changeGeneralBossMode(ServerPlayer *player) const
-{
-    Config.AIDelay = Config.OriginAIDelay;
-
-    Room *room = player->getRoom();
-    int level = room->getTag("BossModeLevel").toInt();
-    room->doBroadcastNotify(QSanProtocol::S_COMMAND_UPDATE_BOSS_LEVEL, QVariant(level));
-    QString general;
-    if (level <= Config.BossLevel - 1) {
-        QStringList boss_generals = Config.BossGenerals.at(level).split("+");
-        if (boss_generals.length() == 1)
-            general = boss_generals.first();
-        else {
-            if (Config.value("OptionalBoss", false).toBool())
-                general = room->askForGeneral(player, boss_generals);
-            else
-                general = boss_generals.at(qrand() % boss_generals.length());
-        }
-    } else {
-        general = (qrand() % 2 == 0) ? "sujiang" : "sujiangf";
-    }
-
-    if (player->getPhase() != Player::NotActive)
-        player->changePhase(player->getPhase(), Player::NotActive);
-
-    room->revivePlayer(player);
-    room->changeHero(player, general, true, true);
-    room->setPlayerMark(player, "BossMode_Boss", 1);
-    int actualmaxhp = player->getMaxHp();
-    if (level >= Config.BossLevel)
-        actualmaxhp = level * 5 + 5;
-    int difficulty = Config.value("BossModeDifficulty", 0).toInt();
-    if ((difficulty & (1 << BMDDecMaxHp)) > 0) {
-        if (level == 0);
-        else if (level == 1) actualmaxhp -= 2;
-        else if (level == 2) actualmaxhp -= 4;
-        else actualmaxhp -= 5;
-    }
-    if (actualmaxhp != player->getMaxHp()) {
-        player->setProperty("maxhp", actualmaxhp);
-        player->setProperty("hp", actualmaxhp);
-        room->broadcastProperty(player, "maxhp");
-        room->broadcastProperty(player, "hp");
-    }
-    if (level >= Config.BossLevel)
-        acquireBossSkills(player, level);
-    room->addPlayerHistory(player, ".");
-
-    if (player->getKingdom() != player->getGeneral()->getKingdom())
-        room->setPlayerProperty(player, "kingdom", player->getGeneral()->getKingdom());
-
-    if (!player->faceUp())
-        player->turnOver();
-
-    if (player->isChained())
-        room->setPlayerProperty(player, "chained", false);
-
-    room->setTag("FirstRound", true); //For Manjuan
-    QVariant data(4);
-    room->getThread()->trigger(DrawInitialCards, room, player, data);
-    int num = data.toInt();
-    try {
-        player->drawCards(num);
-        room->setTag("FirstRound", false);
-    }
-    catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
-            room->setTag("FirstRound", false);
-        throw triggerEvent;
-    }
-
-    QVariant _num = num;
-    room->getThread()->trigger(AfterDrawInitialCards, room, player, _num);
-}
-
-void GameRule::acquireBossSkills(ServerPlayer *player, int level) const
-{
-    QStringList skills = Config.BossEndlessSkills;
-    int num = qBound(qMin(5, skills.length()), 5 + level - Config.BossLevel, qMin(10, skills.length()));
-    for (int i = 0; i < num; i++) {
-        QString skill = skills.at(qrand() % skills.length());
-        skills.removeOne(skill);
-        if (skill.contains("+")) {
-            QStringList subskills = skill.split("+");
-            skill = subskills.at(qrand() % subskills.length());
-        }
-        player->getRoom()->acquireSkill(player, skill);
-    }
-}
-
-void GameRule::doBossModeDifficultySettings(ServerPlayer *lord) const
-{
-    Room *room = lord->getRoom();
-    QList<ServerPlayer *> unions = room->getOtherPlayers(lord, true);
-    int difficulty = Config.value("BossModeDifficulty", 0).toInt();
-    if ((difficulty & (1 << BMDRevive)) > 0) {
-        foreach (ServerPlayer *p, unions) {
-            if (p->isDead() && p->getMaxHp() > 0) {
-                room->revivePlayer(p, true);
-                room->addPlayerHistory(p, ".");
-                if (!p->faceUp())
-                    p->turnOver();
-                if (p->isChained())
-                    room->setPlayerProperty(p, "chained", false);
-                p->setProperty("hp", qMin(p->getMaxHp(), 4));
-                room->broadcastProperty(p, "hp");
-                QStringList acquired = p->tag["BossModeAcquiredSkills"].toStringList();
-                foreach (QString skillname, acquired) {
-                    if (p->hasSkill(skillname, true))
-                        acquired.removeOne(skillname);
-                }
-                p->tag["BossModeAcquiredSkills"] = QVariant::fromValue(acquired);
-                if (!acquired.isEmpty())
-                    room->handleAcquireDetachSkills(p, acquired, true);
-                foreach (const Skill *skill, p->getSkillList()) {
-                    if (skill->getFrequency() == Skill::Limited && !skill->getLimitMark().isEmpty())
-                        room->setPlayerMark(p, skill->getLimitMark(), 1);
-                }
-            }
-        }
-    }
-    if ((difficulty & (1 << BMDRecover)) > 0) {
-        foreach (ServerPlayer *p, unions) {
-            if (p->isAlive() && p->isWounded()) {
-                p->setProperty("hp", p->getMaxHp());
-                room->broadcastProperty(p, "hp");
-            }
-        }
-    }
-    if ((difficulty & (1 << BMDDraw)) > 0) {
-        foreach (ServerPlayer *p, unions) {
-            if (p->isAlive() && p->getHandcardNum() < 4) {
-                room->setTag("FirstRound", true); //For Manjuan
-                try {
-                    p->drawCards(4 - p->getHandcardNum());
-                    room->setTag("FirstRound", false);
-                }
-                catch (TriggerEvent triggerEvent) {
-                    if (triggerEvent == TurnBroken || triggerEvent == StageChange)
-                        room->setTag("FirstRound", false);
-                    throw triggerEvent;
-                }
-            }
-        }
-    }
-    if ((difficulty & (1 << BMDReward)) > 0) {
-        foreach (ServerPlayer *p, unions) {
-            if (p->isAlive()) {
-                room->setTag("FirstRound", true); //For Manjuan
-                try {
-                    p->drawCards(2);
-                    room->setTag("FirstRound", false);
-                }
-                catch (TriggerEvent triggerEvent) {
-                    if (triggerEvent == TurnBroken || triggerEvent == StageChange)
-                        room->setTag("FirstRound", false);
-                    throw triggerEvent;
-                }
-            }
-        }
-    }
-    if (Config.value("BossModeExp", false).toBool()) {
-        foreach (ServerPlayer *p, room->getAlivePlayers()) {
-            if (p->isLord() || p->isDead()) continue;
-
-            QMap<QString, int> exp_map;
-            while (true) {
-                QStringList choices;
-                QStringList allchoices;
-                int exp = p->getMark("@bossExp");
-                int level = room->getTag("BossModeLevel").toInt();
-                exp_map["drawcard"] = 20 * level;
-                exp_map["recover"] = 30 * level;
-                exp_map["maxhp"] = p->getMaxHp() * 10 * level;
-                exp_map["recovermaxhp"] = (20 + p->getMaxHp() * 10) * level;
-                foreach (QString c, exp_map.keys()) {
-                    allchoices << QString("[%1]|%2").arg(exp_map[c]).arg(c);
-                    if (exp >= exp_map[c] && (c != "recover" || p->isWounded()))
-                        choices << QString("[%1]|%2").arg(exp_map[c]).arg(c);
-                }
-
-                QStringList acquired = p->tag["BossModeAcquiredSkills"].toStringList();
-                foreach (QString a, acquired) {
-                    if (!p->getAcquiredSkills().contains(a))
-                        acquired.removeOne(a);
-                }
-                int len = qMin(4, acquired.length() + 1);
-                foreach (QString skillname, Config.BossExpSkills.keys()) {
-                    int cost = Config.BossExpSkills[skillname] * len;
-                    allchoices << QString("[%1]||%2").arg(cost).arg(skillname);
-                    if (p->hasSkill(skillname, true)) continue;
-                    if (exp >= cost)
-                        choices << QString("[%1]||%2").arg(cost).arg(skillname);
-                }
-                if (choices.isEmpty()) break;
-                allchoices << "cancel";
-                choices << "cancel";
-                ServerPlayer *choiceplayer = p;
-                if (!p->isOnline()) {
-                    foreach (ServerPlayer *cp, room->getPlayers()) {
-                        if (!cp->isLord() && cp->isOnline()) {
-                            choiceplayer = cp;
-                            break;
-                        }
-                    }
-                }
-                room->setPlayerProperty(choiceplayer, "bossmodeexp", p->objectName());
-                room->setPlayerProperty(choiceplayer, "bossmodeacquiredskills", acquired.join("+"));
-                room->setPlayerProperty(choiceplayer, "bossmodeexpallchoices", allchoices.join("+"));
-                QString choice = room->askForChoice(choiceplayer, "BossModeExpStore", choices.join("+"));
-                if (choice == "cancel") {
-                    break;
-                } else if (choice.contains("||")) { // skill
-                    QStringList skilllist;
-                    QString skillattach = choice.split("|").last();
-                    if (acquired.length() == 4) {
-                        QString skilldetach = room->askForChoice(choiceplayer, "BossModeExpStoreSkillDetach", acquired.join("+"));
-                        skilllist << "-" + skilldetach;
-                        acquired.removeOne(skilldetach);
-                    }
-                    skilllist.append(skillattach);
-                    acquired.append(skillattach);
-                    p->tag["BossModeAcquiredSkills"] = QVariant::fromValue(acquired);
-                    int cost = choice.split("]").first().mid(1).toInt();
-
-                    LogMessage log;
-                    log.type = "#UseExpPoint";
-                    log.from = p;
-                    log.arg = QString::number(cost);
-                    log.arg2 = "BossModeExpStore:acquireskill";
-                    room->sendLog(log);
-
-                    room->removePlayerMark(p, "@bossExp", cost);
-                    room->handleAcquireDetachSkills(p, skilllist, true);
-                } else {
-                    QString type = choice.split("|").last();
-                    int cost = choice.split("]").first().mid(1).toInt();
-                    room->removePlayerMark(p, "@bossExp", cost);
-
-                    LogMessage log;
-                    log.type = "#UseExpPoint";
-                    log.from = p;
-                    log.arg = QString::number(cost);
-                    log.arg2 = "BossModeExpStore:" + type;
-                    room->sendLog(log);
-
-                    if (type == "drawcard") {
-                        room->setTag("FirstRound", true); //For Manjuan
-                        try {
-                            p->drawCards(1);
-                            room->setTag("FirstRound", false);
-                        }
-                        catch (TriggerEvent triggerEvent) {
-                            if (triggerEvent == TurnBroken || triggerEvent == StageChange)
-                                room->setTag("FirstRound", false);
-                            throw triggerEvent;
-                        }
-                    } else {
-                        int maxhp = p->getMaxHp();
-                        int hp = p->getHp();
-                        if (type.contains("maxhp")) {
-                            p->setProperty("maxhp", maxhp + 1);
-                            room->broadcastProperty(p, "maxhp");
-                        }
-                        if (type.contains("recover")) {
-                            p->setProperty("hp", hp + 1);
-                            room->broadcastProperty(p, "hp");
-                        }
-
-                        LogMessage log2;
-                        log2.type = "#GetHp";
-                        log2.from = p;
-                        log2.arg = QString::number(p->getHp());
-                        log2.arg2 = QString::number(p->getMaxHp());
-                        room->sendLog(log2);
-                    }
-                }
-            }
-        }
-    }
-}
-
 void GameRule::rewardAndPunish(ServerPlayer *killer, ServerPlayer *victim) const
 {
     if (killer->isDead() || killer->getRoom()->getMode() == "06_XMode"
-        || killer->getRoom()->getMode() == "04_boss"
         || killer->getRoom()->getMode() == "08_defense")
         return;
 

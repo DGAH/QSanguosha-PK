@@ -392,8 +392,6 @@ public:
     void updateCardsOnLose(const CardsMoveStruct &move);
     void updateCardsOnGet(const CardsMoveStruct &move);
 
-    int getBossModeExpMult(int level) const;
-
 protected:
     virtual void run();
     int _m_Id;
