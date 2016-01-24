@@ -667,7 +667,7 @@ public:
     {
     }
 
-    virtual bool viewFilter(const QList<const Card *> &selected, const Card *to_select) const
+    virtual bool viewFilter(const QList<const Card *> &, const Card *to_select) const
     {
             if (to_select->isEquipped()) return false;
             if (Sanguosha->currentRoomState()->getCurrentCardUsePattern() == "@@rende") {

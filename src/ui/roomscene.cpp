@@ -4194,7 +4194,7 @@ void RoomScene::trust()
     ClientInstance->trust();
 }
 
-void RoomScene::startArrange(const QString &to_arrange)
+void RoomScene::startArrange(const QString &)
 {
     arrange_items.clear();
     QString mode;
