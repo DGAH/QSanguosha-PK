@@ -54,9 +54,6 @@ public:
     {
         Room *room = zhugejin->getRoom();
         bool invoke = false;
-        if (room->getMode().startsWith("06_"))
-            invoke = room->askForSkillInvoke(zhugejin, objectName());
-        else
             invoke = room->askForUseCard(zhugejin, "@@hongyuan", "@hongyuan");
         if (invoke) {
             room->broadcastSkillInvoke(objectName());
@@ -83,10 +80,7 @@ public:
 
         QList<ServerPlayer *> targets;
         foreach (ServerPlayer *p, room->getOtherPlayers(player)) {
-            if (room->getMode().startsWith("06_") || room->getMode().startsWith("04_")) {
-                if (AI::GetRelation3v3(player, p) == AI::Friend)
-                    targets << p;
-            } else if (p->hasFlag("HongyuanTarget")) {
+            if (p->hasFlag("HongyuanTarget")) {
                 p->setFlags("-HongyuanTarget");
                 targets << p;
             }
@@ -115,15 +109,7 @@ public:
     {
         JudgeStruct *judge = data.value<JudgeStruct *>();
         const Card *card = NULL;
-        if (room->getMode().startsWith("06_") || room->getMode().startsWith("04_")) {
-            if (AI::GetRelation3v3(player, judge->who) != AI::Friend) return false;
-            QStringList prompt_list;
-            prompt_list << "@huanshi-card" << judge->who->objectName()
-                << objectName() << judge->reason << QString::number(judge->card->getEffectiveId());
-            QString prompt = prompt_list.join(":");
-
-            card = room->askForCard(player, "..", prompt, data, Card::MethodResponse, judge->who, true);
-        } else if (!player->isNude()) {
+        if (!player->isNude()) {
             QList<int> ids, disabled_ids;
             foreach (const Card *card, player->getCards("he")) {
                 if (player->isCardLimited(card, Card::MethodResponse))
@@ -325,9 +311,6 @@ public:
                 foreach (ServerPlayer *p, room->getAllPlayers()) {
                     if (p->getPile("loyal").isEmpty()) continue;
                     bool on_effect = false;
-                    if (room->getMode().startsWith("06_") || room->getMode().startsWith("04_"))
-                        on_effect = (AI::GetRelation3v3(player, p) == AI::Friend);
-                    else
                         on_effect = (room->askForSkillInvoke(p, "zhongyi", data));
                     if (on_effect) {
                         LogMessage log;
@@ -390,9 +373,6 @@ public:
             }
         }
         if (!who) return false;
-        if (ServerInfo.GameMode.startsWith("06_"))
-            return player->getRole().at(0) == who->getRole().at(0);
-        else
             return true;
     }
 
@@ -426,15 +406,9 @@ public:
                 return false;
             foreach (ServerPlayer *lvbu, room->getAllPlayers()) {
                 if (!TriggerSkill::triggerable(lvbu)) continue;
-                if (room->getMode().startsWith("06_") || room->getMode().startsWith("04_")) {
-                    if (lvbu->getMark(objectName()) == 0 && lvbu->getMark("zhanshen_fight") == 0
-                        && AI::GetRelation3v3(lvbu, player) == AI::Friend)
-                        lvbu->addMark("zhanshen_fight");
-                } else {
                     if (lvbu->getMark(objectName()) == 0 && lvbu->getMark("@fight") == 0
                         && room->askForSkillInvoke(player, objectName(), "mark:" + lvbu->objectName()))
                         room->addPlayerMark(lvbu, "@fight");
-                }
             }
         } else if (TriggerSkill::triggerable(player)
             && player->getPhase() == Player::Start
@@ -478,16 +452,7 @@ public:
 
     virtual int getCorrect(const Player *from, const Player *to) const
     {
-        if (ServerInfo.GameMode.startsWith("06_") || ServerInfo.GameMode.startsWith("04_")) {
-            int dist = 0;
-            if (from->getRole().at(0) != to->getRole().at(0)) {
-                foreach (const Player *p, to->getAliveSiblings()) {
-                    if (p->hasSkill("zhenwei") && p->getRole().at(0) == to->getRole().at(0))
-                        dist++;
-                }
-            }
-            return dist;
-        } else if (to->getMark("@defense") > 0 && from->getMark("@defense") == 0
+        if (to->getMark("@defense") > 0 && from->getMark("@defense") == 0
             && from->objectName() != to->property("zhenwei_from").toString()) {
             return 1;
         }
@@ -536,10 +501,9 @@ public:
         frequency = Compulsory;
     }
 
-    virtual bool triggerable(const ServerPlayer *target) const
+    virtual bool triggerable(const ServerPlayer *) const
     {
-        QString mode = target->getRoom()->getMode();
-        return !mode.startsWith("06_") && !mode.startsWith("04_");
+		return true;
     }
 
     virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const

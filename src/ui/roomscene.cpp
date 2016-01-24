@@ -3214,12 +3214,7 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
             QIcon icon(QString("image/system/roles/%1.png").arg(player->getRole()));
             item->setIcon(icon);
             QString role = player->getRole();
-            if (ServerInfo.GameMode.startsWith("06_")) {
-                if (role == "lord" || role == "renegade")
-                    role = "leader";
-                else
-                    role = "guard";
-            } else if (ServerInfo.GameMode == "02_1v1") {
+            if (ServerInfo.GameMode == "02_1v1") {
                 if (role == "lord")
                     role = "defensive";
                 else
