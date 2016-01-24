@@ -446,10 +446,6 @@ void ShangyiCard::onEffect(const CardEffectStruct &effect) const
         choicelist.append("handcards");
     if (room->getMode() == "06_3v3") {
         ;
-    } else if (room->getMode() == "06_XMode") {
-        QStringList backup = player->tag["XModeBackup"].toStringList();
-        if (backup.length() > 0)
-            choicelist.append("remainedgenerals");
     } else if (room->getMode() == "02_1v1") {
         QStringList list = player->tag["1v1Arrange"].toStringList();
         if (list.length() > 0)
@@ -487,8 +483,6 @@ void ShangyiCard::onEffect(const CardEffectStruct &effect) const
         QStringList list;
         if (room->getMode() == "02_1v1")
             list = player->tag["1v1Arrange"].toStringList();
-        else if (room->getMode() == "06_XMode")
-            list = player->tag["XModeBackup"].toStringList();
         foreach (QString name, list) {
             LogMessage log;
             log.type = "$ShangyiViewRemained";

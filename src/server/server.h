@@ -89,7 +89,6 @@ private:
     QGroupBox *createGameModeBox();
     QGroupBox *create1v1Box();
     QGroupBox *create3v3Box();
-    QGroupBox *createXModeBox();
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -143,7 +142,6 @@ private:
     QComboBox *official_1v1_ComboBox;
     QCheckBox *kof_using_extension_checkbox;
     QCheckBox *kof_card_extension_checkbox;
-    QComboBox *role_choose_xmode_ComboBox;
     QCheckBox *disable_lua_checkbox;
 
     QButtonGroup *extension_group;

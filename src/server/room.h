@@ -5,7 +5,6 @@ class TriggerSkill;
 class ProhibitSkill;
 class Scenario;
 class RoomThread3v3;
-class RoomThreadXMode;
 class RoomThread1v1;
 class TrickCard;
 
@@ -33,7 +32,6 @@ public:
 
     friend class RoomThread;
     friend class RoomThread3v3;
-    friend class RoomThreadXMode;
     friend class RoomThread1v1;
 
     typedef void (Room::*Callback)(ServerPlayer *, const QVariant &);
@@ -506,7 +504,6 @@ private:
 
     RoomThread *thread;
     RoomThread3v3 *thread_3v3;
-    RoomThreadXMode *thread_xmode;
     RoomThread1v1 *thread_1v1;
     QSemaphore _m_semRaceRequest; // When race starts, server waits on his semaphore for the first replier
     QSemaphore _m_semRoomMutex; // Provide per-room  (rather than per-player) level protection of any shared variables

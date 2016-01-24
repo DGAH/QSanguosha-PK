@@ -7,7 +7,6 @@
 #include "gamerule.h"
 #include "banpair.h"
 #include "roomthread3v3.h"
-#include "roomthreadxmode.h"
 #include "roomthread1v1.h"
 #include "server.h"
 #include "generalselector.h"
@@ -37,7 +36,7 @@ Room::Room(QObject *parent, const QString &mode)
     : QThread(parent), mode(mode), current(NULL), pile1(Sanguosha->getRandomCards()),
     m_drawPile(&pile1), m_discardPile(&pile2),
     game_started(false), game_finished(false), game_paused(false), L(NULL), thread(NULL),
-    thread_3v3(NULL), thread_xmode(NULL), thread_1v1(NULL), _m_semRaceRequest(0), _m_semRoomMutex(1),
+    thread_3v3(NULL), thread_1v1(NULL), _m_semRaceRequest(0), _m_semRoomMutex(1),
     _m_raceStarted(false), provided(NULL), has_provided(false),
     m_surrenderRequestReceived(false), _virtual(false), _m_roomState(false)
 {
@@ -402,13 +401,13 @@ void Room::killPlayer(ServerPlayer *victim, DamageStruct *reason)
 
             static QStringList continue_list;
             if (continue_list.isEmpty())
-                continue_list << "02_1v1" << "06_XMode";
+                continue_list << "02_1v1";
             if (continue_list.contains(Config.GameMode))
                 return;
 
             if (Config.AlterAIDelayAD)
                 Config.AIDelay = Config.AIDelayAD;
-            if (victim->isOnline() && Config.SurrenderAtDeath && mode != "02_1v1" && mode != "06_XMode"
+            if (victim->isOnline() && Config.SurrenderAtDeath && mode != "02_1v1"
                 && askForSkillInvoke(victim, "surrender", "yes"))
                 makeSurrender(victim);
         }
@@ -2112,7 +2111,7 @@ void Room::prepareForStart()
             else
                 notifyProperty(player, player, "role");
         }
-    } else if (mode == "06_3v3" || mode == "06_XMode" || mode == "02_1v1") {
+    } else if (mode == "06_3v3" || mode == "02_1v1") {
         return;
     } else if (!Config.EnableHegemony && Config.EnableCheat && Config.value("FreeAssign", false).toBool()) {
         ServerPlayer *owner = getOwner();
@@ -2680,12 +2679,6 @@ void Room::run()
 
         connect(thread_3v3, SIGNAL(finished()), this, SLOT(startGame()));
         connect(thread_3v3, SIGNAL(finished()), thread_3v3, SLOT(deleteLater()));
-    } else if (mode == "06_XMode") {
-        thread_xmode = new RoomThreadXMode(this);
-        thread_xmode->start();
-
-        connect(thread_xmode, SIGNAL(finished()), this, SLOT(startGame()));
-        connect(thread_xmode, SIGNAL(finished()), thread_xmode, SLOT(deleteLater()));
     } else if (mode == "02_1v1") {
         thread_1v1 = new RoomThread1v1(this);
         thread_1v1->start();
@@ -3390,7 +3383,7 @@ bool Room::hasWelfare(const ServerPlayer *player) const
 {
     if (mode == "06_3v3")
         return player->isLord() || player->getRole() == "renegade";
-    else if (Config.EnableHegemony || mode == "06_XMode")
+    else if (Config.EnableHegemony)
         return false;
     else
         return player->isLord() && player_count > 4;
@@ -3489,21 +3482,21 @@ void Room::startGame()
 
     foreach (ServerPlayer *player, m_players) {
         if (!Config.EnableBasara
-            && (mode == "06_3v3" || mode == "02_1v1" || mode == "06_XMode" || !player->isLord()))
+            && (mode == "06_3v3" || mode == "02_1v1" || !player->isLord()))
             broadcastProperty(player, "general");
 
         if (mode == "02_1v1")
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
         if (Config.Enable2ndGeneral
-            && mode != "02_1v1" && mode != "06_3v3" && mode != "06_XMode"
+            && mode != "02_1v1" && mode != "06_3v3"
             && !Config.EnableBasara)
             broadcastProperty(player, "general2");
 
         broadcastProperty(player, "hp");
         broadcastProperty(player, "maxhp");
 
-        if (mode == "06_3v3" || mode == "06_XMode")
+        if (mode == "06_3v3")
             broadcastProperty(player, "role");
     }
 
@@ -3530,7 +3523,7 @@ void Room::startGame()
     doBroadcastNotify(S_COMMAND_UPDATE_PILE, QVariant(m_drawPile->length()));
 
     thread = new RoomThread(this);
-    if (mode != "02_1v1" && mode != "06_3v3" && mode != "06_XMode")
+    if (mode != "02_1v1" && mode != "06_3v3")
         _m_roomState.reset();
     connect(thread, SIGNAL(started()), this, SIGNAL(game_start()));
 

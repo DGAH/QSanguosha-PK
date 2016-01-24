@@ -755,29 +755,6 @@ QGroupBox *ServerDialog::create3v3Box()
     return box;
 }
 
-QGroupBox *ServerDialog::createXModeBox()
-{
-    QGroupBox *box = new QGroupBox(tr("XMode options"));
-    box->setEnabled(Config.GameMode == "06_XMode");
-    box->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QComboBox *roleChooseComboBox = new QComboBox;
-    roleChooseComboBox->addItem(tr("Normal"), "Normal");
-    roleChooseComboBox->addItem(tr("Random"), "Random");
-    roleChooseComboBox->addItem(tr("All roles"), "AllRoles");
-
-    role_choose_xmode_ComboBox = roleChooseComboBox;
-
-    QString scheme = Config.value("XMode/RoleChooseX", "Normal").toString();
-    if (scheme == "Random")
-        roleChooseComboBox->setCurrentIndex(1);
-    else if (scheme == "AllRoles")
-        roleChooseComboBox->setCurrentIndex(2);
-
-    box->setLayout(HLay(new QLabel(tr("Role choose")), role_choose_xmode_ComboBox));
-    return box;
-}
-
 QGroupBox *ServerDialog::createGameModeBox()
 {
     QGroupBox *mode_box = new QGroupBox(tr("Game mode"));
@@ -802,11 +779,6 @@ QGroupBox *ServerDialog::createGameModeBox()
             item_list << button << box;
         } else if (itor.key() == "06_3v3") {
             QGroupBox *box = create3v3Box();
-            connect(button, SIGNAL(toggled(bool)), box, SLOT(setEnabled(bool)));
-
-            item_list << button << box;
-        } else if (itor.key() == "06_XMode") {
-            QGroupBox *box = createXModeBox();
             connect(button, SIGNAL(toggled(bool)), box, SLOT(setEnabled(bool)));
 
             item_list << button << box;
@@ -1184,10 +1156,6 @@ int ServerDialog::config()
     Config.setValue("Rule", official_1v1_ComboBox->itemData(official_1v1_ComboBox->currentIndex()).toString());
     Config.setValue("UsingExtension", kof_using_extension_checkbox->isChecked());
     Config.setValue("UsingCardExtension", kof_card_extension_checkbox->isChecked());
-    Config.endGroup();
-
-    Config.beginGroup("XMode");
-    Config.setValue("RoleChooseX", role_choose_xmode_ComboBox->itemData(role_choose_xmode_ComboBox->currentIndex()).toString());
     Config.endGroup();
 
     QSet<QString> ban_packages;
