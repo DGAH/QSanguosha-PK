@@ -192,7 +192,7 @@ public:
                 room->askForUseCard(jiangwei, "slash", "@askforslash");
             }
             catch (TriggerEvent errorevent) {
-                if (errorevent == TurnBroken || errorevent == StageChange)
+                if (errorevent == TurnBroken)
                     if (jiangwei->hasFlag("yicairesponding"))
                         jiangwei->setFlags("-yicairesponding");
 
@@ -709,7 +709,7 @@ public:
                     room->askForUseCard(hua, "slash", "@askforslash");
                 }
                 catch (TriggerEvent errorevent) {
-                    if (errorevent == TurnBroken || errorevent == StageChange) {
+                    if (errorevent == TurnBroken) {
                         if (hua->hasFlag("badaoresponding"))
                             hua->setFlags("-badaoresponding");
                     }

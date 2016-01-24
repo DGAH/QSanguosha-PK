@@ -597,7 +597,7 @@ void DimengCard::use(Room *room, ServerPlayer *, QList<ServerPlayer *> &targets)
         b->setFlags("-DimengTarget");
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange) {
+        if (triggerEvent == TurnBroken) {
             a->setFlags("-DimengTarget");
             b->setFlags("-DimengTarget");
         }

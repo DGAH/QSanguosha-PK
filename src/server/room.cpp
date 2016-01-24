@@ -402,7 +402,7 @@ void Room::killPlayer(ServerPlayer *victim, DamageStruct *reason)
 
             static QStringList continue_list;
             if (continue_list.isEmpty())
-                continue_list << "02_1v1" << "04_1v3" << "06_XMode";
+                continue_list << "02_1v1" << "06_XMode";
             if (continue_list.contains(Config.GameMode))
                 return;
 
@@ -1859,8 +1859,6 @@ void Room::swapPile()
     tag.insert("SwapPile", ++times);
 
     int limit = Config.value("PileSwappingLimitation", 5).toInt() + 1;
-    if (mode == "04_1v3")
-        limit = qMin(limit, Config.BanPackages.contains("maneuvering") ? 3 : 2);
 
     if (limit > 0 && times == limit)
         gameOver(".");
@@ -2148,9 +2146,6 @@ void Room::prepareForStart()
                     if (role == "lord" && !ServerInfo.EnableHegemony)
                         broadcastProperty(player, "role", "lord");
                     else {
-                        if (mode == "04_1v3")
-                            broadcastProperty(player, "role", role);
-                        else
                             notifyProperty(player, player, "role");
                     }
                 }
@@ -2167,18 +2162,6 @@ void Room::prepareForStart()
 
                     m_players.swap(i, m_players.indexOf(player));
                 }
-            }
-        } else if (mode == "04_1v3") {
-            if (Config.RandomSeat)
-                qShuffle(m_players);
-            ServerPlayer *lord = m_players.at(qrand() % 4);
-            for (int i = 0; i < 4; i++) {
-                ServerPlayer *player = m_players.at(i);
-                if (player == lord)
-                    player->setRole("lord");
-                else
-                    player->setRole("rebel");
-                broadcastProperty(player, "role");
             }
         } else {
             if (Config.RandomSeat)
@@ -2709,44 +2692,6 @@ void Room::run()
 
         connect(thread_1v1, SIGNAL(finished()), this, SLOT(startGame()));
         connect(thread_1v1, SIGNAL(finished()), thread_1v1, SLOT(deleteLater()));
-    } else if (mode == "04_1v3") {
-        ServerPlayer *lord = m_players.first();
-        setPlayerProperty(lord, "general", "shenlvbu1");
-
-        QStringList names;
-        foreach (QString gen_name, GetConfigFromLuaState(Sanguosha->getLuaState(), "hulao_generals").toStringList()) {
-            if (gen_name.startsWith("-")) { // means banned generals
-                names.removeOne(gen_name.mid(1));
-            } else if (gen_name.startsWith("package:")) {
-                QString pack_name = gen_name.mid(8);
-                const Package *pack = Sanguosha->findChild<const Package *>(pack_name);
-                if (pack) {
-                    foreach(const General *general, pack->findChildren<const General *>())
-                    {
-                        if (general->isTotallyHidden())
-                            continue;
-                        if (!names.contains(general->objectName()))
-                            names << general->objectName();
-                    }
-                }
-            } else if (!names.contains(gen_name)) {
-                names << gen_name;
-            }
-        }
-
-        foreach (ServerPlayer *player, m_players) {
-            if (player == lord)
-                continue;
-
-            qShuffle(names);
-            QStringList choices = names.mid(0, 3);
-            QString name = askForGeneral(player, choices);
-
-            setPlayerProperty(player, "general", name);
-            names.removeOne(name);
-        }
-
-        startGame();
     } else {
         chooseGenerals();
         startGame();
@@ -2766,8 +2711,7 @@ void Room::assignRoles()
         QString role = roles.at(i);
 
         player->setRole(role);
-        if ((role == "lord" && !ServerInfo.EnableHegemony)
-            || mode == "04_1v3")
+        if (role == "lord" && !ServerInfo.EnableHegemony)
             broadcastProperty(player, "role", player->getRole());
         else
             notifyProperty(player, player, "role");
@@ -3168,7 +3112,7 @@ bool Room::useCard(const CardUseStruct &use, bool add_history)
         }
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == StageChange || triggerEvent == TurnBroken) {
+        if (triggerEvent == TurnBroken) {
             if (getCardPlace(card_use.card->getEffectiveId()) == Player::PlaceTable) {
                 CardMoveReason reason(CardMoveReason::S_REASON_UNKNOWN, card_use.from->objectName(), QString(), card_use.card->getSkillName(), QString());
                 if (card_use.to.size() == 1) reason.m_targetId = card_use.to.first()->objectName();
@@ -3433,7 +3377,7 @@ void Room::damage(const DamageStruct &data)
         }
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == StageChange || triggerEvent == TurnBroken) {
+        if (triggerEvent == TurnBroken) {
             removeTag("is_chained");
             removeTag("CurrentDamageStruct");
             m_damageStack.clear();
@@ -3552,7 +3496,7 @@ void Room::startGame()
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
         if (Config.Enable2ndGeneral
-            && mode != "02_1v1" && mode != "06_3v3" && mode != "06_XMode" && mode != "04_1v3"
+            && mode != "02_1v1" && mode != "06_3v3" && mode != "06_XMode"
             && !Config.EnableBasara)
             broadcastProperty(player, "general2");
 

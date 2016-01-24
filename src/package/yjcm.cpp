@@ -687,7 +687,7 @@ void MingceCard::onEffect(const CardEffectStruct &effect) const
         room->obtainCard(effect.to, this, reason);
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+        if (triggerEvent == TurnBroken)
             if (target && target->hasFlag("MingceTarget")) target->setFlags("-MingceTarget");
         throw triggerEvent;
     }

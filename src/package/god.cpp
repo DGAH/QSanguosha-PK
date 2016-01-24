@@ -542,7 +542,7 @@ public:
             shencc->setMark("GuixinTimes", n);
         }
         catch (TriggerEvent triggerEvent) {
-            if (triggerEvent == TurnBroken || triggerEvent == StageChange) {
+            if (triggerEvent == TurnBroken) {
                 shencc->setFlags("-GuixinUsing");
                 shencc->setMark("GuixinTimes", n);
             }
@@ -682,7 +682,7 @@ void ShenfenCard::use(Room *room, ServerPlayer *shenlvbu, QList<ServerPlayer *> 
         shenlvbu->setFlags("-ShenfenUsing");
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+        if (triggerEvent == TurnBroken)
             shenlvbu->setFlags("-ShenfenUsing");
         throw triggerEvent;
     }
@@ -1277,7 +1277,7 @@ public:
             player->setMark("JilveEvent", 0);
         }
         catch (TriggerEvent triggerEvent) {
-            if (triggerEvent == StageChange || triggerEvent == TurnBroken)
+            if (triggerEvent == TurnBroken)
                 player->setMark("JilveEvent", 0);
             throw triggerEvent;
         }

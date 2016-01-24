@@ -1258,9 +1258,6 @@ void ServerPlayer::gainAnExtraTurn()
         if (triggerEvent == TurnBroken) {
             if (getPhase() != Player::NotActive) {
                 const GameRule *game_rule = NULL;
-                if (room->getMode() == "04_1v3")
-                    game_rule = qobject_cast<const GameRule *>(Sanguosha->getTriggerSkill("hulaopass_mode"));
-                else
                     game_rule = qobject_cast<const GameRule *>(Sanguosha->getTriggerSkill("game_rule"));
                 if (game_rule) {
                     QVariant v;

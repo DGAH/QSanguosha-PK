@@ -954,7 +954,7 @@ void NosFenchengCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *
         source->setFlags("-NosFenchengUsing");
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+        if (triggerEvent == TurnBroken)
             source->setFlags("-NosFenchengUsing");
         throw triggerEvent;
     }
@@ -1424,16 +1424,11 @@ public:
 
     virtual bool viewFilter(const QList<const Card *> &selected, const Card *to_select) const
     {
-        if (ServerInfo.GameMode == "04_1v3" && selected.length() + Self->getMark("nosrende") >= 2)
-            return false;
-        else
             return !to_select->isEquipped();
     }
 
     virtual bool isEnabledAtPlay(const Player *player) const
     {
-        if (ServerInfo.GameMode == "04_1v3" && player->getMark("nosrende") >= 2)
-            return false;
         return !player->isKongcheng();
     }
 
@@ -1504,7 +1499,7 @@ public:
                     room->judge(judge);
                 }
                 catch (TriggerEvent triggerEvent) {
-                    if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+                    if (triggerEvent == TurnBroken)
                         p->setFlags("-NosTiejiTarget");
                     throw triggerEvent;
                 }

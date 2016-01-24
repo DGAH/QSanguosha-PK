@@ -203,7 +203,7 @@ public:
                     player->setMark(objectName(), 0);
                 }
                 catch (TriggerEvent triggerEvent) {
-                    if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+                    if (triggerEvent == TurnBroken)
                         player->setMark(objectName(), 0);
                     throw triggerEvent;
                 }

@@ -1003,7 +1003,7 @@ public:
                     room->judge(judge);
                 }
                 catch (TriggerEvent triggerEvent) {
-                    if ((triggerEvent == TurnBroken || triggerEvent == StageChange) && caizhaoji->hasFlag("HujiaRetrial"))
+                    if ((triggerEvent == TurnBroken) && caizhaoji->hasFlag("HujiaRetrial"))
                         caizhaoji->setFlags("-HujiaRetrial");
                     throw triggerEvent;
                 }

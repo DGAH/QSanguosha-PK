@@ -253,7 +253,7 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
                     card_use.from->tag["Jink_" + card_use.card->toString()] = QVariant::fromValue(jink_list_backup);
             }
             catch (TriggerEvent triggerEvent) {
-                if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+                if (triggerEvent == TurnBroken)
                     card_use.from->tag.remove("Jink_" + card_use.card->toString());
                 throw triggerEvent;
             }
@@ -702,7 +702,7 @@ void GameRule::changeGeneral1v1(ServerPlayer *player) const
         room->setTag("FirstRound", false);
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+        if (triggerEvent == TurnBroken)
             room->setTag("FirstRound", false);
         throw triggerEvent;
     }
@@ -752,7 +752,7 @@ void GameRule::changeGeneralXMode(ServerPlayer *player) const
         room->setTag("FirstRound", false);
     }
     catch (TriggerEvent triggerEvent) {
-        if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+        if (triggerEvent == TurnBroken)
             room->setTag("FirstRound", false);
         throw triggerEvent;
     }
@@ -871,148 +871,6 @@ QString GameRule::getWinner(ServerPlayer *victim) const
     }
 
     return winner;
-}
-
-HulaoPassMode::HulaoPassMode(QObject *parent)
-    : GameRule(parent)
-{
-    setObjectName("hulaopass_mode");
-    events << HpChanged << StageChange;
-}
-
-bool HulaoPassMode::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
-{
-    switch (triggerEvent) {
-    case StageChange: {
-        ServerPlayer *lord = room->getLord();
-        room->setPlayerMark(lord, "secondMode", 1);
-        room->changeHero(lord, "shenlvbu2", true, true, false, false);
-
-        LogMessage log;
-        log.type = "$AppendSeparator";
-        room->sendLog(log);
-
-        log.type = "#HulaoTransfigure";
-        log.arg = "#shenlvbu1";
-        log.arg2 = "#shenlvbu2";
-        room->sendLog(log);
-
-        //room->doLightbox("$StageChange", 5000);
-        room->doSuperLightbox("shenlvbu2", "StageChange");
-
-        QList<const Card *> tricks = lord->getJudgingArea();
-        if (!tricks.isEmpty()) {
-            DummyCard *dummy = new DummyCard;
-            foreach(const Card *trick, tricks)
-                dummy->addSubcard(trick);
-            CardMoveReason reason(CardMoveReason::S_REASON_NATURAL_ENTER, QString());
-            room->throwCard(dummy, reason, NULL);
-            delete dummy;
-        }
-        if (!lord->faceUp())
-            lord->turnOver();
-        if (lord->isChained())
-            room->setPlayerProperty(lord, "chained", false);
-        break;
-    }
-    case GameStart: {
-        // Handle global events
-        if (player == NULL) {
-            ServerPlayer *lord = room->getLord();
-            lord->drawCards(8);
-            foreach (ServerPlayer *player, room->getPlayers()) {
-                if (!player->isLord())
-                    player->drawCards(player->getSeat() + 1);
-            }
-            return false;
-        }
-        break;
-    }
-    case HpChanged: {
-        if (player->isLord() && player->getHp() <= 4 && player->getMark("secondMode") == 0)
-            throw StageChange;
-        break;
-    }
-    case GameOverJudge: {
-        if (player->isLord())
-            room->gameOver("rebel");
-        else
-            if (room->aliveRoles(player).length() == 1)
-                room->gameOver("lord");
-
-        return false;
-    }
-    case BuryVictim: {
-        if (player->hasFlag("actioned")) room->setPlayerFlag(player, "-actioned");
-
-        LogMessage log;
-        log.type = "#Reforming";
-        log.from = player;
-        room->sendLog(log);
-
-        player->bury();
-        room->setPlayerProperty(player, "hp", 0);
-
-        foreach (ServerPlayer *p, room->getOtherPlayers(room->getLord())) {
-            if (p->isAlive() && p->askForSkillInvoke("draw_1v3"))
-                p->drawCards(1, "draw_1v3");
-        }
-
-        return false;
-    }
-    case TurnStart: {
-        if (player->isDead()) {
-            JsonArray arg;
-            arg << QSanProtocol::S_GAME_EVENT_PLAYER_REFORM << player->objectName();
-            room->doBroadcastNotify(QSanProtocol::S_COMMAND_LOG_EVENT, arg);
-
-            QString choice = player->isWounded() ? "recover" : "draw";
-            if (player->isWounded() && player->getHp() > 0)
-                choice = room->askForChoice(player, "Hulaopass", "recover+draw");
-
-            if (choice == "draw") {
-                LogMessage log;
-                log.type = "#ReformingDraw";
-                log.from = player;
-                log.arg = "1";
-                room->sendLog(log);
-                player->drawCards(1, "reform");
-            } else {
-                LogMessage log;
-                log.type = "#ReformingRecover";
-                log.from = player;
-                log.arg = "1";
-                room->sendLog(log);
-                room->setPlayerProperty(player, "hp", player->getHp() + 1);
-            }
-
-            if (player->getHp() + player->getHandcardNum() == 6) {
-                LogMessage log;
-                log.type = "#ReformingRevive";
-                log.from = player;
-                room->sendLog(log);
-
-                room->revivePlayer(player);
-            }
-        } else {
-            LogMessage log;
-            log.type = "$AppendSeparator";
-            room->sendLog(log);
-            room->addPlayerMark(player, "Global_TurnCount");
-
-            if (!player->faceUp())
-                player->turnOver();
-            else
-                player->play();
-        }
-
-        return false;
-    }
-    default:
-        break;
-    }
-
-    return GameRule::trigger(triggerEvent, room, player, data);
 }
 
 BasaraMode::BasaraMode(QObject *parent)

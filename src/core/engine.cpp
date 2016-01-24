@@ -94,7 +94,6 @@ Engine::Engine()
     modes["02_1v1"] = tr("2 players (KOF style)");
     modes["03p"] = tr("3 players");
     modes["04p"] = tr("4 players");
-    modes["04_1v3"] = tr("4 players (Hulao Pass)");
     modes["05p"] = tr("5 players");
     modes["06p"] = tr("6 players");
     modes["06pd"] = tr("6 players (2 renegades)");
@@ -816,8 +815,6 @@ QString Engine::getRoles(const QString &mode) const
 
     if (mode == "02_1v1") {
         return "ZN";
-    } else if (mode == "04_1v3") {
-        return "ZFFF";
     }
 
     if (modes.contains(mode) || isNormalGameMode(mode)) { // hidden pz settings?
@@ -1038,9 +1035,6 @@ QList<int> Engine::getRandomCards() const
         using_2013_3v3 = (Config.value("3v3/OfficialRule", "2013").toString() == "2013");
         exclude_disaters = !Config.value("3v3/UsingExtension", false).toBool() || Config.value("3v3/ExcludeDisasters", true).toBool();
     }
-
-    if (Config.GameMode == "04_1v3")
-        exclude_disaters = true;
 
     QList<int> list;
     foreach (Card *card, cards) {

@@ -594,7 +594,7 @@ public:
                     room->judge(judge);
                 }
                 catch (TriggerEvent triggerEvent) {
-                    if ((triggerEvent == TurnBroken || triggerEvent == StageChange) && zhenji->hasFlag("LuoshenRetrial"))
+                    if ((triggerEvent == TurnBroken) && zhenji->hasFlag("LuoshenRetrial"))
                         zhenji->setFlags("-LuoshenRetrial");
                     throw triggerEvent;
                 }
@@ -669,22 +669,16 @@ public:
 
     virtual bool viewFilter(const QList<const Card *> &selected, const Card *to_select) const
     {
-        if (ServerInfo.GameMode == "04_1v3" && selected.length() + Self->getMark("rende") >= 2)
-            return false;
-        else {
             if (to_select->isEquipped()) return false;
             if (Sanguosha->currentRoomState()->getCurrentCardUsePattern() == "@@rende") {
                 QList<int> rende_list = StringList2IntList(Self->property("rende").toString().split("+"));
                 return rende_list.contains(to_select->getEffectiveId());
             } else
                 return true;
-        }
     }
 
     virtual bool isEnabledAtPlay(const Player *player) const
     {
-        if (ServerInfo.GameMode == "04_1v3" && player->getMark("rende") >= 2)
-            return false;
         return !player->hasUsed("RendeCard") && !player->isKongcheng();
     }
 

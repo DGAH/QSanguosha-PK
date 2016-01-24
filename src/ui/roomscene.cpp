@@ -543,9 +543,6 @@ void RoomScene::handleGameEvent(const QVariant &args)
             }
             log_box->appendLog(type, player->objectName(), QStringList(), QString(), newHeroName, arg2);
         }
-        if (player->getGeneralName() == "shenlvbu1" && newHeroName == "shenlvbu2"
-            && player->getMark("secondMode") > 0)
-            Sanguosha->playSystemAudioEffect("stagechange");
         if (player != Self) break;
         const General* oldHero = isSecondaryHero ? player->getGeneral2() : player->getGeneral();
         const General* newHero = Sanguosha->getGeneral(newHeroName);
@@ -892,7 +889,7 @@ void RoomScene::updateTable()
     int pad = _m_roomLayout->m_scenePadding + _m_roomLayout->m_photoRoomPadding;
     int tablew = log_box_widget->x() - pad * 2;
     int tableh = sceneRect().height() - pad * 2 - dashboard->boundingRect().height();
-    if ((ServerInfo.GameMode == "04_1v3" || ServerInfo.GameMode == "06_3v3") && game_started)
+    if (ServerInfo.GameMode == "06_3v3" && game_started)
         tableh -= _m_roomLayout->m_photoVDistance;
     int photow = _m_photoLayout->m_normalWidth;
     int photoh = _m_photoLayout->m_normalHeight;
@@ -919,12 +916,7 @@ void RoomScene::updateTable()
         { 3, 3, 7, 7, 7, 7, 4, 4 },
         { 3, 3, 7, 7, 7, 7, 7, 4, 4 }
     };
-    static int hulaoSeatIndex[][3] = {
-        { 1, 1, 1 }, // if self is shenlvbu
-        { 3, 3, 1 },
-        { 3, 1, 4 },
-        { 1, 4, 4 }
-    };
+
     static int kof3v3SeatIndex[][5] = {
         { 3, 1, 1, 1, 4 }, // lord
         { 1, 1, 1, 4, 4 }, // rebel (left), same with loyalist (left)
@@ -1004,10 +996,7 @@ void RoomScene::updateTable()
 
     int *seatToRegion;
     bool pkMode = false;
-    if ((ServerInfo.GameMode == "04_1v3") && game_started) {
-        seatToRegion = hulaoSeatIndex[Self->getSeat() - 1];
-        pkMode = true;
-    } else if (ServerInfo.GameMode == "06_3v3" && game_started) {
+    if (ServerInfo.GameMode == "06_3v3" && game_started) {
         seatToRegion = kof3v3SeatIndex[(Self->getSeat() - 1) % 3];
         pkMode = true;
     } else {
@@ -3328,14 +3317,6 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
                     role = "leader";
                 else
                     role = "guard";
-            } else if (ServerInfo.GameMode == "04_1v3") {
-                int seat = player->getSeat();
-                switch (seat) {
-                case 1: role = "lvbu"; break;
-                case 2: role = "vanguard"; break;
-                case 3: role = "mainstay"; break;
-                case 4: role = "general"; break;
-                }
             } else if (ServerInfo.GameMode == "02_1v1") {
                 if (role == "lord")
                     role = "defensive";

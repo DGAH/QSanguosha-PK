@@ -51,7 +51,6 @@ void RendeCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &tar
     if (old_value < 2 && new_value >= 2)
         room->recover(source, RecoverStruct(source));
 
-    if (room->getMode() == "04_1v3" && source->getMark("rende") >= 2) return;
     if (source->isKongcheng() || source->isDead() || rende_list.isEmpty()) return;
     room->addPlayerHistory(source, "RendeCard", -1);
     if (!room->askForUseCard(source, "@@rende", "@rende-give", -1, Card::MethodNone))
@@ -474,7 +473,7 @@ const Card *JijiangCard::validate(CardUseStruct &cardUse) const
                 QVariant(), Card::MethodResponse, liubei, false, QString(), true);
         }
         catch (TriggerEvent triggerEvent) {
-            if (triggerEvent == TurnBroken || triggerEvent == StageChange) {
+            if (triggerEvent == TurnBroken) {
                 foreach(ServerPlayer *target, targets)
                     target->setFlags("-JijiangTarget");
             }

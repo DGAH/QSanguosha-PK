@@ -436,7 +436,7 @@ public:
                 }
             }
             catch (TriggerEvent triggerEvent) {
-                if (triggerEvent == TurnBroken || triggerEvent == StageChange)
+                if (triggerEvent == TurnBroken)
                     target->setFlags("-bossxixing");
                 throw triggerEvent;
             }
