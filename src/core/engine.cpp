@@ -12,8 +12,6 @@
 #include "lua-wrapper.h"
 #include "room-state.h"
 
-#include "couple-scenario.h"
-
 #include <QFile>
 #include <QTextStream>
 #include <QStringList>
@@ -49,7 +47,6 @@ void Engine::_loadMiniScenarios()
 
 void Engine::_loadModScenarios()
 {
-    addScenario(new CoupleScenario());
 }
 
 void Engine::addPackage(const QString &name)
