@@ -206,7 +206,7 @@ void Settings::init()
 
     QStringList forbid_packages = value("ForbidPackages").toStringList();
     if (forbid_packages.isEmpty()) {
-        forbid_packages << "New3v3Card" << "New3v3_2013Card" << "New1v1Card" << "BossMode" << "JianGeDefense" << "test";
+        forbid_packages << "New3v3Card" << "New3v3_2013Card" << "New1v1Card" << "BossMode" << "test";
 
         setValue("ForbidPackages", forbid_packages);
     }
@@ -214,16 +214,6 @@ void Settings::init()
     Config.BossGenerals = GetConfigFromLuaState(lua, "bossmode_default_boss").toStringList();
     Config.BossLevel = Config.BossGenerals.length();
     Config.BossEndlessSkills = GetConfigFromLuaState(lua, "bossmode_endless_skills").toStringList();
-
-    QVariantMap jiange_defense_kingdoms = GetConfigFromLuaState(lua, "jiange_defense_kingdoms").toMap();
-    foreach(QString key, jiange_defense_kingdoms.keys())
-        Config.JianGeDefenseKingdoms[key] = jiange_defense_kingdoms[key].toString();
-    QVariantMap jiange_defense_machine = GetConfigFromLuaState(lua, "jiange_defense_machine").toMap();
-    foreach(QString key, jiange_defense_machine.keys())
-        Config.JianGeDefenseMachine[key] = jiange_defense_machine[key].toString().split("+");
-    QVariantMap jiange_defense_soul = GetConfigFromLuaState(lua, "jiange_defense_soul").toMap();
-    foreach(QString key, jiange_defense_soul.keys())
-        Config.JianGeDefenseSoul[key] = jiange_defense_soul[key].toString().split("+");
 
 
     QStringList exp_skills = GetConfigFromLuaState(lua, "bossmode_exp_skills").toStringList();

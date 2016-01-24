@@ -105,7 +105,6 @@ Engine::Engine()
     modes["08p"] = tr("8 players");
     modes["08pd"] = tr("8 players (2 renegades)");
     modes["08pz"] = tr("8 players (0 renegade)");
-    modes["08_defense"] = tr("8 players (JianGe Defense)");
     modes["09p"] = tr("9 players");
     modes["10pd"] = tr("10 players");
     modes["10p"] = tr("10 players (1 renegade)");

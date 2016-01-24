@@ -2572,75 +2572,6 @@ void Room::assignGeneralsForPlayers(const QList<ServerPlayer *> &to_assign)
     }
 }
 
-void Room::assignGeneralsForPlayersOfJianGeDefenseMode(const QList<ServerPlayer *> &to_assign)
-{
-    QMap<QString, QSet<QString> > existed;
-    foreach (ServerPlayer *player, m_players) {
-        if (player->property("jiange_defense_type").toString() != "general")
-            continue;
-        if (player->getGeneral())
-            existed[player->getGeneral()->getKingdom()] << player->getGeneralName();
-        if (player->getGeneral2())
-            existed[player->getGeneral2()->getKingdom()] << player->getGeneral2Name();
-    }
-    if (Config.Enable2ndGeneral) {
-        foreach(QString name, BanPair::getAllBanSet())
-        {
-            const General *gen = Sanguosha->getGeneral(name);
-            if (gen)
-                existed[gen->getKingdom()] << name;
-        }
-        if (to_assign.first()->getGeneral()) {
-            foreach(QString name, BanPair::getSecondBanSet())
-            {
-                const General *gen = Sanguosha->getGeneral(name);
-                if (gen)
-                    existed[gen->getKingdom()] << name;
-            }
-        }
-    }
-
-    const int max_choice = Config.value("MaxChoice", 5).toInt();
-    QMap<QString, QStringList> general_choices;
-    foreach (QString key, Config.JianGeDefenseKingdoms.keys()) {
-        QString kingdom = Config.JianGeDefenseKingdoms[key];
-        int total = Sanguosha->getGeneralCount(false, kingdom);
-        general_choices[kingdom] = Sanguosha->getRandomGenerals(total - existed[kingdom].size(), existed[kingdom], kingdom);
-    }
-
-    foreach (ServerPlayer *player, to_assign) {
-        QStringList choices;
-        int choice_count = 0;
-        QString kingdom = Config.JianGeDefenseKingdoms[player->getRole()];
-        QString jiange_defense_type = player->property("jiange_defense_type").toString();
-        if (jiange_defense_type == "general") {
-            int total = Sanguosha->getGeneralCount(false, kingdom);
-            int max_available = (total - existed[kingdom].size()) / 2;
-            choice_count = qMin(max_choice, max_available);
-            choices = general_choices[kingdom];
-        } else if (jiange_defense_type == "machine") {
-            choices = Config.JianGeDefenseMachine[kingdom];
-            choice_count = choices.length();
-        } else if (jiange_defense_type == "soul") {
-            choices = Config.JianGeDefenseSoul[kingdom];
-            choice_count = choices.length();
-        } else {
-            Q_ASSERT(false);
-        }
-
-        player->clearSelected();
-
-        for (int i = 0; i < choice_count; i++) {
-            QString choice = player->findReasonable(choices, true);
-            if (choice.isEmpty()) break;
-            player->addToSelected(choice);
-            choices.removeOne(choice);
-            if (jiange_defense_type == "general")
-                general_choices[kingdom].removeOne(choice);
-        }
-    }
-}
-
 void Room::chooseGenerals(QList<ServerPlayer *> players)
 {
     if (players.isEmpty()) players = m_players;
@@ -2725,49 +2656,6 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
             }
             player->setProperty("basara_generals", names.join("+"));
             notifyProperty(player, player, "basara_generals");
-        }
-    }
-}
-
-void Room::chooseGeneralsOfJianGeDefenseMode()
-{
-    QList<ServerPlayer *> to_assign = m_players;
-
-    assignGeneralsForPlayersOfJianGeDefenseMode(to_assign);
-    foreach(ServerPlayer *player, to_assign)
-        _setupChooseGeneralRequestArgs(player);
-
-    doBroadcastRequest(to_assign, S_COMMAND_CHOOSE_GENERAL);
-    foreach (ServerPlayer *player, to_assign) {
-        if (player->getGeneral() != NULL) continue;
-        QString generalName = player->getClientReply().toString();
-        if (!player->m_isClientResponseReady || !_setPlayerGeneral(player, generalName, true)) {
-            QString result = _chooseDefaultGeneral(player);
-            if (player->property("jiange_defense_type").toString() != "general") { // randomly chosen
-                QStringList selected = player->getSelected();
-                result = selected.at(qrand() % selected.length());
-            }
-            _setPlayerGeneral(player, result, true);
-        }
-    }
-
-    if (Config.Enable2ndGeneral) {
-        QList<ServerPlayer *> to_assign;
-        foreach (ServerPlayer *p, m_players) {
-            if (p->property("jiange_defense_type").toString() == "general")
-                to_assign << p;
-        }
-        assignGeneralsForPlayersOfJianGeDefenseMode(to_assign);
-        foreach(ServerPlayer *player, to_assign)
-            _setupChooseGeneralRequestArgs(player);
-
-        doBroadcastRequest(to_assign, S_COMMAND_CHOOSE_GENERAL);
-        foreach (ServerPlayer *player, to_assign) {
-            if (player->getGeneral2() != NULL) continue;
-            QString generalName = player->getClientReply().toString();
-            if (!player->m_isClientResponseReady || !_setPlayerGeneral(player, generalName, false)) {
-                _setPlayerGeneral(player, _chooseDefaultGeneral(player), false);
-            }
         }
     }
 }
@@ -2874,14 +2762,6 @@ void Room::run()
         QList<ServerPlayer *> players = m_players;
         players.removeOne(lord);
         chooseGenerals(players);
-        startGame();
-    } else if (mode == "08_defense") {
-        QStringList type_list;
-        type_list << "machine" << "general" << "soul" << "general"
-            << "general" << "soul" << "general" << "machine";
-        for (int i = 0; i < 8; i++)
-            setPlayerProperty(m_players.at(i), "jiange_defense_type", type_list.at(i));
-        chooseGeneralsOfJianGeDefenseMode();
         startGame();
     } else {
         chooseGenerals();
