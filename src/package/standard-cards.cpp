@@ -214,9 +214,6 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
     if (use.to.size() > 1 && player->hasSkill("shenji")) {
         room->broadcastSkillInvoke("shenji");
         room->notifySkillInvoked(player, "shenji");
-    } else if (use.to.size() > 1 && player->hasSkill("duanbing")) {
-        room->broadcastSkillInvoke("duanbing");
-        room->notifySkillInvoked(player, "duanbing");
     }
 
     int rangefix = 0;
@@ -354,19 +351,6 @@ bool Slash::targetFilter(const QList<const Player *> &targets, const Player *to_
 
     if (!Self->canSlash(to_select, this, distance_limit, rangefix, targets)) return false;
     if (targets.length() >= slash_targets) {
-        if (Self->hasSkill("duanbing") && targets.length() == slash_targets) {
-            QList<const Player *> duanbing_targets;
-            bool no_other_assignee = true;
-            foreach (const Player *p, targets) {
-                if (Self->distanceTo(p, rangefix) == 1)
-                    duanbing_targets << p;
-                else if (no_other_assignee && Slash::IsSpecificAssignee(p, Self, this))
-                    no_other_assignee = false;
-            }
-            if (no_other_assignee && duanbing_targets.length() == 1 && Slash::IsSpecificAssignee(duanbing_targets.first(), Self, this))
-                return Self->distanceTo(to_select, rangefix) == 1;
-            return !duanbing_targets.isEmpty() || Self->distanceTo(to_select, rangefix) == 1;
-        } else
             return false;
     }
 

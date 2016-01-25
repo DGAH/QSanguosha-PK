@@ -4885,7 +4885,7 @@ SPPackage::SPPackage()
     related_skills.insertMulti("xiaode", "#xiaode");
 
     General *sp_yuejin = new General(this, "sp_yuejin", "wei", 4, true, true); // SP 024
-    sp_yuejin->addSkill("xiaoguo");
+    //sp_yuejin->addSkill("xiaoguo");
 
     General *zhangbao = new General(this, "zhangbao", "qun", 3); // SP 025
     zhangbao->addSkill(new Zhoufu);
@@ -4906,15 +4906,15 @@ SPPackage::SPPackage()
     related_skills.insertMulti("qiangwu", "#qiangwu-target");
 
     General *sp_panfeng = new General(this, "sp_panfeng", "qun", 4, true, true); // SP 029
-    sp_panfeng->addSkill("kuangfu");
+    //sp_panfeng->addSkill("kuangfu");
 
     General *zumao = new General(this, "zumao", "wu"); // SP 030
     zumao->addSkill(new Yinbing);
     zumao->addSkill(new Juedi);
 
     General *sp_dingfeng = new General(this, "sp_dingfeng", "wu", 4, true, true); // SP 031
-    sp_dingfeng->addSkill("duanbing");
-    sp_dingfeng->addSkill("fenxun");
+    //sp_dingfeng->addSkill("duanbing");
+    //sp_dingfeng->addSkill("fenxun");
 
     General *zhugedan = new General(this, "zhugedan", "wei", 4); // SP 032
     zhugedan->addSkill(new Gongao);
@@ -4940,8 +4940,8 @@ SPPackage::SPPackage()
     related_skills.insertMulti("shefu", "#shefu-cancel");
 
     General *sp_ganfuren = new General(this, "sp_ganfuren", "shu", 3, false, true); // SP 037
-    sp_ganfuren->addSkill("shushen");
-    sp_ganfuren->addSkill("shenzhi");
+    //sp_ganfuren->addSkill("shushen");
+    //sp_ganfuren->addSkill("shenzhi");
 
     General *huangjinleishi = new General(this, "huangjinleishi", "qun", 3, false); // SP 038
     huangjinleishi->addSkill(new Fulu);
