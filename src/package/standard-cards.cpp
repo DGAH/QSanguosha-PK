@@ -214,9 +214,6 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
     if (use.to.size() > 1 && player->hasSkill("shenji")) {
         room->broadcastSkillInvoke("shenji");
         room->notifySkillInvoked(player, "shenji");
-    } else if (use.to.size() > 1 && player->hasSkill("lihuo") && use.card->isKindOf("FireSlash") && use.card->getSkillName() != "lihuo") {
-        room->broadcastSkillInvoke("lihuo", 1);
-        room->notifySkillInvoked(player, "lihuo");
     } else if (use.to.size() > 1 && player->hasSkill("duanbing")) {
         room->broadcastSkillInvoke("duanbing");
         room->notifySkillInvoked(player, "duanbing");

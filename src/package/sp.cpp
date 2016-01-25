@@ -5025,15 +5025,15 @@ OLPackage::OLPackage()
     ol_xushu->addSkill("jujian");
 
     General *ol_guanxingzhangbao = new General(this, "ol_guanxingzhangbao", "shu", 4, true, true);
-    ol_guanxingzhangbao->addSkill("fuhun");
+    //ol_guanxingzhangbao->addSkill("fuhun");
 
     General *ol_madai = new General(this, "ol_madai", "shu", 4, true, true);
     ol_madai->addSkill("mashu");
-    ol_madai->addSkill("qianxi");
+    //ol_madai->addSkill("qianxi");
 
     General *ol_wangyi = new General(this, "ol_wangyi", "wei", 3, false, true);
-    ol_wangyi->addSkill("zhenlie");
-    ol_wangyi->addSkill("miji");
+    //ol_wangyi->addSkill("zhenlie");
+    //ol_wangyi->addSkill("miji");
 
     General *ol_yujin = new General(this, "ol_yujin", "wei");
     ol_yujin->addSkill(new Jieyue);
@@ -5041,7 +5041,7 @@ OLPackage::OLPackage()
     General *ol_liubiao = new General(this, "ol_liubiao", "qun", 3);
     ol_liubiao->addSkill(new OlZishou);
     ol_liubiao->addSkill(new OlZishouProhibit);
-    ol_liubiao->addSkill("zongshi");
+    //ol_liubiao->addSkill("zongshi");
 
     addMetaObject<AocaiCard>();
     addMetaObject<DuwuCard>();

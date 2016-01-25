@@ -2030,8 +2030,6 @@ void RoomScene::addSkillButton(const Skill *skill)
         connect(btn, SIGNAL(skill_deactivated()), dialog, SLOT(reject()));
         disconnect(btn, SIGNAL(skill_activated()), this, SLOT(onSkillActivated()));
         connect(dialog, SIGNAL(onButtonClick()), this, SLOT(onSkillActivated()));
-        if (dialog->objectName() == "qice")
-            connect(dialog, SIGNAL(onButtonClick()), dashboard, SLOT(selectAll()));
     }
 
     m_skillButtons.append(btn);
