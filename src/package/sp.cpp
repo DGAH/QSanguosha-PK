@@ -5013,16 +5013,16 @@ OLPackage::OLPackage()
     related_skills.insertMulti("zhanyi", "#zhanyi-trick");
 
     General *ol_fazheng = new General(this, "ol_fazheng", "shu", 3, true, true);
-    ol_fazheng->addSkill("enyuan");
-    ol_fazheng->addSkill("xuanhuo");
+    //ol_fazheng->addSkill("enyuan");
+    //ol_fazheng->addSkill("xuanhuo");
 
     General *ol_masu = new General(this, "ol_masu", "shu", 3);
     ol_masu->addSkill(new Sanyao);
     ol_masu->addSkill(new Zhiman);
 
     General *ol_xushu = new General(this, "ol_xushu", "shu", 3, true, true);
-    ol_xushu->addSkill("wuyan");
-    ol_xushu->addSkill("jujian");
+    //ol_xushu->addSkill("wuyan");
+    //ol_xushu->addSkill("jujian");
 
     General *ol_guanxingzhangbao = new General(this, "ol_guanxingzhangbao", "shu", 4, true, true);
     //ol_guanxingzhangbao->addSkill("fuhun");

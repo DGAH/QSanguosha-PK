@@ -62,6 +62,16 @@ public:
     NostalYJCM2013Package();
 };
 
+class Shangshi : public TriggerSkill
+{
+public:
+	Shangshi();
+	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *zhangchunhua, QVariant &data) const;
+
+protected:
+	virtual int getMaxLostHp(ServerPlayer *zhangchunhua) const;
+};
+
 class Chengxiang : public MasochismSkill
 {
 public:

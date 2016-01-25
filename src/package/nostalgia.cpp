@@ -4,7 +4,6 @@
 #include "client.h"
 #include "engine.h"
 #include "nostalgia.h"
-#include "yjcm.h"
 #include "settings.h"
 #include "wind.h"
 
@@ -302,6 +301,48 @@ public:
         return false;
     }
 };
+
+Shangshi::Shangshi() : TriggerSkill("shangshi")
+{
+	events << HpChanged << MaxHpChanged << CardsMoveOneTime;
+	frequency = Frequent;
+}
+
+int Shangshi::getMaxLostHp(ServerPlayer *zhangchunhua) const
+{
+	int losthp = zhangchunhua->getLostHp();
+	if (losthp > 2)
+		losthp = 2;
+	return qMin(losthp, zhangchunhua->getMaxHp());
+}
+
+bool Shangshi::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *zhangchunhua, QVariant &data) const
+{
+	int losthp = getMaxLostHp(zhangchunhua);
+	if (triggerEvent == CardsMoveOneTime) {
+		bool can_invoke = false;
+		CardsMoveOneTimeStruct move = data.value<CardsMoveOneTimeStruct>();
+		if (move.from == zhangchunhua && move.from_places.contains(Player::PlaceHand))
+			can_invoke = true;
+		if (move.to == zhangchunhua && move.to_place == Player::PlaceHand)
+			can_invoke = true;
+		if (!can_invoke)
+			return false;
+	}
+	else if (triggerEvent == HpChanged || triggerEvent == MaxHpChanged) {
+		if (zhangchunhua->getPhase() == Player::Discard) {
+			zhangchunhua->addMark("shangshi");
+			return false;
+		}
+	}
+
+	if (zhangchunhua->getHandcardNum() < losthp && zhangchunhua->askForSkillInvoke(this)) {
+		room->broadcastSkillInvoke("shangshi");
+		zhangchunhua->drawCards(losthp - zhangchunhua->getHandcardNum(), objectName());
+	}
+
+	return false;
+}
 
 class NosShangshi : public Shangshi
 {
@@ -2498,7 +2539,7 @@ NostalYJCMPackage::NostalYJCMPackage()
     nos_xushu->addSkill(new NosJujian);
 
     General *nos_zhangchunhua = new General(this, "nos_zhangchunhua", "wei", 3, false);
-    nos_zhangchunhua->addSkill("jueqing");
+    //nos_zhangchunhua->addSkill("jueqing");
     nos_zhangchunhua->addSkill(new NosShangshi);
 
     addMetaObject<NosXuanhuoCard>();
