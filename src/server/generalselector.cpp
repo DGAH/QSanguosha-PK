@@ -41,9 +41,6 @@ QString GeneralSelector::selectFirst(ServerPlayer *player, const QStringList &ca
         if (role == "rebel" && lord && lord->getGeneral() && lord->getGeneral()->hasSkill("xueyi")
             && general->getKingdom() == "qun")
             value *= 0.8;
-        if (role != "loyalist" && lord && lord->getGeneral() && lord->getGeneral()->hasSkill("shichou")
-            && general->getKingdom() == "shu")
-            value *= 0.1;
         QString key = QString("_:%1:%2").arg(candidate).arg(role);
         value *= qPow(1.1, first_general_table.value(key, 0.0));
         if (lord) {

@@ -1599,8 +1599,6 @@ public:
         if (!zhouyu->hasInnateSkill(this)) {
             if (zhouyu->hasSkill("hunzi"))
                 index = 5;
-            else if (zhouyu->hasSkill("mouduan"))
-                index += 2;
         }
         room->broadcastSkillInvoke(objectName(), index);
         room->sendCompulsoryTriggerLog(zhouyu, objectName());
@@ -1670,9 +1668,7 @@ public:
                 if (can_trigger && lvmeng->askForSkillInvoke(this)) {
                     if (lvmeng->getHandcardNum() > lvmeng->getMaxCards()) {
                         int index = qrand() % 2 + 1;
-                        if (!lvmeng->hasInnateSkill(this) && lvmeng->hasSkill("mouduan"))
-                            index += 4;
-                        else if (Player::isNostalGeneral(lvmeng, "lvmeng"))
+                        if (Player::isNostalGeneral(lvmeng, "lvmeng"))
                             index += 2;
                         room->broadcastSkillInvoke(objectName(), index);
                     }

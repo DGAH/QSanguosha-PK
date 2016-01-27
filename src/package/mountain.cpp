@@ -409,8 +409,6 @@ public:
             if (use.card->isKindOf("Duel") || (use.card->isKindOf("Slash") && use.card->isRed())) {
                 if (sunce->askForSkillInvoke(this, data)) {
                     int index = 1;
-                    if (!sunce->hasInnateSkill(this) && sunce->hasSkill("mouduan"))
-                        index += 2;
                     room->broadcastSkillInvoke(objectName(), index + (use.from == sunce ? 0 : 1));
                     sunce->drawCards(1, objectName());
                 }
