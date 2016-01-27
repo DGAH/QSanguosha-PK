@@ -21,7 +21,7 @@ void RoomThread1v1::run()
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
     QString rule = Config.value("1v1/Rule", "2013").toString();
     int total_num = rule != "Classical" ? 12 : 10;
-
+	/*
     if (!Config.value("1v1/UsingExtension", false).toBool()) {
         const Package *stdpack = Sanguosha->findChild<const Package *>("standard");
         const Package *windpack = Sanguosha->findChild<const Package *>("wind");
@@ -53,6 +53,9 @@ void RoomThread1v1::run()
         QSet<QString> banset = Config.value("Banlist/1v1").toStringList().toSet();
         general_names = Sanguosha->getRandomGenerals(total_num, banset);
     }
+	*/
+	QSet<QString> banset = Config.value("Banlist/1v1").toStringList().toSet();
+	general_names = Sanguosha->getRandomGenerals(total_num, banset);
 
     if (rule == "Classical") {
         QStringList known_list = general_names.mid(0, 6);
