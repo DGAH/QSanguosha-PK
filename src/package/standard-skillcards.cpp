@@ -448,9 +448,6 @@ const Card *JijiangCard::validate(CardUseStruct &cardUse) const
     QList<ServerPlayer *> targets = cardUse.to;
     Room *room = liubei->getRoom();
 
-    if (!liubei->isLord() && liubei->hasSkill("weidi"))
-        room->broadcastSkillInvoke("weidi");
-    else
         liubei->broadcastSkillInvoke(this);
 
     room->notifySkillInvoked(liubei, "jijiang");

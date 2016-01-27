@@ -4,6 +4,9 @@
 #include "package.h"
 #include "card.h"
 #include "skill.h"
+#include <qdialog.h>
+#include <qabstractbutton.h>
+#include <qlayout.h>
 
 class StandardPackage : public Package
 {
@@ -446,6 +449,38 @@ public:
 
     virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const;
     virtual void onEffect(const CardEffectStruct &effect) const;
+};
+
+class Yongsi : public TriggerSkill
+{
+public:
+	Yongsi();
+	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *yuanshu, QVariant &data) const;
+
+protected:
+	virtual int getKingdoms(ServerPlayer *yuanshu) const;
+};
+
+class WeidiDialog : public QDialog
+{
+	Q_OBJECT
+
+public:
+	static WeidiDialog *getInstance();
+
+	public slots:
+	void popup();
+	void selectSkill(QAbstractButton *button);
+
+private:
+	explicit WeidiDialog();
+
+	QAbstractButton *createSkillButton(const QString &skill_name);
+	QButtonGroup *group;
+	QVBoxLayout *button_layout;
+
+signals:
+	void onButtonClick();
 };
 
 #endif

@@ -98,9 +98,7 @@ public:
             while (!caopis.isEmpty()) {
                 ServerPlayer *caopi = room->askForPlayerChosen(player, caopis, objectName(), "@songwei-to", true);
                 if (caopi) {
-                    if (!caopi->isLord() && caopi->hasSkill("weidi"))
-                        room->broadcastSkillInvoke("weidi");
-                    else
+
                         room->broadcastSkillInvoke(objectName(), player->isMale() ? 1 : 2);
 
                     room->notifySkillInvoked(caopi, objectName());
@@ -873,9 +871,6 @@ public:
             QString result = room->askForChoice(dongzhuo, "benghuai", "hp+maxhp");
             int index = (dongzhuo->isFemale()) ? 2 : 1;
 
-            if (!dongzhuo->hasInnateSkill(this) && dongzhuo->getMark("juyi") > 0)
-                index = 3;
-
             room->broadcastSkillInvoke(objectName(), index);
             if (result == "hp")
                 room->loseHp(dongzhuo);
@@ -930,9 +925,7 @@ public:
                     room->judge(judge);
 
                     if (judge.isGood()) {
-                        if (!dongzhuo->isLord() && dongzhuo->hasSkill("weidi"))
-                            room->broadcastSkillInvoke("weidi");
-                        else
+
                             room->broadcastSkillInvoke(objectName());
 
                         room->recover(dongzhuo, RecoverStruct(player));

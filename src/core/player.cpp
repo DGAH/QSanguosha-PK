@@ -83,12 +83,6 @@ int Player::getLostHp() const
 
 bool Player::isWounded() const
 {
-
-    foreach (const Player *p, getAliveSiblings()) {
-        if (p->phase != NotActive && p->hasLordSkill("guiming") && getKingdom() == "wu")
-            return true;
-    }
-
     if (hp < 0)
         return true;
     else
@@ -439,16 +433,6 @@ bool Player::hasInnateSkill(const Skill *skill) const
 
 bool Player::hasLordSkill(const QString &skill_name, bool include_lose) const
 {
-    if (!isLord() && hasSkill("weidi")) {
-        foreach (const Player *player, getAliveSiblings()) {
-            if (player->isLord()) {
-                if (player->hasLordSkill(skill_name, true))
-                    return true;
-                break;
-            }
-        }
-    }
-
     if (!hasSkill(skill_name, include_lose))
         return false;
 

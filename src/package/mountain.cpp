@@ -487,9 +487,6 @@ void ZhibaCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &tar
         return;
     }
 
-    if (!sunce->isLord() && sunce->hasSkill("weidi"))
-        room->broadcastSkillInvoke("weidi");
-    else
         room->broadcastSkillInvoke("zhiba", 1);
 
     source->pindian(sunce, "zhiba_pindian", NULL);
@@ -645,9 +642,7 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
     {
         int index = qrand() % 2 + 1;
-        if (!player->hasInnateSkill(this) && player->hasSkill("baobian"))
-            index += 3;
-        else if (player->hasArmorEffect("eight_diagram") || player->hasArmorEffect("bazhen"))
+        if (player->hasArmorEffect("eight_diagram") || player->hasArmorEffect("bazhen"))
             index = 3;
         return index;
     }
@@ -1017,17 +1012,8 @@ public:
             log.arg2 = objectName();
             room->sendLog(log);
 
-            if (!liushan->isLord() && liushan->hasSkill("weidi")) {
-                room->broadcastSkillInvoke("weidi");
-                QString generalName = "yuanshu";
-                if (liushan->getGeneralName() == "tw_yuanshu" || (liushan->getGeneral2() != NULL && liushan->getGeneral2Name() == "tw_yuanshu"))
-                    generalName = "tw_yuanshu";
-
-                room->doSuperLightbox(generalName, "ruoyu");
-            } else {
                 room->broadcastSkillInvoke(objectName());
                 room->doSuperLightbox("liushan", "ruoyu");
-            }
 
             room->setPlayerMark(liushan, "ruoyu", 1);
             if (room->changeMaxHpForAwakenSkill(liushan, 1)) {

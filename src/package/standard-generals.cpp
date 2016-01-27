@@ -8,11 +8,13 @@
 #include "standard-skillcards.h"
 #include "ai.h"
 #include "settings.h"
-#include "sp.h"
+//#include "sp.h"
 #include "wind.h"
 #include "god.h"
 #include "maneuvering.h"
 #include "json.h"
+#include <QHBoxLayout>
+#include <QCommandLinkButton>
 
 class Jianxiong : public MasochismSkill
 {
@@ -2062,9 +2064,7 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
     {
         int index = qrand() % 2 + 1;
-        if (!player->hasInnateSkill(this) && player->hasSkill("luoyan"))
-            index += 4;
-        else if (Player::isNostalGeneral(player, "daqiao"))
+        if (Player::isNostalGeneral(player, "daqiao"))
             index += 2;
 
         return index;
@@ -2840,7 +2840,7 @@ void StandardPackage::addGenerals()
 
     General *st_gongsunzan = new General(this, "st_gongsunzan", "qun"); // QUN 026
     st_gongsunzan->addSkill(new Qiaomeng);
-    st_gongsunzan->addSkill("yicong");
+    //st_gongsunzan->addSkill("yicong");
 
     // for skill cards
     addMetaObject<ZhihengCard>();
@@ -2938,6 +2938,55 @@ public:
     }
 };
 
+Yongsi::Yongsi() : TriggerSkill("yongsi")
+{
+	events << DrawNCards << EventPhaseStart;
+	frequency = Compulsory;
+}
+
+int Yongsi::getKingdoms(ServerPlayer *yuanshu) const
+{
+	QSet<QString> kingdom_set;
+	Room *room = yuanshu->getRoom();
+	foreach(ServerPlayer *p, room->getAlivePlayers())
+		kingdom_set << p->getKingdom();
+
+	return kingdom_set.size();
+}
+
+bool Yongsi::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *yuanshu, QVariant &data) const
+{
+	if (triggerEvent == DrawNCards) {
+		int x = getKingdoms(yuanshu);
+		data = data.toInt() + x;
+
+		Room *room = yuanshu->getRoom();
+		LogMessage log;
+		log.type = "#YongsiGood";
+		log.from = yuanshu;
+		log.arg = QString::number(x);
+		log.arg2 = objectName();
+		room->sendLog(log);
+		room->notifySkillInvoked(yuanshu, objectName());
+
+		room->broadcastSkillInvoke("yongsi", x % 2 + 1);
+	}
+	else if (triggerEvent == EventPhaseStart && yuanshu->getPhase() == Player::Discard) {
+		int x = getKingdoms(yuanshu);
+		LogMessage log;
+		log.type = yuanshu->getCardCount() > x ? "#YongsiBad" : "#YongsiWorst";
+		log.from = yuanshu;
+		log.arg = QString::number(log.type == "#YongsiBad" ? x : yuanshu->getCardCount());
+		log.arg2 = objectName();
+		room->sendLog(log);
+		room->notifySkillInvoked(yuanshu, objectName());
+		if (x > 0)
+			room->askForDiscard(yuanshu, "yongsi", x, x, false, true);
+	}
+
+	return false;
+}
+
 class SuperYongsi : public Yongsi
 {
 public:
@@ -2950,6 +2999,180 @@ public:
     {
         return yuanshu->getMark("@yongsi_test");
     }
+};
+
+class WeidiViewAsSkill : public ViewAsSkill
+{
+public:
+	WeidiViewAsSkill() : ViewAsSkill("weidi")
+	{
+	}
+
+	static QList<const ViewAsSkill *> getLordViewAsSkills(const Player *player)
+	{
+		const Player *lord = NULL;
+		foreach(const Player *p, player->getAliveSiblings()) {
+			if (p->isLord()) {
+				lord = p;
+				break;
+			}
+		}
+		if (!lord) return QList<const ViewAsSkill *>();
+
+		QList<const ViewAsSkill *> vs_skills;
+		foreach(const Skill *skill, lord->getVisibleSkillList()) {
+			if (skill->isLordSkill() && player->hasLordSkill(skill->objectName())) {
+				const ViewAsSkill *vs = ViewAsSkill::parseViewAsSkill(skill);
+				if (vs)
+					vs_skills << vs;
+			}
+		}
+		return vs_skills;
+	}
+
+	virtual bool isEnabledAtPlay(const Player *player) const
+	{
+		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		foreach(const ViewAsSkill *skill, vs_skills) {
+			if (skill->isEnabledAtPlay(player))
+				return true;
+		}
+		return false;
+	}
+
+	virtual bool isEnabledAtResponse(const Player *player, const QString &pattern) const
+	{
+		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		foreach(const ViewAsSkill *skill, vs_skills) {
+			if (skill->isEnabledAtResponse(player, pattern))
+				return true;
+		}
+		return false;
+	}
+
+	virtual bool isEnabledAtNullification(const ServerPlayer *player) const
+	{
+		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		foreach(const ViewAsSkill *skill, vs_skills) {
+			if (skill->isEnabledAtNullification(player))
+				return true;
+		}
+		return false;
+	}
+
+	virtual bool viewFilter(const QList<const Card *> &selected, const Card *to_select) const
+	{
+		QString skill_name = Self->tag["weidi"].toString();
+		if (skill_name.isEmpty()) return false;
+		const ViewAsSkill *vs_skill = Sanguosha->getViewAsSkill(skill_name);
+		if (vs_skill) return vs_skill->viewFilter(selected, to_select);
+		return false;
+	}
+
+	virtual const Card *viewAs(const QList<const Card *> &cards) const
+	{
+		QString skill_name = Self->tag["weidi"].toString();
+		if (skill_name.isEmpty()) return NULL;
+		const ViewAsSkill *vs_skill = Sanguosha->getViewAsSkill(skill_name);
+		if (vs_skill) return vs_skill->viewAs(cards);
+		return NULL;
+	}
+};
+
+WeidiDialog *WeidiDialog::getInstance()
+{
+	static WeidiDialog *instance;
+	if (instance == NULL)
+		instance = new WeidiDialog();
+
+	return instance;
+}
+
+WeidiDialog::WeidiDialog()
+{
+	setObjectName("weidi");
+	setWindowTitle(Sanguosha->translate("weidi"));
+	group = new QButtonGroup(this);
+
+	button_layout = new QVBoxLayout;
+	setLayout(button_layout);
+	connect(group, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(selectSkill(QAbstractButton *)));
+}
+
+void WeidiDialog::popup()
+{
+	Self->tag.remove(objectName());
+	foreach(QAbstractButton *button, group->buttons()) {
+		button_layout->removeWidget(button);
+		group->removeButton(button);
+		delete button;
+	}
+
+	QList<const ViewAsSkill *> vs_skills = WeidiViewAsSkill::getLordViewAsSkills(Self);
+	int count = 0;
+	QString name;
+	foreach(const ViewAsSkill *skill, vs_skills) {
+		QAbstractButton *button = createSkillButton(skill->objectName());
+		button->setEnabled(skill->isAvailable(Self, Sanguosha->currentRoomState()->getCurrentCardUseReason(),
+			Sanguosha->currentRoomState()->getCurrentCardUsePattern()));
+		if (button->isEnabled()) {
+			count++;
+			name = skill->objectName();
+		}
+		button_layout->addWidget(button);
+	}
+
+	if (count == 0) {
+		emit onButtonClick();
+		return;
+	}
+	else if (count == 1) {
+		Self->tag[objectName()] = name;
+		emit onButtonClick();
+		return;
+	}
+
+	exec();
+}
+
+void WeidiDialog::selectSkill(QAbstractButton *button)
+{
+	Self->tag[objectName()] = button->objectName();
+	emit onButtonClick();
+	accept();
+}
+
+QAbstractButton *WeidiDialog::createSkillButton(const QString &skill_name)
+{
+	const Skill *skill = Sanguosha->getSkill(skill_name);
+	if (!skill) return NULL;
+
+	QCommandLinkButton *button = new QCommandLinkButton(Sanguosha->translate(skill_name));
+	button->setObjectName(skill_name);
+	button->setToolTip(skill->getDescription());
+
+	group->addButton(button);
+	return button;
+}
+
+class Weidi : public GameStartSkill
+{
+public:
+	Weidi() : GameStartSkill("weidi")
+	{
+		frequency = Compulsory;
+		view_as_skill = new WeidiViewAsSkill;
+	}
+
+	virtual void onGameStart(ServerPlayer *) const
+	{
+		return;
+	}
+
+	virtual QDialog *getDialog() const
+	{
+		return WeidiDialog::getInstance();
+	}
 };
 
 class SuperJushou : public Jushou
@@ -3172,6 +3395,113 @@ public:
 	}
 };
 
+class Xiuluo : public PhaseChangeSkill
+{
+public:
+	Xiuluo() : PhaseChangeSkill("xiuluo")
+	{
+	}
+
+	virtual bool triggerable(const ServerPlayer *target) const
+	{
+		return PhaseChangeSkill::triggerable(target)
+			&& target->getPhase() == Player::Start
+			&& target->canDiscard(target, "h")
+			&& hasDelayedTrick(target);
+	}
+
+	virtual bool onPhaseChange(ServerPlayer *target) const
+	{
+		Room *room = target->getRoom();
+		while (hasDelayedTrick(target) && target->canDiscard(target, "h")) {
+			QStringList suits;
+			foreach(const Card *jcard, target->getJudgingArea()) {
+				if (!suits.contains(jcard->getSuitString()))
+					suits << jcard->getSuitString();
+			}
+
+			const Card *card = room->askForCard(target, QString(".|%1|.|hand").arg(suits.join(",")),
+				"@xiuluo", QVariant(), objectName());
+			if (!card || !hasDelayedTrick(target)) break;
+			room->broadcastSkillInvoke(objectName());
+
+			QList<int> avail_list, other_list;
+			foreach(const Card *jcard, target->getJudgingArea()) {
+				if (jcard->isKindOf("SkillCard")) continue;
+				if (jcard->getSuit() == card->getSuit())
+					avail_list << jcard->getEffectiveId();
+				else
+					other_list << jcard->getEffectiveId();
+			}
+			room->fillAG(avail_list + other_list, NULL, other_list);
+			int id = room->askForAG(target, avail_list, false, objectName());
+			room->clearAG();
+			room->throwCard(id, NULL);
+		}
+
+		return false;
+	}
+
+private:
+	static bool hasDelayedTrick(const ServerPlayer *target)
+	{
+		foreach(const Card *card, target->getJudgingArea())
+		if (!card->isKindOf("SkillCard")) return true;
+		return false;
+	}
+};
+
+class Shenwei : public DrawCardsSkill
+{
+public:
+	Shenwei() : DrawCardsSkill("#shenwei-draw")
+	{
+		frequency = Compulsory;
+	}
+
+	virtual int getDrawNum(ServerPlayer *player, int n) const
+	{
+		Room *room = player->getRoom();
+
+		room->broadcastSkillInvoke("shenwei");
+		room->sendCompulsoryTriggerLog(player, "shenwei");
+
+		return n + 2;
+	}
+};
+
+class ShenweiKeep : public MaxCardsSkill
+{
+public:
+	ShenweiKeep() : MaxCardsSkill("shenwei")
+	{
+	}
+
+	virtual int getExtra(const Player *target) const
+	{
+		if (target->hasSkill(this))
+			return 2;
+		else
+			return 0;
+	}
+};
+
+class Shenji : public TargetModSkill
+{
+public:
+	Shenji() : TargetModSkill("shenji")
+	{
+	}
+
+	virtual int getExtraTargetNum(const Player *from, const Card *) const
+	{
+		if (from->hasSkill(this) && from->getWeapon() == NULL)
+			return 2;
+		else
+			return 0;
+	}
+};
+
 TestPackage::TestPackage()
     : Package("test")
 {
@@ -3196,7 +3526,7 @@ TestPackage::TestPackage()
     super_yuanshu->addSkill(new SuperYongsi);
     super_yuanshu->addSkill(new MarkAssignSkill("@yongsi_test", 4));
     related_skills.insertMulti("super_yongsi", "#@yongsi_test-4");
-    super_yuanshu->addSkill("weidi");
+    super_yuanshu->addSkill(new Weidi);
 
     General *super_caoren = new General(this, "super_caoren", "wei", 4, true, true);
     super_caoren->addSkill(new SuperJushou);
@@ -3215,6 +3545,19 @@ TestPackage::TestPackage()
 
 	zombie->addSkill("paoxiao");
 	zombie->addSkill("wansha");
+
+	General *shenlvbu1 = new General(this, "shenlvbu1", "god", 8, true, true); // SP 008 (2-1)
+	shenlvbu1->addSkill("mashu");
+	shenlvbu1->addSkill("wushuang");
+
+	General *shenlvbu2 = new General(this, "shenlvbu2", "god", 4, true, true); // SP 008 (2-2)
+	shenlvbu2->addSkill("mashu");
+	shenlvbu2->addSkill("wushuang");
+	shenlvbu2->addSkill(new Xiuluo);
+	shenlvbu2->addSkill(new ShenweiKeep);
+	shenlvbu2->addSkill(new Shenwei);
+	shenlvbu2->addSkill(new Shenji);
+	related_skills.insertMulti("shenwei", "#shenwei-draw");
 
     new General(this, "sujiang", "god", 5, true, true);
     new General(this, "sujiangf", "god", 5, false, true);

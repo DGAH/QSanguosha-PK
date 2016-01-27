@@ -118,14 +118,10 @@ void HuangtianCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> 
     if (zhangjiao->hasLordSkill("huangtian")) {
         room->setPlayerFlag(zhangjiao, "HuangtianInvoked");
 
-        if (!zhangjiao->isLord() && zhangjiao->hasSkill("weidi"))
-            room->broadcastSkillInvoke("weidi");
-        else {
             int index = qrand() % 2 + 1;
             if (Player::isNostalGeneral(zhangjiao, "zhangjiao"))
                 index += 2;
             room->broadcastSkillInvoke("huangtian", index);
-        }
 
         room->notifySkillInvoked(zhangjiao, "huangtian");
         CardMoveReason reason(CardMoveReason::S_REASON_GIVE, source->objectName(), zhangjiao->objectName(), "huangtian", QString());
@@ -337,8 +333,7 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
     {
         int index = qrand() % 2 + 1;
-        if (!player->hasInnateSkill(this) && player->hasSkill("baobian"))
-            index += 2;
+
         return index;
     }
 };
@@ -685,8 +680,6 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
     {
         int index = qrand() % 2 + 1;
-        if (!player->hasInnateSkill(this) && player->hasSkill("luoyan"))
-            index += 2;
 
         return index;
     }
@@ -749,15 +742,6 @@ bool GuhuoDialog::isButtonEnabled(const QString &button_name) const
 
 void GuhuoDialog::popup()
 {
-    // for zhanyi
-
-    if (objectName() == "zhanyi" && Self->getMark("ViewAsSkill_zhanyiEffect") == 0) {
-        emit onButtonClick();
-        return;
-    }
-
-    // end
-
     if (play_only && Sanguosha->currentRoomState()->getCurrentCardUseReason() != CardUseStruct::CARD_USE_REASON_PLAY) {
         emit onButtonClick();
         return;
@@ -788,8 +772,6 @@ void GuhuoDialog::selectCard(QAbstractButton *button)
             Self->tag["GuhuoSlash"] = button->objectName();
         else if (objectName() == "nosguhuo")
             Self->tag["NosGuhuoSlash"] = button->objectName();
-        else if (objectName() == "zhanyi")
-            Self->tag["ZhanyiSlash"] = button->objectName();
     }
     emit onButtonClick();
     accept();
