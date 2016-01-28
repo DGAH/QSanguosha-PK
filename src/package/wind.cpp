@@ -770,8 +770,6 @@ void GuhuoDialog::selectCard(QAbstractButton *button)
     if (button->objectName().contains("slash")) {
         if (objectName() == "guhuo")
             Self->tag["GuhuoSlash"] = button->objectName();
-        else if (objectName() == "nosguhuo")
-            Self->tag["NosGuhuoSlash"] = button->objectName();
     }
     emit onButtonClick();
     accept();

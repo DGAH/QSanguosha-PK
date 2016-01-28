@@ -1,6 +1,6 @@
 #include "aux-skills.h"
 #include "clientplayer.h"
-#include "nostalgia.h"
+#include "auxpack.h"
 #include "engine.h"
 
 DiscardSkill::DiscardSkill()

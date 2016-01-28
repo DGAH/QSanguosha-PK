@@ -567,7 +567,7 @@ public:
     virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *zhenji, QVariant &data) const
     {
         if (triggerEvent == EventPhaseStart && zhenji->getPhase() == Player::Start) {
-            bool canRetrial = zhenji->hasSkills("guicai|nosguicai|guidao");
+            bool canRetrial = zhenji->hasSkills("guicai|guidao");
             bool first = true;
             while (zhenji->askForSkillInvoke("luoshen")) {
                 if (first) {
