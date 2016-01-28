@@ -234,9 +234,6 @@ QString TrustAI::askForKingdom()
     case Player::Lord: role = kingdoms.at(qrand() % kingdoms.length()); break;
     case Player::Renegade:
     case Player::Rebel: {
-        if ((lord->hasLordSkill("xueyi") && self->getRoleEnum() == Player::Rebel))
-            role = "wei";
-        else
             role = lord->getKingdom();
         break;
     }

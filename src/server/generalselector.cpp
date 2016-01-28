@@ -38,9 +38,6 @@ QString GeneralSelector::selectFirst(ServerPlayer *player, const QStringList &ca
         const General *general = Sanguosha->getGeneral(candidate);
         if (role == "loyalist" && lord && (general->getKingdom() == lord->getKingdom() || general->getKingdom() == "god"))
             value *= 1.04;
-        if (role == "rebel" && lord && lord->getGeneral() && lord->getGeneral()->hasSkill("xueyi")
-            && general->getKingdom() == "qun")
-            value *= 0.8;
         QString key = QString("_:%1:%2").arg(candidate).arg(role);
         value *= qPow(1.1, first_general_table.value(key, 0.0));
         if (lord) {

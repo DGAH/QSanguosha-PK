@@ -661,10 +661,6 @@ bool Player::hasArmorEffect(const QString &armor_name) const
         if (alladj) return false;
     }
 
-    if (armor == NULL && alive) {
-        if (armor_name == "eight_diagram" && hasSkill("bazhen"))
-            return true;
-    }
     if (!armor) return false;
     if (armor->objectName() == armor_name || armor->isKindOf(armor_name.toStdString().c_str())) return true;
     const Card *real_armor = Sanguosha->getEngineCard(armor->getEffectiveId());
