@@ -3607,6 +3607,196 @@ public:
 	}
 };
 
+class Jiuchi : public OneCardViewAsSkill
+{
+public:
+	Jiuchi() : OneCardViewAsSkill("jiuchi")
+	{
+		filter_pattern = ".|spade|.|hand";
+		response_or_use = true;
+	}
+
+	virtual bool isEnabledAtPlay(const Player *player) const
+	{
+		return Analeptic::IsAvailable(player);
+	}
+
+	virtual bool isEnabledAtResponse(const Player *, const QString &pattern) const
+	{
+		return  pattern.contains("analeptic");
+	}
+
+	virtual const Card *viewAs(const Card *originalCard) const
+	{
+		Analeptic *analeptic = new Analeptic(originalCard->getSuit(), originalCard->getNumber());
+		analeptic->setSkillName(objectName());
+		analeptic->addSubcard(originalCard->getId());
+		return analeptic;
+	}
+};
+
+class Roulin : public TriggerSkill
+{
+public:
+	Roulin() : TriggerSkill("roulin")
+	{
+		events << TargetConfirmed << TargetSpecified;
+		frequency = Compulsory;
+	}
+
+	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
+	{
+		CardUseStruct use = data.value<CardUseStruct>();
+		if (use.card->isKindOf("Slash")) {
+			QVariantList jink_list = use.from->tag["Jink_" + use.card->toString()].toList();
+			int index = 0;
+			bool play_effect = false;
+			if (triggerEvent == TargetSpecified) {
+				foreach(ServerPlayer *p, use.to) {
+					if (p->isFemale()) {
+						play_effect = true;
+						if (jink_list.at(index).toInt() == 1)
+							jink_list.replace(index, QVariant(2));
+					}
+					index++;
+				}
+				use.from->tag["Jink_" + use.card->toString()] = QVariant::fromValue(jink_list);
+				if (play_effect) {
+					room->broadcastSkillInvoke(objectName(), 1);
+					room->sendCompulsoryTriggerLog(use.from, objectName());
+				}
+			}
+			else if (triggerEvent == TargetConfirmed && use.from->isFemale()) {
+				foreach(ServerPlayer *p, use.to) {
+					if (p == player) {
+						if (jink_list.at(index).toInt() == 1) {
+							play_effect = true;
+							jink_list.replace(index, QVariant(2));
+						}
+					}
+					index++;
+				}
+				use.from->tag["Jink_" + use.card->toString()] = QVariant::fromValue(jink_list);
+
+				if (play_effect) {
+					bool drunk = (use.card->tag.value("drunk", 0).toInt() > 0);
+					int index = drunk ? 3 : 2;
+					room->broadcastSkillInvoke(objectName(), index);
+					room->sendCompulsoryTriggerLog(player, objectName());
+				}
+			}
+		}
+
+		return false;
+	}
+};
+
+class Baonue : public TriggerSkill
+{
+public:
+	Baonue() : TriggerSkill("baonue$")
+	{
+		events << Damage << PreDamageDone;
+		global = true;
+	}
+
+	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
+	{
+		DamageStruct damage = data.value<DamageStruct>();
+		if (triggerEvent == PreDamageDone && damage.from)
+			damage.from->tag["InvokeBaonue"] = damage.from->getKingdom() == "qun";
+		else if (triggerEvent == Damage && player->tag.value("InvokeBaonue", false).toBool() && player->isAlive()) {
+			QList<ServerPlayer *> dongzhuos;
+			foreach(ServerPlayer *p, room->getOtherPlayers(player)) {
+				if (p->hasLordSkill(this))
+					dongzhuos << p;
+			}
+
+			while (!dongzhuos.isEmpty()) {
+				ServerPlayer *dongzhuo = room->askForPlayerChosen(player, dongzhuos, objectName(), "@baonue-to", true);
+				if (dongzhuo) {
+					dongzhuos.removeOne(dongzhuo);
+
+					LogMessage log;
+					log.type = "#InvokeOthersSkill";
+					log.from = player;
+					log.to << dongzhuo;
+					log.arg = objectName();
+					room->sendLog(log);
+					room->notifySkillInvoked(dongzhuo, objectName());
+
+					JudgeStruct judge;
+					judge.pattern = ".|spade";
+					judge.good = true;
+					judge.reason = objectName();
+					judge.who = player;
+
+					room->judge(judge);
+
+					if (judge.isGood()) {
+
+						room->broadcastSkillInvoke(objectName());
+
+						room->recover(dongzhuo, RecoverStruct(player));
+					}
+				}
+				else
+					break;
+			}
+		}
+		return false;
+	}
+};
+
+class Wansha : public TriggerSkill
+{
+public:
+	Wansha() : TriggerSkill("wansha")
+	{
+		// just to broadcast audio effects and to send log messages
+		// main part in the AskForPeaches trigger of Game Rule
+		events << AskForPeaches;
+		frequency = Compulsory;
+	}
+
+	virtual bool triggerable(const ServerPlayer *target) const
+	{
+		return target != NULL;
+	}
+
+	virtual int getPriority(TriggerEvent) const
+	{
+		return 7;
+	}
+
+	virtual bool trigger(TriggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
+	{
+		if (player == room->getAllPlayers().first()) {
+			DyingStruct dying = data.value<DyingStruct>();
+			ServerPlayer *jiaxu = room->getCurrent();
+			if (!jiaxu || !TriggerSkill::triggerable(jiaxu) || jiaxu->getPhase() == Player::NotActive)
+				return false;
+			if (jiaxu->hasInnateSkill("wansha"))
+				room->broadcastSkillInvoke(objectName());
+
+			room->notifySkillInvoked(jiaxu, objectName());
+
+			LogMessage log;
+			log.from = jiaxu;
+			log.arg = objectName();
+			if (jiaxu != dying.who) {
+				log.type = "#WanshaTwo";
+				log.to << dying.who;
+			}
+			else {
+				log.type = "#WanshaOne";
+			}
+			room->sendLog(log);
+		}
+		return false;
+	}
+};
+
 TestPackage::TestPackage()
     : Package("test")
 {
@@ -3639,9 +3829,9 @@ TestPackage::TestPackage()
     related_skills.insertMulti("super_jushou", "#@jushou_test-5");
 
     General *nobenghuai_dongzhuo = new General(this, "nobenghuai_dongzhuo$", "qun", 4, true, true);
-    nobenghuai_dongzhuo->addSkill("jiuchi");
-    nobenghuai_dongzhuo->addSkill("roulin");
-    nobenghuai_dongzhuo->addSkill("baonue");
+    nobenghuai_dongzhuo->addSkill(new Jiuchi);
+    nobenghuai_dongzhuo->addSkill(new Roulin);
+    nobenghuai_dongzhuo->addSkill(new Baonue);
 
 	General *zombie = new General(this, "zombie", "die", 3, true, true);
 	zombie->addSkill(new Xunmeng);
@@ -3649,7 +3839,7 @@ TestPackage::TestPackage()
 	zombie->addSkill(new Zaibian);
 
 	zombie->addSkill("paoxiao");
-	zombie->addSkill("wansha");
+	zombie->addSkill(new Wansha);
 
 	General *shenlvbu1 = new General(this, "shenlvbu1", "god", 8, true, true); // SP 008 (2-1)
 	shenlvbu1->addSkill("mashu");

@@ -2698,22 +2698,12 @@ int Room::getCardFromPile(const QString &card_pattern)
     if (m_drawPile->isEmpty())
         swapPile();
 
-    if (card_pattern.startsWith("@")) {
-        if (card_pattern == "@duanliang") {
-            foreach (int card_id, *m_drawPile) {
-                const Card *card = Sanguosha->getCard(card_id);
-                if (card->isBlack() && (card->isKindOf("BasicCard") || card->isKindOf("EquipCard")))
-                    return card_id;
-            }
-        }
-    } else {
         QString card_name = card_pattern;
         foreach (int card_id, *m_drawPile) {
             const Card *card = Sanguosha->getCard(card_id);
             if (card->objectName() == card_name)
                 return card_id;
         }
-    }
 
     return -1;
 }
