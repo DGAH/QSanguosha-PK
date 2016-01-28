@@ -793,8 +793,6 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
     {
         int r = 1 + qrand() % 2;
-        if (!player->hasInnateSkill("jijiang") && player->hasSkill("ruoyu"))
-            r += 2;
         return r;
     }
 };
@@ -1248,8 +1246,6 @@ public:
         if (zhuge->getPhase() == Player::Start && zhuge->askForSkillInvoke(this)) {
             Room *room = zhuge->getRoom();
             int index = qrand() % 2 + 1;
-            if (objectName() == "guanxing" && !zhuge->hasInnateSkill(this) && zhuge->hasSkill("zhiji"))
-                index += 2;
             room->broadcastSkillInvoke(objectName(), index);
             QList<int> guanxing = room->getNCards(getGuanxingNum(room));
 
@@ -1589,10 +1585,6 @@ public:
         Room *room = zhouyu->getRoom();
 
         int index = qrand() % 2 + 1;
-        if (!zhouyu->hasInnateSkill(this)) {
-            if (zhouyu->hasSkill("hunzi"))
-                index = 5;
-        }
         room->broadcastSkillInvoke(objectName(), index);
         room->sendCompulsoryTriggerLog(zhouyu, objectName());
 

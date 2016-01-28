@@ -383,8 +383,6 @@ public:
             int x = sunjian->getLostHp();
 
             int index = 1;
-            if (!sunjian->hasInnateSkill("yinghun") && sunjian->hasSkill("hunzi"))
-                index += 2;
 
             if (x == 1) {
                 room->broadcastSkillInvoke(objectName(), index);

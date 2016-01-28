@@ -16,7 +16,7 @@
 #include "skin-bank.h"
 #include "wind.h"
 #include "record-analysis.h"
-#include "mountain.h"
+#include "auxpack.h"
 #include "bubblechatbox.h"
 
 #include <QPropertyAnimation>
