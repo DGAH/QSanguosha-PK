@@ -461,28 +461,6 @@ protected:
 	virtual int getKingdoms(ServerPlayer *yuanshu) const;
 };
 
-class WeidiDialog : public QDialog
-{
-	Q_OBJECT
-
-public:
-	static WeidiDialog *getInstance();
-
-	public slots:
-	void popup();
-	void selectSkill(QAbstractButton *button);
-
-private:
-	explicit WeidiDialog();
-
-	QAbstractButton *createSkillButton(const QString &skill_name);
-	QButtonGroup *group;
-	QVBoxLayout *button_layout;
-
-signals:
-	void onButtonClick();
-};
-
 class Longhun : public ViewAsSkill
 {
 public:
@@ -496,6 +474,16 @@ public:
 
 protected:
 	virtual int getEffHp(const Player *zhaoyun) const;
+};
+
+class Jushou : public PhaseChangeSkill
+{
+public:
+	Jushou();
+	virtual bool onPhaseChange(ServerPlayer *target) const;
+
+protected:
+	virtual int getJushouDrawNum(ServerPlayer *caoren) const;
 };
 
 #endif

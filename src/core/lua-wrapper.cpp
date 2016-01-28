@@ -1,6 +1,6 @@
 #include "lua-wrapper.h"
 #include "util.h"
-#include "wind.h"
+#include "auxpack.h"
 
 LuaTriggerSkill::LuaTriggerSkill(const char *name, Frequency frequency, const char *limit_mark)
     : TriggerSkill(name), on_trigger(0), can_trigger(0), dynamic_frequency(0)

@@ -9,7 +9,7 @@
 #include "ai.h"
 #include "settings.h"
 //#include "sp.h"
-#include "wind.h"
+#include "auxpack.h"
 //#include "god.h"
 #include "maneuvering.h"
 #include "json.h"
@@ -567,7 +567,7 @@ public:
     virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *zhenji, QVariant &data) const
     {
         if (triggerEvent == EventPhaseStart && zhenji->getPhase() == Player::Start) {
-            bool canRetrial = zhenji->hasSkills("guicai|guidao");
+            bool canRetrial = zhenji->hasSkills("guicai");
             bool first = true;
             while (zhenji->askForSkillInvoke("luoshen")) {
                 if (first) {
@@ -2991,31 +2991,9 @@ public:
 	{
 	}
 
-	static QList<const ViewAsSkill *> getLordViewAsSkills(const Player *player)
-	{
-		const Player *lord = NULL;
-		foreach(const Player *p, player->getAliveSiblings()) {
-			if (p->isLord()) {
-				lord = p;
-				break;
-			}
-		}
-		if (!lord) return QList<const ViewAsSkill *>();
-
-		QList<const ViewAsSkill *> vs_skills;
-		foreach(const Skill *skill, lord->getVisibleSkillList()) {
-			if (skill->isLordSkill() && player->hasLordSkill(skill->objectName())) {
-				const ViewAsSkill *vs = ViewAsSkill::parseViewAsSkill(skill);
-				if (vs)
-					vs_skills << vs;
-			}
-		}
-		return vs_skills;
-	}
-
 	virtual bool isEnabledAtPlay(const Player *player) const
 	{
-		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		QList<const ViewAsSkill *> vs_skills = WeidiDialog::getLordViewAsSkills(player);
 		foreach(const ViewAsSkill *skill, vs_skills) {
 			if (skill->isEnabledAtPlay(player))
 				return true;
@@ -3025,7 +3003,7 @@ public:
 
 	virtual bool isEnabledAtResponse(const Player *player, const QString &pattern) const
 	{
-		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		QList<const ViewAsSkill *> vs_skills = WeidiDialog::getLordViewAsSkills(player);
 		foreach(const ViewAsSkill *skill, vs_skills) {
 			if (skill->isEnabledAtResponse(player, pattern))
 				return true;
@@ -3035,7 +3013,7 @@ public:
 
 	virtual bool isEnabledAtNullification(const ServerPlayer *player) const
 	{
-		QList<const ViewAsSkill *> vs_skills = getLordViewAsSkills(player);
+		QList<const ViewAsSkill *> vs_skills = WeidiDialog::getLordViewAsSkills(player);
 		foreach(const ViewAsSkill *skill, vs_skills) {
 			if (skill->isEnabledAtNullification(player))
 				return true;
@@ -3062,82 +3040,6 @@ public:
 	}
 };
 
-WeidiDialog *WeidiDialog::getInstance()
-{
-	static WeidiDialog *instance;
-	if (instance == NULL)
-		instance = new WeidiDialog();
-
-	return instance;
-}
-
-WeidiDialog::WeidiDialog()
-{
-	setObjectName("weidi");
-	setWindowTitle(Sanguosha->translate("weidi"));
-	group = new QButtonGroup(this);
-
-	button_layout = new QVBoxLayout;
-	setLayout(button_layout);
-	connect(group, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(selectSkill(QAbstractButton *)));
-}
-
-void WeidiDialog::popup()
-{
-	Self->tag.remove(objectName());
-	foreach(QAbstractButton *button, group->buttons()) {
-		button_layout->removeWidget(button);
-		group->removeButton(button);
-		delete button;
-	}
-
-	QList<const ViewAsSkill *> vs_skills = WeidiViewAsSkill::getLordViewAsSkills(Self);
-	int count = 0;
-	QString name;
-	foreach(const ViewAsSkill *skill, vs_skills) {
-		QAbstractButton *button = createSkillButton(skill->objectName());
-		button->setEnabled(skill->isAvailable(Self, Sanguosha->currentRoomState()->getCurrentCardUseReason(),
-			Sanguosha->currentRoomState()->getCurrentCardUsePattern()));
-		if (button->isEnabled()) {
-			count++;
-			name = skill->objectName();
-		}
-		button_layout->addWidget(button);
-	}
-
-	if (count == 0) {
-		emit onButtonClick();
-		return;
-	}
-	else if (count == 1) {
-		Self->tag[objectName()] = name;
-		emit onButtonClick();
-		return;
-	}
-
-	exec();
-}
-
-void WeidiDialog::selectSkill(QAbstractButton *button)
-{
-	Self->tag[objectName()] = button->objectName();
-	emit onButtonClick();
-	accept();
-}
-
-QAbstractButton *WeidiDialog::createSkillButton(const QString &skill_name)
-{
-	const Skill *skill = Sanguosha->getSkill(skill_name);
-	if (!skill) return NULL;
-
-	QCommandLinkButton *button = new QCommandLinkButton(Sanguosha->translate(skill_name));
-	button->setObjectName(skill_name);
-	button->setToolTip(skill->getDescription());
-
-	group->addButton(button);
-	return button;
-}
-
 class Weidi : public GameStartSkill
 {
 public:
@@ -3157,6 +3059,29 @@ public:
 		return WeidiDialog::getInstance();
 	}
 };
+
+Jushou::Jushou() : PhaseChangeSkill("jushou")
+{
+}
+
+int Jushou::getJushouDrawNum(ServerPlayer *) const
+{
+	return 1;
+}
+
+bool Jushou::onPhaseChange(ServerPlayer *target) const
+{
+	if (target->getPhase() == Player::Finish) {
+		Room *room = target->getRoom();
+		if (room->askForSkillInvoke(target, objectName())) {
+			room->broadcastSkillInvoke(objectName());
+			target->drawCards(getJushouDrawNum(target), objectName());
+			target->turnOver();
+		}
+	}
+
+	return false;
+}
 
 class SuperJushou : public Jushou
 {

@@ -1600,15 +1600,6 @@ void RoomScene::chooseOption(const QString &skillName, const QStringList &option
     QString title = Sanguosha->translate(skillName);
     dialog->setWindowTitle(title);
 
-    if (skillName.contains("guhuo") && !guhuo_log.isEmpty()) {
-        QLabel *guhuo_text = new QLabel(guhuo_log, dialog);
-        guhuo_text->setObjectName("guhuo_text");
-        guhuo_text->setMaximumWidth(240);
-        guhuo_text->setWordWrap(true);
-        layout->addWidget(guhuo_text);
-
-        guhuo_log = QString();
-    }
         layout->addWidget(new QLabel(tr("Please choose:")));
 
         foreach (QString option, options) {
