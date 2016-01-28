@@ -483,5 +483,20 @@ signals:
 	void onButtonClick();
 };
 
+class Longhun : public ViewAsSkill
+{
+public:
+	Longhun();
+	virtual bool isEnabledAtResponse(const Player *player, const QString &pattern) const;
+	virtual bool isEnabledAtPlay(const Player *player) const;
+	virtual bool viewFilter(const QList<const Card *> &selected, const Card *card) const;
+	virtual const Card *viewAs(const QList<const Card *> &cards) const;
+	virtual int getEffectIndex(const ServerPlayer *player, const Card *card) const;
+	virtual bool isEnabledAtNullification(const ServerPlayer *player) const;
+
+protected:
+	virtual int getEffHp(const Player *zhaoyun) const;
+};
+
 #endif
 

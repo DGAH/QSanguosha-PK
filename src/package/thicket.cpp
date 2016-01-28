@@ -54,15 +54,14 @@ public:
     {
         Room *room = caopi->getRoom();
         ServerPlayer *to = room->askForPlayerChosen(caopi, room->getOtherPlayers(caopi), objectName(),
-            "fangzhu-invoke", caopi->getMark("JilveEvent") != int(Damaged), true);
+            "fangzhu-invoke", true, true);
         if (to) {
-            if (caopi->hasInnateSkill("fangzhu") || !caopi->hasSkill("jilve")) {
+            if (caopi->hasInnateSkill("fangzhu")) {
                 int index = to->faceUp() ? 1 : 2;
                 if (to->getGeneralName().contains("caozhi") || (to->getGeneral2() && to->getGeneral2Name().contains("caozhi")))
                     index = 3;
                 room->broadcastSkillInvoke("fangzhu", index);
-            } else
-                room->broadcastSkillInvoke("jilve", 2);
+            }
 
             to->drawCards(caopi->getLostHp(), objectName());
             to->turnOver();
@@ -657,10 +656,8 @@ public:
             ServerPlayer *jiaxu = room->getCurrent();
             if (!jiaxu || !TriggerSkill::triggerable(jiaxu) || jiaxu->getPhase() == Player::NotActive)
                 return false;
-            if (jiaxu->hasInnateSkill("wansha") || !jiaxu->hasSkill("jilve"))
+            if (jiaxu->hasInnateSkill("wansha"))
                 room->broadcastSkillInvoke(objectName());
-            else
-                room->broadcastSkillInvoke("jilve", 3);
 
             room->notifySkillInvoked(jiaxu, objectName());
 

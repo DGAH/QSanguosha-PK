@@ -10,7 +10,7 @@
 #include "settings.h"
 //#include "sp.h"
 #include "wind.h"
-#include "god.h"
+//#include "god.h"
 #include "maneuvering.h"
 #include "json.h"
 #include <QHBoxLayout>
@@ -442,17 +442,10 @@ public:
         prompt_list << "@guicai-card" << judge->who->objectName()
             << objectName() << judge->reason << QString::number(judge->card->getEffectiveId());
         QString prompt = prompt_list.join(":");
-        bool forced = false;
-        if (player->getMark("JilveEvent") == int(AskForRetrial))
-            forced = true;
-        const Card *card = room->askForCard(player, forced ? "..!" : "..", prompt, data, Card::MethodResponse, judge->who, true);
-        if (forced && card == NULL)
-            card = player->getRandomHandCard();
+        const Card *card = room->askForCard(player, "..", prompt, data, Card::MethodResponse, judge->who, true);
         if (card) {
-            if (player->hasInnateSkill("guicai") || !player->hasSkill("jilve"))
+            if (player->hasInnateSkill("guicai"))
                 room->broadcastSkillInvoke(objectName());
-            else
-                room->broadcastSkillInvoke("jilve", 1);
             room->retrial(card, player, judge, objectName());
         }
 
@@ -1325,10 +1318,8 @@ public:
         CardUseStruct use = data.value<CardUseStruct>();
 
         if (use.card->getTypeId() == Card::TypeTrick
-            && (yueying->getMark("JilveEvent") > 0 || room->askForSkillInvoke(yueying, objectName()))) {
-            if (yueying->getMark("JilveEvent") > 0)
-                room->broadcastSkillInvoke("jilve", 5);
-            else
+            && (room->askForSkillInvoke(yueying, objectName()))) {
+
                 room->broadcastSkillInvoke(objectName());
 
             QList<int> ids = room->getNCards(1, false);
@@ -1726,8 +1717,8 @@ public:
         room->sendLog(log);
 
         room->setPlayerMark(lvmeng, "qinxue", 1);
-        if (room->changeMaxHpForAwakenSkill(lvmeng) && lvmeng->getMark("qinxue") == 1)
-            room->acquireSkill(lvmeng, "gongxin");
+        //if (room->changeMaxHpForAwakenSkill(lvmeng) && lvmeng->getMark("qinxue") == 1)
+            //room->acquireSkill(lvmeng, "gongxin");
 
         return false;
     }
@@ -3245,6 +3236,128 @@ public:
         return 0;
     }
 };
+
+Longhun::Longhun() : ViewAsSkill("longhun")
+{
+	response_or_use = true;
+}
+
+bool Longhun::isEnabledAtResponse(const Player *player, const QString &pattern) const
+{
+	return pattern == "slash"
+		|| pattern == "jink"
+		|| (pattern.contains("peach") && player->getMark("Global_PreventPeach") == 0)
+		|| pattern == "nullification";
+}
+
+bool Longhun::isEnabledAtPlay(const Player *player) const
+{
+	return player->isWounded() || Slash::IsAvailable(player);
+}
+
+bool Longhun::viewFilter(const QList<const Card *> &selected, const Card *card) const
+{
+	int n = qMax(1, Self->getHp());
+
+	if (selected.length() >= n || card->hasFlag("using"))
+		return false;
+
+	if (n > 1 && !selected.isEmpty()) {
+		Card::Suit suit = selected.first()->getSuit();
+		return card->getSuit() == suit;
+	}
+
+	switch (Sanguosha->currentRoomState()->getCurrentCardUseReason()) {
+	case CardUseStruct::CARD_USE_REASON_PLAY: {
+												  if (Self->isWounded() && card->getSuit() == Card::Heart)
+													  return true;
+												  else if (card->getSuit() == Card::Diamond) {
+													  FireSlash *slash = new FireSlash(Card::SuitToBeDecided, -1);
+													  slash->addSubcards(selected);
+													  slash->addSubcard(card->getEffectiveId());
+													  slash->deleteLater();
+													  return slash->isAvailable(Self);
+												  }
+												  else
+													  return false;
+	}
+	case CardUseStruct::CARD_USE_REASON_RESPONSE:
+	case CardUseStruct::CARD_USE_REASON_RESPONSE_USE: {
+														  QString pattern = Sanguosha->currentRoomState()->getCurrentCardUsePattern();
+														  if (pattern == "jink")
+															  return card->getSuit() == Card::Club;
+														  else if (pattern == "nullification")
+															  return card->getSuit() == Card::Spade;
+														  else if (pattern == "peach" || pattern == "peach+analeptic")
+															  return card->getSuit() == Card::Heart;
+														  else if (pattern == "slash")
+															  return card->getSuit() == Card::Diamond;
+	}
+	default:
+		break;
+	}
+
+	return false;
+}
+
+const Card *Longhun::viewAs(const QList<const Card *> &cards) const
+{
+	int n = getEffHp(Self);
+
+	if (cards.length() != n)
+		return NULL;
+
+	const Card *card = cards.first();
+	Card *new_card = NULL;
+
+	switch (card->getSuit()) {
+	case Card::Spade: {
+						  new_card = new Nullification(Card::SuitToBeDecided, 0);
+						  break;
+	}
+	case Card::Heart: {
+						  new_card = new Peach(Card::SuitToBeDecided, 0);
+						  break;
+	}
+	case Card::Club: {
+						 new_card = new Jink(Card::SuitToBeDecided, 0);
+						 break;
+	}
+	case Card::Diamond: {
+							new_card = new FireSlash(Card::SuitToBeDecided, 0);
+							break;
+	}
+	default:
+		break;
+	}
+
+	if (new_card) {
+		new_card->setSkillName(objectName());
+		new_card->addSubcards(cards);
+	}
+
+	return new_card;
+}
+
+int Longhun::getEffectIndex(const ServerPlayer *player, const Card *card) const
+{
+	return static_cast<int>(player->getRoom()->getCard(card->getSubcards().first())->getSuit()) + 1;
+}
+
+bool Longhun::isEnabledAtNullification(const ServerPlayer *player) const
+{
+	int n = getEffHp(player), count = 0;
+	foreach(const Card *card, player->getHandcards() + player->getEquips()) {
+		if (card->getSuit() == Card::Spade) count++;
+		if (count >= n) return true;
+	}
+	return false;
+}
+
+int Longhun::getEffHp(const Player *zhaoyun) const
+{
+	return qMax(1, zhaoyun->getHp());
+}
 
 class GdLonghun : public Longhun
 {

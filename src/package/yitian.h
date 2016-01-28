@@ -1,7 +1,6 @@
 #ifndef YITIANPACKAGE_H
 #define YITIANPACKAGE_H
 
-#include "package.h"
 #include "standard.h"
 
 class YitianSword :public Weapon
