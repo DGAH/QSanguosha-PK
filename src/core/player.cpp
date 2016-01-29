@@ -771,18 +771,14 @@ bool Player::canDiscard(const Player *to, const QString &flags) const
     if (flags.contains(judging_flag) && !to->getJudgingArea().isEmpty()) return true;
     if (flags.contains(equip_flag)) {
         if (to->getDefensiveHorse() || to->getOffensiveHorse()) return true;
-        if ((to->getWeapon() || to->getArmor() || to->getTreasure()) && (!to->hasSkill("qicai") || this == to)) return true;
+        if ((to->getWeapon() || to->getArmor() || to->getTreasure()) && (this == to)) return true;
     }
     return false;
 }
 
 bool Player::canDiscard(const Player *to, int card_id) const
 {
-    if (to->hasSkill("qicai") && this != to) {
-        if ((to->getWeapon() && card_id == to->getWeapon()->getEffectiveId())
-            || (to->getArmor() && card_id == to->getArmor()->getEffectiveId()))
-            return false;
-    } else if (this == to) {
+    if (this == to) {
         if (!getJudgingAreaID().contains(card_id) && isJilei(Sanguosha->getCard(card_id)))
             return false;
     }

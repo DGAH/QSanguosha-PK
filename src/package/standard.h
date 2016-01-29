@@ -4,9 +4,6 @@
 #include "package.h"
 #include "card.h"
 #include "skill.h"
-#include <qdialog.h>
-#include <qabstractbutton.h>
-#include <qlayout.h>
 
 class StandardPackage : public Package
 {

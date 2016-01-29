@@ -5,7 +5,6 @@
 #include "standard.h"
 #include "playercarddialog.h"
 #include "roomscene.h"
-#include "wind.h"
 
 #include <QPainter>
 #include <QGraphicsScene>

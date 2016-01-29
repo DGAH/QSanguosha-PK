@@ -201,8 +201,7 @@ void GuhuoDialog::selectCard(QAbstractButton *button)
 	const Card *card = map.value(button->objectName());
 	Self->tag[object_name] = QVariant::fromValue(card);
 	if (button->objectName().contains("slash")) {
-		if (objectName() == "guhuo")
-			Self->tag["GuhuoSlash"] = button->objectName();
+		Self->tag[QString("%1Slash").arg(object_name)] = button->objectName();
 	}
 	emit onButtonClick();
 	accept();

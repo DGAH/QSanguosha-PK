@@ -14,7 +14,6 @@
 #include "pixmapanimation.h"
 #include "audio.h"
 #include "skin-bank.h"
-#include "wind.h"
 #include "record-analysis.h"
 #include "auxpack.h"
 #include "bubblechatbox.h"
