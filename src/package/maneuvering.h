@@ -116,14 +116,6 @@ public:
     virtual void takeEffect(ServerPlayer *target) const;
 };
 
-class GanranEquip : public IronChain
-{
-	Q_OBJECT
-
-public:
-	Q_INVOKABLE GanranEquip(Card::Suit suit, int number);
-};
-
 class ManeuveringPackage : public Package
 {
     Q_OBJECT

@@ -75,55 +75,5 @@ return {
 	["crxianzhuo"] = "掀桌",
 	[":crxianzhuo"] = "<font color=\"red\"><b>限定技</b></font>，出牌阶段，你可以令所有角色弃置所有手牌和装备并依次失去1点体力上限，然后你立即死亡。",
 	["@crXianZhuoMark"] = "掀桌",
-	
-	-- Test
-	["test"] = "测试",
-
-	["zhiba_sunquan"] = "制霸孙权",
-	["&zhiba_sunquan"] = "孙权",
-	["super_zhiheng"] = "制衡",
-	[":super_zhiheng"] = "出牌阶段限X+1次，你可以弃置至少一张牌：若如此做，你摸等量的牌。（X为你已损失的体力值）",
-	
-	["super_yuanshu"] = "测试袁术",
-	["&super_yuanshu"] = "袁术",
-	["illustrator:super_yuanshu"] = "吴昊",
-	["super_yongsi"] = "庸肆",
-	[":super_yongsi"] = "锁定技。摸牌阶段，你额外摸X张牌。弃牌阶段开始时，你须弃置X张牌。",
-
-	["super_caoren"] = "测试曹仁",
-	["&super_caoren"] = "曹仁",
-	["super_jushou"] = "据守",
-	[":super_jushou"] = "结束阶段开始时，你可以摸X张牌，然后将武将牌翻面。",
-
-	["super_max_cards"] = "手牌上限",
-	["super_offensive_distance"] = "距离-X",
-	["super_defensive_distance"] = "距离+X",
-
-	["nobenghuai_dongzhuo"] = "无崩董卓",
-	["&nobenghuai_dongzhuo"] = "董卓",
-	["illustrator:nobenghuai_dongzhuo"] = "小冷",
-	
-	["#zombie"] = "行尸走肉",
-	["zombie"] = "僵尸",
-	["die"] = "屍",
-	["designer:zombie"] = "HyperCross",
-	["illustrator:zombie"] = "鬼戲",
-	["xunmeng"] = "迅猛",
-	["#Xunmeng"] = "%from 的【迅猛】效果被触发，伤害从 %arg 点上升至 %arg2 点",
-	[":xunmeng"] ="<b>锁定技</b>，你的杀造成的伤害+1。你的杀造成伤害时若你体力大于1，你流失1点体力。",
-	["ganran"] = "感染",
-	[":ganran"] = "<b>锁定技</b>，你的装备牌都视为铁锁连环。",
-	["zaibian"] = "灾变",
-	[":zaibian"] = "<b>锁定技</b>，你的出牌阶段开始时，若人类玩家数-僵尸玩家数+1大于0，你多摸该数目的牌。",
-	["#ZaibianGood"] = "%from 的【%arg2】效果被触发，%from 获得了 %arg 张手牌",
-	
-	["#sujiang"] = "金童",
-	["sujiang"] = "士兵(男)",
-	["&sujiang"] = "士兵",
-	["illustrator:sujiang"] = "木美人",
-	["#sujiangf"] = "玉女",
-	["sujiangf"] = "士兵(女)",
-	["&sujiangf"] = "士兵",
-	["illustrator:sujiangf"] = "木美人",
 }
 

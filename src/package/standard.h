@@ -14,14 +14,6 @@ public:
     void addGenerals();
 };
 
-class TestPackage : public Package
-{
-    Q_OBJECT
-
-public:
-    TestPackage();
-};
-
 class BasicCard : public Card
 {
     Q_OBJECT
@@ -448,16 +440,6 @@ public:
     virtual void onEffect(const CardEffectStruct &effect) const;
 };
 
-class Yongsi : public TriggerSkill
-{
-public:
-	Yongsi();
-	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *yuanshu, QVariant &data) const;
-
-protected:
-	virtual int getKingdoms(ServerPlayer *yuanshu) const;
-};
-
 class Longhun : public ViewAsSkill
 {
 public:
@@ -471,16 +453,6 @@ public:
 
 protected:
 	virtual int getEffHp(const Player *zhaoyun) const;
-};
-
-class Jushou : public PhaseChangeSkill
-{
-public:
-	Jushou();
-	virtual bool onPhaseChange(ServerPlayer *target) const;
-
-protected:
-	virtual int getJushouDrawNum(ServerPlayer *caoren) const;
 };
 
 #endif
