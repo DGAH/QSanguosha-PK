@@ -44,6 +44,11 @@ function sgs.CreateTriggerSkill(spec)
 	return skill
 end
 
+function sgs.CreateDummySkill(spec)
+	assert(type(spec.name) == "string")
+	return sgs.LuaDummySkill(spec.name, spec.frequency or sgs.Skill_Compulsory)
+end
+
 function sgs.CreateProhibitSkill(spec)
 	assert(type(spec.name) == "string")
 	assert(type(spec.is_prohibited) == "function")

@@ -97,6 +97,14 @@ private:
     QString guhuo_type;
 };
 
+class LuaDummySkill : public DummySkill
+{
+	Q_OBJECT
+
+public:
+	LuaDummySkill(const char *name, Frequency frequency = Skill::Compulsory);
+};
+
 class LuaFilterSkill : public FilterSkill
 {
     Q_OBJECT

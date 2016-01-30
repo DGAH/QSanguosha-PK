@@ -1886,88 +1886,90 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 #define SWIGTYPE_p_DelayedTrick swig_types[20]
 #define SWIGTYPE_p_DistanceSkill swig_types[21]
 #define SWIGTYPE_p_DummyCard swig_types[22]
-#define SWIGTYPE_p_DyingStruct swig_types[23]
-#define SWIGTYPE_p_Engine swig_types[24]
-#define SWIGTYPE_p_EquipCard swig_types[25]
-#define SWIGTYPE_p_FilterSkill swig_types[26]
-#define SWIGTYPE_p_GameStartSkill swig_types[27]
-#define SWIGTYPE_p_General swig_types[28]
-#define SWIGTYPE_p_Horse swig_types[29]
-#define SWIGTYPE_p_InvaliditySkill swig_types[30]
-#define SWIGTYPE_p_JudgeStruct swig_types[31]
-#define SWIGTYPE_p_LogMessage swig_types[32]
-#define SWIGTYPE_p_LuaAI swig_types[33]
-#define SWIGTYPE_p_LuaArmor swig_types[34]
-#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[35]
-#define SWIGTYPE_p_LuaBasicCard swig_types[36]
-#define SWIGTYPE_p_LuaDistanceSkill swig_types[37]
-#define SWIGTYPE_p_LuaFilterSkill swig_types[38]
-#define SWIGTYPE_p_LuaFunction swig_types[39]
-#define SWIGTYPE_p_LuaInvaliditySkill swig_types[40]
-#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[41]
-#define SWIGTYPE_p_LuaProhibitSkill swig_types[42]
-#define SWIGTYPE_p_LuaSkillCard swig_types[43]
-#define SWIGTYPE_p_LuaTargetModSkill swig_types[44]
-#define SWIGTYPE_p_LuaTreasure swig_types[45]
-#define SWIGTYPE_p_LuaTrickCard swig_types[46]
-#define SWIGTYPE_p_LuaTriggerSkill swig_types[47]
-#define SWIGTYPE_p_LuaViewAsSkill swig_types[48]
-#define SWIGTYPE_p_LuaWeapon swig_types[49]
-#define SWIGTYPE_p_MaxCardsSkill swig_types[50]
-#define SWIGTYPE_p_OffensiveHorse swig_types[51]
-#define SWIGTYPE_p_OneCardViewAsSkill swig_types[52]
-#define SWIGTYPE_p_Package swig_types[53]
-#define SWIGTYPE_p_PhaseChangeStruct swig_types[54]
-#define SWIGTYPE_p_PindianStruct swig_types[55]
-#define SWIGTYPE_p_Player swig_types[56]
-#define SWIGTYPE_p_ProhibitSkill swig_types[57]
-#define SWIGTYPE_p_QColor swig_types[58]
-#define SWIGTYPE_p_QDialog swig_types[59]
-#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[60]
-#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[61]
-#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[62]
-#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[63]
-#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[64]
-#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[65]
-#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[66]
-#define SWIGTYPE_p_QListT_Player__Place_t swig_types[67]
-#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[68]
-#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[69]
-#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[70]
-#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[71]
-#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[72]
-#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[73]
-#define SWIGTYPE_p_QListT_bool_t swig_types[74]
-#define SWIGTYPE_p_QListT_int_t swig_types[75]
-#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[76]
-#define SWIGTYPE_p_QObject swig_types[77]
-#define SWIGTYPE_p_QSetT_QString_t swig_types[78]
-#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[79]
-#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[80]
-#define SWIGTYPE_p_QString swig_types[81]
-#define SWIGTYPE_p_QStringList swig_types[82]
-#define SWIGTYPE_p_QThread swig_types[83]
-#define SWIGTYPE_p_QVariant swig_types[84]
-#define SWIGTYPE_p_RecoverStruct swig_types[85]
-#define SWIGTYPE_p_Room swig_types[86]
-#define SWIGTYPE_p_RoomThread swig_types[87]
-#define SWIGTYPE_p_Scenario swig_types[88]
-#define SWIGTYPE_p_ServerPlayer swig_types[89]
-#define SWIGTYPE_p_Skill swig_types[90]
-#define SWIGTYPE_p_SkillCard swig_types[91]
-#define SWIGTYPE_p_Slash swig_types[92]
-#define SWIGTYPE_p_SlashEffectStruct swig_types[93]
-#define SWIGTYPE_p_TargetModSkill swig_types[94]
-#define SWIGTYPE_p_Treasure swig_types[95]
-#define SWIGTYPE_p_TrickCard swig_types[96]
-#define SWIGTYPE_p_TriggerSkill swig_types[97]
-#define SWIGTYPE_p_TrustAI swig_types[98]
-#define SWIGTYPE_p_ViewAsSkill swig_types[99]
-#define SWIGTYPE_p_Weapon swig_types[100]
-#define SWIGTYPE_p_WrappedCard swig_types[101]
-#define SWIGTYPE_p_lua_State swig_types[102]
-static swig_type_info *swig_types[104];
-static swig_module_info swig_module = {swig_types, 103, 0, 0, 0, 0};
+#define SWIGTYPE_p_DummySkill swig_types[23]
+#define SWIGTYPE_p_DyingStruct swig_types[24]
+#define SWIGTYPE_p_Engine swig_types[25]
+#define SWIGTYPE_p_EquipCard swig_types[26]
+#define SWIGTYPE_p_FilterSkill swig_types[27]
+#define SWIGTYPE_p_GameStartSkill swig_types[28]
+#define SWIGTYPE_p_General swig_types[29]
+#define SWIGTYPE_p_Horse swig_types[30]
+#define SWIGTYPE_p_InvaliditySkill swig_types[31]
+#define SWIGTYPE_p_JudgeStruct swig_types[32]
+#define SWIGTYPE_p_LogMessage swig_types[33]
+#define SWIGTYPE_p_LuaAI swig_types[34]
+#define SWIGTYPE_p_LuaArmor swig_types[35]
+#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[36]
+#define SWIGTYPE_p_LuaBasicCard swig_types[37]
+#define SWIGTYPE_p_LuaDistanceSkill swig_types[38]
+#define SWIGTYPE_p_LuaDummySkill swig_types[39]
+#define SWIGTYPE_p_LuaFilterSkill swig_types[40]
+#define SWIGTYPE_p_LuaFunction swig_types[41]
+#define SWIGTYPE_p_LuaInvaliditySkill swig_types[42]
+#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[43]
+#define SWIGTYPE_p_LuaProhibitSkill swig_types[44]
+#define SWIGTYPE_p_LuaSkillCard swig_types[45]
+#define SWIGTYPE_p_LuaTargetModSkill swig_types[46]
+#define SWIGTYPE_p_LuaTreasure swig_types[47]
+#define SWIGTYPE_p_LuaTrickCard swig_types[48]
+#define SWIGTYPE_p_LuaTriggerSkill swig_types[49]
+#define SWIGTYPE_p_LuaViewAsSkill swig_types[50]
+#define SWIGTYPE_p_LuaWeapon swig_types[51]
+#define SWIGTYPE_p_MaxCardsSkill swig_types[52]
+#define SWIGTYPE_p_OffensiveHorse swig_types[53]
+#define SWIGTYPE_p_OneCardViewAsSkill swig_types[54]
+#define SWIGTYPE_p_Package swig_types[55]
+#define SWIGTYPE_p_PhaseChangeStruct swig_types[56]
+#define SWIGTYPE_p_PindianStruct swig_types[57]
+#define SWIGTYPE_p_Player swig_types[58]
+#define SWIGTYPE_p_ProhibitSkill swig_types[59]
+#define SWIGTYPE_p_QColor swig_types[60]
+#define SWIGTYPE_p_QDialog swig_types[61]
+#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[62]
+#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[63]
+#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[64]
+#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[65]
+#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[66]
+#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[67]
+#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[68]
+#define SWIGTYPE_p_QListT_Player__Place_t swig_types[69]
+#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[70]
+#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[71]
+#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[72]
+#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[73]
+#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[74]
+#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[75]
+#define SWIGTYPE_p_QListT_bool_t swig_types[76]
+#define SWIGTYPE_p_QListT_int_t swig_types[77]
+#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[78]
+#define SWIGTYPE_p_QObject swig_types[79]
+#define SWIGTYPE_p_QSetT_QString_t swig_types[80]
+#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[81]
+#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[82]
+#define SWIGTYPE_p_QString swig_types[83]
+#define SWIGTYPE_p_QStringList swig_types[84]
+#define SWIGTYPE_p_QThread swig_types[85]
+#define SWIGTYPE_p_QVariant swig_types[86]
+#define SWIGTYPE_p_RecoverStruct swig_types[87]
+#define SWIGTYPE_p_Room swig_types[88]
+#define SWIGTYPE_p_RoomThread swig_types[89]
+#define SWIGTYPE_p_Scenario swig_types[90]
+#define SWIGTYPE_p_ServerPlayer swig_types[91]
+#define SWIGTYPE_p_Skill swig_types[92]
+#define SWIGTYPE_p_SkillCard swig_types[93]
+#define SWIGTYPE_p_Slash swig_types[94]
+#define SWIGTYPE_p_SlashEffectStruct swig_types[95]
+#define SWIGTYPE_p_TargetModSkill swig_types[96]
+#define SWIGTYPE_p_Treasure swig_types[97]
+#define SWIGTYPE_p_TrickCard swig_types[98]
+#define SWIGTYPE_p_TriggerSkill swig_types[99]
+#define SWIGTYPE_p_TrustAI swig_types[100]
+#define SWIGTYPE_p_ViewAsSkill swig_types[101]
+#define SWIGTYPE_p_Weapon swig_types[102]
+#define SWIGTYPE_p_WrappedCard swig_types[103]
+#define SWIGTYPE_p_lua_State swig_types[104]
+static swig_type_info *swig_types[106];
+static swig_module_info swig_module = {swig_types, 105, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -23508,223 +23510,6 @@ static int _wrap_ServerPlayer_getNextAlive(lua_State* L) {
 }
 
 
-static int _wrap_ServerPlayer_addToSelected(lua_State* L) {
-  int SWIG_arg = 0;
-  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  SWIG_check_num_args("ServerPlayer::addToSelected",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::addToSelected",1,"ServerPlayer *");
-  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("ServerPlayer::addToSelected",2,"char const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("ServerPlayer_addToSelected",1,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  arg2 = (char *)lua_tostring(L, 2);
-  (arg1)->addToSelected((char const *)arg2);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_ServerPlayer_getSelected(lua_State* L) {
-  int SWIG_arg = 0;
-  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
-  QStringList result;
-  
-  SWIG_check_num_args("ServerPlayer::getSelected",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::getSelected",1,"ServerPlayer const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("ServerPlayer_getSelected",1,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  result = ((ServerPlayer const *)arg1)->getSelected();
-  
-  lua_createtable(L, (&result)->length(), 0);
-  
-  for (int i = 0; i < (&result)->length(); i++) {
-    QString str = (&result)->at(i);
-    lua_pushstring(L, str.toUtf8());
-    lua_rawseti(L, -2, i + 1);
-  }
-  
-  SWIG_arg++;
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_ServerPlayer_findReasonable__SWIG_0(lua_State* L) {
-  int SWIG_arg = 0;
-  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
-  QStringList *arg2 = 0 ;
-  bool arg3 ;
-  QString result;
-  
-  SWIG_check_num_args("ServerPlayer::findReasonable",3,3)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::findReasonable",1,"ServerPlayer *");
-  if(!lua_isuserdata(L,2)) SWIG_fail_arg("ServerPlayer::findReasonable",2,"QStringList const &");
-  if(!lua_isboolean(L,3)) SWIG_fail_arg("ServerPlayer::findReasonable",3,"bool");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("ServerPlayer_findReasonable",1,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QStringList,0))){
-    SWIG_fail_ptr("ServerPlayer_findReasonable",2,SWIGTYPE_p_QStringList);
-  }
-  
-  arg3 = (lua_toboolean(L, 3)!=0);
-  result = (arg1)->findReasonable((QStringList const &)*arg2,arg3);
-  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_ServerPlayer_findReasonable__SWIG_1(lua_State* L) {
-  int SWIG_arg = 0;
-  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
-  QStringList *arg2 = 0 ;
-  QString result;
-  
-  SWIG_check_num_args("ServerPlayer::findReasonable",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::findReasonable",1,"ServerPlayer *");
-  if(!lua_isuserdata(L,2)) SWIG_fail_arg("ServerPlayer::findReasonable",2,"QStringList const &");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("ServerPlayer_findReasonable",1,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QStringList,0))){
-    SWIG_fail_ptr("ServerPlayer_findReasonable",2,SWIGTYPE_p_QStringList);
-  }
-  
-  result = (arg1)->findReasonable((QStringList const &)*arg2);
-  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_ServerPlayer_findReasonable(lua_State* L) {
-  int argc;
-  int argv[4]={
-    1,2,3,4
-  };
-  
-  argc = lua_gettop(L);
-  if (argc == 2) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_ServerPlayer, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      {
-        void *ptr;
-        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QStringList, 0)) {
-          _v = 0;
-        } else {
-          _v = 1;
-        }
-      }
-      if (_v) {
-        return _wrap_ServerPlayer_findReasonable__SWIG_1(L);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_ServerPlayer, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      {
-        void *ptr;
-        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QStringList, 0)) {
-          _v = 0;
-        } else {
-          _v = 1;
-        }
-      }
-      if (_v) {
-        {
-          _v = lua_isboolean(L,argv[2]);
-        }
-        if (_v) {
-          return _wrap_ServerPlayer_findReasonable__SWIG_0(L);
-        }
-      }
-    }
-  }
-  
-  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'ServerPlayer_findReasonable'\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    ServerPlayer::findReasonable(QStringList const &,bool)\n"
-    "    ServerPlayer::findReasonable(QStringList const &)\n");
-  lua_error(L);return 0;
-}
-
-
-static int _wrap_ServerPlayer_clearSelected(lua_State* L) {
-  int SWIG_arg = 0;
-  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
-  
-  SWIG_check_num_args("ServerPlayer::clearSelected",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::clearSelected",1,"ServerPlayer *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("ServerPlayer_clearSelected",1,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  (arg1)->clearSelected();
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_ServerPlayer_getGeneralMaxHp(lua_State* L) {
   int SWIG_arg = 0;
   ServerPlayer *arg1 = (ServerPlayer *) 0 ;
@@ -24963,10 +24748,6 @@ static swig_lua_method swig_ServerPlayer_methods[] = {
     {"setNext", _wrap_ServerPlayer_setNext}, 
     {"getNext", _wrap_ServerPlayer_getNext}, 
     {"getNextAlive", _wrap_ServerPlayer_getNextAlive}, 
-    {"addToSelected", _wrap_ServerPlayer_addToSelected}, 
-    {"getSelected", _wrap_ServerPlayer_getSelected}, 
-    {"findReasonable", _wrap_ServerPlayer_findReasonable}, 
-    {"clearSelected", _wrap_ServerPlayer_clearSelected}, 
     {"getGeneralMaxHp", _wrap_ServerPlayer_getGeneralMaxHp}, 
     {"getGameMode", _wrap_ServerPlayer_getGameMode}, 
     {"getIp", _wrap_ServerPlayer_getIp}, 
@@ -48789,50 +48570,6 @@ fail:
 }
 
 
-static int _wrap_Room_reverseFor3v3(lua_State* L) {
-  int SWIG_arg = 0;
-  Room *arg1 = (Room *) 0 ;
-  Card *arg2 = (Card *) 0 ;
-  ServerPlayer *arg3 = (ServerPlayer *) 0 ;
-  QList< ServerPlayer * > *arg4 = 0 ;
-  
-  SWIG_check_num_args("Room::reverseFor3v3",4,4)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Room::reverseFor3v3",1,"Room *");
-  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Room::reverseFor3v3",2,"Card const *");
-  if(!SWIG_isptrtype(L,3)) SWIG_fail_arg("Room::reverseFor3v3",3,"ServerPlayer *");
-  if(!lua_isuserdata(L,4)) SWIG_fail_arg("Room::reverseFor3v3",4,"QList< ServerPlayer * > &");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Room,0))){
-    SWIG_fail_ptr("Room_reverseFor3v3",1,SWIGTYPE_p_Room);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_Card,0))){
-    SWIG_fail_ptr("Room_reverseFor3v3",2,SWIGTYPE_p_Card);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,3,(void**)&arg3,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("Room_reverseFor3v3",3,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,4,(void**)&arg4,SWIGTYPE_p_QListT_ServerPlayer_p_t,0))){
-    SWIG_fail_ptr("Room_reverseFor3v3",4,SWIGTYPE_p_QListT_ServerPlayer_p_t);
-  }
-  
-  (arg1)->reverseFor3v3((Card const *)arg2,arg3,*arg4);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_Room_hasWelfare(lua_State* L) {
   int SWIG_arg = 0;
   Room *arg1 = (Room *) 0 ;
@@ -58752,33 +58489,6 @@ static int _wrap_Room_broadcastProperty(lua_State* L) {
 }
 
 
-static int _wrap_Room_getBossModeExpMult(lua_State* L) {
-  int SWIG_arg = 0;
-  Room *arg1 = (Room *) 0 ;
-  int arg2 ;
-  int result;
-  
-  SWIG_check_num_args("Room::getBossModeExpMult",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Room::getBossModeExpMult",1,"Room const *");
-  if(!lua_isnumber(L,2)) SWIG_fail_arg("Room::getBossModeExpMult",2,"int");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Room,0))){
-    SWIG_fail_ptr("Room_getBossModeExpMult",1,SWIGTYPE_p_Room);
-  }
-  
-  arg2 = (int)lua_tonumber(L, 2);
-  result = (int)((Room const *)arg1)->getBossModeExpMult(arg2);
-  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_Room_nextPlayer(lua_State* L) {
   int SWIG_arg = 0;
   Room *arg1 = (Room *) 0 ;
@@ -58974,7 +58684,6 @@ static swig_lua_method swig_Room_methods[] = {
     {"removeFixedDistance", _wrap_Room_removeFixedDistance}, 
     {"insertAttackRangePair", _wrap_Room_insertAttackRangePair}, 
     {"removeAttackRangePair", _wrap_Room_removeAttackRangePair}, 
-    {"reverseFor3v3", _wrap_Room_reverseFor3v3}, 
     {"hasWelfare", _wrap_Room_hasWelfare}, 
     {"getFront", _wrap_Room_getFront}, 
     {"signup", _wrap_Room_signup}, 
@@ -59021,7 +58730,6 @@ static swig_lua_method swig_Room_methods[] = {
     {"updateStateItem", _wrap_Room_updateStateItem}, 
     {"notifyProperty", _wrap_Room_notifyProperty}, 
     {"broadcastProperty", _wrap_Room_broadcastProperty}, 
-    {"getBossModeExpMult", _wrap_Room_getBossModeExpMult}, 
     {"nextPlayer", _wrap_Room_nextPlayer}, 
     {"output", _wrap_Room_output}, 
     {"outputEventStack", _wrap_Room_outputEventStack}, 
@@ -61455,6 +61163,315 @@ static swig_lua_const_info swig_GameStartSkill_cls_constants[] = {
 static swig_lua_class *swig_GameStartSkill_bases[] = {0,0};
 static const char *swig_GameStartSkill_base_names[] = {"TriggerSkill *",0};
 static swig_lua_class _wrap_class_GameStartSkill = { "GameStartSkill", &SWIGTYPE_p_GameStartSkill,0, swig_delete_GameStartSkill, swig_GameStartSkill_methods, swig_GameStartSkill_attributes, { "GameStartSkill", swig_GameStartSkill_cls_methods, swig_GameStartSkill_cls_attributes, swig_GameStartSkill_cls_constants }, swig_GameStartSkill_bases, swig_GameStartSkill_base_names };
+
+static int _wrap_new_DummySkill__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  QString *arg1 = 0 ;
+  Skill::Frequency arg2 ;
+  DummySkill *result = 0 ;
+  
+  SWIG_check_num_args("DummySkill::DummySkill",2,2)
+  if(!lua_isuserdata(L,1)) SWIG_fail_arg("DummySkill::DummySkill",1,"QString const &");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("DummySkill::DummySkill",2,"Skill::Frequency");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_QString,0))){
+    SWIG_fail_ptr("new_DummySkill",1,SWIGTYPE_p_QString);
+  }
+  
+  arg2 = (Skill::Frequency)(int)lua_tonumber(L, 2);
+  result = (DummySkill *)new DummySkill((QString const &)*arg1,arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_DummySkill,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_DummySkill__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  QString *arg1 = 0 ;
+  DummySkill *result = 0 ;
+  
+  SWIG_check_num_args("DummySkill::DummySkill",1,1)
+  if(!lua_isuserdata(L,1)) SWIG_fail_arg("DummySkill::DummySkill",1,"QString const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_QString,0))){
+    SWIG_fail_ptr("new_DummySkill",1,SWIGTYPE_p_QString);
+  }
+  
+  result = (DummySkill *)new DummySkill((QString const &)*arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_DummySkill,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_DummySkill(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (lua_isuserdata(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_QString, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_new_DummySkill__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (lua_isuserdata(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_QString, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_new_DummySkill__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'new_DummySkill'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DummySkill::DummySkill(QString const &,Skill::Frequency)\n"
+    "    DummySkill::DummySkill(QString const &)\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_DummySkill_triggerable(lua_State* L) {
+  int SWIG_arg = 0;
+  DummySkill *arg1 = (DummySkill *) 0 ;
+  ServerPlayer *arg2 = (ServerPlayer *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("DummySkill::triggerable",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("DummySkill::triggerable",1,"DummySkill const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("DummySkill::triggerable",2,"ServerPlayer const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_DummySkill,0))){
+    SWIG_fail_ptr("DummySkill_triggerable",1,SWIGTYPE_p_DummySkill);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_ServerPlayer,0))){
+    SWIG_fail_ptr("DummySkill_triggerable",2,SWIGTYPE_p_ServerPlayer);
+  }
+  
+  result = (bool)((DummySkill const *)arg1)->triggerable((ServerPlayer const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_DummySkill_trigger(lua_State* L) {
+  int SWIG_arg = 0;
+  DummySkill *arg1 = (DummySkill *) 0 ;
+  TriggerEvent arg2 ;
+  Room *arg3 = (Room *) 0 ;
+  ServerPlayer *arg4 = (ServerPlayer *) 0 ;
+  QVariant *arg5 = 0 ;
+  bool result;
+  
+  SWIG_check_num_args("DummySkill::trigger",5,5)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("DummySkill::trigger",1,"DummySkill const *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("DummySkill::trigger",2,"TriggerEvent");
+  if(!SWIG_isptrtype(L,3)) SWIG_fail_arg("DummySkill::trigger",3,"Room *");
+  if(!SWIG_isptrtype(L,4)) SWIG_fail_arg("DummySkill::trigger",4,"ServerPlayer *");
+  if(!lua_isuserdata(L,5)) SWIG_fail_arg("DummySkill::trigger",5,"QVariant &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_DummySkill,0))){
+    SWIG_fail_ptr("DummySkill_trigger",1,SWIGTYPE_p_DummySkill);
+  }
+  
+  arg2 = (TriggerEvent)(int)lua_tonumber(L, 2);
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,3,(void**)&arg3,SWIGTYPE_p_Room,0))){
+    SWIG_fail_ptr("DummySkill_trigger",3,SWIGTYPE_p_Room);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,4,(void**)&arg4,SWIGTYPE_p_ServerPlayer,0))){
+    SWIG_fail_ptr("DummySkill_trigger",4,SWIGTYPE_p_ServerPlayer);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,5,(void**)&arg5,SWIGTYPE_p_QVariant,0))){
+    SWIG_fail_ptr("DummySkill_trigger",5,SWIGTYPE_p_QVariant);
+  }
+  
+  result = (bool)((DummySkill const *)arg1)->trigger(arg2,arg3,arg4,*arg5);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_DummySkill(void *obj) {
+DummySkill *arg1 = (DummySkill *) obj;
+delete arg1;
+}
+static swig_lua_method swig_DummySkill_methods[] = {
+    {"triggerable", _wrap_DummySkill_triggerable}, 
+    {"trigger", _wrap_DummySkill_trigger}, 
+    {0,0}
+};
+static swig_lua_attribute swig_DummySkill_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_DummySkill_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_DummySkill_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_DummySkill_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_DummySkill_bases[] = {0,0};
+static const char *swig_DummySkill_base_names[] = {"TriggerSkill *",0};
+static swig_lua_class _wrap_class_DummySkill = { "DummySkill", &SWIGTYPE_p_DummySkill,_wrap_new_DummySkill, swig_delete_DummySkill, swig_DummySkill_methods, swig_DummySkill_attributes, { "DummySkill", swig_DummySkill_cls_methods, swig_DummySkill_cls_attributes, swig_DummySkill_cls_constants }, swig_DummySkill_bases, swig_DummySkill_base_names };
+
+static int _wrap_new_LuaDummySkill__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  Skill::Frequency arg2 ;
+  LuaDummySkill *result = 0 ;
+  
+  SWIG_check_num_args("LuaDummySkill::LuaDummySkill",2,2)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("LuaDummySkill::LuaDummySkill",1,"char const *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("LuaDummySkill::LuaDummySkill",2,"Skill::Frequency");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (Skill::Frequency)(int)lua_tonumber(L, 2);
+  result = (LuaDummySkill *)new LuaDummySkill((char const *)arg1,arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_LuaDummySkill,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_LuaDummySkill__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  LuaDummySkill *result = 0 ;
+  
+  SWIG_check_num_args("LuaDummySkill::LuaDummySkill",1,1)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("LuaDummySkill::LuaDummySkill",1,"char const *");
+  arg1 = (char *)lua_tostring(L, 1);
+  result = (LuaDummySkill *)new LuaDummySkill((char const *)arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_LuaDummySkill,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_LuaDummySkill(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      return _wrap_new_LuaDummySkill__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_new_LuaDummySkill__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'new_LuaDummySkill'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    LuaDummySkill::LuaDummySkill(char const *,Skill::Frequency)\n"
+    "    LuaDummySkill::LuaDummySkill(char const *)\n");
+  lua_error(L);return 0;
+}
+
+
+static void swig_delete_LuaDummySkill(void *obj) {
+LuaDummySkill *arg1 = (LuaDummySkill *) obj;
+delete arg1;
+}
+static swig_lua_method swig_LuaDummySkill_methods[] = {
+    {0,0}
+};
+static swig_lua_attribute swig_LuaDummySkill_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_LuaDummySkill_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_LuaDummySkill_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_LuaDummySkill_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_LuaDummySkill_bases[] = {0,0};
+static const char *swig_LuaDummySkill_base_names[] = {"DummySkill *",0};
+static swig_lua_class _wrap_class_LuaDummySkill = { "LuaDummySkill", &SWIGTYPE_p_LuaDummySkill,_wrap_new_LuaDummySkill, swig_delete_LuaDummySkill, swig_LuaDummySkill_methods, swig_LuaDummySkill_attributes, { "LuaDummySkill", swig_LuaDummySkill_cls_methods, swig_LuaDummySkill_cls_attributes, swig_LuaDummySkill_cls_constants }, swig_LuaDummySkill_bases, swig_LuaDummySkill_base_names };
 
 static int _wrap_ProhibitSkill_isProhibited__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
@@ -71483,9 +71500,7 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("TrickCardCanceling", TrickCardCanceling)},
     {SWIG_LUA_CONSTTAB_INT("TrickEffect", TrickEffect)},
     {SWIG_LUA_CONSTTAB_INT("ChoiceMade", ChoiceMade)},
-    {SWIG_LUA_CONSTTAB_INT("StageChange", StageChange)},
     {SWIG_LUA_CONSTTAB_INT("FetchDrawPileCard", FetchDrawPileCard)},
-    {SWIG_LUA_CONSTTAB_INT("ActionedReset", ActionedReset)},
     {SWIG_LUA_CONSTTAB_INT("Debut", Debut)},
     {SWIG_LUA_CONSTTAB_INT("TurnBroken", TurnBroken)},
     {SWIG_LUA_CONSTTAB_INT("NumOfEvents", NumOfEvents)},
@@ -71545,6 +71560,12 @@ static void *_p_LuaTargetModSkillTo_p_TargetModSkill(void *x, int *SWIGUNUSEDPAR
 static void *_p_LuaTriggerSkillTo_p_TriggerSkill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((TriggerSkill *)  ((LuaTriggerSkill *) x));
 }
+static void *_p_DummySkillTo_p_TriggerSkill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((TriggerSkill *)  ((DummySkill *) x));
+}
+static void *_p_LuaDummySkillTo_p_TriggerSkill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((TriggerSkill *) (DummySkill *) ((LuaDummySkill *) x));
+}
 static void *_p_GameStartSkillTo_p_TriggerSkill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((TriggerSkill *)  ((GameStartSkill *) x));
 }
@@ -71553,6 +71574,12 @@ static void *_p_LuaFilterSkillTo_p_FilterSkill(void *x, int *SWIGUNUSEDPARM(newm
 }
 static void *_p_LuaTreasureTo_p_Treasure(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Treasure *)  ((LuaTreasure *) x));
+}
+static void *_p_LuaDummySkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Skill *) (TriggerSkill *)(DummySkill *) ((LuaDummySkill *) x));
+}
+static void *_p_DummySkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Skill *) (TriggerSkill *) ((DummySkill *) x));
 }
 static void *_p_MaxCardsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Skill *)  ((MaxCardsSkill *) x));
@@ -71575,14 +71602,14 @@ static void *_p_FilterSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 static void *_p_LuaFilterSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Skill *) (ViewAsSkill *)(OneCardViewAsSkill *)(FilterSkill *) ((LuaFilterSkill *) x));
 }
-static void *_p_OneCardViewAsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Skill *) (ViewAsSkill *) ((OneCardViewAsSkill *) x));
+static void *_p_ViewAsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Skill *)  ((ViewAsSkill *) x));
 }
 static void *_p_LuaViewAsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Skill *) (ViewAsSkill *) ((LuaViewAsSkill *) x));
 }
-static void *_p_ViewAsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Skill *)  ((ViewAsSkill *) x));
+static void *_p_OneCardViewAsSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Skill *) (ViewAsSkill *) ((OneCardViewAsSkill *) x));
 }
 static void *_p_LuaProhibitSkillTo_p_Skill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Skill *) (ProhibitSkill *) ((LuaProhibitSkill *) x));
@@ -71661,6 +71688,12 @@ static void *_p_SkillCardTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 }
 static void *_p_LuaSkillCardTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *)(SkillCard *) ((LuaSkillCard *) x));
+}
+static void *_p_LuaDummySkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *) (Skill *)(TriggerSkill *)(DummySkill *) ((LuaDummySkill *) x));
+}
+static void *_p_DummySkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *) (Skill *)(TriggerSkill *) ((DummySkill *) x));
 }
 static void *_p_TreasureTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *)(EquipCard *) ((Treasure *) x));
@@ -71749,11 +71782,11 @@ static void *_p_QThreadTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 static void *_p_RoomThreadTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (QThread *) ((RoomThread *) x));
 }
-static void *_p_InvaliditySkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((QObject *) (Skill *) ((InvaliditySkill *) x));
-}
 static void *_p_ProhibitSkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Skill *) ((ProhibitSkill *) x));
+}
+static void *_p_InvaliditySkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *) (Skill *) ((InvaliditySkill *) x));
 }
 static void *_p_LuaProhibitSkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Skill *)(ProhibitSkill *) ((LuaProhibitSkill *) x));
@@ -71899,6 +71932,9 @@ static void *_p_RoomThreadTo_p_QThread(void *x, int *SWIGUNUSEDPARM(newmemory)) 
 static void *_p_RoomTo_p_QThread(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QThread *)  ((Room *) x));
 }
+static void *_p_LuaDummySkillTo_p_DummySkill(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((DummySkill *)  ((LuaDummySkill *) x));
+}
 static void *_p_LuaAITo_p_TrustAI(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((TrustAI *)  ((LuaAI *) x));
 }
@@ -71979,6 +72015,7 @@ static swig_type_info _swigt__p_DefensiveHorse = {"_p_DefensiveHorse", "Defensiv
 static swig_type_info _swigt__p_DelayedTrick = {"_p_DelayedTrick", "DelayedTrick *", 0, 0, (void*)&_wrap_class_DelayedTrick, 0};
 static swig_type_info _swigt__p_DistanceSkill = {"_p_DistanceSkill", "DistanceSkill *", 0, 0, (void*)&_wrap_class_DistanceSkill, 0};
 static swig_type_info _swigt__p_DummyCard = {"_p_DummyCard", "DummyCard *", 0, 0, (void*)&_wrap_class_DummyCard, 0};
+static swig_type_info _swigt__p_DummySkill = {"_p_DummySkill", "DummySkill *", 0, 0, (void*)&_wrap_class_DummySkill, 0};
 static swig_type_info _swigt__p_DyingStruct = {"_p_DyingStruct", "DyingStruct *", 0, 0, (void*)&_wrap_class_DyingStruct, 0};
 static swig_type_info _swigt__p_Engine = {"_p_Engine", "Engine *", 0, 0, (void*)&_wrap_class_Engine, 0};
 static swig_type_info _swigt__p_EquipCard = {"_p_EquipCard", "EquipCard *", 0, 0, (void*)&_wrap_class_EquipCard, 0};
@@ -71994,6 +72031,7 @@ static swig_type_info _swigt__p_LuaArmor = {"_p_LuaArmor", "LuaArmor *", 0, 0, (
 static swig_type_info _swigt__p_LuaAttackRangeSkill = {"_p_LuaAttackRangeSkill", "LuaAttackRangeSkill *", 0, 0, (void*)&_wrap_class_LuaAttackRangeSkill, 0};
 static swig_type_info _swigt__p_LuaBasicCard = {"_p_LuaBasicCard", "LuaBasicCard *", 0, 0, (void*)&_wrap_class_LuaBasicCard, 0};
 static swig_type_info _swigt__p_LuaDistanceSkill = {"_p_LuaDistanceSkill", "LuaDistanceSkill *", 0, 0, (void*)&_wrap_class_LuaDistanceSkill, 0};
+static swig_type_info _swigt__p_LuaDummySkill = {"_p_LuaDummySkill", "LuaDummySkill *", 0, 0, (void*)&_wrap_class_LuaDummySkill, 0};
 static swig_type_info _swigt__p_LuaFilterSkill = {"_p_LuaFilterSkill", "LuaFilterSkill *", 0, 0, (void*)&_wrap_class_LuaFilterSkill, 0};
 static swig_type_info _swigt__p_LuaFunction = {"_p_LuaFunction", "LuaFunction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LuaInvaliditySkill = {"_p_LuaInvaliditySkill", "LuaInvaliditySkill *", 0, 0, (void*)&_wrap_class_LuaInvaliditySkill, 0};
@@ -72084,6 +72122,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_DelayedTrick,
   &_swigt__p_DistanceSkill,
   &_swigt__p_DummyCard,
+  &_swigt__p_DummySkill,
   &_swigt__p_DyingStruct,
   &_swigt__p_Engine,
   &_swigt__p_EquipCard,
@@ -72099,6 +72138,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_LuaAttackRangeSkill,
   &_swigt__p_LuaBasicCard,
   &_swigt__p_LuaDistanceSkill,
+  &_swigt__p_LuaDummySkill,
   &_swigt__p_LuaFilterSkill,
   &_swigt__p_LuaFunction,
   &_swigt__p_LuaInvaliditySkill,
@@ -72189,6 +72229,7 @@ static swig_cast_info _swigc__p_DefensiveHorse[] = {  {&_swigt__p_DefensiveHorse
 static swig_cast_info _swigc__p_DelayedTrick[] = {  {&_swigt__p_DelayedTrick, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DistanceSkill[] = {  {&_swigt__p_DistanceSkill, 0, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_DistanceSkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DummyCard[] = {  {&_swigt__p_DummyCard, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_DummySkill[] = {  {&_swigt__p_DummySkill, 0, 0, 0},  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_DummySkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DyingStruct[] = {  {&_swigt__p_DyingStruct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Engine[] = {  {&_swigt__p_Engine, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_EquipCard[] = {  {&_swigt__p_Armor, _p_ArmorTo_p_EquipCard, 0, 0},  {&_swigt__p_EquipCard, 0, 0, 0},  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_EquipCard, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_EquipCard, 0, 0},  {&_swigt__p_Weapon, _p_WeaponTo_p_EquipCard, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_EquipCard, 0, 0},  {&_swigt__p_Treasure, _p_TreasureTo_p_EquipCard, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_EquipCard, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_EquipCard, 0, 0},  {&_swigt__p_Horse, _p_HorseTo_p_EquipCard, 0, 0},{0, 0, 0, 0}};
@@ -72204,6 +72245,7 @@ static swig_cast_info _swigc__p_LuaArmor[] = {  {&_swigt__p_LuaArmor, 0, 0, 0},{
 static swig_cast_info _swigc__p_LuaAttackRangeSkill[] = {  {&_swigt__p_LuaAttackRangeSkill, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaBasicCard[] = {  {&_swigt__p_LuaBasicCard, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaDistanceSkill[] = {  {&_swigt__p_LuaDistanceSkill, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_LuaDummySkill[] = {  {&_swigt__p_LuaDummySkill, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaFilterSkill[] = {  {&_swigt__p_LuaFilterSkill, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaFunction[] = {  {&_swigt__p_LuaFunction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaInvaliditySkill[] = {  {&_swigt__p_LuaInvaliditySkill, 0, 0, 0},{0, 0, 0, 0}};
@@ -72243,7 +72285,7 @@ static swig_cast_info _swigc__p_QListT_TriggerSkill_const_p_t[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_QListT_bool_t[] = {  {&_swigt__p_QListT_bool_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_int_t[] = {  {&_swigt__p_QListT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QMapT_QString_QString_t[] = {  {&_swigt__p_QMapT_QString_QString_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_QObject[] = {  {&_swigt__p_LuaAI, _p_LuaAITo_p_QObject, 0, 0},  {&_swigt__p_Package, _p_PackageTo_p_QObject, 0, 0},  {&_swigt__p_Analeptic, _p_AnalepticTo_p_QObject, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_QObject, 0, 0},  {&_swigt__p_Horse, _p_HorseTo_p_QObject, 0, 0},  {&_swigt__p_EquipCard, _p_EquipCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaSkillCard, _p_LuaSkillCardTo_p_QObject, 0, 0},  {&_swigt__p_SkillCard, _p_SkillCardTo_p_QObject, 0, 0},  {&_swigt__p_Room, _p_RoomTo_p_QObject, 0, 0},  {&_swigt__p_Armor, _p_ArmorTo_p_QObject, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_QObject, 0, 0},  {&_swigt__p_Treasure, _p_TreasureTo_p_QObject, 0, 0},  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_DelayedTrick, _p_DelayedTrickTo_p_QObject, 0, 0},  {&_swigt__p_TrustAI, _p_TrustAITo_p_QObject, 0, 0},  {&_swigt__p_General, _p_GeneralTo_p_QObject, 0, 0},  {&_swigt__p_DummyCard, _p_DummyCardTo_p_QObject, 0, 0},  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_ServerPlayer, _p_ServerPlayerTo_p_QObject, 0, 0},  {&_swigt__p_ClientPlayer, _p_ClientPlayerTo_p_QObject, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_TrickCard, _p_TrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTrickCard, _p_LuaTrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_QThread, _p_QThreadTo_p_QObject, 0, 0},  {&_swigt__p_RoomThread, _p_RoomThreadTo_p_QObject, 0, 0},  {&_swigt__p_Skill, _p_SkillTo_p_QObject, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_BasicCard, _p_BasicCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaBasicCard, _p_LuaBasicCardTo_p_QObject, 0, 0},  {&_swigt__p_WrappedCard, _p_WrappedCardTo_p_QObject, 0, 0},  {&_swigt__p_QObject, 0, 0, 0},  {&_swigt__p_Slash, _p_SlashTo_p_QObject, 0, 0},  {&_swigt__p_AI, _p_AITo_p_QObject, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_QObject, 0, 0},  {&_swigt__p_Weapon, _p_WeaponTo_p_QObject, 0, 0},  {&_swigt__p_Player, _p_PlayerTo_p_QObject, 0, 0},  {&_swigt__p_Card, _p_CardTo_p_QObject, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_QObject, 0, 0},  {&_swigt__p_Engine, _p_EngineTo_p_QObject, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_QObject, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QObject[] = {  {&_swigt__p_LuaAI, _p_LuaAITo_p_QObject, 0, 0},  {&_swigt__p_Package, _p_PackageTo_p_QObject, 0, 0},  {&_swigt__p_Analeptic, _p_AnalepticTo_p_QObject, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_QObject, 0, 0},  {&_swigt__p_Horse, _p_HorseTo_p_QObject, 0, 0},  {&_swigt__p_EquipCard, _p_EquipCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaSkillCard, _p_LuaSkillCardTo_p_QObject, 0, 0},  {&_swigt__p_SkillCard, _p_SkillCardTo_p_QObject, 0, 0},  {&_swigt__p_Room, _p_RoomTo_p_QObject, 0, 0},  {&_swigt__p_Armor, _p_ArmorTo_p_QObject, 0, 0},  {&_swigt__p_DummySkill, _p_DummySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_QObject, 0, 0},  {&_swigt__p_Treasure, _p_TreasureTo_p_QObject, 0, 0},  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_DelayedTrick, _p_DelayedTrickTo_p_QObject, 0, 0},  {&_swigt__p_TrustAI, _p_TrustAITo_p_QObject, 0, 0},  {&_swigt__p_General, _p_GeneralTo_p_QObject, 0, 0},  {&_swigt__p_DummyCard, _p_DummyCardTo_p_QObject, 0, 0},  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_ServerPlayer, _p_ServerPlayerTo_p_QObject, 0, 0},  {&_swigt__p_ClientPlayer, _p_ClientPlayerTo_p_QObject, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_TrickCard, _p_TrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTrickCard, _p_LuaTrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_QThread, _p_QThreadTo_p_QObject, 0, 0},  {&_swigt__p_RoomThread, _p_RoomThreadTo_p_QObject, 0, 0},  {&_swigt__p_Skill, _p_SkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_BasicCard, _p_BasicCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaBasicCard, _p_LuaBasicCardTo_p_QObject, 0, 0},  {&_swigt__p_WrappedCard, _p_WrappedCardTo_p_QObject, 0, 0},  {&_swigt__p_QObject, 0, 0, 0},  {&_swigt__p_Slash, _p_SlashTo_p_QObject, 0, 0},  {&_swigt__p_AI, _p_AITo_p_QObject, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_QObject, 0, 0},  {&_swigt__p_Weapon, _p_WeaponTo_p_QObject, 0, 0},  {&_swigt__p_Player, _p_PlayerTo_p_QObject, 0, 0},  {&_swigt__p_Card, _p_CardTo_p_QObject, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_QObject, 0, 0},  {&_swigt__p_Engine, _p_EngineTo_p_QObject, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_QObject, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_QString_t[] = {  {&_swigt__p_QSetT_QString_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_Skill_const_p_t[] = {  {&_swigt__p_QSetT_Skill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_TriggerSkill_const_p_t[] = {  {&_swigt__p_QSetT_TriggerSkill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -72256,14 +72298,14 @@ static swig_cast_info _swigc__p_Room[] = {  {&_swigt__p_Room, 0, 0, 0},{0, 0, 0,
 static swig_cast_info _swigc__p_RoomThread[] = {  {&_swigt__p_RoomThread, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Scenario[] = {  {&_swigt__p_Scenario, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ServerPlayer[] = {  {&_swigt__p_ServerPlayer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Skill[] = {  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_Skill, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_Skill, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_Skill, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_Skill, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_Skill, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_Skill, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_Skill, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_Skill, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_Skill, 0, 0},  {&_swigt__p_Skill, 0, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_Skill, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Skill[] = {  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_Skill, 0, 0},  {&_swigt__p_DummySkill, _p_DummySkillTo_p_Skill, 0, 0},  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_Skill, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_Skill, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_Skill, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_Skill, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_Skill, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_Skill, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_Skill, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_Skill, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_Skill, 0, 0},  {&_swigt__p_Skill, 0, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_Skill, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_Skill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SkillCard[] = {  {&_swigt__p_DummyCard, _p_DummyCardTo_p_SkillCard, 0, 0},  {&_swigt__p_SkillCard, 0, 0, 0},  {&_swigt__p_LuaSkillCard, _p_LuaSkillCardTo_p_SkillCard, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Slash[] = {  {&_swigt__p_Slash, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SlashEffectStruct[] = {  {&_swigt__p_SlashEffectStruct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TargetModSkill[] = {  {&_swigt__p_TargetModSkill, 0, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_TargetModSkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Treasure[] = {  {&_swigt__p_Treasure, 0, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_Treasure, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TrickCard[] = {  {&_swigt__p_DelayedTrick, _p_DelayedTrickTo_p_TrickCard, 0, 0},  {&_swigt__p_TrickCard, 0, 0, 0},  {&_swigt__p_LuaTrickCard, _p_LuaTrickCardTo_p_TrickCard, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_TriggerSkill[] = {  {&_swigt__p_TriggerSkill, 0, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_TriggerSkill, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_TriggerSkill, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TriggerSkill[] = {  {&_swigt__p_TriggerSkill, 0, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_TriggerSkill, 0, 0},  {&_swigt__p_DummySkill, _p_DummySkillTo_p_TriggerSkill, 0, 0},  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_TriggerSkill, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_TriggerSkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TrustAI[] = {  {&_swigt__p_TrustAI, 0, 0, 0},  {&_swigt__p_LuaAI, _p_LuaAITo_p_TrustAI, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ViewAsSkill[] = {  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_ViewAsSkill, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_ViewAsSkill, 0, 0},  {&_swigt__p_ViewAsSkill, 0, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_ViewAsSkill, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_ViewAsSkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Weapon[] = {  {&_swigt__p_Weapon, 0, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_Weapon, 0, 0},{0, 0, 0, 0}};
@@ -72294,6 +72336,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_DelayedTrick,
   _swigc__p_DistanceSkill,
   _swigc__p_DummyCard,
+  _swigc__p_DummySkill,
   _swigc__p_DyingStruct,
   _swigc__p_Engine,
   _swigc__p_EquipCard,
@@ -72309,6 +72352,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_LuaAttackRangeSkill,
   _swigc__p_LuaBasicCard,
   _swigc__p_LuaDistanceSkill,
+  _swigc__p_LuaDummySkill,
   _swigc__p_LuaFilterSkill,
   _swigc__p_LuaFunction,
   _swigc__p_LuaInvaliditySkill,

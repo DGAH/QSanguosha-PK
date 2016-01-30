@@ -1,3 +1,6 @@
+function SmartAI:hasQiuyuanEffect()
+	return false
+end
 function SmartAI:canAttack(enemy, attacker, nature)
 	attacker = attacker or self.player
 	nature = nature or sgs.DamageStruct_Normal

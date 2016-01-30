@@ -50,6 +50,11 @@ QDialog *LuaViewAsSkill::getDialog() const
     return guhuo;
 }
 
+LuaDummySkill::LuaDummySkill(const char *name, Frequency frequency)
+    : DummySkill(name, frequency)
+{
+}
+
 LuaFilterSkill::LuaFilterSkill(const char *name)
     : FilterSkill(name), view_filter(0), view_as(0)
 {

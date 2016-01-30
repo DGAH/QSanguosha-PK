@@ -27,6 +27,20 @@ public:
     virtual void onGameStart(ServerPlayer *player) const = 0;
 };
 
+class DummySkill : public TriggerSkill {
+public:
+	DummySkill(const QString &name, Frequency frequency = Skill::Compulsory);
+
+	virtual bool triggerable(const ServerPlayer *) const;
+	virtual bool trigger(TriggerEvent, Room *, ServerPlayer *, QVariant &) const;
+};
+
+class LuaDummySkill : public DummySkill
+{
+public:
+	LuaDummySkill(const char *name, Frequency frequency = Skill::Compulsory);
+};
+
 class ProhibitSkill: public Skill {
 public:
     ProhibitSkill(const QString &name);

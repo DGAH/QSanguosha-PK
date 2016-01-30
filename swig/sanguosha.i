@@ -332,12 +332,6 @@ public:
     ServerPlayer *getNext() const;
     ServerPlayer *getNextAlive(int n = 1) const;
 
-    // 3v3 methods
-    void addToSelected(const char *general);
-    QStringList getSelected() const;
-    QString findReasonable(const QStringList &generals, bool no_unreasonable = false);
-    void clearSelected();
-
     int getGeneralMaxHp() const;
     virtual QString getGameMode() const;
 
@@ -717,9 +711,7 @@ enum TriggerEvent {
 
     ChoiceMade,
 
-    StageChange, // For hulao pass only
     FetchDrawPileCard, // For miniscenarios only
-    ActionedReset, // For 3v3 only
     Debut, // For 1v1 only
 
     TurnBroken, // For the skill 'DanShou'. Do not use it to trigger events
@@ -1144,7 +1136,6 @@ public:
     void removeFixedDistance(Player *from, const Player *to, int distance);
     void insertAttackRangePair(Player *from, const Player *to);
     void removeAttackRangePair(Player *from, const Player *to);
-    void reverseFor3v3(const Card *card, ServerPlayer *player, QList<ServerPlayer *> &list);
     bool hasWelfare(const ServerPlayer *player) const;
     ServerPlayer *getFront(ServerPlayer *a, ServerPlayer *b) const;
     void signup(ServerPlayer *player, const char *screen_name, const char *avatar, bool is_robot);
@@ -1232,7 +1223,6 @@ public:
     bool notifyProperty(ServerPlayer *playerToNotify, const ServerPlayer *propertyOwner, const char *propertyName, const char *value = NULL);
     bool broadcastProperty(ServerPlayer *player, const char *property_name, const char *value = NULL);
 
-    int getBossModeExpMult(int level) const;
 };
 
 %extend Room {

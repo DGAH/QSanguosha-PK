@@ -433,6 +433,22 @@ void SPConvertSkill::onGameStart(ServerPlayer *player) const
     }
 }
 
+DummySkill::DummySkill(const QString &name, Frequency frequency)
+	:TriggerSkill(name)
+{
+	this->frequency = frequency;
+}
+
+bool DummySkill::triggerable(const ServerPlayer *) const
+{
+	return false;
+}
+
+bool DummySkill::trigger(TriggerEvent, Room *, ServerPlayer *, QVariant &) const
+{
+	return false;
+}
+
 ProhibitSkill::ProhibitSkill(const QString &name)
     : Skill(name, Skill::Compulsory)
 {

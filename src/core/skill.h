@@ -232,6 +232,17 @@ private:
     QStringList to_list;
 };
 
+class DummySkill : public TriggerSkill
+{
+	Q_OBJECT
+
+public:
+	DummySkill(const QString &name, Frequency frequency = Skill::Compulsory);
+
+	virtual bool triggerable(const ServerPlayer *) const;
+	virtual bool trigger(TriggerEvent, Room *, ServerPlayer *, QVariant &) const;
+};
+
 class ProhibitSkill : public Skill
 {
     Q_OBJECT
