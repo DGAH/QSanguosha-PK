@@ -2463,9 +2463,7 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
     ServerPlayer *the_lord = getLord();
     if (the_lord && players.contains(the_lord)) {
         QStringList lord_list;
-        if (Config.EnableSame)
-            lord_list = Sanguosha->getRandomGenerals(Config.value("MaxChoice", 5).toInt());
-        else if (the_lord->getState() == "robot")
+        if (the_lord->getState() == "robot")
             if (((qrand() % 100 < nonlord_prob || lord_num == 0) && nonlord_num > 0)
                 || Sanguosha->getLords().length() == 0)
                 lord_list = Sanguosha->getRandomGenerals(1);
@@ -2477,16 +2475,6 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
         the_lord->setGeneralName(general);
         if (!Config.EnableBasara)
             broadcastProperty(the_lord, "general", general);
-
-        if (Config.EnableSame) {
-            foreach (ServerPlayer *p, players) {
-                if (!p->isLord())
-                    p->setGeneralName(general);
-            }
-
-            Config.Enable2ndGeneral = false;
-            return;
-        }
     }
     QList<ServerPlayer *> to_assign = players;
     if (the_lord) to_assign.removeOne(the_lord);

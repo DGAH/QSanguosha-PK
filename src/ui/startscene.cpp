@@ -157,9 +157,6 @@ void StartScene::printServerInfo()
     } else
         server_log->append(tr("Seconardary general is disabled"));
 
-    server_log->append(Config.EnableSame ?
-        tr("Same Mode is enabled") :
-        tr("Same Mode is disabled"));
     server_log->append(Config.EnableBasara ?
         tr("Basara Mode is enabled") :
         tr("Basara Mode is disabled"));

@@ -245,9 +245,6 @@ QWidget *ServerDialog::createAdvancedTab()
     second_general_checkbox = new QCheckBox(tr("Enable second general"));
     second_general_checkbox->setChecked(Config.Enable2ndGeneral);
 
-    same_checkbox = new QCheckBox(tr("Enable Same"));
-    same_checkbox->setChecked(Config.EnableSame);
-
     max_hp_label = new QLabel(tr("Max HP scheme"));
     max_hp_scheme_ComboBox = new QComboBox;
     max_hp_scheme_ComboBox->addItem(tr("Sum - X"));
@@ -303,7 +300,6 @@ QWidget *ServerDialog::createAdvancedTab()
     layout->addLayout(HLay(scheme0_subtraction_label, scheme0_subtraction_spinbox));
     layout->addWidget(prevent_awaken_below3_checkbox);
     layout->addWidget(basara_checkbox);
-    layout->addWidget(same_checkbox);
     layout->addLayout(HLay(new QLabel(tr("Address")), address_edit));
     layout->addWidget(detect_button);
     layout->addLayout(HLay(new QLabel(tr("Port")), port_edit));
@@ -781,7 +777,6 @@ int ServerDialog::config()
     Config.ForbidSIMC = forbid_same_ip_checkbox->isChecked();
     Config.DisableChat = disable_chat_checkbox->isChecked();
     Config.Enable2ndGeneral = second_general_checkbox->isChecked();
-    Config.EnableSame = same_checkbox->isChecked();
     Config.EnableBasara = basara_checkbox->isChecked() && basara_checkbox->isEnabled();
     Config.MaxHpScheme = max_hp_scheme_ComboBox->currentIndex();
     if (Config.MaxHpScheme == 0) {
@@ -832,7 +827,6 @@ int ServerDialog::config()
     Config.setValue("ForbidSIMC", Config.ForbidSIMC);
     Config.setValue("DisableChat", Config.DisableChat);
     Config.setValue("Enable2ndGeneral", Config.Enable2ndGeneral);
-    Config.setValue("EnableSame", Config.EnableSame);
     Config.setValue("EnableBasara", Config.EnableBasara);
     Config.setValue("MaxHpScheme", Config.MaxHpScheme);
     Config.setValue("Scheme0Subtraction", Config.Scheme0Subtraction);

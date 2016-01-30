@@ -69,7 +69,6 @@ bool ServerInfoStruct::parse(const QString &_str)
         EnableCheat = flags.contains("C");
         FreeChoose = EnableCheat && flags.contains("F");
         Enable2ndGeneral = flags.contains("S");
-        EnableSame = flags.contains("T");
         EnableBasara = flags.contains("B");
         EnableAI = flags.contains("A");
         DisableChat = flags.contains("M");
@@ -102,7 +101,6 @@ ServerInfoWidget::ServerInfoWidget(bool show_lack)
     game_mode_label = new QLabel;
     player_count_label = new QLabel;
     two_general_label = new QLabel;
-    same_label = new QLabel;
     basara_label = new QLabel;
     random_seat_label = new QLabel;
     enable_cheat_label = new QLabel;
@@ -122,7 +120,6 @@ ServerInfoWidget::ServerInfoWidget(bool show_lack)
     layout->addRow(tr("Game mode"), game_mode_label);
     layout->addRow(tr("Player count"), player_count_label);
     layout->addRow(tr("2nd general mode"), two_general_label);
-    layout->addRow(tr("Same Mode"), same_label);
     layout->addRow(tr("Basara Mode"), basara_label);
     layout->addRow(tr("Max HP scheme"), max_hp_label);
     layout->addRow(tr("Random seat"), random_seat_label);
@@ -150,7 +147,6 @@ void ServerInfoWidget::fill(const ServerInfoStruct &info, const QString &address
     player_count_label->setText(QString::number(player_count));
     port_label->setText(QString::number(Config.ServerPort));
     two_general_label->setText(info.Enable2ndGeneral ? tr("Enabled") : tr("Disabled"));
-    same_label->setText(info.EnableSame ? tr("Enabled") : tr("Disabled"));
     basara_label->setText(info.EnableBasara ? tr("Enabled") : tr("Disabled"));
 
     if (info.Enable2ndGeneral) {
@@ -209,7 +205,6 @@ void ServerInfoWidget::clear()
     game_mode_label->clear();
     player_count_label->clear();
     two_general_label->clear();
-    same_label->clear();
     basara_label->clear();
     random_seat_label->clear();
     enable_cheat_label->clear();

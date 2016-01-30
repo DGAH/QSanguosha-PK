@@ -686,8 +686,6 @@ QString Engine::getSetupString() const
         flags.append("F");
     if (Config.Enable2ndGeneral)
         flags.append("S");
-    if (Config.EnableSame)
-        flags.append("T");
     if (Config.EnableBasara)
         flags.append("B");
     if (Config.EnableAI)

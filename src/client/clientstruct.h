@@ -22,7 +22,6 @@ struct ServerInfoStruct
     bool EnableCheat;
     bool FreeChoose;
     bool Enable2ndGeneral;
-    bool EnableSame;
     bool EnableBasara;
     bool EnableAI;
     bool DisableChat;
@@ -54,7 +53,6 @@ private:
     QLabel *game_mode_label;
     QLabel *player_count_label;
     QLabel *two_general_label;
-    QLabel *same_label;
     QLabel *basara_label;
     QLabel *max_hp_label;
     QLabel *random_seat_label;
