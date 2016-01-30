@@ -1791,13 +1791,7 @@ void Client::log(const QVariant &log_str)
     if (!JsonUtils::tryParse(log_str, log) || log.size() != 6)
         emit log_received(QStringList() << QString());
     else {
-        if (log.first().contains("#BasaraReveal"))
-            Sanguosha->playSystemAudioEffect("choose-item");
-        else if (log.first() == "#Zombify") {
-            ClientPlayer *from = getPlayer(log.at(1));
-            if (from)
-                Sanguosha->playSystemAudioEffect(QString("zombify-%1").arg(from->isMale() ? "male" : "female"));
-        } else if (log.first() == "#UseLuckCard") {
+        if (log.first() == "#UseLuckCard") {
             ClientPlayer *from = getPlayer(log.at(1));
             if (from && from != Self)
                 from->setHandcardNum(0);

@@ -157,10 +157,6 @@ void StartScene::printServerInfo()
     } else
         server_log->append(tr("Seconardary general is disabled"));
 
-    server_log->append(Config.EnableBasara ?
-        tr("Basara Mode is enabled") :
-        tr("Basara Mode is disabled"));
-
     if (Config.EnableAI) {
         server_log->append(tr("This server is AI enabled, AI delay is %1 milliseconds").arg(Config.AIDelay));
     } else

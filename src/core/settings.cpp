@@ -65,20 +65,6 @@ void Settings::init()
     CountDownSeconds = value("CountDownSeconds", 3).toInt();
     GameMode = value("GameMode", "02p").toString();
 
-    QStringList banpackagelist = value("BanPackages").toStringList();
-    if (banpackagelist.isEmpty()) {
-        banpackagelist << "ling" << "nostalgia"
-            << "nostal_standard" << "nostal_general" << "nostal_wind"
-            << "nostal_yjcm" << "nostal_yjcm2012" << "nostal_yjcm2013"
-            << "Special3v3" << "Special1v1"
-            << "test" << "GreenHand" << "dragon"
-            << "sp_cards" << "GreenHandCard"
-            << "New3v3Card" << "New3v3_2013Card" << "New1v1Card"
-            << "yitian" << "wisdom" << "BGM" << "BGMDIY"
-            << "hegemony" << "h_formation" << "h_momentum";
-    }
-    setValue("BanPackages", banpackagelist);
-
     BanPackages = value("BanPackages").toStringList();
 
     RandomSeat = value("RandomSeat", true).toBool();
@@ -88,7 +74,6 @@ void Settings::init()
     DisableChat = value("DisableChat", false).toBool();
     FreeAssignSelf = EnableCheat && value("FreeAssignSelf", false).toBool();
     Enable2ndGeneral = value("Enable2ndGeneral", false).toBool();
-    EnableBasara = value("EnableBasara", false).toBool();
     MaxHpScheme = value("MaxHpScheme", 0).toInt();
     Scheme0Subtraction = value("Scheme0Subtraction", 3).toInt();
     PreventAwakenBelow3 = value("PreventAwakenBelow3", false).toBool();
@@ -139,11 +124,10 @@ void Settings::init()
 
     BubbleChatBoxKeepTime = value("BubbleChatboxKeepTime", 2000).toInt();
 
-    QStringList roles_ban, kof_ban, basara_ban, pairs_ban;
+    QStringList roles_ban, kof_ban, pairs_ban;
 
     roles_ban = GetConfigFromLuaState(lua, "roles_ban").toStringList();
     kof_ban = GetConfigFromLuaState(lua, "kof_ban").toStringList();
-    basara_ban = GetConfigFromLuaState(lua, "basara_ban").toStringList();
     pairs_ban = GetConfigFromLuaState(lua, "pairs_ban").toStringList();
 
     QStringList banlist = value("Banlist/Roles").toStringList();
@@ -162,26 +146,11 @@ void Settings::init()
         setValue("Banlist/1v1", banlist);
     }
 
-    banlist = value("Banlist/Basara").toStringList();
-    if (banlist.isEmpty()) {
-        foreach(QString ban_general, basara_ban)
-            banlist << ban_general;
-
-        setValue("Banlist/Basara", banlist);
-    }
-
     banlist = value("Banlist/Pairs").toStringList();
     if (banlist.isEmpty()) {
         foreach(QString ban_general, pairs_ban)
             banlist << ban_general;
 
         setValue("Banlist/Pairs", banlist);
-    }
-
-    QStringList forbid_packages = value("ForbidPackages").toStringList();
-    if (forbid_packages.isEmpty()) {
-        forbid_packages << "New3v3Card" << "New3v3_2013Card" << "New1v1Card" << "test";
-
-        setValue("ForbidPackages", forbid_packages);
     }
 }

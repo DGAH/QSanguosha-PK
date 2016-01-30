@@ -2473,7 +2473,7 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
             lord_list = Sanguosha->getRandomLords();
         QString general = askForGeneral(the_lord, lord_list);
         the_lord->setGeneralName(general);
-        if (!Config.EnableBasara)
+
             broadcastProperty(the_lord, "general", general);
     }
     QList<ServerPlayer *> to_assign = players;
@@ -2503,26 +2503,6 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
             QString generalName = player->getClientReply().toString();
             if (!player->m_isClientResponseReady || !_setPlayerGeneral(player, generalName, false))
                 _setPlayerGeneral(player, _chooseDefaultGeneral(player), false);
-        }
-    }
-
-    if (Config.EnableBasara) {
-        foreach (ServerPlayer *player, m_players) {
-            QStringList names;
-            if (player->getGeneral()) {
-                QString name = player->getGeneralName();
-                names.append(name);
-                player->setGeneralName("anjiang");
-                notifyProperty(player, player, "general");
-            }
-            if (player->getGeneral2() && Config.Enable2ndGeneral) {
-                QString name = player->getGeneral2Name();
-                names.append(name);
-                player->setGeneral2Name("anjiang");
-                notifyProperty(player, player, "general2");
-            }
-            player->setProperty("basara_generals", names.join("+"));
-            notifyProperty(player, player, "basara_generals");
         }
     }
 }
@@ -3328,16 +3308,14 @@ void Room::startGame()
     }
 
     foreach (ServerPlayer *player, m_players) {
-        if (!Config.EnableBasara
-            && (mode == "02_1v1" || !player->isLord()))
+        if (mode == "02_1v1" || !player->isLord())
             broadcastProperty(player, "general");
 
         if (mode == "02_1v1")
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
         if (Config.Enable2ndGeneral
-            && mode != "02_1v1"
-            && !Config.EnableBasara)
+            && mode != "02_1v1")
             broadcastProperty(player, "general2");
 
         broadcastProperty(player, "hp");
@@ -4925,12 +4903,8 @@ ServerPlayer *Room::askForPlayerChosen(ServerPlayer *player, const QList<ServerP
 void Room::_setupChooseGeneralRequestArgs(ServerPlayer *player)
 {
     JsonArray options = JsonUtils::toJsonArray(player->getSelected()).value<JsonArray>();
-    if (!Config.EnableBasara) {
         if (getLord())
             options.append(QString("%1(lord)").arg(getLord()->getGeneralName()));
-    } else {
-        options.append("anjiang(lord)");
-    }
     player->m_commandArgs = options;
 }
 

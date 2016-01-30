@@ -364,9 +364,6 @@ int Engine::getGeneralCount(bool include_banned, const QString &kingdom) const
             isBanned = true;
         else if (ServerInfo.Enable2ndGeneral && BanPair::isBanned(general->objectName()))
             isBanned = true;
-        else if (ServerInfo.EnableBasara
-            && Config.value("Banlist/Basara").toStringList().contains(general->objectName()))
-            isBanned = true;
         if (include_banned || !isBanned)
             total++;
     }
@@ -686,8 +683,6 @@ QString Engine::getSetupString() const
         flags.append("F");
     if (Config.Enable2ndGeneral)
         flags.append("S");
-    if (Config.EnableBasara)
-        flags.append("B");
     if (Config.EnableAI)
         flags.append("A");
     if (Config.DisableChat)
@@ -858,8 +853,6 @@ QStringList Engine::getLords(bool contain_banned) const
 QStringList Engine::getRandomLords() const
 {
     QStringList banlist_ban;
-    if (Config.EnableBasara)
-        banlist_ban = Config.value("Banlist/Basara").toStringList();
 
     if (isNormalGameMode(Config.GameMode))
         banlist_ban.append(Config.value("Banlist/Roles").toStringList());
@@ -938,9 +931,6 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
     QSet<QString> general_set = all_generals.toSet();
 
     Q_ASSERT(all_generals.count() >= count);
-
-    if (Config.EnableBasara)
-        general_set = general_set.subtract(Config.value("Banlist/Basara", "").toStringList().toSet());
 
     if (isNormalGameMode(ServerInfo.GameMode))
         general_set.subtract(Config.value("Banlist/Roles", "").toStringList().toSet());

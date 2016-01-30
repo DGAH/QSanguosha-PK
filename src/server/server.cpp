@@ -266,8 +266,6 @@ QWidget *ServerDialog::createAdvancedTab()
 
     connect(max_hp_scheme_ComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setMaxHpSchemeBox()));
 
-    basara_checkbox = new QCheckBox(tr("Enable Basara"));
-    basara_checkbox->setChecked(Config.EnableBasara);
     updateButtonEnablility(mode_group->checkedButton());
     connect(mode_group, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(updateButtonEnablility(QAbstractButton *)));
 
@@ -299,7 +297,6 @@ QWidget *ServerDialog::createAdvancedTab()
     layout->addLayout(HLay(max_hp_label, max_hp_scheme_ComboBox));
     layout->addLayout(HLay(scheme0_subtraction_label, scheme0_subtraction_spinbox));
     layout->addWidget(prevent_awaken_below3_checkbox);
-    layout->addWidget(basara_checkbox);
     layout->addLayout(HLay(new QLabel(tr("Address")), address_edit));
     layout->addWidget(detect_button);
     layout->addLayout(HLay(new QLabel(tr("Port")), port_edit));
@@ -398,14 +395,6 @@ QWidget *ServerDialog::createMiscTab()
 void ServerDialog::updateButtonEnablility(QAbstractButton *button)
 {
     if (!button) return;
-    if (button->objectName().contains("scenario")
-        || button->objectName().contains("1v1")
-        || button->objectName().contains("1v3")) {
-        basara_checkbox->setChecked(false);
-        basara_checkbox->setEnabled(false);
-    } else {
-        basara_checkbox->setEnabled(true);
-    }
         second_general_checkbox->setEnabled(true);
 }
 
@@ -423,7 +412,7 @@ BanlistDialog::BanlistDialog(QWidget *parent, bool view)
     setMinimumWidth(455);
 
     if (ban_list.isEmpty())
-        ban_list << "Roles" << "1v1" << "Basara" << "Pairs" << "Cards";
+        ban_list << "Roles" << "1v1" << "Pairs" << "Cards";
     QVBoxLayout *layout = new QVBoxLayout;
 
     QTabWidget *tab = new QTabWidget;
@@ -777,7 +766,6 @@ int ServerDialog::config()
     Config.ForbidSIMC = forbid_same_ip_checkbox->isChecked();
     Config.DisableChat = disable_chat_checkbox->isChecked();
     Config.Enable2ndGeneral = second_general_checkbox->isChecked();
-    Config.EnableBasara = basara_checkbox->isChecked() && basara_checkbox->isEnabled();
     Config.MaxHpScheme = max_hp_scheme_ComboBox->currentIndex();
     if (Config.MaxHpScheme == 0) {
         Config.Scheme0Subtraction = scheme0_subtraction_spinbox->value();
@@ -827,7 +815,6 @@ int ServerDialog::config()
     Config.setValue("ForbidSIMC", Config.ForbidSIMC);
     Config.setValue("DisableChat", Config.DisableChat);
     Config.setValue("Enable2ndGeneral", Config.Enable2ndGeneral);
-    Config.setValue("EnableBasara", Config.EnableBasara);
     Config.setValue("MaxHpScheme", Config.MaxHpScheme);
     Config.setValue("Scheme0Subtraction", Config.Scheme0Subtraction);
     Config.setValue("PreventAwakenBelow3", Config.PreventAwakenBelow3);

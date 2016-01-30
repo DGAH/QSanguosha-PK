@@ -318,10 +318,6 @@ QString ServerPlayer::findReasonable(const QStringList &generals, bool no_unreas
                 if (BanPair::isBanned(name)) continue;
             }
         }
-        if (Config.EnableBasara) {
-            QStringList ban_list = Config.value("Banlist/Basara").toStringList();
-            if (ban_list.contains(name)) continue;
-        }
         if (Config.GameMode.endsWith("p")
             || Config.GameMode.endsWith("pd")
             || Config.GameMode.endsWith("pz")) {

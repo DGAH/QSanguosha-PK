@@ -39,7 +39,6 @@ public:
     bool DisableChat;
     bool FreeAssignSelf;
     bool Enable2ndGeneral;
-    bool EnableBasara;
     int MaxHpScheme;
     int Scheme0Subtraction;
     bool PreventAwakenBelow3;

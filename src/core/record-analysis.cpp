@@ -71,7 +71,6 @@ void RecAnalysis::initialize(QString dir)
                 if (flags.contains("C")) m_recordServerOptions << tr("EnableCheat");
                 if (flags.contains("F")) m_recordServerOptions << tr("FreeChoose");
                 if (flags.contains("S")) m_recordServerOptions << tr("Enable2ndGeneral");
-                if (flags.contains("B")) m_recordServerOptions << tr("EnableBasara");
                 if (flags.contains("A")) m_recordServerOptions << tr("EnableAI");
 
                 continue;
