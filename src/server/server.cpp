@@ -274,22 +274,6 @@ QWidget *ServerDialog::createAdvancedTab()
     updateButtonEnablility(mode_group->checkedButton());
     connect(mode_group, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(updateButtonEnablility(QAbstractButton *)));
 
-    hegemony_checkbox = new QCheckBox(tr("Enable Hegemony"));
-    hegemony_checkbox->setChecked(Config.EnableBasara && Config.EnableHegemony);
-    hegemony_checkbox->setEnabled(basara_checkbox->isChecked());
-    connect(basara_checkbox, SIGNAL(toggled(bool)), hegemony_checkbox, SLOT(setChecked(bool)));
-    connect(basara_checkbox, SIGNAL(toggled(bool)), hegemony_checkbox, SLOT(setEnabled(bool)));
-
-    hegemony_maxchoice_label = new QLabel(tr("Upperlimit for hegemony"));
-    hegemony_maxchoice_spinbox = new QSpinBox;
-    hegemony_maxchoice_spinbox->setRange(5, 21);
-    hegemony_maxchoice_spinbox->setValue(Config.value("HegemonyMaxChoice", 7).toInt());
-
-    hegemony_maxshown_label = new QLabel(tr("Max shown num for hegemony"));
-    hegemony_maxshown_spinbox = new QSpinBox;
-    hegemony_maxshown_spinbox->setRange(1, 11);
-    hegemony_maxshown_spinbox->setValue(Config.value("HegemonyMaxShown", 2).toInt());
-
     address_edit = new QLineEdit;
     address_edit->setText(Config.Address);
 #if QT_VERSION >= 0x040700
@@ -318,9 +302,7 @@ QWidget *ServerDialog::createAdvancedTab()
     layout->addLayout(HLay(max_hp_label, max_hp_scheme_ComboBox));
     layout->addLayout(HLay(scheme0_subtraction_label, scheme0_subtraction_spinbox));
     layout->addWidget(prevent_awaken_below3_checkbox);
-    layout->addLayout(HLay(basara_checkbox, hegemony_checkbox));
-    layout->addLayout(HLay(hegemony_maxchoice_label, hegemony_maxchoice_spinbox));
-    layout->addLayout(HLay(hegemony_maxshown_label, hegemony_maxshown_spinbox));
+    layout->addWidget(basara_checkbox);
     layout->addWidget(same_checkbox);
     layout->addLayout(HLay(new QLabel(tr("Address")), address_edit));
     layout->addWidget(detect_button);
@@ -345,16 +327,6 @@ QWidget *ServerDialog::createAdvancedTab()
         scheme0_subtraction_spinbox->setVisible(false);
     }
     connect(second_general_checkbox, SIGNAL(toggled(bool)), this, SLOT(setMaxHpSchemeBox()));
-
-    hegemony_maxchoice_label->setVisible(Config.EnableHegemony);
-    connect(hegemony_checkbox, SIGNAL(toggled(bool)), hegemony_maxchoice_label, SLOT(setVisible(bool)));
-    hegemony_maxchoice_spinbox->setVisible(Config.EnableHegemony);
-    connect(hegemony_checkbox, SIGNAL(toggled(bool)), hegemony_maxchoice_spinbox, SLOT(setVisible(bool)));
-
-    hegemony_maxshown_label->setVisible(Config.EnableHegemony);
-    connect(hegemony_checkbox, SIGNAL(toggled(bool)), hegemony_maxshown_label, SLOT(setVisible(bool)));
-    hegemony_maxshown_spinbox->setVisible(Config.EnableHegemony);
-    connect(hegemony_checkbox, SIGNAL(toggled(bool)), hegemony_maxshown_spinbox, SLOT(setVisible(bool)));
 
     return widget;
 }
@@ -455,7 +427,7 @@ BanlistDialog::BanlistDialog(QWidget *parent, bool view)
     setMinimumWidth(455);
 
     if (ban_list.isEmpty())
-        ban_list << "Roles" << "1v1" << "Basara" << "Hegemony" << "Pairs" << "Cards";
+        ban_list << "Roles" << "1v1" << "Basara" << "Pairs" << "Cards";
     QVBoxLayout *layout = new QVBoxLayout;
 
     QTabWidget *tab = new QTabWidget;
@@ -811,7 +783,6 @@ int ServerDialog::config()
     Config.Enable2ndGeneral = second_general_checkbox->isChecked();
     Config.EnableSame = same_checkbox->isChecked();
     Config.EnableBasara = basara_checkbox->isChecked() && basara_checkbox->isEnabled();
-    Config.EnableHegemony = hegemony_checkbox->isChecked() && hegemony_checkbox->isEnabled();
     Config.MaxHpScheme = max_hp_scheme_ComboBox->currentIndex();
     if (Config.MaxHpScheme == 0) {
         Config.Scheme0Subtraction = scheme0_subtraction_spinbox->value();
@@ -863,9 +834,6 @@ int ServerDialog::config()
     Config.setValue("Enable2ndGeneral", Config.Enable2ndGeneral);
     Config.setValue("EnableSame", Config.EnableSame);
     Config.setValue("EnableBasara", Config.EnableBasara);
-    Config.setValue("EnableHegemony", Config.EnableHegemony);
-    Config.setValue("HegemonyMaxChoice", hegemony_maxchoice_spinbox->value());
-    Config.setValue("HegemonyMaxShown", hegemony_maxshown_spinbox->value());
     Config.setValue("MaxHpScheme", Config.MaxHpScheme);
     Config.setValue("Scheme0Subtraction", Config.Scheme0Subtraction);
     Config.setValue("PreventAwakenBelow3", Config.PreventAwakenBelow3);

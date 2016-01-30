@@ -71,7 +71,6 @@ bool ServerInfoStruct::parse(const QString &_str)
         Enable2ndGeneral = flags.contains("S");
         EnableSame = flags.contains("T");
         EnableBasara = flags.contains("B");
-        EnableHegemony = flags.contains("H");
         EnableAI = flags.contains("A");
         DisableChat = flags.contains("M");
 
@@ -105,7 +104,6 @@ ServerInfoWidget::ServerInfoWidget(bool show_lack)
     two_general_label = new QLabel;
     same_label = new QLabel;
     basara_label = new QLabel;
-    hegemony_label = new QLabel;
     random_seat_label = new QLabel;
     enable_cheat_label = new QLabel;
     free_choose_label = new QLabel;
@@ -126,7 +124,6 @@ ServerInfoWidget::ServerInfoWidget(bool show_lack)
     layout->addRow(tr("2nd general mode"), two_general_label);
     layout->addRow(tr("Same Mode"), same_label);
     layout->addRow(tr("Basara Mode"), basara_label);
-    layout->addRow(tr("Hegemony Mode"), hegemony_label);
     layout->addRow(tr("Max HP scheme"), max_hp_label);
     layout->addRow(tr("Random seat"), random_seat_label);
     layout->addRow(tr("Enable cheat"), enable_cheat_label);
@@ -155,7 +152,6 @@ void ServerInfoWidget::fill(const ServerInfoStruct &info, const QString &address
     two_general_label->setText(info.Enable2ndGeneral ? tr("Enabled") : tr("Disabled"));
     same_label->setText(info.EnableSame ? tr("Enabled") : tr("Disabled"));
     basara_label->setText(info.EnableBasara ? tr("Enabled") : tr("Disabled"));
-    hegemony_label->setText(info.EnableHegemony ? tr("Enabled") : tr("Disabled"));
 
     if (info.Enable2ndGeneral) {
         switch (info.MaxHpScheme) {
@@ -215,7 +211,6 @@ void ServerInfoWidget::clear()
     two_general_label->clear();
     same_label->clear();
     basara_label->clear();
-    hegemony_label->clear();
     random_seat_label->clear();
     enable_cheat_label->clear();
     free_choose_label->clear();

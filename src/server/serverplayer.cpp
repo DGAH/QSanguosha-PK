@@ -317,10 +317,6 @@ QString ServerPlayer::findReasonable(const QStringList &generals, bool no_unreas
             } else {
                 if (BanPair::isBanned(name)) continue;
             }
-
-            if (Config.EnableHegemony && getGeneral()
-                && getGeneral()->getKingdom() != Sanguosha->getGeneral(name)->getKingdom())
-                continue;
         }
         if (Config.EnableBasara) {
             QStringList ban_list = Config.value("Banlist/Basara").toStringList();

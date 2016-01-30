@@ -3155,9 +3155,7 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
     static QStringList labels;
     if (labels.isEmpty()) {
         labels << tr("General") << tr("Name") << tr("Alive");
-        if (ServerInfo.EnableHegemony)
-            labels << tr("Nationality");
-        else
+
             labels << tr("Role");
 
         labels << tr("TurnCount");
@@ -3188,11 +3186,6 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
 
         item = new QTableWidgetItem;
 
-        if (ServerInfo.EnableHegemony) {
-            QIcon icon(QString("image/kingdom/icon/%1.png").arg(player->getKingdom()));
-            item->setIcon(icon);
-            item->setText(Sanguosha->translate(player->getKingdom()));
-        } else {
             QIcon icon(QString("image/system/roles/%1.png").arg(player->getRole()));
             item->setIcon(icon);
             QString role = player->getRole();
@@ -3203,7 +3196,7 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
                     role = "offensive";
             }
             item->setText(Sanguosha->translate(role));
-        }
+
         if (!player->isAlive())
             item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
         table->setItem(i, 3, item);
@@ -4346,7 +4339,6 @@ void RoomScene::updateRoles(const QString &roles)
         removeItem(item);
 
     role_items.clear();
-    if (ServerInfo.EnableHegemony) return;
 
     static QMap<QChar, QPixmap> map;
     if (map.isEmpty()) {

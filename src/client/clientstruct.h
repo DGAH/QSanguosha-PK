@@ -24,7 +24,6 @@ struct ServerInfoStruct
     bool Enable2ndGeneral;
     bool EnableSame;
     bool EnableBasara;
-    bool EnableHegemony;
     bool EnableAI;
     bool DisableChat;
     int MaxHpScheme;
@@ -57,7 +56,6 @@ private:
     QLabel *two_general_label;
     QLabel *same_label;
     QLabel *basara_label;
-    QLabel *hegemony_label;
     QLabel *max_hp_label;
     QLabel *random_seat_label;
     QLabel *enable_cheat_label;

@@ -136,9 +136,6 @@ void ClientPlayer::changePile(const QString &name, bool add, QList<int> card_ids
 QString ClientPlayer::getDeathPixmapPath() const
 {
     QString basename;
-    if (ServerInfo.EnableHegemony) {
-        basename.clear();
-    } else
         basename = getRole();
 
     if (basename.isEmpty())

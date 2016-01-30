@@ -285,10 +285,7 @@ QString Engine::translate(const QString &to_translate) const
 
 int Engine::getRoleIndex() const
 {
-    if (ServerInfo.EnableHegemony) {
-        return 5;
-    } else
-        return 1;
+	return 1;
 }
 
 const CardPattern *Engine::getPattern(const QString &name) const
@@ -369,9 +366,6 @@ int Engine::getGeneralCount(bool include_banned, const QString &kingdom) const
             isBanned = true;
         else if (ServerInfo.EnableBasara
             && Config.value("Banlist/Basara").toStringList().contains(general->objectName()))
-            isBanned = true;
-        else if (ServerInfo.EnableHegemony
-            && Config.value("Banlist/Hegemony").toStringList().contains(general->objectName()))
             isBanned = true;
         if (include_banned || !isBanned)
             total++;
@@ -696,8 +690,6 @@ QString Engine::getSetupString() const
         flags.append("T");
     if (Config.EnableBasara)
         flags.append("B");
-    if (Config.EnableHegemony)
-        flags.append("H");
     if (Config.EnableAI)
         flags.append("A");
     if (Config.DisableChat)
@@ -802,10 +794,6 @@ QString Engine::getRoles(const QString &mode) const
         QString rolechar = table[n];
         if (mode.endsWith("z"))
             rolechar.replace("N", "C");
-        else if (Config.EnableHegemony) {
-            rolechar.replace("F", "N");
-            rolechar.replace("C", "N");
-        }
 
         return rolechar;
     } else if (mode.startsWith("@")) {
@@ -955,8 +943,6 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
 
     if (Config.EnableBasara)
         general_set = general_set.subtract(Config.value("Banlist/Basara", "").toStringList().toSet());
-    if (Config.EnableHegemony)
-        general_set = general_set.subtract(Config.value("Banlist/Hegemony", "").toStringList().toSet());
 
     if (isNormalGameMode(ServerInfo.GameMode))
         general_set.subtract(Config.value("Banlist/Roles", "").toStringList().toSet());

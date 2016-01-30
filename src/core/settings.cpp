@@ -90,7 +90,6 @@ void Settings::init()
     Enable2ndGeneral = value("Enable2ndGeneral", false).toBool();
     EnableSame = value("EnableSame", false).toBool();
     EnableBasara = value("EnableBasara", false).toBool();
-    EnableHegemony = value("EnableHegemony", false).toBool();
     MaxHpScheme = value("MaxHpScheme", 0).toInt();
     Scheme0Subtraction = value("Scheme0Subtraction", 3).toInt();
     PreventAwakenBelow3 = value("PreventAwakenBelow3", false).toBool();
@@ -141,17 +140,11 @@ void Settings::init()
 
     BubbleChatBoxKeepTime = value("BubbleChatboxKeepTime", 2000).toInt();
 
-    QStringList roles_ban, kof_ban, basara_ban, hegemony_ban, pairs_ban;
+    QStringList roles_ban, kof_ban, basara_ban, pairs_ban;
 
     roles_ban = GetConfigFromLuaState(lua, "roles_ban").toStringList();
     kof_ban = GetConfigFromLuaState(lua, "kof_ban").toStringList();
     basara_ban = GetConfigFromLuaState(lua, "basara_ban").toStringList();
-    hegemony_ban = GetConfigFromLuaState(lua, "hegemony_ban").toStringList();
-    hegemony_ban.append(basara_ban);
-    foreach (QString general, Sanguosha->getLimitedGeneralNames()) {
-        if (Sanguosha->getGeneral(general)->getKingdom() == "god" && !hegemony_ban.contains(general))
-            hegemony_ban << general;
-    }
     pairs_ban = GetConfigFromLuaState(lua, "pairs_ban").toStringList();
 
     QStringList banlist = value("Banlist/Roles").toStringList();
@@ -176,13 +169,6 @@ void Settings::init()
             banlist << ban_general;
 
         setValue("Banlist/Basara", banlist);
-    }
-
-    banlist = value("Banlist/Hegemony").toStringList();
-    if (banlist.isEmpty()) {
-        foreach(QString ban_general, hegemony_ban)
-            banlist << ban_general;
-        setValue("Banlist/Hegemony", banlist);
     }
 
     banlist = value("Banlist/Pairs").toStringList();

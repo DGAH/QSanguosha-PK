@@ -443,9 +443,6 @@ bool Player::hasLordSkill(const QString &skill_name, bool include_lose) const
     if (mode == "02_1v1" || Config.value("WithoutLordskill", false).toBool())
         return false;
 
-    if (ServerInfo.EnableHegemony)
-        return false;
-
     if (isLord())
         return skills.contains(skill_name);
 
