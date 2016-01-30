@@ -11,8 +11,8 @@ return {
 	["$super_yongsi2"] = "呐~哈哈哈哈哈哈哈哈哈哈！",
 	["$super_yongsi3"] = "呀呀呀呀呀呀呀！",
 	["$super_yongsi4"] = "嗙啪~呜哈哈哈哈哈哈哈哈！",
-	["$super_weidi1"] = "我才是皇帝！",
-	["$super_weidi2"] = "你们都得听我的号令！",
+	["$weidi1"] = "我才是皇帝！",
+	["$weidi2"] = "你们都得听我的号令！",
 	["~super_yuanshu"] = "呃啊~~~~~~~~",
 	-- 蹲坑曹仁
 	["$super_jushou1"] = "我先休息一会儿！",

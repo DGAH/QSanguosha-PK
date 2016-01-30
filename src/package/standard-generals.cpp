@@ -35,11 +35,11 @@ public:
 		}
 		case CardUseStruct::CARD_USE_REASON_RESPONSE:
 		case CardUseStruct::CARD_USE_REASON_RESPONSE_USE: {
-															  QString pattern = Sanguosha->currentRoomState()->getCurrentCardUsePattern();
-															  if (pattern == "slash")
-																  return card->isKindOf("Jink");
-															  else if (pattern == "jink")
-																  return card->isKindOf("Slash");
+			QString pattern = Sanguosha->currentRoomState()->getCurrentCardUsePattern();
+			if (pattern == "slash")
+				return card->isKindOf("Jink");
+			else if (pattern == "jink")
+				return card->isKindOf("Slash");
 		}
 		default:
 			return false;
@@ -301,29 +301,29 @@ bool Longhun::viewFilter(const QList<const Card *> &selected, const Card *card) 
 
 	switch (Sanguosha->currentRoomState()->getCurrentCardUseReason()) {
 	case CardUseStruct::CARD_USE_REASON_PLAY: {
-												  if (Self->isWounded() && card->getSuit() == Card::Heart)
-													  return true;
-												  else if (card->getSuit() == Card::Diamond) {
-													  FireSlash *slash = new FireSlash(Card::SuitToBeDecided, -1);
-													  slash->addSubcards(selected);
-													  slash->addSubcard(card->getEffectiveId());
-													  slash->deleteLater();
-													  return slash->isAvailable(Self);
-												  }
-												  else
-													  return false;
+		if (Self->isWounded() && card->getSuit() == Card::Heart)
+			return true;
+		else if (card->getSuit() == Card::Diamond) {
+			FireSlash *slash = new FireSlash(Card::SuitToBeDecided, -1);
+			slash->addSubcards(selected);
+			slash->addSubcard(card->getEffectiveId());
+			slash->deleteLater();
+			return slash->isAvailable(Self);
+		}
+		else
+			return false;
 	}
 	case CardUseStruct::CARD_USE_REASON_RESPONSE:
 	case CardUseStruct::CARD_USE_REASON_RESPONSE_USE: {
-														  QString pattern = Sanguosha->currentRoomState()->getCurrentCardUsePattern();
-														  if (pattern == "jink")
-															  return card->getSuit() == Card::Club;
-														  else if (pattern == "nullification")
-															  return card->getSuit() == Card::Spade;
-														  else if (pattern == "peach" || pattern == "peach+analeptic")
-															  return card->getSuit() == Card::Heart;
-														  else if (pattern == "slash")
-															  return card->getSuit() == Card::Diamond;
+		QString pattern = Sanguosha->currentRoomState()->getCurrentCardUsePattern();
+			if (pattern == "jink")
+				return card->getSuit() == Card::Club;
+			else if (pattern == "nullification")
+				return card->getSuit() == Card::Spade;
+			else if (pattern == "peach" || pattern == "peach+analeptic")
+				return card->getSuit() == Card::Heart;
+			else if (pattern == "slash")
+				return card->getSuit() == Card::Diamond;
 	}
 	default:
 		break;
@@ -344,20 +344,20 @@ const Card *Longhun::viewAs(const QList<const Card *> &cards) const
 
 	switch (card->getSuit()) {
 	case Card::Spade: {
-						  new_card = new Nullification(Card::SuitToBeDecided, 0);
-						  break;
+		new_card = new Nullification(Card::SuitToBeDecided, 0);
+		break;
 	}
 	case Card::Heart: {
-						  new_card = new Peach(Card::SuitToBeDecided, 0);
-						  break;
+		new_card = new Peach(Card::SuitToBeDecided, 0);
+		break;
 	}
 	case Card::Club: {
-						 new_card = new Jink(Card::SuitToBeDecided, 0);
-						 break;
+		new_card = new Jink(Card::SuitToBeDecided, 0);
+		break;
 	}
 	case Card::Diamond: {
-							new_card = new FireSlash(Card::SuitToBeDecided, 0);
-							break;
+		new_card = new FireSlash(Card::SuitToBeDecided, 0);
+		break;
 	}
 	default:
 		break;
@@ -425,54 +425,6 @@ public:
 	virtual bool isEnabledAtResponse(const Player *, const QString &pattern) const
 	{
 		return pattern == "@zhiheng";
-	}
-};
-
-class Jiuyuan : public TriggerSkill
-{
-public:
-	Jiuyuan() : TriggerSkill("jiuyuan$")
-	{
-		events << TargetConfirmed << PreHpRecover;
-		frequency = Compulsory;
-	}
-
-	virtual bool triggerable(const ServerPlayer *target) const
-	{
-		return target != NULL && target->hasLordSkill("jiuyuan");
-	}
-
-	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *sunquan, QVariant &data) const
-	{
-		if (triggerEvent == TargetConfirmed) {
-			CardUseStruct use = data.value<CardUseStruct>();
-			if (use.card->isKindOf("Peach") && use.from && use.from->getKingdom() == "wu"
-				&& sunquan != use.from && sunquan->hasFlag("Global_Dying")) {
-				room->setCardFlag(use.card, "jiuyuan");
-			}
-		}
-		else if (triggerEvent == PreHpRecover) {
-			RecoverStruct rec = data.value<RecoverStruct>();
-			if (rec.card && rec.card->hasFlag("jiuyuan")) {
-				room->notifySkillInvoked(sunquan, "jiuyuan");
-				if (!sunquan->isLord() && sunquan->hasSkill("weidi"))
-					room->broadcastSkillInvoke("weidi");
-				else
-					room->broadcastSkillInvoke("jiuyuan", rec.who->isMale() ? 1 : 2);
-
-				LogMessage log;
-				log.type = "#JiuyuanExtraRecover";
-				log.from = sunquan;
-				log.to << rec.who;
-				log.arg = objectName();
-				room->sendLog(log);
-
-				rec.recover++;
-				data = QVariant::fromValue(rec);
-			}
-		}
-
-		return false;
 	}
 };
 /*
@@ -769,7 +721,7 @@ void StandardPackage::addGenerals()
 	//原标准版·孙权
 	General *sunquan = new General(this, "sunquan$", "wu");
 	sunquan->addSkill(new Zhiheng);
-	sunquan->addSkill(new Jiuyuan);
+	sunquan->addSkill(new DummySkill("jiuyuan"));
 	//测试·五星诸葛
 	General *wuxingzhuge = new General(this, "wuxingzhuge", "shu", 3);
 	wuxingzhuge->addSkill(new SuperGuanxing);
