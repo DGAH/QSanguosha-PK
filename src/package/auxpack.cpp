@@ -12,7 +12,7 @@ WeidiDialog *WeidiDialog::getInstance()
 	return instance;
 }
 
-QList<const ViewAsSkill *> WeidiDialog::getLordViewAsSkills(const Player *player)
+QList<const ViewAsSkill *> WeidiDialog::getLordViewAsSkills(const Player *)
 {
 	return QList<const ViewAsSkill *>();
 }

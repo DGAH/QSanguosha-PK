@@ -932,8 +932,6 @@ public:
     Card *getCard(int cardId);
     WrappedCard *getWrappedCard(int cardId);
 
-    QStringList getLords(bool contain_banned = false) const;
-    QStringList getRandomLords() const;
     QStringList getRandomGenerals(int count, const QSet<QString> &ban_set = QSet<QString>(), const char *kingdom = "") const;
     QList<int> getRandomCards() const;
     QString getRandomGeneralName() const;

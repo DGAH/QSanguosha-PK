@@ -220,16 +220,6 @@ QWidget *ServerDialog::createAdvancedTab()
     maxchoice_spinbox->setRange(3, 21);
     maxchoice_spinbox->setValue(Config.value("MaxChoice", 5).toInt());
 
-    lord_maxchoice_label = new QLabel(tr("Upperlimit for lord"));
-    lord_maxchoice_label->setToolTip(tr("-1 means that all lords are available"));
-    lord_maxchoice_spinbox = new QSpinBox;
-    lord_maxchoice_spinbox->setRange(-1, 15);
-    lord_maxchoice_spinbox->setValue(Config.value("LordMaxChoice", -1).toInt());
-
-    nonlord_maxchoice_spinbox = new QSpinBox;
-    nonlord_maxchoice_spinbox->setRange(0, 15);
-    nonlord_maxchoice_spinbox->setValue(Config.value("NonLordMaxChoice", 2).toInt());
-
     forbid_same_ip_checkbox = new QCheckBox(tr("Forbid same IP with multiple connection"));
     forbid_same_ip_checkbox->setChecked(Config.ForbidSIMC);
 
@@ -284,8 +274,6 @@ QWidget *ServerDialog::createAdvancedTab()
     layout->addLayout(HLay(free_assign_checkbox, free_assign_self_checkbox));
     layout->addLayout(HLay(pile_swapping_label, pile_swapping_spinbox));
     layout->addLayout(HLay(new QLabel(tr("Upperlimit for general")), maxchoice_spinbox));
-    layout->addLayout(HLay(lord_maxchoice_label, lord_maxchoice_spinbox));
-    layout->addLayout(HLay(new QLabel(tr("Upperlimit for non-lord")), nonlord_maxchoice_spinbox));
     layout->addWidget(second_general_checkbox);
     layout->addLayout(HLay(max_hp_label, max_hp_scheme_ComboBox));
     layout->addLayout(HLay(scheme0_subtraction_label, scheme0_subtraction_spinbox));
@@ -753,8 +741,6 @@ int ServerDialog::config()
     Config.setValue("FreeAssignSelf", Config.FreeAssignSelf);
     Config.setValue("PileSwappingLimitation", pile_swapping_spinbox->value());
     Config.setValue("MaxChoice", maxchoice_spinbox->value());
-    Config.setValue("LordMaxChoice", lord_maxchoice_spinbox->value());
-    Config.setValue("NonLordMaxChoice", nonlord_maxchoice_spinbox->value());
     Config.setValue("ForbidSIMC", Config.ForbidSIMC);
     Config.setValue("DisableChat", Config.DisableChat);
     Config.setValue("Enable2ndGeneral", Config.Enable2ndGeneral);

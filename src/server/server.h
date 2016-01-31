@@ -80,9 +80,6 @@ private:
     QLabel *pile_swapping_label;
     QSpinBox *pile_swapping_spinbox;
     QSpinBox *maxchoice_spinbox;
-    QLabel *lord_maxchoice_label;
-    QSpinBox *lord_maxchoice_spinbox;
-    QSpinBox *nonlord_maxchoice_spinbox;
     QCheckBox *forbid_same_ip_checkbox;
     QCheckBox *disable_chat_checkbox;
     QCheckBox *second_general_checkbox;
