@@ -10,17 +10,11 @@
 #include <QFile>
 
 Skill::Skill(const QString &name, Frequency frequency)
-    : frequency(frequency), limit_mark(QString()), lord_skill(false), attached_lord_skill(false)
+    : frequency(frequency), limit_mark(QString()), attached_lord_skill(false)
 {
-    static QChar lord_symbol('$');
     static QChar attached_lord_symbol('&');
 
-    if (name.endsWith(lord_symbol)) {
-        QString copy = name;
-        copy.remove(lord_symbol);
-        setObjectName(copy);
-        lord_skill = true;
-    } else if (name.endsWith(attached_lord_symbol)) {
+    if (name.endsWith(attached_lord_symbol)) {
         QString copy = name;
         copy.remove(attached_lord_symbol);
         setObjectName(copy);
@@ -28,11 +22,6 @@ Skill::Skill(const QString &name, Frequency frequency)
     } else {
         setObjectName(name);
     }
-}
-
-bool Skill::isLordSkill() const
-{
-    return lord_skill;
 }
 
 bool Skill::isAttachedLordSkill() const
@@ -170,7 +159,7 @@ bool ViewAsSkill::isAvailable(const Player *invoker,
     CardUseStruct::CardUseReason reason,
     const QString &pattern) const
 {
-    if (!invoker->hasSkill(this) && !invoker->hasLordSkill(this) && invoker->getMark("ViewAsSkill_" + objectName() + "Effect") == 0) // For Shuangxiong
+    if (!invoker->hasSkill(this) && invoker->getMark("ViewAsSkill_" + objectName() + "Effect") == 0) // For Shuangxiong
         return false;
     switch (reason) {
     case CardUseStruct::CARD_USE_REASON_PLAY: return isEnabledAtPlay(invoker);

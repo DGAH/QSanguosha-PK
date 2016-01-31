@@ -2043,11 +2043,6 @@ void RoomScene::updateSkillButtons(bool isPrepare)
         skill_list = Self->getVisibleSkillList();
     }
     foreach (const Skill *skill, skill_list) {
-        if (skill->isLordSkill()
-            && (Self->getRole() != "lord"
-			|| ServerInfo.GameMode.contains("kof")))
-            continue;
-
         addSkillButton(skill);
     }
 

@@ -152,8 +152,6 @@ public:
     bool hasSkill(const char *skill_name, bool include_lose = false) const;
     bool hasSkill(const Skill *skill, bool include_lose = false) const;
     bool hasSkills(const char *skill_name, bool include_lose = false) const;
-    bool hasLordSkill(const char *skill_name, bool include_lose = false) const;
-    bool hasLordSkill(const Skill *skill, bool include_lose = false) const;
     bool hasInnateSkill(const char *skill_name) const;
     bool hasInnateSkill(const Skill *skill) const;
 
@@ -966,7 +964,6 @@ public:
     enum Frequency { Frequent, NotFrequent, Compulsory, Limited, Wake };
 
     explicit Skill(const char *name, Frequency frequent = NotFrequent);
-    bool isLordSkill() const;
     bool isAttachedLordSkill() const;
     QString getDescription() const;
     bool isVisible() const;

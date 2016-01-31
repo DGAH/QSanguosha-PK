@@ -305,10 +305,6 @@ const Card *TrustAI::askForPindian(ServerPlayer *requestor, const QString &reaso
     QList<const Card *> cards = self->getHandcards();
     qSort(cards.begin(), cards.end(), CompareByNumber);
 
-    // zhiba special case
-    if (reason == "zhiba_pindian" && self->hasLordSkill("zhiba"))
-        return cards.last();
-
     if (requestor != self && isFriend(requestor))
         return cards.first();
     else

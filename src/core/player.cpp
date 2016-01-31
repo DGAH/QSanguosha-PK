@@ -431,30 +431,6 @@ bool Player::hasInnateSkill(const Skill *skill) const
     return hasInnateSkill(skill->objectName());
 }
 
-bool Player::hasLordSkill(const QString &skill_name, bool include_lose) const
-{
-    if (!hasSkill(skill_name, include_lose))
-        return false;
-
-    if (acquired_skills.contains(skill_name))
-        return true;
-
-    QString mode = getGameMode();
-    if (mode.contains("kof"))
-        return false;
-
-    if (isLord())
-        return skills.contains(skill_name);
-
-    return false;
-}
-
-bool Player::hasLordSkill(const Skill *skill, bool include_lose /* = false */) const
-{
-    Q_ASSERT(skill != NULL);
-    return hasLordSkill(skill->objectName(), include_lose);
-}
-
 void Player::acquireSkill(const QString &skill_name)
 {
     acquired_skills.append(skill_name);

@@ -14,24 +14,7 @@ WeidiDialog *WeidiDialog::getInstance()
 
 QList<const ViewAsSkill *> WeidiDialog::getLordViewAsSkills(const Player *player)
 {
-	const Player *lord = NULL;
-	foreach(const Player *p, player->getAliveSiblings()) {
-		if (p->isLord()) {
-			lord = p;
-			break;
-		}
-	}
-	if (!lord) return QList<const ViewAsSkill *>();
-
-	QList<const ViewAsSkill *> vs_skills;
-	foreach(const Skill *skill, lord->getVisibleSkillList()) {
-		if (skill->isLordSkill() && player->hasLordSkill(skill->objectName())) {
-			const ViewAsSkill *vs = ViewAsSkill::parseViewAsSkill(skill);
-			if (vs)
-				vs_skills << vs;
-		}
-	}
-	return vs_skills;
+	return QList<const ViewAsSkill *>();
 }
 
 WeidiDialog::WeidiDialog()
