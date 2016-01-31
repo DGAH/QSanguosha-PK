@@ -19,8 +19,8 @@ void RoomThread1v1::run()
 {
     // initialize the random seed for this thread
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
-    QString rule = Config.value("1v1/Rule", "2013").toString();
-    int total_num = rule != "Classical" ? 12 : 10;
+	QString game_mode = Config.value("GameMode", "03_kof").toString();
+	int total_num = game_mode == "03_kof" ? 10 : 12;
 	/*
     if (!Config.value("1v1/UsingExtension", false).toBool()) {
         const Package *stdpack = Sanguosha->findChild<const Package *>("standard");
@@ -57,7 +57,7 @@ void RoomThread1v1::run()
 	QSet<QString> banset = Config.value("Banlist/1v1").toStringList().toSet();
 	general_names = Sanguosha->getRandomGenerals(total_num, banset);
 
-    if (rule == "Classical") {
+    if (game_mode == "03_kof") {
         QStringList known_list = general_names.mid(0, 6);
         unknown_list = general_names.mid(6, 4);
 
@@ -65,9 +65,9 @@ void RoomThread1v1::run()
             general_names[i + 6] = QString("x%1").arg(QString::number(i));
 
         room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(known_list << "x0" << "x1" << "x2" << "x3"));
-    } else if (rule == "WZZZ") {
+    } else if (game_mode == "05_kof_wzzz") {
         room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(general_names));
-    } else if (rule == "2013") {
+    } else if (game_mode == "04_kof_2013") {
         QStringList known_list = general_names.mid(0, 6);
         unknown_list = general_names.mid(6, 6);
 
@@ -90,7 +90,7 @@ void RoomThread1v1::run()
     room->broadcastProperty(next, "role");
     room->adjustSeats();
 
-    if (rule == "2013") {
+    if (game_mode == "04_kof_2013") {
         takeGeneral(first, "x0");
         takeGeneral(first, "x2");
         takeGeneral(first, "x4");
@@ -109,7 +109,7 @@ void RoomThread1v1::run()
     }
     askForTakeGeneral(next);
 
-    if (rule == "2013")
+    if (game_mode == "04_kof_2013")
         askForFirstGeneral(QList<ServerPlayer *>() << first << next);
     else
         startArrange(QList<ServerPlayer *>() << first << next);
@@ -144,9 +144,8 @@ void RoomThread1v1::askForTakeGeneral(ServerPlayer *player)
 
 void RoomThread1v1::takeGeneral(ServerPlayer *player, const QString &name)
 {
-    QString rule = Config.value("1v1/Rule", "2013").toString();
     QString group = player->isLord() ? "warm" : "cool";
-    room->doBroadcastNotify(room->getOtherPlayers(player, true), S_COMMAND_TAKE_GENERAL, JsonUtils::toJsonArray(QStringList() << group << name << rule));
+    room->doBroadcastNotify(room->getOtherPlayers(player, true), S_COMMAND_TAKE_GENERAL, JsonUtils::toJsonArray(QStringList() << group << name));
 
     QRegExp unknown_rx("x(\\d)");
     QString general_name = name;
@@ -159,7 +158,7 @@ void RoomThread1v1::takeGeneral(ServerPlayer *player, const QString &name)
         room->doNotify(player, S_COMMAND_RECOVER_GENERAL, arg);
     }
 
-    room->doNotify(player, S_COMMAND_TAKE_GENERAL, JsonUtils::toJsonArray(QStringList() << group << general_name << rule));
+    room->doNotify(player, S_COMMAND_TAKE_GENERAL, JsonUtils::toJsonArray(QStringList() << group << general_name));
 
     QString namearg = unknown_rx.exactMatch(name) ? "anjiang" : name;
     foreach (ServerPlayer *p, room->getPlayers()) {
@@ -248,8 +247,8 @@ void RoomThread1v1::askForFirstGeneral(QList<ServerPlayer *> players)
 
 void RoomThread1v1::arrange(ServerPlayer *player, const QStringList &arranged)
 {
-    QString rule = Config.value("1v1/Rule", "2013").toString();
-    Q_ASSERT(arranged.length() == ((rule == "2013") ? 6 : 3));
+	QString game_mode = Config.value("GameMode", "03_kof").toString();
+    Q_ASSERT(arranged.length() == ((game_mode == "04_kof_2013") ? 6 : 3));
 
     QStringList left = arranged.mid(1);
     player->tag["1v1Arrange"] = QVariant::fromValue(left);
@@ -257,7 +256,7 @@ void RoomThread1v1::arrange(ServerPlayer *player, const QStringList &arranged)
 
     foreach (QString general, arranged) {
         room->doNotify(player, S_COMMAND_REVEAL_GENERAL, JsonUtils::toJsonArray(QStringList() << player->objectName() << general));
-        if (rule != "Classical") break;
+        if (game_mode != "03_kof") break;
     }
 }
 

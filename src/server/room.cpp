@@ -392,13 +392,13 @@ void Room::killPlayer(ServerPlayer *victim, DamageStruct *reason)
 
             static QStringList continue_list;
             if (continue_list.isEmpty())
-                continue_list << "02_1v1";
+                continue_list << "03_kof" << "04_kof_2013" << "05_kof_wzzz";
             if (continue_list.contains(Config.GameMode))
                 return;
 
             if (Config.AlterAIDelayAD)
                 Config.AIDelay = Config.AIDelayAD;
-            if (victim->isOnline() && Config.SurrenderAtDeath && mode != "02_1v1"
+			if (victim->isOnline() && Config.SurrenderAtDeath && (!mode.contains("kof"))
                 && askForSkillInvoke(victim, "surrender", "yes"))
                 makeSurrender(victim);
         }
@@ -2039,7 +2039,7 @@ void Room::prepareForStart()
             else
                 notifyProperty(player, player, "role");
         }
-    } else if (mode == "02_1v1") {
+    } else if (mode.contains("kof")) {
         return;
     } else if (Config.EnableCheat && Config.value("FreeAssign", false).toBool()) {
         ServerPlayer *owner = getOwner();
@@ -2539,7 +2539,7 @@ void Room::run()
 
     if (scenario && !scenario->generalSelection())
         startGame();
-    else if (mode == "02_1v1") {
+    else if (mode.contains("kof")) {
         thread_1v1 = new RoomThread1v1(this);
         thread_1v1->start();
 
@@ -3308,14 +3308,14 @@ void Room::startGame()
     }
 
     foreach (ServerPlayer *player, m_players) {
-        if (mode == "02_1v1" || !player->isLord())
+        if (mode.contains("kof") || !player->isLord())
             broadcastProperty(player, "general");
 
-        if (mode == "02_1v1")
+        if (mode.contains("kof"))
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
         if (Config.Enable2ndGeneral
-            && mode != "02_1v1")
+            && (!mode.contains("kof")))
             broadcastProperty(player, "general2");
 
         broadcastProperty(player, "hp");
@@ -3345,7 +3345,7 @@ void Room::startGame()
     doBroadcastNotify(S_COMMAND_UPDATE_PILE, QVariant(m_drawPile->length()));
 
     thread = new RoomThread(this);
-    if (mode != "02_1v1")
+    if (!mode.contains("kof"))
         _m_roomState.reset();
     connect(thread, SIGNAL(started()), this, SIGNAL(game_start()));
 

@@ -402,7 +402,7 @@ public:
 
 	virtual bool viewFilter(const QList<const Card *> &selected, const Card *to_select) const
 	{
-		if (ServerInfo.GameMode == "02_1v1" && ServerInfo.GameRuleMode != "Classical" && selected.length() >= 2) return false;
+		if (ServerInfo.GameMode.contains("kof") && ServerInfo.GameMode != "03_kof" && selected.length() >= 2) return false;
 		return !Self->isJilei(to_select);
 	}
 

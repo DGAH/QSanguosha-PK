@@ -600,47 +600,6 @@ void ServerDialog::edit1v1Banlist()
     dialog->exec();
 }
 
-QGroupBox *ServerDialog::create1v1Box()
-{
-    QGroupBox *box = new QGroupBox(tr("1v1 options"));
-    box->setEnabled(Config.GameMode == "02_1v1");
-    box->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QVBoxLayout *vlayout = new QVBoxLayout;
-
-    QComboBox *officialComboBox = new QComboBox;
-    officialComboBox->addItem(tr("Classical"), "Classical");
-    officialComboBox->addItem("2013", "2013");
-    officialComboBox->addItem(tr("WZZZ"), "WZZZ");
-
-    official_1v1_ComboBox = officialComboBox;
-
-    QString rule = Config.value("1v1/Rule", "2013").toString();
-    if (rule == "2013")
-        officialComboBox->setCurrentIndex(1);
-    else if (rule == "WZZZ")
-        officialComboBox->setCurrentIndex(2);
-
-    kof_using_extension_checkbox = new QCheckBox(tr("General extensions"));
-    kof_using_extension_checkbox->setChecked(Config.value("1v1/UsingExtension", false).toBool());
-
-    kof_card_extension_checkbox = new QCheckBox(tr("Card extensions"));
-    kof_card_extension_checkbox->setChecked(Config.value("1v1/UsingCardExtension", false).toBool());
-
-    vlayout->addLayout(HLay(new QLabel(tr("Rule option")), official_1v1_ComboBox));
-
-    QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(new QLabel(tr("Extension setting")));
-    hlayout->addStretch();
-    hlayout->addWidget(kof_using_extension_checkbox);
-    hlayout->addWidget(kof_card_extension_checkbox);
-
-    vlayout->addLayout(hlayout);
-    box->setLayout(vlayout);
-
-    return box;
-}
-
 QGroupBox *ServerDialog::createGameModeBox()
 {
     QGroupBox *mode_box = new QGroupBox(tr("Game mode"));
@@ -658,14 +617,7 @@ QGroupBox *ServerDialog::createGameModeBox()
         button->setObjectName(itor.key());
         mode_group->addButton(button);
 
-        if (itor.key() == "02_1v1") {
-            QGroupBox *box = create1v1Box();
-            connect(button, SIGNAL(toggled(bool)), box, SLOT(setEnabled(bool)));
-
-            item_list << button << box;
-        } else {
             item_list << button;
-        }
 
         if (itor.key() == Config.GameMode) {
             button->setChecked(true);
@@ -830,12 +782,6 @@ int ServerDialog::config()
     Config.setValue("ServerPort", Config.ServerPort);
     Config.setValue("Address", Config.Address);
     Config.setValue("DisableLua", disable_lua_checkbox->isChecked());
-
-    Config.beginGroup("1v1");
-    Config.setValue("Rule", official_1v1_ComboBox->itemData(official_1v1_ComboBox->currentIndex()).toString());
-    Config.setValue("UsingExtension", kof_using_extension_checkbox->isChecked());
-    Config.setValue("UsingCardExtension", kof_card_extension_checkbox->isChecked());
-    Config.endGroup();
 
     QSet<QString> ban_packages;
     QList<QAbstractButton *> checkboxes = extension_group->buttons();

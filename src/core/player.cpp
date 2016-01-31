@@ -440,7 +440,7 @@ bool Player::hasLordSkill(const QString &skill_name, bool include_lose) const
         return true;
 
     QString mode = getGameMode();
-    if (mode == "02_1v1" || Config.value("WithoutLordskill", false).toBool())
+    if (mode.contains("kof") || Config.value("WithoutLordskill", false).toBool())
         return false;
 
     if (isLord())

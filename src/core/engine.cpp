@@ -65,9 +65,14 @@ Engine::Engine()
     if (!DoLuaScript(lua, "lua/sanguosha.lua")) exit(1);
 
     // available game modes
-    modes["02p"] = tr("2 players");
-    //modes["02pbb"] = tr("2 players (using blance beam)");
-    modes["02_1v1"] = tr("2 players (KOF style)");
+	modes["01_pk"] = tr("P.K.");
+	modes["02_rank"] = tr("Rank");
+	modes["03_kof"] = tr("KOF (Classical)");
+	modes["04_kof_2013"] = tr("KOF (2013 Rule)");
+	modes["05_kof_wzzz"] = tr("KOF (Online Rule)");
+	modes["06_kof_help"] = tr("KOF (DGAH Rule)");
+	modes["07_arcade"] = tr("Arcade");
+	modes["08_endless"] = tr("Endless");
 
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(deleteLater()));
 
@@ -701,11 +706,8 @@ QString Engine::getSetupString() const
 
     QString server_name = Config.ServerName.toUtf8().toBase64();
     QStringList setup_items;
-    QString mode = Config.GameMode;
-    if (mode == "02_1v1")
-        mode = mode + Config.value("1v1/Rule", "2013").toString();
     setup_items << server_name
-        << mode
+		<< Config.GameMode
         << QString::number(timeout)
         << QString::number(Config.NullificationCountDown)
         << Sanguosha->getBanPackages().join("+")
@@ -727,97 +729,20 @@ QString Engine::getModeName(const QString &mode) const
         return tr("%1 [Scenario mode]").arg(translate(mode));
 }
 
-int Engine::getPlayerCount(const QString &mode) const
+int Engine::getPlayerCount(const QString &) const
 {
-    if (modes.contains(mode) || isNormalGameMode(mode)) { // hidden pz settings?
-        QRegExp rx("(\\d+)");
-        int index = rx.indexIn(mode);
-        if (index != -1)
-            return rx.capturedTexts().first().toInt();
-    } else {
-        // scenario mode
-        const Scenario *scenario = getScenario(mode);
-        Q_ASSERT(scenario);
-        return scenario->getPlayerCount();
-    }
-
-    return -1;
+	return 2;
 }
 
-QString Engine::getRoles(const QString &mode) const
+QString Engine::getRoles(const QString &) const
 {
-    int n = getPlayerCount(mode);
-
-    if (mode == "02_1v1") {
-        return "ZN";
-    }
-
-    if (modes.contains(mode) || isNormalGameMode(mode)) { // hidden pz settings?
-        static const char *table1[] = {
-            "",
-            "",
-
-            "ZF", // 2
-            "ZFN", // 3
-            "ZNFF", // 4
-            "ZCFFN", // 5
-            "ZCFFFN", // 6
-            "ZCCFFFN", // 7
-            "ZCCFFFFN", // 8
-            "ZCCCFFFFN", // 9
-            "ZCCCFFFFFN" // 10
-        };
-
-        static const char *table2[] = {
-            "",
-            "",
-
-            "ZF", // 2
-            "ZFN", // 3
-            "ZNFF", // 4
-            "ZCFFN", // 5
-            "ZCFFNN", // 6
-            "ZCCFFFN", // 7
-            "ZCCFFFNN", // 8
-            "ZCCCFFFFN", // 9
-            "ZCCCFFFFNN" // 10
-        };
-
-        const char **table = mode.endsWith("d") ? table2 : table1;
-        QString rolechar = table[n];
-        if (mode.endsWith("z"))
-            rolechar.replace("N", "C");
-
-        return rolechar;
-    } else if (mode.startsWith("@")) {
-        if (n == 8)
-            return "ZCCCNFFF";
-        else if (n == 6)
-            return "ZCCNFF";
-    } else {
-        const Scenario *scenario = getScenario(mode);
-        if (scenario)
-            return scenario->getRoles();
-    }
-    return QString();
+	return "ZN";
 }
 
-QStringList Engine::getRoleList(const QString &mode) const
+QStringList Engine::getRoleList(const QString &) const
 {
-    QString roles = getRoles(mode);
-
     QStringList role_list;
-    for (int i = 0; roles[i] != '\0'; i++) {
-        QString role;
-        switch (roles[i].toLatin1()) {
-        case 'Z': role = "lord"; break;
-        case 'C': role = "loyalist"; break;
-        case 'N': role = "renegade"; break;
-        case 'F': role = "rebel"; break;
-        }
-        role_list << role;
-    }
-
+	role_list << "lord" << "renegade";
     return role_list;
 }
 
@@ -911,17 +836,6 @@ QStringList Engine::getLimitedGeneralNames(const QString &kingdom) const
             && !isGeneralHidden(gen->objectName()) && !getBanPackages().contains(gen->getPackage()))
             general_names << itor.key();
     }
-
-    // special case for neo standard package
-    if (getBanPackages().contains("standard") && !getBanPackages().contains("nostal_standard")) {
-        if (kingdom.isEmpty() || kingdom == "wei")
-            general_names << "zhenji";
-        if (kingdom.isEmpty() || kingdom == "shu")
-            general_names << "zhugeliang";
-        if (kingdom.isEmpty() || kingdom == "wu")
-            general_names << "sunquan" << "sunshangxiang";
-    }
-
     return general_names;
 }
 
@@ -967,12 +881,6 @@ QList<int> Engine::getRandomCards() const
 
         if (exclude_disaters && card->isKindOf("Disaster"))
             continue;
-
-        if (Config.GameMode == "02_1v1" && !Config.value("1v1/UsingCardExtension", false).toBool()) {
-            if (card->getPackage() == "New1v1Card")
-                list << card->getId();
-            continue;
-        }
 
         if (!getBanPackages().contains(card->getPackage()))
             list << card->getId();

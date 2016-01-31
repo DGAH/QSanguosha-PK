@@ -356,7 +356,7 @@ void RoomThread::run()
         constructTriggerTable();
         trigger(GameStart, (Room *)room, NULL);
         
-            if (room->getMode() == "02_1v1") {
+            if (room->getMode().contains("kof")) {
                 ServerPlayer *first = room->getPlayers().first();
                 if (first->getRole() != "renegade")
                     first = room->getPlayers().at(1);

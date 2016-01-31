@@ -66,7 +66,7 @@ void GameRule::onPhaseProceed(ServerPlayer *player) const
         int num = 2;
         if (player->hasFlag("Global_FirstRound")) {
             room->setPlayerFlag(player, "-Global_FirstRound");
-            if (room->getMode() == "02_1v1") num--;
+            if (room->getMode().contains("kof")) num--;
         }
 
         QVariant data = num;
@@ -124,7 +124,7 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
                 }
             }
             room->setTag("FirstRound", true);
-            bool kof_mode = room->getMode() == "02_1v1" && Config.value("1v1/Rule", "2013").toString() != "Classical";
+			bool kof_mode = room->getMode().contains("kof") && room->getMode() != "03_kof";
             QList<int> n_list;
             foreach (ServerPlayer *p, room->getPlayers()) {
                 int n = kof_mode ? p->getMaxHp() : 4;
@@ -428,12 +428,11 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
                 }
             }
         }
-        if (room->getMode() == "02_1v1") {
+        if (room->getMode().contains("kof")) {
             foreach (ServerPlayer *p, room->getAllPlayers()) {
                 if (p->hasFlag("Global_DebutFlag")) {
                     p->setFlags("-Global_DebutFlag");
-                    if (room->getMode() == "02_1v1")
-                        room->getThread()->trigger(Debut, room, p);
+                    room->getThread()->trigger(Debut, room, p);
                 }
             }
         }
@@ -518,10 +517,16 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
         break;
     }
     case GameOverJudge: {
-        if (room->getMode() == "02_1v1") {
+        if (room->getMode().contains("kof")) {
             QStringList list = player->tag["1v1Arrange"].toStringList();
-            QString rule = Config.value("1v1/Rule", "2013").toString();
-            if (list.length() > ((rule == "2013") ? 3 : 0)) break;
+			if (room->getMode() == "04_kof_2013") {
+				if (list.length() > 3)
+					break;
+			}
+			else{
+				if (list.length() > 0)
+					break;
+			}
         }
 
         QString winner = getWinner(player);
@@ -543,12 +548,18 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
         if (killer)
             rewardAndPunish(killer, player);
 
-        if (room->getMode() == "02_1v1") {
+		QString game_mode = room->getMode();
+        if (game_mode.contains("kof")) {
             QStringList list = player->tag["1v1Arrange"].toStringList();
-            QString rule = Config.value("1v1/Rule", "2013").toString();
-            if (list.length() <= ((rule == "2013") ? 3 : 0)) break;
-
-            if (rule == "Classical") {
+			if (game_mode == "04_kof_2013") {
+				if (list.length() <= 3)
+					break;
+			}
+			else{
+				if (list.length() <= 0)
+					break;
+			}
+            if (game_mode == "03_kof") {
                 player->tag["1v1ChangeGeneral"] = list.takeFirst();
                 player->tag["1v1Arrange"] = list;
             } else {
@@ -637,7 +648,7 @@ void GameRule::changeGeneral1v1(ServerPlayer *player) const
     Config.AIDelay = Config.OriginAIDelay;
 
     Room *room = player->getRoom();
-    bool classical = (Config.value("1v1/Rule", "2013").toString() == "Classical");
+    bool classical = (Config.value("GameMode", "04_kof_2013").toString() == "03_kof");
     QString new_general;
     if (classical) {
         new_general = player->tag["1v1ChangeGeneral"].toString();

@@ -1958,12 +1958,11 @@ void Client::askForGeneral3v3(const QVariant &)
 void Client::takeGeneral(const QVariant &take)
 {
     JsonArray take_array = take.value<JsonArray>();
-    if (!JsonUtils::isStringArray(take_array, 0, 2)) return;
+    if (!JsonUtils::isStringArray(take_array, 0, 1)) return;
     QString who = take_array[0].toString();
     QString name = take_array[1].toString();
-    QString rule = take_array[2].toString();
 
-    emit general_taken(who, name, rule);
+    emit general_taken(who, name);
 }
 
 void Client::startArrange(const QVariant &to_arrange)

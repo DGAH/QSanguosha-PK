@@ -68,7 +68,6 @@ private:
     QLayout *createButtonLayout();
 
     QGroupBox *createGameModeBox();
-    QGroupBox *create1v1Box();
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;

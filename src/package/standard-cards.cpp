@@ -1099,7 +1099,7 @@ Snatch::Snatch(Suit suit, int number)
 bool Snatch::targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const
 {
     int total_num = 1 + Sanguosha->correctCardTarget(TargetModSkill::ExtraTarget, Self, this);
-    bool include_judging = !(ServerInfo.GameMode == "02_1v1" && ServerInfo.GameRuleMode != "Classical");
+    bool include_judging = !(ServerInfo.GameMode.contains("kof") && ServerInfo.GameMode != "03_kof");
     if (targets.length() >= total_num || to_select->getCardCount(true, include_judging) == 0 || to_select == Self)
         return false;
 
@@ -1122,7 +1122,7 @@ void Snatch::onEffect(const CardEffectStruct &effect) const
         return;
 
     Room *room = effect.to->getRoom();
-    bool using_2013 = (room->getMode() == "02_1v1" && Config.value("1v1/Rule", "2013").toString() != "Classical");
+	bool using_2013 = (room->getMode().contains("kof") && room->getMode() != "03_kof");
     QString flag = using_2013 ? "he" : "hej";
     int card_id = room->askForCardChosen(effect.from, effect.to, flag, objectName());
     CardMoveReason reason(CardMoveReason::S_REASON_EXTRACTION, effect.from->objectName());
@@ -1138,7 +1138,7 @@ Dismantlement::Dismantlement(Suit suit, int number)
 bool Dismantlement::targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const
 {
     int total_num = 1 + Sanguosha->correctCardTarget(TargetModSkill::ExtraTarget, Self, this);
-    bool include_judging = !(ServerInfo.GameMode == "02_1v1" && ServerInfo.GameRuleMode != "Classical");
+    bool include_judging = !(ServerInfo.GameMode.contains("kof") && ServerInfo.GameMode != "03_kof");
     return targets.length() < total_num && to_select->getCardCount(true, include_judging) > 0 && to_select != Self;
 }
 
@@ -1148,7 +1148,7 @@ void Dismantlement::onEffect(const CardEffectStruct &effect) const
         return;
 
     Room *room = effect.to->getRoom();
-    bool using_2013 = (room->getMode() == "02_1v1" && Config.value("1v1/Rule", "2013").toString() != "Classical");
+	bool using_2013 = (room->getMode().contains("kof") && room->getMode() != "03_kof");
     QString flag = using_2013 ? "he" : "hej";
     if (!effect.from->canDiscard(effect.to, flag))
         return;

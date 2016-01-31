@@ -208,16 +208,15 @@ RoomScene::RoomScene(QMainWindow *main_window)
     enemy_box = NULL;
     self_box = NULL;
 
-    if (ServerInfo.GameMode == "02_1v1") {
+    if (ServerInfo.GameMode.contains("kof")) {
             connect(ClientInstance, SIGNAL(generals_filled(QStringList)), this, SLOT(fillGenerals(QStringList)));
             connect(ClientInstance, SIGNAL(general_asked()), this, SLOT(startGeneralSelection()));
-            connect(ClientInstance, SIGNAL(general_taken(QString, QString, QString)), this, SLOT(takeGeneral(QString, QString, QString)));
+            connect(ClientInstance, SIGNAL(general_taken(QString, QString)), this, SLOT(takeGeneral(QString, QString)));
             connect(ClientInstance, SIGNAL(general_recovered(int, QString)), this, SLOT(recoverGeneral(int, QString)));
         connect(ClientInstance, SIGNAL(arrange_started(QString)), this, SLOT(startArrange(QString)));
 
         arrange_button = NULL;
 
-        if (ServerInfo.GameMode == "02_1v1") {
             enemy_box = new KOFOrderBox(false, this);
             self_box = new KOFOrderBox(true, this);
 
@@ -225,7 +224,6 @@ RoomScene::RoomScene(QMainWindow *main_window)
             self_box->hide();
 
             connect(ClientInstance, SIGNAL(general_revealed(bool, QString)), this, SLOT(revealGeneral(bool, QString)));
-        }
     }
 
     // chat box
@@ -2048,7 +2046,7 @@ void RoomScene::updateSkillButtons(bool isPrepare)
     foreach (const Skill *skill, skill_list) {
         if (skill->isLordSkill()
             && (Self->getRole() != "lord"
-            || ServerInfo.GameMode == "02_1v1"
+			|| ServerInfo.GameMode.contains("kof")
             || Config.value("WithoutLordskill", false).toBool()))
             continue;
 
@@ -3189,7 +3187,7 @@ void RoomScene::fillTable(QTableWidget *table, const QList<const ClientPlayer *>
             QIcon icon(QString("image/system/roles/%1.png").arg(player->getRole()));
             item->setIcon(icon);
             QString role = player->getRole();
-            if (ServerInfo.GameMode == "02_1v1") {
+            if (ServerInfo.GameMode.contains("kof")) {
                 if (role == "lord")
                     role = "defensive";
                 else
@@ -3249,7 +3247,7 @@ void RoomScene::killPlayer(const QString &who)
         dashboard->update();
         general = Self->getGeneral();
         item2player.remove(dashboard);
-        if (ServerInfo.GameMode == "02_1v1") self_box->killPlayer(general->objectName());
+        if (ServerInfo.GameMode.contains("kof")) self_box->killPlayer(general->objectName());
     } else {
         Photo *photo = name2photo[who];
         photo->killPlayer();
@@ -3257,7 +3255,7 @@ void RoomScene::killPlayer(const QString &who)
         photo->update();
         item2player.remove(photo);
         general = photo->getPlayer()->getGeneral();
-        if (ServerInfo.GameMode == "02_1v1") enemy_box->killPlayer(general->objectName());
+        if (ServerInfo.GameMode.contains("kof")) enemy_box->killPlayer(general->objectName());
     }
 
     ClientPlayer *player = ClientInstance->getPlayer(who);
@@ -3579,7 +3577,7 @@ void KOFOrderBox::killPlayer(const QString &general_name)
 void RoomScene::onGameStart()
 {
     main_window->activateWindow();
-    if (ServerInfo.GameMode == "02_1v1") {
+    if (ServerInfo.GameMode.contains("kof")) {
         log_box->show();
 
         if (self_box && enemy_box) {
@@ -4049,7 +4047,7 @@ void RoomScene::fillGenerals1v1(const QStringList &names)
 
 void RoomScene::fillGenerals(const QStringList &names)
 {
-    if (ServerInfo.GameMode == "02_1v1")
+    if (ServerInfo.GameMode.contains("kof"))
         fillGenerals1v1(names);
 }
 
@@ -4071,7 +4069,7 @@ void RoomScene::bringToFront(QGraphicsItem *front_item)
     m_zValueMutex.unlock();
 }
 
-void RoomScene::takeGeneral(const QString &who, const QString &name, const QString &rule)
+void RoomScene::takeGeneral(const QString &who, const QString &name)
 {
     bool self_taken;
     if (who == "warm")
@@ -4102,7 +4100,7 @@ void RoomScene::takeGeneral(const QString &who, const QString &name, const QStri
     general_item->setHomePos(QPointF(x, y));
     general_item->goBack(true);
 
-    if (((ServerInfo.GameMode == "02_1v1" && rule == "2013"))
+    if (((ServerInfo.GameMode == "04_kof_2013"))
         && general_items.isEmpty()) {
         if (selector_box) {
             selector_box->hide();
@@ -4166,41 +4164,41 @@ void RoomScene::trust()
 
 void RoomScene::startArrange(const QString &)
 {
-    arrange_items.clear();
-    QString mode;
-    QList<QPointF> positions;
-    if (ServerInfo.GameMode == "02_1v1") {
-        mode = "1v1";
-        if (down_generals.length() == 5)
-            positions << QPointF(130, 335) << QPointF(260, 335) << QPointF(390, 335);
-        else
-            positions << QPointF(173, 335) << QPointF(303, 335) << QPointF(433, 335);
-    }
+	arrange_items.clear();
+	QString mode;
+	QList<QPointF> positions;
+	if (ServerInfo.GameMode.contains("kof")) {
+		mode = "1v1";
+		if (down_generals.length() == 5)
+			positions << QPointF(130, 335) << QPointF(260, 335) << QPointF(390, 335);
+		else
+			positions << QPointF(173, 335) << QPointF(303, 335) << QPointF(433, 335);
+	}
 
-        QString suffix = (mode == "1v1" && down_generals.length() == 6) ? "2" : QString();
-        QString path = QString("image/system/%1/arrange%2.png").arg(mode).arg(suffix);
-        selector_box->load(path);
-        selector_box->setPos(m_tableCenterPos);
+		QString suffix = (mode == "1v1" && down_generals.length() == 6) ? "2" : QString();
+		QString path = QString("image/system/%1/arrange%2.png").arg(mode).arg(suffix);
+		selector_box->load(path);
+		selector_box->setPos(m_tableCenterPos);
 
-    foreach (CardItem *item, down_generals) {
-        item->setFlag(QGraphicsItem::ItemIsFocusable);
-        item->setAutoBack(false);
-        connect(item, SIGNAL(released()), this, SLOT(toggleArrange()));
-    }
+	foreach(CardItem *item, down_generals) {
+		item->setFlag(QGraphicsItem::ItemIsFocusable);
+		item->setAutoBack(false);
+		connect(item, SIGNAL(released()), this, SLOT(toggleArrange()));
+	}
 
-    QRect rect(0, 0, 80, 120);
+	QRect rect(0, 0, 80, 120);
 
-    foreach (QPointF pos, positions) {
-        QGraphicsRectItem *rect_item = new QGraphicsRectItem(rect, selector_box);
-        rect_item->setPos(pos);
-        rect_item->setPen(Qt::NoPen);
-        arrange_rects << rect_item;
-    }
+	foreach(QPointF pos, positions) {
+		QGraphicsRectItem *rect_item = new QGraphicsRectItem(rect, selector_box);
+		rect_item->setPos(pos);
+		rect_item->setPen(Qt::NoPen);
+		arrange_rects << rect_item;
+	}
 
-    arrange_button = new Button(tr("Complete"), 0.8);
-    arrange_button->setParentItem(selector_box);
-    arrange_button->setPos(600, 330);
-    connect(arrange_button, SIGNAL(clicked()), this, SLOT(finishArrange()));
+	arrange_button = new Button(tr("Complete"), 0.8);
+	arrange_button->setParentItem(selector_box);
+	arrange_button->setPos(600, 330);
+	connect(arrange_button, SIGNAL(clicked()), this, SLOT(finishArrange()));
 }
 
 void RoomScene::toggleArrange()
