@@ -79,7 +79,6 @@ private:
     QCheckBox *free_assign_self_checkbox;
     QLabel *pile_swapping_label;
     QSpinBox *pile_swapping_spinbox;
-    QCheckBox *without_lordskill_checkbox;
     QSpinBox *maxchoice_spinbox;
     QLabel *lord_maxchoice_label;
     QSpinBox *lord_maxchoice_spinbox;
