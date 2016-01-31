@@ -63,7 +63,7 @@ void Settings::init()
     }
 
     CountDownSeconds = value("CountDownSeconds", 3).toInt();
-    GameMode = value("GameMode", "02p").toString();
+    GameMode = value("GameMode", "01_pk").toString();
 
     BanPackages = value("BanPackages").toStringList();
 

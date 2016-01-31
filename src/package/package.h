@@ -57,11 +57,6 @@ public:
         return related_skills;
     }
 
-    QMultiMap<QString, QString> getConvertPairs() const
-    {
-        return convert_pairs;
-    }
-
     Type getType() const
     {
         return type;
@@ -78,17 +73,11 @@ public:
         related_skills.insertMulti(main_skill, related_skill);
     }
 
-    inline void insertConvertPairs(const QString &from, const QString &to)
-    {
-        convert_pairs.insertMulti(from, to);
-    }
-
 protected:
     QList<const QMetaObject *> metaobjects;
     QList<const Skill *> skills;
     QMap<QString, const CardPattern *> patterns;
     QMultiMap<QString, QString> related_skills;
-    QMultiMap<QString, QString> convert_pairs;
     Type type;
 };
 

@@ -880,7 +880,6 @@ public:
 
     Package(const char *name, Type pack_type = GeneralPack);
     void insertRelatedSkills(const char *main_skill, const char *related_skill);
-    void insertConvertPairs(const char *from, const char *to);
 };
 
 class Engine: public QObject {
@@ -957,7 +956,6 @@ public:
     QString getCurrentCardUsePattern();
     CardUseStruct::CardUseReason getCurrentCardUseReason();
 
-    QString findConvertFrom(const char *general_name) const;
     bool isGeneralHidden(const char *general_name) const;
 };
 
