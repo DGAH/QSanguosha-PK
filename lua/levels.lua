@@ -8,18 +8,18 @@ sgs.CreateGeneralLevel{
 	gatekeepers = {},
 	next_level = "LevelB",
 }
---并级
+--弱级
 sgs.CreateGeneralLevel{
 	name = "LevelB",
-	translation = "并级",
+	translation = "弱级",
 	gatekeepers = {"scarecrow_ii"},
 	last_level = "LevelA",
 	next_level = "LevelC",
 }
---弱级
+--并级
 sgs.CreateGeneralLevel{
 	name = "LevelC",
-	translation = "弱级",
+	translation = "并级",
 	gatekeepers = {"scarecrow_v", "zhaoyun"},
 	last_level = "LevelB",
 	next_level = "LevelD",
