@@ -72,6 +72,8 @@ return {
 	["crhuanhuo"] = "幻惑",
 	[":crhuanhuo"] = "当你需要使用或打出一张基本牌或非延时性锦囊牌时，你可以视为使用或打出了该牌。",
 	["normal_slash"] = "普通杀",
+	["#Huanhuo"] = "%from 发动了“%arg2”，声明此牌为 【%arg】，指定的目标为 %to",
+	["#HuanhuoNoTarget"] = "%from 发动了“%arg2”，声明此牌为 【%arg】",
 	["crxianzhuo"] = "掀桌",
 	[":crxianzhuo"] = "<font color=\"red\"><b>限定技</b></font>，出牌阶段，你可以令所有角色弃置所有手牌和装备并依次失去1点体力上限，然后你立即死亡。",
 	["@crXianZhuoMark"] = "掀桌",
