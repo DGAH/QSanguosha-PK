@@ -9,6 +9,7 @@
 #include "exppattern.h"
 #include "protocol.h"
 #include "util.h"
+#include "general-level.h"
 
 #include <QHash>
 #include <QStringList>
@@ -90,6 +91,9 @@ public:
     QList<const AttackRangeSkill *> getAttackRangeSkills() const;
     void addSkills(const QList<const Skill *> &skills);
 
+	void addGeneralLevel(GeneralLevel *level);
+	GeneralLevel *getGeneralLevel(const QString &level) const;
+
     int getCardCount() const;
     const Card *getEngineCard(int cardId) const;
     // @todo: consider making this const Card *
@@ -129,6 +133,7 @@ private:
     QMutex m_mutex;
     QHash<QString, QString> translations;
     QHash<QString, const General *> generals;
+	QHash<QString, GeneralLevel *> levels;
     QHash<QString, const QMetaObject *> metaobjects;
     QHash<QString, QString> className2objectName;
     QHash<QString, const Skill *> skills;

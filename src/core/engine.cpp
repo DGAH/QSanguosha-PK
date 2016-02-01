@@ -356,6 +356,24 @@ int Engine::getGeneralCount(bool include_banned, const QString &kingdom) const
     return total;
 }
 
+void Engine::addGeneralLevel(GeneralLevel *level)
+{
+	if (!level)
+		return;
+
+	QString name = level->objectName();
+	if (this->levels.contains(name))
+		return;
+
+	level->setParent(this);
+	this->levels.insert(name, level);
+}
+
+GeneralLevel *Engine::getGeneralLevel(const QString &level) const
+{
+	return this->levels.value(level, NULL);
+}
+
 void Engine::registerRoom(QObject *room)
 {
     m_mutex.lock();

@@ -630,6 +630,36 @@ function sgs.CreateTreasure(spec)
 	return sgs.CreateEquipCard(spec)
 end
 
+function sgs.CreateGeneralLevel(spec)
+	assert(type(spec.name) == "string")
+	local level = sgs.GeneralLevel(spec.name)
+	if type(spec.translation) == "string" then
+		sgs.AddTranslationEntry(spec.name, spec.translation)
+	end
+	if type(spec.gatekeepers) == "table" then
+		for _,gatekeeper in ipairs(spec.gatekeepers) do
+			level:addGateKeeper(gatekeeper)
+		end
+	elseif type(spec.gatekeepers) == "string" then
+		level:addGateKeeper(gatekeeper)
+	end
+	if type(spec.last_level) == "string" then
+		level:setLastLevel(spec.last_level)
+	end
+	if type(spec.next_level) == "string" then
+		level:setNextLevel(spec.next_level)
+	end
+	if type(spec.parent_level) == "string" then
+		level:setParentLevel(spec.parent_level)
+	end
+	if type(spec.sub_levels) == "table" then
+		for _,sublevel in ipairs(spec.sub_levels) do
+			level:addSubLevel(sublevel)
+		end
+	end
+	sgs.Sanguosha:addGeneralLevel(level)
+	return level
+end
 
 function sgs.LoadTranslationTable(t)
 	for key, value in pairs(t) do

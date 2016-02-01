@@ -64,6 +64,24 @@ public:
     void lastWord() const;
 };
 
+class GeneralLevel : public QObject {
+public:
+	explicit GeneralLevel(const char *name);
+
+	void setParentLevel(const char *name);
+	void setLastLevel(const char *name);
+	void setNextLevel(const char *name);
+	void addSubLevel(const char *name);
+	QString getParentLevel() const;
+	QString getLastLevel() const;
+	QString getNextLevel() const;
+	QStringList getSubLevels() const;
+	bool isSubLevel(const char *level) const;
+
+	void addGateKeeper(const char *general);
+	QStringList getGateKeepers() const;
+};
+
 class Player: public QObject {
 public:
     enum Phase { RoundStart, Start, Judge, Draw, Play, Discard, Finish, NotActive, PhaseNone };
@@ -927,6 +945,9 @@ public:
     QList<const InvaliditySkill *> getInvaliditySkills() const;
     QList<const TriggerSkill *> getGlobalTriggerSkills() const;
     void addSkills(const QList<const Skill *> &skills);
+
+	void addGeneralLevel(GeneralLevel *level);
+	GeneralLevel *getGeneralLevel(const char *level) const;
 
     int getCardCount() const;
     const Card *getEngineCard(int cardId) const;
