@@ -541,7 +541,7 @@ TestPackage::TestPackage()
 : Package("test")
 {
 	//制霸孙权
-	General *zhiba_sunquan = new General(this, "zhiba_sunquan$", "wu");
+	General *zhiba_sunquan = new General(this, "zhiba_sunquan", "wu");
 	zhiba_sunquan->addSkill(new SuperZhiheng);
 	zhiba_sunquan->addSkill("jiuyuan");
 	//四庸袁术
@@ -556,7 +556,7 @@ TestPackage::TestPackage()
 	super_caoren->addSkill(new MarkAssignSkill("@jushou_test", 5));
 	related_skills.insertMulti("super_jushou", "#@jushou_test-5");
 	//无崩董卓
-	General *nobenghuai_dongzhuo = new General(this, "nobenghuai_dongzhuo$", "qun");
+	General *nobenghuai_dongzhuo = new General(this, "nobenghuai_dongzhuo", "qun");
 	nobenghuai_dongzhuo->addSkill(new Jiuchi);
 	nobenghuai_dongzhuo->addSkill(new Roulin);
 	nobenghuai_dongzhuo->addSkill(new DummySkill("baonue", Skill::NotFrequent));

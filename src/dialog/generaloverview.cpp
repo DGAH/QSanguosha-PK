@@ -302,7 +302,6 @@ void GeneralOverview::fillGenerals(const QList<const General *> &generals, bool 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(copy_generals.length());
     ui->tableWidget->setIconSize(QSize(20, 20));
-    QIcon lord_icon("image/system/roles/lord.png");
 
     for (int i = 0; i < copy_generals.length(); i++) {
         const General *general = copy_generals[i];
@@ -334,10 +333,6 @@ void GeneralOverview::fillGenerals(const QList<const General *> &generals, bool 
         QTableWidgetItem *name_item = new QTableWidgetItem(name);
         name_item->setTextAlignment(Qt::AlignCenter);
         name_item->setData(Qt::UserRole, general_name);
-        if (general->isLord()) {
-            name_item->setIcon(lord_icon);
-            name_item->setTextAlignment(Qt::AlignCenter);
-        }
 
         if (Sanguosha->isGeneralHidden(general_name)) {
             name_item->setBackgroundColor(Qt::gray);

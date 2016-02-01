@@ -319,7 +319,6 @@ QWidget *FreeChooseDialog::createTab(const QList<const General *> &generals)
 
     QGridLayout *layout = new QGridLayout;
     layout->setOriginCorner(Qt::TopLeftCorner);
-    QIcon lord_icon("image/system/roles/lord.png");
 
     const int columns = 5;
 
@@ -337,8 +336,6 @@ QWidget *FreeChooseDialog::createTab(const QList<const General *> &generals)
             button = new QCheckBox(text);
         button->setObjectName(general_name);
         button->setToolTip(general->getSkillDescription(true));
-        if (general->isLord())
-            button->setIcon(lord_icon);
 
         group->addButton(button);
 

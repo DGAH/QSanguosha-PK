@@ -11,18 +11,9 @@
 General::General(Package *package, const QString &name, const QString &kingdom,
     int max_hp, bool male, bool hidden, bool never_shown)
     : QObject(package), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female),
-    hidden(hidden), never_shown(never_shown)
+	hidden(hidden), never_shown(never_shown), order(0)
 {
-    static QChar lord_symbol('$');
-    if (name.endsWith(lord_symbol)) {
-        QString copy = name;
-        copy.remove(lord_symbol);
-        lord = true;
-        setObjectName(copy);
-    } else {
-        lord = false;
-        setObjectName(name);
-    }
+    setObjectName(name);
 }
 
 int General::getMaxHp() const
@@ -60,11 +51,6 @@ General::Gender General::getGender() const
     return gender;
 }
 
-bool General::isLord() const
-{
-    return lord;
-}
-
 bool General::isHidden() const
 {
     return hidden;
@@ -73,6 +59,16 @@ bool General::isHidden() const
 bool General::isTotallyHidden() const
 {
     return never_shown;
+}
+
+int General::getOrder() const
+{
+	return order;
+}
+
+void General::setOrder(int order)
+{
+	this->order = order;
 }
 
 void General::addSkill(Skill *skill)

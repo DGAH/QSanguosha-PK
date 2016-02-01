@@ -38,13 +38,14 @@ public:
     bool isMale() const;
     bool isFemale() const;
     bool isNeuter() const;
-    bool isLord() const;
     bool isHidden() const;
     bool isTotallyHidden() const;
 
     enum Gender { Sexless, Male, Female, Neuter };
     Gender getGender() const;
     void setGender(Gender gender);
+	int getOrder() const;
+	void setOrder(int order);
 
     void addSkill(Skill *skill);
     void addSkill(const char *skill_name);

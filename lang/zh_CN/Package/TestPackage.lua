@@ -93,4 +93,6 @@ return {
 	["super_max_cards"] = "手牌上限",
 	["super_offensive_distance"] = "距离-X",
 	["super_defensive_distance"] = "距离+X",
+	["xiaoxi"] = "骁袭",
+	[":xiaoxi"] = "你登场时，你可以视为使用一张【杀】。",
 }

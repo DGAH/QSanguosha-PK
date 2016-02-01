@@ -5,9 +5,11 @@ return {
 	--并级审核：审核员·二限稻草人
 	["#scarecrow_ii"] = "审核员",
 	["scarecrow_ii"] = "稻草人II",
+	["&scarecrow_ii"] = "稻草人",
 	--弱级审核：审核员·五限稻草人
 	["#scarecrow_v"] = "审核员",
 	["scarecrow_v"] = "稻草人V",
+	["&scarecrow_v"] = "稻草人",
 	--弱级审核：原标准版·赵云
 	["#zhaoyun"] = "少年将军",
 	["zhaoyun"] = "赵云",

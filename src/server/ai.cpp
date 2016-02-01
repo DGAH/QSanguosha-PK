@@ -217,13 +217,7 @@ QString TrustAI::askForKingdom()
         break;
     }
     case Player::Loyalist: {
-        if (lord->getGeneral()->isLord())
-            role = lord->getKingdom();
-        else if (lord->getGeneral2() && lord->getGeneral2()->isLord())
-            role = lord->getGeneral2()->getKingdom();
-        else {
             role = kingdoms.at(qrand() % kingdoms.length());
-        }
         break;
     }
     default:

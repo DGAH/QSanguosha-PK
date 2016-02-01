@@ -12912,30 +12912,6 @@ fail:
 }
 
 
-static int _wrap_General_isLord(lua_State* L) {
-  int SWIG_arg = 0;
-  General *arg1 = (General *) 0 ;
-  bool result;
-  
-  SWIG_check_num_args("General::isLord",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::isLord",1,"General const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
-    SWIG_fail_ptr("General_isLord",1,SWIGTYPE_p_General);
-  }
-  
-  result = (bool)((General const *)arg1)->isLord();
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_General_isHidden(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -13023,6 +12999,56 @@ static int _wrap_General_setGender(lua_State* L) {
   
   arg2 = (General::Gender)(int)lua_tonumber(L, 2);
   (arg1)->setGender(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_getOrder(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("General::getOrder",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::getOrder",1,"General const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_getOrder",1,SWIGTYPE_p_General);
+  }
+  
+  result = (int)((General const *)arg1)->getOrder();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setOrder(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("General::setOrder",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::setOrder",1,"General *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("General::setOrder",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_setOrder",1,SWIGTYPE_p_General);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setOrder(arg2);
   
   return SWIG_arg;
   
@@ -13501,11 +13527,12 @@ static swig_lua_method swig_General_methods[] = {
     {"isMale", _wrap_General_isMale}, 
     {"isFemale", _wrap_General_isFemale}, 
     {"isNeuter", _wrap_General_isNeuter}, 
-    {"isLord", _wrap_General_isLord}, 
     {"isHidden", _wrap_General_isHidden}, 
     {"isTotallyHidden", _wrap_General_isTotallyHidden}, 
     {"getGender", _wrap_General_getGender}, 
     {"setGender", _wrap_General_setGender}, 
+    {"getOrder", _wrap_General_getOrder}, 
+    {"setOrder", _wrap_General_setOrder}, 
     {"addSkill", _wrap_General_addSkill}, 
     {"hasSkill", _wrap_General_hasSkill}, 
     {"getSkillList", _wrap_General_getSkillList}, 

@@ -147,7 +147,6 @@ private:
     QList<const AttackRangeSkill *> attack_range_skills;
 
     QList<Card *> cards;
-    QStringList lord_list;
     QSet<QString> ban_package;
     QHash<QString, Scenario *> m_scenarios;
 
@@ -166,8 +165,6 @@ private:
 
     QStringList extra_hidden_generals;
     QStringList removed_hidden_generals;
-    QStringList extra_default_lords;
-    QStringList removed_default_lords;
 
 };
 

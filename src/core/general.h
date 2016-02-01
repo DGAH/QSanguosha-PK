@@ -20,8 +20,8 @@ class General : public QObject
     Q_PROPERTY(bool male READ isMale STORED false CONSTANT)
     Q_PROPERTY(bool female READ isFemale STORED false CONSTANT)
     Q_PROPERTY(Gender gender READ getGender CONSTANT)
-    Q_PROPERTY(bool lord READ isLord CONSTANT)
     Q_PROPERTY(bool hidden READ isHidden CONSTANT)
+	Q_PROPERTY(int order READ getOrder CONSTANT)
 
 public:
     explicit General(Package *package, const QString &name, const QString &kingdom,
@@ -33,7 +33,6 @@ public:
     bool isMale() const;
     bool isFemale() const;
     bool isNeuter() const;
-    bool isLord() const;
     bool isHidden() const;
     bool isTotallyHidden() const;
 
@@ -43,6 +42,8 @@ public:
     };
     Gender getGender() const;
     void setGender(Gender gender);
+	int getOrder() const;
+	void setOrder(int order);
 
     void addSkill(Skill *skill);
     void addSkill(const QString &skill_name);
@@ -70,12 +71,12 @@ private:
     QString kingdom;
     int max_hp;
     Gender gender;
-    bool lord;
     QSet<QString> extra_set;
     QStringList skillname_list;
     QStringList related_skills;
     bool hidden;
     bool never_shown;
+	int order;
 };
 
 #endif

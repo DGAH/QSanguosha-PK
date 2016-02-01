@@ -45,8 +45,6 @@ Engine::Engine()
 
     extra_hidden_generals = GetConfigFromLuaState(lua, "extra_hidden_generals").toStringList();
     removed_hidden_generals = GetConfigFromLuaState(lua, "removed_hidden_generals").toStringList();
-    extra_default_lords = GetConfigFromLuaState(lua, "extra_default_lords").toStringList();
-    removed_default_lords = GetConfigFromLuaState(lua, "removed_default_lords").toStringList();
 
     QStringList package_names = GetConfigFromLuaState(lua, "package_names").toStringList();
     foreach(QString name, package_names)
@@ -236,9 +234,6 @@ void Engine::addPackage(Package *package)
         }
         generals.insert(general->objectName(), general);
         if (isGeneralHidden(general->objectName())) continue;
-        if ((general->isLord() && !removed_default_lords.contains(general->objectName()))
-            || extra_default_lords.contains(general->objectName()))
-            lord_list << general->objectName();
     }
 
     QList<const QMetaObject *> metas = package->getMetaObjects();

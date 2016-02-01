@@ -719,7 +719,7 @@ void StandardPackage::addGenerals()
 	shenzhaoyun->addSkill(new Longhun);
 	related_skills.insertMulti("juejing", "#juejing-draw");
 	//原标准版·孙权
-	General *sunquan = new General(this, "sunquan$", "wu");
+	General *sunquan = new General(this, "sunquan", "wu");
 	sunquan->addSkill(new Zhiheng);
 	sunquan->addSkill(new DummySkill("jiuyuan"));
 	//测试·五星诸葛
