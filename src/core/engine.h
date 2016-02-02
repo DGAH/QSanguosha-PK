@@ -94,6 +94,8 @@ public:
 	void addGeneralLevel(GeneralLevel *level);
 	GeneralLevel *getGeneralLevel(const QString &level) const;
 	QStringList getGeneralLevels(const QString &parent_level = "") const;
+	QStringList getGatekeepers(const QString &level, bool selfonly = false) const;
+	QStringList getGatekeepers(GeneralLevel *level, bool selfonly = false) const;
 
     int getCardCount() const;
     const Card *getEngineCard(int cardId) const;

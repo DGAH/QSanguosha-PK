@@ -390,6 +390,28 @@ QStringList Engine::getGeneralLevels(const QString &parent_level) const
 	return parent->getSubLevels();
 }
 
+QStringList Engine::getGatekeepers(const QString &level, bool selfonly) const
+{
+	GeneralLevel *general_level = this->levels.value(level, NULL);
+	return this->getGatekeepers(general_level, selfonly);
+}
+
+QStringList Engine::getGatekeepers(GeneralLevel *level, bool selfonly) const
+{
+	if (!level)
+		return QStringList();
+	QStringList gatekeepers = level->getGateKeepers();
+	if (selfonly)
+		return gatekeepers;
+	else if (gatekeepers.isEmpty()) {
+		QString share = level->getShareGateKeepersLevel();
+		GeneralLevel *share_level = this->levels.value(share, NULL);
+		if (share_level)
+			return share_level->getGateKeepers();
+	}
+	return gatekeepers;
+}
+
 void Engine::registerRoom(QObject *room)
 {
     m_mutex.lock();

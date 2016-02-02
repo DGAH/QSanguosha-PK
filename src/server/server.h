@@ -93,6 +93,7 @@ private:
 	QWidget *createRankSettingsTab();
 	void updateLevelButtons(const QStringList &levels, const QString &current = "");
 	void updateGatekeeper();
+	void updateGuideButtons();
 
 	OptionButton *challenger_button;
 	OptionButton *gatekeeper_button;
@@ -102,6 +103,9 @@ private:
 	QPushButton *parent_button;
 	QPushButton *sub_button;
 	FreeChooseDialog *challenger_choose_dialog;
+	QString m_current_gatekeeper;
+	QPushButton *last_gatekeeper_button;
+	QPushButton *next_gatekeeper_button;
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -157,6 +161,8 @@ private slots:
 
 	void onChallengerButtonClicked();
 	void onChallengerGeneralChosen(const QString &general);
+	void onLastGatekeeperButtonClicked();
+	void onNextGatekeeperButtonClicked();
 	void onGeneralLevelRatioSelected();
 	void onParentLevelButtonClicked();
 	void onSubLevelsButtonClicked();

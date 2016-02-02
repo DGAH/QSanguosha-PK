@@ -37119,6 +37119,402 @@ fail:
 }
 
 
+static int _wrap_Engine_getGeneralLevels__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGeneralLevels",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGeneralLevels",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::getGeneralLevels",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGeneralLevels",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((Engine const *)arg1)->getGeneralLevels((char const *)arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGeneralLevels__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGeneralLevels",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGeneralLevels",1,"Engine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGeneralLevels",1,SWIGTYPE_p_Engine);
+  }
+  
+  result = ((Engine const *)arg1)->getGeneralLevels();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGeneralLevels(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_Engine_getGeneralLevels__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Engine_getGeneralLevels__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Engine_getGeneralLevels'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Engine::getGeneralLevels(char const *) const\n"
+    "    Engine::getGeneralLevels() const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_Engine_getGatekeepers__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGatekeepers",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGatekeepers",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::getGatekeepers",2,"char const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Engine::getGatekeepers",3,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = ((Engine const *)arg1)->getGatekeepers((char const *)arg2,arg3);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGatekeepers__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGatekeepers",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGatekeepers",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::getGatekeepers",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((Engine const *)arg1)->getGatekeepers((char const *)arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGatekeepers__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  GeneralLevel *arg2 = (GeneralLevel *) 0 ;
+  bool arg3 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGatekeepers",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGatekeepers",1,"Engine const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Engine::getGatekeepers",2,"GeneralLevel *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Engine::getGatekeepers",3,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",1,SWIGTYPE_p_Engine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",2,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = ((Engine const *)arg1)->getGatekeepers(arg2,arg3);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGatekeepers__SWIG_3(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  GeneralLevel *arg2 = (GeneralLevel *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGatekeepers",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGatekeepers",1,"Engine const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Engine::getGatekeepers",2,"GeneralLevel *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",1,SWIGTYPE_p_Engine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("Engine_getGatekeepers",2,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  result = ((Engine const *)arg1)->getGatekeepers(arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGatekeepers(lua_State* L) {
+  int argc;
+  int argv[4]={
+    1,2,3,4
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (SWIG_isptrtype(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_GeneralLevel, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        return _wrap_Engine_getGatekeepers__SWIG_3(L);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Engine_getGatekeepers__SWIG_1(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (SWIG_isptrtype(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_GeneralLevel, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_Engine_getGatekeepers__SWIG_2(L);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_Engine_getGatekeepers__SWIG_0(L);
+        }
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Engine_getGatekeepers'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Engine::getGatekeepers(char const *,bool) const\n"
+    "    Engine::getGatekeepers(char const *) const\n"
+    "    Engine::getGatekeepers(GeneralLevel *,bool) const\n"
+    "    Engine::getGatekeepers(GeneralLevel *) const\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_Engine_getCardCount(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -38500,6 +38896,8 @@ static swig_lua_method swig_Engine_methods[] = {
     {"addSkills", _wrap_Engine_addSkills}, 
     {"addGeneralLevel", _wrap_Engine_addGeneralLevel}, 
     {"getGeneralLevel", _wrap_Engine_getGeneralLevel}, 
+    {"getGeneralLevels", _wrap_Engine_getGeneralLevels}, 
+    {"getGatekeepers", _wrap_Engine_getGatekeepers}, 
     {"getCardCount", _wrap_Engine_getCardCount}, 
     {"getEngineCard", _wrap_Engine_getEngineCard}, 
     {"getCard", _wrap_Engine_getCard}, 

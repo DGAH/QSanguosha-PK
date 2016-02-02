@@ -680,8 +680,18 @@ QWidget *ServerDialog::createRankSettingsTab()
 
 	this->gatekeeper_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("gatekeeper"));
 	this->gatekeeper_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
+	this->last_gatekeeper_button = new QPushButton(tr("<<"));
+	this->last_gatekeeper_button->setEnabled(false);
+	connect(this->last_gatekeeper_button, SIGNAL(clicked()), this, SLOT(onLastGatekeeperButtonClicked()));
+	this->next_gatekeeper_button = new QPushButton(tr(">>"));
+	this->next_gatekeeper_button->setEnabled(false);
+	connect(this->next_gatekeeper_button, SIGNAL(clicked()), this, SLOT(onNextGatekeeperButtonClicked()));
+	QHBoxLayout *gatekeeper_button_layout = new QHBoxLayout;
+	gatekeeper_button_layout->addWidget(this->last_gatekeeper_button);
+	gatekeeper_button_layout->addWidget(this->next_gatekeeper_button);
 	QVBoxLayout *right_layout = new QVBoxLayout;
 	right_layout->addWidget(this->gatekeeper_button);
+	right_layout->addLayout(gatekeeper_button_layout);
 	right_layout->addStretch();
 
 	QGroupBox *level_group_box = new QGroupBox(tr("general levels"));
@@ -751,10 +761,8 @@ void ServerDialog::updateLevelButtons(const QStringList &levels, const QString &
 			row++;
 		}
 	}
-	GeneralLevel *level = this->current_level_button->getGeneralLevel();
-	this->parent_button->setEnabled(level->getParentLevel() != "");
-	this->sub_button->setEnabled(!level->getSubLevels().isEmpty());
 	this->updateGatekeeper();
+	this->updateGuideButtons();
 }
 
 void ServerDialog::updateGatekeeper()
@@ -776,12 +784,29 @@ void ServerDialog::updateGatekeeper()
 	if (gatekeepers.isEmpty()){
 		this->gatekeeper_button->setIcon(QIcon("image/system/02_rank/unknown.jpg"));
 		this->gatekeeper_button->setText(tr("gatekeeper"));
+		this->gatekeeper_button->setToolTip("");
+		this->m_current_gatekeeper = "";
 	}
 	else{
 		QString gatekeeper = gatekeepers.first();
+		const General *general = Sanguosha->getGeneral(gatekeeper);
+		Q_ASSERT(general);
 		this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
 		this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
+		this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
+		this->m_current_gatekeeper = gatekeeper;
 	}
+}
+
+void ServerDialog::updateGuideButtons()
+{
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	this->parent_button->setEnabled(level->getParentLevel() != "");
+	this->sub_button->setEnabled(!level->getSubLevels().isEmpty());
+	QStringList gatekeepers = Sanguosha->getGatekeepers(level);
+	int index = gatekeepers.indexOf(this->m_current_gatekeeper);
+	this->last_gatekeeper_button->setEnabled(index > 0);
+	this->next_gatekeeper_button->setEnabled(index < gatekeepers.length() - 1);
 }
 
 void ServerDialog::onChallengerButtonClicked()
@@ -795,8 +820,47 @@ void ServerDialog::onChallengerButtonClicked()
 
 void ServerDialog::onChallengerGeneralChosen(const QString &general)
 {
+	const General *challenger = Sanguosha->getGeneral(general);
+	Q_ASSERT(challenger);
 	this->challenger_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(general, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
 	this->challenger_button->setText(Sanguosha->translate(general));
+	this->challenger_button->setToolTip(challenger->getSkillDescription(true));
+}
+
+void ServerDialog::onLastGatekeeperButtonClicked()
+{
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	QStringList gatekeepers = Sanguosha->getGatekeepers(level);
+	int index = gatekeepers.indexOf(this->m_current_gatekeeper);
+	if (index <= 0)
+		return;
+	index--;
+	QString gatekeeper = gatekeepers.at(index);
+	const General *general = Sanguosha->getGeneral(gatekeeper);
+	Q_ASSERT(general);
+	this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
+	this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
+	this->m_current_gatekeeper = gatekeeper;
+	this->updateGuideButtons();
+}
+
+void ServerDialog::onNextGatekeeperButtonClicked()
+{
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	QStringList gatekeepers = Sanguosha->getGatekeepers(level);
+	int index = gatekeepers.indexOf(this->m_current_gatekeeper);
+	if (index >= gatekeepers.length() - 1)
+		return;
+	index++;
+	QString gatekeeper = gatekeepers.at(index);
+	const General *general = Sanguosha->getGeneral(gatekeeper);
+	Q_ASSERT(general);
+	this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
+	this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
+	this->m_current_gatekeeper = gatekeeper;
+	this->updateGuideButtons();
 }
 
 void ServerDialog::onGeneralLevelRatioSelected()
@@ -807,10 +871,8 @@ void ServerDialog::onGeneralLevelRatioSelected()
 	if (this->current_level_button == button)
 		return;
 	this->current_level_button = button;
-	GeneralLevel *level = this->current_level_button->getGeneralLevel();
-	this->parent_button->setEnabled(level->getParentLevel() != "");
-	this->sub_button->setEnabled(!level->getSubLevels().isEmpty());
 	this->updateGatekeeper();
+	this->updateGuideButtons();
 }
 
 void ServerDialog::onParentLevelButtonClicked()
