@@ -5,6 +5,7 @@ class Room;
 class QGroupBox;
 class QLabel;
 class OptionButton;
+class FreeChooseDialog;
 
 #include "socket.h"
 #include "detector.h"
@@ -100,6 +101,7 @@ private:
 	QGridLayout *level_buttons_layout;
 	QPushButton *parent_button;
 	QPushButton *sub_button;
+	FreeChooseDialog *challenger_choose_dialog;
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -153,6 +155,8 @@ private slots:
     void edit1v1Banlist();
     void updateButtonEnablility(QAbstractButton *button);
 
+	void onChallengerButtonClicked();
+	void onChallengerGeneralChosen(const QString &general);
 	void onGeneralLevelRatioSelected();
 	void onParentLevelButtonClicked();
 	void onSubLevelsButtonClicked();

@@ -672,6 +672,8 @@ QWidget *ServerDialog::createRankSettingsTab()
 {
 	this->challenger_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("challenger"));
 	this->challenger_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
+	this->challenger_choose_dialog = NULL;
+	connect(this->challenger_button, SIGNAL(clicked()), this, SLOT(onChallengerButtonClicked()));
 	QVBoxLayout *left_layout = new QVBoxLayout;
 	left_layout->addWidget(this->challenger_button);
 	left_layout->addStretch();
@@ -780,6 +782,21 @@ void ServerDialog::updateGatekeeper()
 		this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
 		this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
 	}
+}
+
+void ServerDialog::onChallengerButtonClicked()
+{
+	if (!this->challenger_choose_dialog){
+		this->challenger_choose_dialog = new FreeChooseDialog(this);
+		connect(this->challenger_choose_dialog, SIGNAL(general_chosen(const QString &)), this, SLOT(onChallengerGeneralChosen(const QString &)));
+	}
+	this->challenger_choose_dialog->exec();
+}
+
+void ServerDialog::onChallengerGeneralChosen(const QString &general)
+{
+	this->challenger_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(general, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	this->challenger_button->setText(Sanguosha->translate(general));
 }
 
 void ServerDialog::onGeneralLevelRatioSelected()
