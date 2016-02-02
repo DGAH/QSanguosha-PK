@@ -52,6 +52,11 @@ Engine::Engine()
 
     _loadModScenarios();
 
+	// dummy general level as all real levels'parent
+	this->root_level = new GeneralLevel("_root_");
+	this->root_level->setParent(this);
+	this->levels.insert("_root_", this->root_level);
+
     if (!DoLuaScript(lua, "lua/sanguosha.lua")) exit(1);
 
     // available game modes
@@ -365,13 +370,24 @@ void Engine::addGeneralLevel(GeneralLevel *level)
 	if (this->levels.contains(name))
 		return;
 
-	level->setParent(this);
 	this->levels.insert(name, level);
+	if (level->getParentLevel() == "")
+		this->root_level->addSubLevel(name);
 }
 
 GeneralLevel *Engine::getGeneralLevel(const QString &level) const
 {
 	return this->levels.value(level, NULL);
+}
+
+QStringList Engine::getGeneralLevels(const QString &parent_level) const
+{
+	GeneralLevel *parent = NULL;
+	if (parent_level != "")
+		parent = this->levels.value(parent_level, NULL);
+	if (!parent)
+		parent = this->root_level;
+	return parent->getSubLevels();
 }
 
 void Engine::registerRoom(QObject *room)

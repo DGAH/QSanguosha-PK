@@ -9,6 +9,7 @@
 #include "skin-bank.h"
 #include "json.h"
 #include "gamerule.h"
+#include "general-level.h"
 
 #include <QMessageBox>
 #include <QFormLayout>
@@ -43,6 +44,10 @@ ServerDialog::ServerDialog(QWidget *parent)
     tab_widget->addTab(createPackageTab(), tr("Game Pacakge Selection"));
     tab_widget->addTab(createAdvancedTab(), tr("Advanced"));
     tab_widget->addTab(createMiscTab(), tr("Miscellaneous"));
+
+	this->challenger_button = NULL;
+	this->gatekeeper_button = NULL;
+	tab_widget->addTab(createRankSettingsTab(), tr("Rank"));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(tab_widget);
@@ -635,6 +640,184 @@ QGroupBox *ServerDialog::createGameModeBox()
     mode_box->setLayout(layout);
 
     return mode_box;
+}
+
+LevelButton::LevelButton(const QString &text)
+	:QRadioButton(text)
+{
+	this->level = NULL;
+}
+
+void LevelButton::setLevelName(const QString &name)
+{
+	this->name = name;
+}
+
+void LevelButton::setGeneralLevel(GeneralLevel *level)
+{
+	this->level = level;
+}
+
+QString LevelButton::getLevelName() const
+{
+	return this->name;
+}
+
+GeneralLevel *LevelButton::getGeneralLevel() const
+{
+	return this->level;
+}
+
+QWidget *ServerDialog::createRankSettingsTab()
+{
+	this->challenger_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("challenger"));
+	this->challenger_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
+	QVBoxLayout *left_layout = new QVBoxLayout;
+	left_layout->addWidget(this->challenger_button);
+	left_layout->addStretch();
+
+	this->gatekeeper_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("gatekeeper"));
+	this->gatekeeper_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
+	QVBoxLayout *right_layout = new QVBoxLayout;
+	right_layout->addWidget(this->gatekeeper_button);
+	right_layout->addStretch();
+
+	QGroupBox *level_group_box = new QGroupBox(tr("general levels"));
+	this->level_buttons_layout = new QGridLayout;
+	this->parent_button = new QPushButton(tr("parent level"));
+	connect(this->parent_button, SIGNAL(clicked()), this, SLOT(onParentLevelButtonClicked()));
+	this->sub_button = new QPushButton(tr("sub levels"));
+	connect(this->sub_button, SIGNAL(clicked()), this, SLOT(onSubLevelsButtonClicked()));
+	QStringList levels = Sanguosha->getGeneralLevels();
+	this->updateLevelButtons(levels);
+	QHBoxLayout *level_button_layout = new QHBoxLayout;
+	level_button_layout->addStretch();
+	level_button_layout->addWidget(parent_button);
+	level_button_layout->addStretch();
+	level_button_layout->addWidget(sub_button);
+	level_button_layout->addStretch();
+	QVBoxLayout *level_group_layout = new QVBoxLayout;
+	level_group_layout->addLayout(this->level_buttons_layout);
+	level_group_layout->addLayout(level_button_layout);
+	level_group_box->setLayout(level_group_layout);
+	QVBoxLayout *mid_layout = new QVBoxLayout;
+	mid_layout->addWidget(level_group_box);
+	mid_layout->addStretch();
+
+	QHBoxLayout *layout = new QHBoxLayout;
+	layout->addLayout(left_layout);
+	layout->addLayout(mid_layout);
+	layout->addLayout(right_layout);
+
+	QWidget *widget = new QWidget;
+	widget->setLayout(layout);
+	return widget;
+}
+
+void ServerDialog::updateLevelButtons(const QStringList &levels, const QString &current)
+{
+	if (levels.isEmpty())
+		return;
+	QString checked = (current == "") ? levels.first() : current;
+	while (!this->level_buttons.isEmpty()){
+		LevelButton *button = this->level_buttons.first();
+		this->level_buttons.removeFirst();
+		this->level_buttons_layout->removeWidget(button);
+		delete button;
+	}
+	int row = 0, column = 0;
+	for each (QString name in levels)
+	{
+		LevelButton *button = new LevelButton(Sanguosha->translate(name));
+		button->setLevelName(name);
+		GeneralLevel *level = Sanguosha->getGeneralLevel(name);
+		if (!level){
+			delete button;
+			continue;
+		}
+		button->setGeneralLevel(level);
+		if (name == checked){
+			button->setChecked(true);
+			this->current_level_button = button;
+		}
+		this->level_buttons_layout->addWidget(button, row, column);
+		this->level_buttons.append(button);
+		connect(button, SIGNAL(clicked()), this, SLOT(onGeneralLevelRatioSelected()));
+		column++;
+		if (column >= 5){
+			column = 0;
+			row++;
+		}
+	}
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	this->parent_button->setEnabled(level->getParentLevel() != "");
+	this->sub_button->setEnabled(!level->getSubLevels().isEmpty());
+	this->updateGatekeeper();
+}
+
+void ServerDialog::updateGatekeeper()
+{
+	if (!this->current_level_button)
+		return;
+	QString name = this->current_level_button->getLevelName();
+	GeneralLevel *level = Sanguosha->getGeneralLevel(name);
+	if (!level)
+		return;
+	QStringList gatekeepers = level->getGateKeepers();
+	if (gatekeepers.isEmpty()) {
+		QString share_level_name = level->getShareGateKeepersLevel();
+		GeneralLevel *share_level = Sanguosha->getGeneralLevel(share_level_name);
+		if (share_level) {
+			gatekeepers = share_level->getGateKeepers();
+		}
+	}
+	if (gatekeepers.isEmpty()){
+		this->gatekeeper_button->setIcon(QIcon("image/system/02_rank/unknown.jpg"));
+		this->gatekeeper_button->setText(tr("gatekeeper"));
+	}
+	else{
+		QString gatekeeper = gatekeepers.first();
+		this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+		this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
+	}
+}
+
+void ServerDialog::onGeneralLevelRatioSelected()
+{
+	LevelButton *button = (LevelButton *)(sender());
+	if (!button->isChecked())
+		return;
+	if (this->current_level_button == button)
+		return;
+	this->current_level_button = button;
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	this->parent_button->setEnabled(level->getParentLevel() != "");
+	this->sub_button->setEnabled(!level->getSubLevels().isEmpty());
+	this->updateGatekeeper();
+}
+
+void ServerDialog::onParentLevelButtonClicked()
+{
+	if (!this->current_level_button)
+		return;
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	QString parent_name = level->getParentLevel();
+	GeneralLevel *parent = Sanguosha->getGeneralLevel(parent_name);
+	if (!parent)
+		return;
+	QStringList super_levels = Sanguosha->getGeneralLevels(parent->getParentLevel());
+	this->updateLevelButtons(super_levels, parent_name);
+}
+
+void ServerDialog::onSubLevelsButtonClicked()
+{
+	if (!this->current_level_button)
+		return;
+	GeneralLevel *level = this->current_level_button->getGeneralLevel();
+	QStringList sub_levels = level->getSubLevels();
+	if (sub_levels.isEmpty())
+		return;
+	this->updateLevelButtons(sub_levels);
 }
 
 QLayout *ServerDialog::createButtonLayout()

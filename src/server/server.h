@@ -4,12 +4,14 @@
 class Room;
 class QGroupBox;
 class QLabel;
-class QRadioButton;
+class OptionButton;
 
 #include "socket.h"
 #include "detector.h"
 #include "clientstruct.h"
+#include "general-level.h"
 
+#include <QRadioButton>
 #include <QDialog>
 #include <QLineEdit>
 #include <QSpinBox>
@@ -21,6 +23,8 @@ class QRadioButton;
 #include <QSplitter>
 #include <QTabWidget>
 #include <QMultiHash>
+#include <QGridLayout>
+#include <QPushButton>
 
 class Package;
 
@@ -52,6 +56,23 @@ private slots:
     void switchTo(int item);
 };
 
+class LevelButton : public QRadioButton
+{
+	Q_OBJECT
+
+public:
+	LevelButton(const QString &text = "");
+
+	void setLevelName(const QString &name);
+	void setGeneralLevel(GeneralLevel *level);
+	QString getLevelName() const;
+	GeneralLevel *getGeneralLevel() const;
+
+private:
+	QString name;
+	GeneralLevel *level;
+};
+
 class ServerDialog : public QDialog
 {
     Q_OBJECT
@@ -68,6 +89,17 @@ private:
     QLayout *createButtonLayout();
 
     QGroupBox *createGameModeBox();
+	QWidget *createRankSettingsTab();
+	void updateLevelButtons(const QStringList &levels, const QString &current = "");
+	void updateGatekeeper();
+
+	OptionButton *challenger_button;
+	OptionButton *gatekeeper_button;
+	LevelButton *current_level_button;
+	QList<LevelButton *> level_buttons;
+	QGridLayout *level_buttons_layout;
+	QPushButton *parent_button;
+	QPushButton *sub_button;
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -120,6 +152,10 @@ private slots:
     void onDetectButtonClicked();
     void edit1v1Banlist();
     void updateButtonEnablility(QAbstractButton *button);
+
+	void onGeneralLevelRatioSelected();
+	void onParentLevelButtonClicked();
+	void onSubLevelsButtonClicked();
 };
 
 class Scenario;

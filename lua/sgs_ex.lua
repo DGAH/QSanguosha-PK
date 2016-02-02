@@ -641,7 +641,10 @@ function sgs.CreateGeneralLevel(spec)
 			level:addGateKeeper(gatekeeper)
 		end
 	elseif type(spec.gatekeepers) == "string" then
-		level:addGateKeeper(gatekeeper)
+		level:addGateKeeper(spec.gatekeepers)
+	end
+	if type(spec.share_gatekeepers) == "string" then
+		level:setShareGateKeepersLevel(spec.share_gatekeepers)
 	end
 	if type(spec.last_level) == "string" then
 		level:setLastLevel(spec.last_level)

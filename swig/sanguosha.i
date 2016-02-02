@@ -71,6 +71,7 @@ public:
 	void setParentLevel(const char *name);
 	void setLastLevel(const char *name);
 	void setNextLevel(const char *name);
+	void setSubLevels(const QStringList &names);
 	void addSubLevel(const char *name);
 	QString getParentLevel() const;
 	QString getLastLevel() const;
@@ -78,8 +79,11 @@ public:
 	QStringList getSubLevels() const;
 	bool isSubLevel(const char *level) const;
 
+	void setGateKeepers(const QStringList &generals);
 	void addGateKeeper(const char *general);
 	QStringList getGateKeepers() const;
+	void setShareGateKeepersLevel(const char *level);
+	QString getShareGateKeepersLevel() const;
 };
 
 class Player: public QObject {

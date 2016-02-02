@@ -20,6 +20,11 @@ void GeneralLevel::setNextLevel(const QString &name)
 	this->next_level = name;
 }
 
+void GeneralLevel::setSubLevels(const QStringList &names)
+{
+	this->m_sub_levels = names;
+}
+
 void GeneralLevel::addSubLevel(const QString &name)
 {
 	this->m_sub_levels.append(name);
@@ -50,6 +55,11 @@ bool GeneralLevel::isSubLevel(const QString &level) const
 	return this->m_sub_levels.contains(level);
 }
 
+void GeneralLevel::setGateKeepers(const QStringList &generals)
+{
+	this->m_gatekeepers = generals;
+}
+
 void GeneralLevel::addGateKeeper(const QString &general)
 {
 	this->m_gatekeepers.append(general);
@@ -58,4 +68,14 @@ void GeneralLevel::addGateKeeper(const QString &general)
 QStringList GeneralLevel::getGateKeepers() const
 {
 	return this->m_gatekeepers;
+}
+
+void GeneralLevel::setShareGateKeepersLevel(const QString &level)
+{
+	this->share_level = level;
+}
+
+QString GeneralLevel::getShareGateKeepersLevel() const
+{
+	return this->share_level;
 }

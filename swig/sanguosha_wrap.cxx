@@ -13665,6 +13665,36 @@ fail:
 }
 
 
+static int _wrap_GeneralLevel_setSubLevels(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  QStringList *arg2 = 0 ;
+  
+  SWIG_check_num_args("GeneralLevel::setSubLevels",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::setSubLevels",1,"GeneralLevel *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("GeneralLevel::setSubLevels",2,"QStringList const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_setSubLevels",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QStringList,0))){
+    SWIG_fail_ptr("GeneralLevel_setSubLevels",2,SWIGTYPE_p_QStringList);
+  }
+  
+  (arg1)->setSubLevels((QStringList const &)*arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_GeneralLevel_addSubLevel(lua_State* L) {
   int SWIG_arg = 0;
   GeneralLevel *arg1 = (GeneralLevel *) 0 ;
@@ -13824,6 +13854,36 @@ fail:
 }
 
 
+static int _wrap_GeneralLevel_setGateKeepers(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  QStringList *arg2 = 0 ;
+  
+  SWIG_check_num_args("GeneralLevel::setGateKeepers",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::setGateKeepers",1,"GeneralLevel *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("GeneralLevel::setGateKeepers",2,"QStringList const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_setGateKeepers",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QStringList,0))){
+    SWIG_fail_ptr("GeneralLevel_setGateKeepers",2,SWIGTYPE_p_QStringList);
+  }
+  
+  (arg1)->setGateKeepers((QStringList const &)*arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_GeneralLevel_addGateKeeper(lua_State* L) {
   int SWIG_arg = 0;
   GeneralLevel *arg1 = (GeneralLevel *) 0 ;
@@ -13884,6 +13944,56 @@ fail:
 }
 
 
+static int _wrap_GeneralLevel_setShareGateKeepersLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("GeneralLevel::setShareGateKeepersLevel",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::setShareGateKeepersLevel",1,"GeneralLevel *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("GeneralLevel::setShareGateKeepersLevel",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_setShareGateKeepersLevel",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setShareGateKeepersLevel((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_GeneralLevel_getShareGateKeepersLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("GeneralLevel::getShareGateKeepersLevel",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::getShareGateKeepersLevel",1,"GeneralLevel const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_getShareGateKeepersLevel",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  result = ((GeneralLevel const *)arg1)->getShareGateKeepersLevel();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_GeneralLevel(void *obj) {
 GeneralLevel *arg1 = (GeneralLevel *) obj;
 delete arg1;
@@ -13892,14 +14002,18 @@ static swig_lua_method swig_GeneralLevel_methods[] = {
     {"setParentLevel", _wrap_GeneralLevel_setParentLevel}, 
     {"setLastLevel", _wrap_GeneralLevel_setLastLevel}, 
     {"setNextLevel", _wrap_GeneralLevel_setNextLevel}, 
+    {"setSubLevels", _wrap_GeneralLevel_setSubLevels}, 
     {"addSubLevel", _wrap_GeneralLevel_addSubLevel}, 
     {"getParentLevel", _wrap_GeneralLevel_getParentLevel}, 
     {"getLastLevel", _wrap_GeneralLevel_getLastLevel}, 
     {"getNextLevel", _wrap_GeneralLevel_getNextLevel}, 
     {"getSubLevels", _wrap_GeneralLevel_getSubLevels}, 
     {"isSubLevel", _wrap_GeneralLevel_isSubLevel}, 
+    {"setGateKeepers", _wrap_GeneralLevel_setGateKeepers}, 
     {"addGateKeeper", _wrap_GeneralLevel_addGateKeeper}, 
     {"getGateKeepers", _wrap_GeneralLevel_getGateKeepers}, 
+    {"setShareGateKeepersLevel", _wrap_GeneralLevel_setShareGateKeepersLevel}, 
+    {"getShareGateKeepersLevel", _wrap_GeneralLevel_getShareGateKeepersLevel}, 
     {0,0}
 };
 static swig_lua_attribute swig_GeneralLevel_attributes[] = {

@@ -93,6 +93,7 @@ public:
 
 	void addGeneralLevel(GeneralLevel *level);
 	GeneralLevel *getGeneralLevel(const QString &level) const;
+	QStringList getGeneralLevels(const QString &parent_level = "") const;
 
     int getCardCount() const;
     const Card *getEngineCard(int cardId) const;
@@ -156,6 +157,7 @@ private:
     QHash<QString, Scenario *> m_scenarios;
 
     lua_State *lua;
+	GeneralLevel *root_level;
 
     QHash<QString, QString> luaBasicCard_className2objectName;
     QHash<QString, const LuaBasicCard *> luaBasicCards;
