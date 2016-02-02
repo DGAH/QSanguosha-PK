@@ -2540,10 +2540,7 @@ void Room::assignRoles()
         QString role = roles.at(i);
 
         player->setRole(role);
-        if (role == "lord")
-            broadcastProperty(player, "role", player->getRole());
-        else
-            notifyProperty(player, player, "role");
+        broadcastProperty(player, "role", player->getRole());
     }
 }
 
@@ -3284,8 +3281,7 @@ void Room::startGame()
     }
 
     foreach (ServerPlayer *player, m_players) {
-        if (mode.contains("kof") || !player->isLord())
-            broadcastProperty(player, "general");
+        broadcastProperty(player, "general");
 
         if (mode.contains("kof"))
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
