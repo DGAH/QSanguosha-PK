@@ -36,6 +36,23 @@ void Engine::addPackage(const QString &name)
         qWarning("Package %s cannot be loaded!", qPrintable(name));
 }
 
+void Engine::addGeneral(General *general)
+{
+	if (generals.contains(general->objectName()))
+		return;
+	
+	if (!general->parent())
+		general->setParent(this->default_package);
+
+	addSkills(general->findChildren<const Skill *>());
+	foreach(QString skill_name, general->getExtraSkillSet()) {
+		if (skill_name.startsWith("#")) continue;
+		foreach(const Skill *related, getRelatedSkills(skill_name))
+			general->addSkill(related->objectName());
+	}
+	generals.insert(general->objectName(), general);
+}
+
 Engine::Engine()
 {
     Sanguosha = this;
@@ -43,12 +60,17 @@ Engine::Engine()
     lua = CreateLuaState();
     if (!DoLuaScript(lua, "lua/config.lua")) exit(1);
 
+	// add default general package first
+	this->default_package = PackageAdder::packages()["Default"];
+
     extra_hidden_generals = GetConfigFromLuaState(lua, "extra_hidden_generals").toStringList();
     removed_hidden_generals = GetConfigFromLuaState(lua, "removed_hidden_generals").toStringList();
 
     QStringList package_names = GetConfigFromLuaState(lua, "package_names").toStringList();
     foreach(QString name, package_names)
         addPackage(name);
+
+	addPackage("Default");
 
     _loadModScenarios();
 
@@ -231,13 +253,7 @@ void Engine::addPackage(Package *package)
 
     QList<General *> all_generals = package->findChildren<General *>();
     foreach (General *general, all_generals) {
-        addSkills(general->findChildren<const Skill *>());
-        foreach (QString skill_name, general->getExtraSkillSet()) {
-            if (skill_name.startsWith("#")) continue;
-            foreach(const Skill *related, getRelatedSkills(skill_name))
-                general->addSkill(related->objectName());
-        }
-        generals.insert(general->objectName(), general);
+		addGeneral(general);
         if (isGeneralHidden(general->objectName())) continue;
     }
 

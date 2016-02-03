@@ -31,6 +31,7 @@ public:
 class General: public QObject {
 public:
     explicit General(Package *package, const char *name, const char *kingdom, int max_hp = 4, bool male = true, bool hidden = false, bool never_shown = false);
+	explicit General(const char *name, const char *kingdom, int max_hp = 4, bool male = true, bool hidden = false, bool never_shown = false);
 
     // property getters/setters
     int getMaxHp() const;
@@ -940,6 +941,7 @@ public:
 
     const General *getGeneral(const char *name) const;
     int getGeneralCount(bool include_banned = false, const char *kingdom = "") const;
+	void addGeneral(General *general);
     const Skill *getSkill(const char *skill_name) const;
     const TriggerSkill *getTriggerSkill(const char *skill_name) const;
     const ViewAsSkill *getViewAsSkill(const char *skill_name) const;

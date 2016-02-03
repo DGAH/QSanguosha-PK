@@ -12604,6 +12604,151 @@ fail:
 }
 
 
+static int _wrap_new_General__SWIG_5(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool arg4 ;
+  bool arg5 ;
+  bool arg6 ;
+  General *result = 0 ;
+  
+  SWIG_check_num_args("General::General",6,6)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("General::General",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::General",2,"char const *");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("General::General",3,"int");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("General::General",4,"bool");
+  if(!lua_isboolean(L,5)) SWIG_fail_arg("General::General",5,"bool");
+  if(!lua_isboolean(L,6)) SWIG_fail_arg("General::General",6,"bool");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (int)lua_tonumber(L, 3);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  arg5 = (lua_toboolean(L, 5)!=0);
+  arg6 = (lua_toboolean(L, 6)!=0);
+  result = (General *)new General((char const *)arg1,(char const *)arg2,arg3,arg4,arg5,arg6);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_General,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_General__SWIG_6(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool arg4 ;
+  bool arg5 ;
+  General *result = 0 ;
+  
+  SWIG_check_num_args("General::General",5,5)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("General::General",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::General",2,"char const *");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("General::General",3,"int");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("General::General",4,"bool");
+  if(!lua_isboolean(L,5)) SWIG_fail_arg("General::General",5,"bool");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (int)lua_tonumber(L, 3);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  arg5 = (lua_toboolean(L, 5)!=0);
+  result = (General *)new General((char const *)arg1,(char const *)arg2,arg3,arg4,arg5);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_General,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_General__SWIG_7(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  bool arg4 ;
+  General *result = 0 ;
+  
+  SWIG_check_num_args("General::General",4,4)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("General::General",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::General",2,"char const *");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("General::General",3,"int");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("General::General",4,"bool");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (int)lua_tonumber(L, 3);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  result = (General *)new General((char const *)arg1,(char const *)arg2,arg3,arg4);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_General,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_General__SWIG_8(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  General *result = 0 ;
+  
+  SWIG_check_num_args("General::General",3,3)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("General::General",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::General",2,"char const *");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("General::General",3,"int");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (int)lua_tonumber(L, 3);
+  result = (General *)new General((char const *)arg1,(char const *)arg2,arg3);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_General,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_General__SWIG_9(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  General *result = 0 ;
+  
+  SWIG_check_num_args("General::General",2,2)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("General::General",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::General",2,"char const *");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (General *)new General((char const *)arg1,(char const *)arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_General,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_new_General(lua_State* L) {
   int argc;
   int argv[8]={
@@ -12611,6 +12756,20 @@ static int _wrap_new_General(lua_State* L) {
   };
   
   argc = lua_gettop(L);
+  if (argc == 2) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_new_General__SWIG_9(L);
+      }
+    }
+  }
   if (argc == 3) {
     int _v;
     {
@@ -12631,6 +12790,25 @@ static int _wrap_new_General(lua_State* L) {
         }
         if (_v) {
           return _wrap_new_General__SWIG_4(L);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isnumber(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_new_General__SWIG_8(L);
         }
       }
     }
@@ -12659,6 +12837,30 @@ static int _wrap_new_General(lua_State* L) {
           }
           if (_v) {
             return _wrap_new_General__SWIG_3(L);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isnumber(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            return _wrap_new_General__SWIG_7(L);
           }
         }
       }
@@ -12698,6 +12900,35 @@ static int _wrap_new_General(lua_State* L) {
       }
     }
   }
+  if (argc == 5) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isnumber(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            {
+              _v = lua_isboolean(L,argv[4]);
+            }
+            if (_v) {
+              return _wrap_new_General__SWIG_6(L);
+            }
+          }
+        }
+      }
+    }
+  }
   if (argc == 6) {
     int _v;
     {
@@ -12730,6 +12961,40 @@ static int _wrap_new_General(lua_State* L) {
               }
               if (_v) {
                 return _wrap_new_General__SWIG_1(L);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  if (argc == 6) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isnumber(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            {
+              _v = lua_isboolean(L,argv[4]);
+            }
+            if (_v) {
+              {
+                _v = lua_isboolean(L,argv[5]);
+              }
+              if (_v) {
+                return _wrap_new_General__SWIG_5(L);
               }
             }
           }
@@ -12788,7 +13053,12 @@ static int _wrap_new_General(lua_State* L) {
     "    General::General(Package *,char const *,char const *,int,bool,bool)\n"
     "    General::General(Package *,char const *,char const *,int,bool)\n"
     "    General::General(Package *,char const *,char const *,int)\n"
-    "    General::General(Package *,char const *,char const *)\n");
+    "    General::General(Package *,char const *,char const *)\n"
+    "    General::General(char const *,char const *,int,bool,bool,bool)\n"
+    "    General::General(char const *,char const *,int,bool,bool)\n"
+    "    General::General(char const *,char const *,int,bool)\n"
+    "    General::General(char const *,char const *,int)\n"
+    "    General::General(char const *,char const *)\n");
   lua_error(L);return 0;
 }
 
@@ -36816,6 +37086,36 @@ static int _wrap_Engine_getGeneralCount(lua_State* L) {
 }
 
 
+static int _wrap_Engine_addGeneral(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  General *arg2 = (General *) 0 ;
+  
+  SWIG_check_num_args("Engine::addGeneral",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::addGeneral",1,"Engine *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Engine::addGeneral",2,"General *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_addGeneral",1,SWIGTYPE_p_Engine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("Engine_addGeneral",2,SWIGTYPE_p_General);
+  }
+  
+  (arg1)->addGeneral(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Engine_getSkill(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -38885,6 +39185,7 @@ static swig_lua_method swig_Engine_methods[] = {
     {"getScenario", _wrap_Engine_getScenario}, 
     {"getGeneral", _wrap_Engine_getGeneral}, 
     {"getGeneralCount", _wrap_Engine_getGeneralCount}, 
+    {"addGeneral", _wrap_Engine_addGeneral}, 
     {"getSkill", _wrap_Engine_getSkill}, 
     {"getTriggerSkill", _wrap_Engine_getTriggerSkill}, 
     {"getViewAsSkill", _wrap_Engine_getViewAsSkill}, 

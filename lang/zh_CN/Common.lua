@@ -3,11 +3,6 @@ CommonTranslationTable = {
 	["loyalist"] = "忠臣",
 	["rebel"] = "反贼",
 	["renegade"] = "内奸",
-	["leader"] = "主帅",
-	["guard"] = "前锋",
-	["vanguard"] = "先锋",
-	["mainstay"] = "中坚",
-	["general"] = "大将",
 	["offensive"] = "先手",
 	["defensive"] = "后手",
 
@@ -18,7 +13,6 @@ CommonTranslationTable = {
 	["oppphskill"] = "阶段技。",
 
 	["Pairs"] = "双将",
-	["XMode"] = "血战到底",
 	["Cards"] = "卡牌",
 	["cancel"] = "取消",
 	["GeneralA"] = "主将",
@@ -29,7 +23,7 @@ CommonTranslationTable = {
 
 	["spade"] = "黑桃",
 	["club"] = "梅花",
-	["heart"] = "红桃",
+	["heart"] = "红心",
 	["diamond"] = "方块",
 	["no_suit"] = "无色",
 	["no_suit_black"] = "黑色",
@@ -196,16 +190,12 @@ CommonTranslationTable = {
 	["$ViewRole"] = "%from 观看了 %to 的身份 %arg",
 	["#UseLuckCard"] = "%from 使用了 <font color=\"yellow\"><b>手气卡</b></font>",
 
-	["cw"] = "顺时针",
-	["ccw"] = "逆时针",
-	["@3v3-action"] = "请选择行动角色",
 	["warm"] = "暖色方",
 	["cool"] = "冷色方",
 	["#VsTakeGeneral"] = "%arg 选择了 %arg2",
-	["#TrickDirection"] = "%from 选择了 %arg 作为结算顺序",
-	["custom"] = "自定义模式",
 	["UnknowNick"] = "",
 	["DefaultIllustrator"] = "KayaK",
+	["_pack"] = "自由武将",
 
 	["@waked"] = "觉醒",
 

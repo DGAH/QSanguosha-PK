@@ -16,6 +16,12 @@ General::General(Package *package, const QString &name, const QString &kingdom,
     setObjectName(name);
 }
 
+General::General(const QString &name, const QString &kingdom, int max_hp, bool male, bool hidden, bool never_shown)
+	:QObject(NULL), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female), hidden(hidden), never_shown(never_shown)
+{
+	setObjectName(name);
+}
+
 int General::getMaxHp() const
 {
     return max_hp;

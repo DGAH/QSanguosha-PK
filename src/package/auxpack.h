@@ -90,4 +90,12 @@ public:
 	AuxPackage();
 };
 
+class DefaultPackage : public Package
+{
+	Q_OBJECT
+
+public:
+	DefaultPackage();
+};
+
 #endif // _AUX_PACK_H

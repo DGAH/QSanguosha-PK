@@ -78,6 +78,7 @@ public:
 
     const General *getGeneral(const QString &name) const;
     int getGeneralCount(bool include_banned = false, const QString &kingdom = QString()) const;
+	void addGeneral(General *general);
     const Skill *getSkill(const QString &skill_name) const;
     const Skill *getSkill(const EquipCard *card) const;
     QStringList getSkillNames() const;
@@ -160,6 +161,7 @@ private:
 
     lua_State *lua;
 	GeneralLevel *root_level;
+	Package *default_package;
 
     QHash<QString, QString> luaBasicCard_className2objectName;
     QHash<QString, const LuaBasicCard *> luaBasicCards;

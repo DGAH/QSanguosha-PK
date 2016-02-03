@@ -301,4 +301,11 @@ AuxPackage::AuxPackage()
 	addMetaObject<NosRendeCard>();
 }
 
+DefaultPackage::DefaultPackage()
+	: Package("_pack")
+{
+	type = Package::GeneralPack;
+}
+
 ADD_PACKAGE(Aux)
+ADD_PACKAGE(Default);
