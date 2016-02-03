@@ -2,6 +2,9 @@
 #include "protocol.h"
 #include "json.h"
 
+RankModeInfoStruct::RankModeInfoStruct()
+{
+}
 
 bool CardsMoveStruct::tryParse(const QVariant &arg)
 {

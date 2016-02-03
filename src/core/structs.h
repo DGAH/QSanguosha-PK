@@ -11,6 +11,14 @@ class Slash;
 
 #include <QVariant>
 
+struct RankModeInfoStruct
+{
+	RankModeInfoStruct();
+
+	QString challenger;
+	QString gatekeeper;
+};
+
 struct DamageStruct
 {
     enum Nature

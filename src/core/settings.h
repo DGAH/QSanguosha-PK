@@ -2,6 +2,7 @@
 #define _SETTINGS_H
 
 #include "protocol.h"
+#include "structs.h"
 #include <QSettings>
 #include <QFont>
 #include <QRectF>
@@ -78,6 +79,9 @@ public:
 
     QString BackgroundImage;
     int BubbleChatBoxKeepTime;
+
+	// game mode
+	RankModeInfoStruct RankModeInfo;
 
     // consts
     static const int S_SURRENDER_REQUEST_MIN_INTERVAL;

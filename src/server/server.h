@@ -11,6 +11,7 @@ class FreeChooseDialog;
 #include "detector.h"
 #include "clientstruct.h"
 #include "general-level.h"
+#include "structs.h"
 
 #include <QRadioButton>
 #include <QDialog>
@@ -92,9 +93,12 @@ private:
     QGroupBox *createGameModeBox();
 	QWidget *createRankSettingsTab();
 	void updateLevelButtons(const QStringList &levels, const QString &current = "");
-	void updateGatekeeper();
+	void updateGatekeeperByCurrentLevel();
+	void updateGatekeeper(const QString &gatekeeper);
 	void updateGuideButtons();
 
+	QTabWidget *tab_widget;
+	QWidget *rank_page;
 	OptionButton *challenger_button;
 	OptionButton *gatekeeper_button;
 	LevelButton *current_level_button;
@@ -103,6 +107,7 @@ private:
 	QPushButton *parent_button;
 	QPushButton *sub_button;
 	FreeChooseDialog *challenger_choose_dialog;
+	QString m_current_challenger;
 	QString m_current_gatekeeper;
 	QPushButton *last_gatekeeper_button;
 	QPushButton *next_gatekeeper_button;
@@ -153,6 +158,7 @@ private:
 private slots:
     void setMaxHpSchemeBox();
 
+	void onGameModeRadioButtonClicked(int id);
     void onConsoleButtonClicked();
     void onServerButtonClicked();
     void onDetectButtonClicked();

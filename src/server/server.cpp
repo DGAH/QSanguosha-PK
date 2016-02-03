@@ -39,7 +39,7 @@ ServerDialog::ServerDialog(QWidget *parent)
 {
     setWindowTitle(tr("Start server"));
 
-    QTabWidget *tab_widget = new QTabWidget;
+    tab_widget = new QTabWidget;
     tab_widget->addTab(createBasicTab(), tr("Basic"));
     tab_widget->addTab(createPackageTab(), tr("Game Pacakge Selection"));
     tab_widget->addTab(createAdvancedTab(), tr("Advanced"));
@@ -47,7 +47,9 @@ ServerDialog::ServerDialog(QWidget *parent)
 
 	this->challenger_button = NULL;
 	this->gatekeeper_button = NULL;
-	tab_widget->addTab(createRankSettingsTab(), tr("Rank"));
+	this->rank_page = createRankSettingsTab();
+	tab_widget->addTab(this->rank_page, tr("Rank"));
+	tab_widget->setTabEnabled(tab_widget->indexOf(this->rank_page), Config.GameMode == "02_rank");
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(tab_widget);
@@ -590,6 +592,7 @@ QGroupBox *ServerDialog::createGameModeBox()
 {
     QGroupBox *mode_box = new QGroupBox(tr("Game mode"));
     mode_group = new QButtonGroup;
+	connect(mode_group, SIGNAL(buttonClicked(int)), this, SLOT(onGameModeRadioButtonClicked(int)));
 
     QObjectList item_list;
 
@@ -743,7 +746,7 @@ void ServerDialog::updateLevelButtons(const QStringList &levels, const QString &
 		LevelButton *button = new LevelButton(Sanguosha->translate(name));
 		button->setLevelName(name);
 		GeneralLevel *level = Sanguosha->getGeneralLevel(name);
-		if (!level){
+		if (!level) {
 			delete button;
 			continue;
 		}
@@ -756,16 +759,16 @@ void ServerDialog::updateLevelButtons(const QStringList &levels, const QString &
 		this->level_buttons.append(button);
 		connect(button, SIGNAL(clicked()), this, SLOT(onGeneralLevelRatioSelected()));
 		column++;
-		if (column >= 5){
+		if (column >= 5) {
 			column = 0;
 			row++;
 		}
 	}
-	this->updateGatekeeper();
+	this->updateGatekeeperByCurrentLevel();
 	this->updateGuideButtons();
 }
 
-void ServerDialog::updateGatekeeper()
+void ServerDialog::updateGatekeeperByCurrentLevel()
 {
 	if (!this->current_level_button)
 		return;
@@ -773,14 +776,7 @@ void ServerDialog::updateGatekeeper()
 	GeneralLevel *level = Sanguosha->getGeneralLevel(name);
 	if (!level)
 		return;
-	QStringList gatekeepers = level->getGateKeepers();
-	if (gatekeepers.isEmpty()) {
-		QString share_level_name = level->getShareGateKeepersLevel();
-		GeneralLevel *share_level = Sanguosha->getGeneralLevel(share_level_name);
-		if (share_level) {
-			gatekeepers = share_level->getGateKeepers();
-		}
-	}
+	QStringList gatekeepers = Sanguosha->getGatekeepers(level);
 	if (gatekeepers.isEmpty()){
 		this->gatekeeper_button->setIcon(QIcon("image/system/02_rank/unknown.jpg"));
 		this->gatekeeper_button->setText(tr("gatekeeper"));
@@ -788,14 +784,18 @@ void ServerDialog::updateGatekeeper()
 		this->m_current_gatekeeper = "";
 	}
 	else{
-		QString gatekeeper = gatekeepers.first();
-		const General *general = Sanguosha->getGeneral(gatekeeper);
-		Q_ASSERT(general);
-		this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
-		this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
-		this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
-		this->m_current_gatekeeper = gatekeeper;
+		this->updateGatekeeper(gatekeepers.first());
 	}
+}
+
+void ServerDialog::updateGatekeeper(const QString &gatekeeper)
+{
+	const General *general = Sanguosha->getGeneral(gatekeeper);
+	Q_ASSERT(general);
+	this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
+	this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
+	this->m_current_gatekeeper = gatekeeper;
 }
 
 void ServerDialog::updateGuideButtons()
@@ -825,6 +825,7 @@ void ServerDialog::onChallengerGeneralChosen(const QString &general)
 	this->challenger_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(general, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
 	this->challenger_button->setText(Sanguosha->translate(general));
 	this->challenger_button->setToolTip(challenger->getSkillDescription(true));
+	this->m_current_challenger = general;
 }
 
 void ServerDialog::onLastGatekeeperButtonClicked()
@@ -835,13 +836,7 @@ void ServerDialog::onLastGatekeeperButtonClicked()
 	if (index <= 0)
 		return;
 	index--;
-	QString gatekeeper = gatekeepers.at(index);
-	const General *general = Sanguosha->getGeneral(gatekeeper);
-	Q_ASSERT(general);
-	this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
-	this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
-	this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
-	this->m_current_gatekeeper = gatekeeper;
+	this->updateGatekeeper(gatekeepers.at(index));
 	this->updateGuideButtons();
 }
 
@@ -853,13 +848,7 @@ void ServerDialog::onNextGatekeeperButtonClicked()
 	if (index >= gatekeepers.length() - 1)
 		return;
 	index++;
-	QString gatekeeper = gatekeepers.at(index);
-	const General *general = Sanguosha->getGeneral(gatekeeper);
-	Q_ASSERT(general);
-	this->gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
-	this->gatekeeper_button->setText(Sanguosha->translate(gatekeeper));
-	this->gatekeeper_button->setToolTip(general->getSkillDescription(true));
-	this->m_current_gatekeeper = gatekeeper;
+	this->updateGatekeeper(gatekeepers.at(index));
 	this->updateGuideButtons();
 }
 
@@ -871,7 +860,7 @@ void ServerDialog::onGeneralLevelRatioSelected()
 	if (this->current_level_button == button)
 		return;
 	this->current_level_button = button;
-	this->updateGatekeeper();
+	this->updateGatekeeperByCurrentLevel();
 	this->updateGuideButtons();
 }
 
@@ -897,6 +886,19 @@ void ServerDialog::onSubLevelsButtonClicked()
 	if (sub_levels.isEmpty())
 		return;
 	this->updateLevelButtons(sub_levels);
+}
+
+void ServerDialog::onGameModeRadioButtonClicked(int id)
+{
+	QRadioButton *button = dynamic_cast<QRadioButton *>(this->mode_group->button(id));
+	int index = this->tab_widget->indexOf(this->rank_page);
+	if (button->objectName() == "02_rank") {
+		this->tab_widget->setTabEnabled(index, true);
+		this->tab_widget->setCurrentIndex(index);
+	}
+	else{
+		this->tab_widget->setTabEnabled(index, false);
+	}
 }
 
 QLayout *ServerDialog::createButtonLayout()
@@ -1034,6 +1036,12 @@ int ServerDialog::config()
 
     Config.BanPackages = ban_packages.toList();
     Config.setValue("BanPackages", Config.BanPackages);
+
+	// game mode : 02_rank
+	if (Config.GameMode == "02_rank") {
+		Config.RankModeInfo.challenger = this->m_current_challenger;
+		Config.RankModeInfo.gatekeeper = this->m_current_gatekeeper;
+	}
 
     return accept_type;
 }
