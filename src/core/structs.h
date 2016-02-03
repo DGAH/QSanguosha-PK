@@ -17,6 +17,17 @@ struct RankModeInfoStruct
 
 	QString challenger;
 	QString gatekeeper;
+
+	int total_times;
+	int warm_times; // gatekeeper plays first
+	int cold_times; // challenger plays first
+
+	int order_mode; 
+
+	static const int S_ORDER_RANDOMLY = 0;    // order like : ??????????
+	static const int S_ORDER_WARM_FIRST = 1;  // order like : wwwwwccccc
+	static const int S_ORDER_COLD_FIRST = 2;  // order like : cccccwwwww
+	static const int S_ORDER_ALTERNATELY = 3; // order like : wcwcwcwcwc
 };
 
 struct DamageStruct

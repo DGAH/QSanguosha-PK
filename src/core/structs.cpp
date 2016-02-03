@@ -4,6 +4,10 @@
 
 RankModeInfoStruct::RankModeInfoStruct()
 {
+	total_times = 0;
+	warm_times = 0;
+	cold_times = 0;
+	order_mode = S_ORDER_RANDOMLY;
 }
 
 bool CardsMoveStruct::tryParse(const QVariant &arg)

@@ -673,6 +673,7 @@ GeneralLevel *LevelButton::getGeneralLevel() const
 
 QWidget *ServerDialog::createRankSettingsTab()
 {
+	this->m_current_challenger = "";
 	this->challenger_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("challenger"));
 	this->challenger_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
 	this->challenger_choose_dialog = NULL;
@@ -681,6 +682,7 @@ QWidget *ServerDialog::createRankSettingsTab()
 	left_layout->addWidget(this->challenger_button);
 	left_layout->addStretch();
 
+	this->m_current_gatekeeper = "";
 	this->gatekeeper_button = new OptionButton("image/system/02_rank/unknown.jpg", tr("gatekeeper"));
 	this->gatekeeper_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
 	this->last_gatekeeper_button = new QPushButton(tr("<<"));
@@ -715,8 +717,59 @@ QWidget *ServerDialog::createRankSettingsTab()
 	level_group_layout->addLayout(this->level_buttons_layout);
 	level_group_layout->addLayout(level_button_layout);
 	level_group_box->setLayout(level_group_layout);
+
+	QGroupBox *order_box = new QGroupBox(tr("game settings"));
+	QLabel *total_hint = new QLabel(tr("total times:"));
+	this->total_spinbox = new QSpinBox;
+	this->total_spinbox->setMinimum(1);
+	QHBoxLayout *total_layout = new QHBoxLayout;
+	total_layout->addWidget(total_hint);
+	total_layout->addWidget(this->total_spinbox);
+	QLabel *cold_hint = new QLabel(tr("offensive times:"));
+	this->cold_spinbox = new QSpinBox;
+	this->cold_spinbox->setMinimum(-1);
+	QHBoxLayout *cold_layout = new QHBoxLayout;
+	cold_layout->addWidget(cold_hint);
+	cold_layout->addWidget(this->cold_spinbox);
+	QLabel *warm_hint = new QLabel(tr("defensive times:"));
+	this->warm_spinbox = new QSpinBox;
+	this->warm_spinbox->setMinimum(-1);
+	QHBoxLayout *warm_layout = new QHBoxLayout;
+	warm_layout->addWidget(warm_hint);
+	warm_layout->addWidget(this->warm_spinbox);
+	QLabel *mode_hint = new QLabel(tr("order mode:"));
+	QHBoxLayout *mode_hint_layout = new QHBoxLayout;
+	mode_hint_layout->addWidget(mode_hint);
+	mode_hint_layout->addStretch();
+	this->order_mode_group = new QButtonGroup;
+	QRadioButton *cold_first_button = new QRadioButton(tr("offensive first"));
+	cold_first_button->setObjectName("CODE_FIRST");
+	this->order_mode_group->addButton(cold_first_button);
+	QRadioButton *warm_first_button = new QRadioButton(tr("defensive first"));
+	warm_first_button->setObjectName("WARM_FIRST");
+	this->order_mode_group->addButton(warm_first_button);
+	QRadioButton *alternately_button = new QRadioButton(tr("alternately"));
+	alternately_button->setObjectName("ALTERNATELY");
+	this->order_mode_group->addButton(alternately_button);
+	QRadioButton *randomly_button = new QRadioButton(tr("randomly"));
+	randomly_button->setObjectName("RANDOMLY");
+	this->order_mode_group->addButton(randomly_button);
+	QGridLayout *mode_layout = new QGridLayout;
+	mode_layout->addWidget(cold_first_button, 0, 0);
+	mode_layout->addWidget(warm_first_button, 1, 0);
+	mode_layout->addWidget(alternately_button, 0, 1);
+	mode_layout->addWidget(randomly_button, 1, 1);
+	QVBoxLayout *order_layout = new QVBoxLayout;
+	order_layout->addLayout(total_layout);
+	order_layout->addLayout(cold_layout);
+	order_layout->addLayout(warm_layout);
+	order_layout->addLayout(mode_hint_layout);
+	order_layout->addLayout(mode_layout);
+	order_box->setLayout(order_layout);
+
 	QVBoxLayout *mid_layout = new QVBoxLayout;
 	mid_layout->addWidget(level_group_box);
+	mid_layout->addWidget(order_box);
 	mid_layout->addStretch();
 
 	QHBoxLayout *layout = new QHBoxLayout;
@@ -807,6 +860,30 @@ void ServerDialog::updateGuideButtons()
 	int index = gatekeepers.indexOf(this->m_current_gatekeeper);
 	this->last_gatekeeper_button->setEnabled(index > 0);
 	this->next_gatekeeper_button->setEnabled(index < gatekeepers.length() - 1);
+}
+
+bool ServerDialog::checkRankSettings()
+{
+	if (mode_group->checkedButton()->objectName() != "02_rank")
+		return true;
+	if (this->m_current_challenger == "")
+		return false;
+	if (this->m_current_gatekeeper == "")
+		return false;
+	int total = this->total_spinbox->value();
+	int warm = this->warm_spinbox->value();
+	int cold = this->cold_spinbox->value();
+	if (warm > total)
+		return false;
+	if (cold > total)
+		return false;
+	if (warm == -1)
+		return true;
+	if (cold == -1)
+		return true;
+	if (warm + cold == total)
+		return true;
+	return false;
 }
 
 void ServerDialog::onChallengerButtonClicked()
@@ -936,12 +1013,22 @@ void ServerDialog::onDetectButtonClicked()
 
 void ServerDialog::onConsoleButtonClicked()
 {
+	if (!this->checkRankSettings()) {
+		QMessageBox::warning(this, tr("Setting Error!"), tr("There is something wrong in your settings. Please check and reset it."));
+		this->tab_widget->setCurrentIndex(this->tab_widget->indexOf(this->rank_page));
+		return;
+	}
     accept_type = -1;
     accept();
 }
 
 void ServerDialog::onServerButtonClicked()
 {
+	if (!this->checkRankSettings()) {
+		QMessageBox::warning(this, tr("Setting Error!"), tr("There is something wrong in your settings. Please check and reset it."));
+		this->tab_widget->setCurrentIndex(this->tab_widget->indexOf(this->rank_page));
+		return;
+	}
     accept_type = 1;
     accept();
 }
@@ -1041,6 +1128,28 @@ int ServerDialog::config()
 	if (Config.GameMode == "02_rank") {
 		Config.RankModeInfo.challenger = this->m_current_challenger;
 		Config.RankModeInfo.gatekeeper = this->m_current_gatekeeper;
+		int total = this->total_spinbox->value();
+		int warm = this->warm_spinbox->value();
+		int cold = this->cold_spinbox->value();
+		if ((warm < 0) && (cold >= 0)) {
+			warm = total - cold;
+		}
+		else if ((cold < 0) && (warm >= 0)) {
+			cold = total - warm;
+		}
+		Config.RankModeInfo.total_times = total;
+		Config.RankModeInfo.warm_times = warm;
+		Config.RankModeInfo.cold_times = cold;
+		QRadioButton *order_mode_button = dynamic_cast<QRadioButton *>(this->order_mode_group->checkedButton());
+		QString selected_order_mode = order_mode_button->objectName();
+		if (selected_order_mode == "WARM_FIRST")
+			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_WARM_FIRST;
+		else if (selected_order_mode == "COLD_FIRST")
+			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_COLD_FIRST;
+		else if (selected_order_mode == "ALTERNATELY")
+			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_ALTERNATELY;
+		else
+			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_RANDOMLY;
 	}
 
     return accept_type;

@@ -97,6 +97,8 @@ private:
 	void updateGatekeeper(const QString &gatekeeper);
 	void updateGuideButtons();
 
+	bool checkRankSettings();
+
 	QTabWidget *tab_widget;
 	QWidget *rank_page;
 	OptionButton *challenger_button;
@@ -111,6 +113,11 @@ private:
 	QString m_current_gatekeeper;
 	QPushButton *last_gatekeeper_button;
 	QPushButton *next_gatekeeper_button;
+
+	QSpinBox *total_spinbox;
+	QSpinBox *warm_spinbox;
+	QSpinBox *cold_spinbox;
+	QButtonGroup *order_mode_group;
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
