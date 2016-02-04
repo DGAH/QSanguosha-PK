@@ -7,6 +7,7 @@
 #include "socket.h"
 #include "clientstruct.h"
 #include "protocol.h"
+#include "structs.h"
 
 class Recorder;
 class Replayer;
@@ -351,6 +352,15 @@ signals:
     void start_in_xs();
 
     void skill_updated(const QString &skill_name);
+
+public:
+	// 02_rank
+	void setRankModeInfo(RankModeInfoStruct &info);
+	RankModeInfoStruct getRankModeInfo();
+
+private:
+	// 02_rank 
+	RankModeInfoStruct m_rank_info;
 };
 
 extern Client *ClientInstance;

@@ -544,26 +544,33 @@ TestPackage::TestPackage()
 	General *zhiba_sunquan = new General(this, "zhiba_sunquan", "wu");
 	zhiba_sunquan->addSkill(new SuperZhiheng);
 	zhiba_sunquan->addSkill("jiuyuan");
+	zhiba_sunquan->setRealName("sunquan");
 	//四庸袁术
 	General *super_yuanshu = new General(this, "super_yuanshu", "qun");
 	super_yuanshu->addSkill(new SuperYongsi);
 	super_yuanshu->addSkill(new MarkAssignSkill("@yongsi_test", 4));
 	related_skills.insertMulti("super_yongsi", "#@yongsi_test-4");
 	super_yuanshu->addSkill(new DummySkill("weidi"));
+	super_yuanshu->setRealName("yuanshu");
 	//蹲坑曹仁
 	General *super_caoren = new General(this, "super_caoren", "wei");
 	super_caoren->addSkill(new SuperJushou);
 	super_caoren->addSkill(new MarkAssignSkill("@jushou_test", 5));
 	related_skills.insertMulti("super_jushou", "#@jushou_test-5");
+	super_caoren->setRealName("caoren");
 	//无崩董卓
 	General *nobenghuai_dongzhuo = new General(this, "nobenghuai_dongzhuo", "qun");
 	nobenghuai_dongzhuo->addSkill(new Jiuchi);
 	nobenghuai_dongzhuo->addSkill(new Roulin);
 	nobenghuai_dongzhuo->addSkill(new DummySkill("baonue", Skill::NotFrequent));
+	nobenghuai_dongzhuo->setRealName("dongzhuo");
+	nobenghuai_dongzhuo->setOrder(4);
 	//最强神话
 	General *zqsh = new General(this, "zqsh", "god", 8);
 	zqsh->addSkill(new Mashu);
 	zqsh->addSkill(new Wushuang);
+	zqsh->setRealName("lvbu");
+	zqsh->setOrder(10);
 	//暴怒战神
 	General *bnzs = new General(this, "bnzs", "god");
 	bnzs->addSkill("mashu");
@@ -573,6 +580,7 @@ TestPackage::TestPackage()
 	bnzs->addSkill(new Shenwei);
 	bnzs->addSkill(new DummySkill("shenji"));
 	related_skills.insertMulti("shenwei", "#shenwei-draw");
+	bnzs->setRealName("lvbu");
 	//僵尸
 	General *zombie = new General(this, "zombie", "die", 3);
 	zombie->addSkill(new Xunmeng);
@@ -580,10 +588,14 @@ TestPackage::TestPackage()
 	zombie->addSkill(new Zaibian);
 	zombie->addSkill(new Paoxiao);
 	zombie->addSkill(new DummySkill("wansha"));
-
-	new General(this, "sujiang", "god", 5, true, true);
-	new General(this, "sujiangf", "god", 5, false, true);
-
+	zombie->setOrder(4);
+	//素将
+	General *sujiang = new General(this, "sujiang", "god", 5, true, true);
+	sujiang->setOrder(3);
+	//素将（女）
+	General *sujiangf = new General(this, "sujiangf", "god", 5, false, true);
+	sujiangf->setOrder(3);
+	//暗将
 	new General(this, "anjiang", "god", 4, true, true, true);
 
 	skills << new SuperMaxCards << new SuperOffensiveDistance << new SuperDefensiveDistance;

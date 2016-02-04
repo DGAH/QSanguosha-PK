@@ -13332,6 +13332,56 @@ fail:
 }
 
 
+static int _wrap_General_getRealName(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("General::getRealName",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::getRealName",1,"General const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_getRealName",1,SWIGTYPE_p_General);
+  }
+  
+  result = ((General const *)arg1)->getRealName();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setRealName(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("General::setRealName",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::setRealName",1,"General *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::setRealName",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_setRealName",1,SWIGTYPE_p_General);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setRealName((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_General_addSkill__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -13805,6 +13855,8 @@ static swig_lua_method swig_General_methods[] = {
     {"setGender", _wrap_General_setGender}, 
     {"getOrder", _wrap_General_getOrder}, 
     {"setOrder", _wrap_General_setOrder}, 
+    {"getRealName", _wrap_General_getRealName}, 
+    {"setRealName", _wrap_General_setRealName}, 
     {"addSkill", _wrap_General_addSkill}, 
     {"hasSkill", _wrap_General_hasSkill}, 
     {"getSkillList", _wrap_General_getSkillList}, 

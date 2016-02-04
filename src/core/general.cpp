@@ -11,13 +11,14 @@
 General::General(Package *package, const QString &name, const QString &kingdom,
     int max_hp, bool male, bool hidden, bool never_shown)
     : QObject(package), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female),
-	hidden(hidden), never_shown(never_shown), order(0)
+	hidden(hidden), never_shown(never_shown), order(0), real_name(name)
 {
     setObjectName(name);
 }
 
 General::General(const QString &name, const QString &kingdom, int max_hp, bool male, bool hidden, bool never_shown)
-	:QObject(NULL), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female), hidden(hidden), never_shown(never_shown)
+	:QObject(NULL), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female), 
+	hidden(hidden), never_shown(never_shown), order(0), real_name(name)
 {
 	setObjectName(name);
 }
@@ -75,6 +76,16 @@ int General::getOrder() const
 void General::setOrder(int order)
 {
 	this->order = order;
+}
+
+QString General::getRealName() const
+{
+	return this->real_name;
+}
+
+void General::setRealName(const QString &name)
+{
+	this->real_name = name;
 }
 
 void General::addSkill(Skill *skill)

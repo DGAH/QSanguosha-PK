@@ -47,6 +47,8 @@ public:
     void setGender(Gender gender);
 	int getOrder() const;
 	void setOrder(int order);
+	QString getRealName() const;
+	void setRealName(const char *name);
 
     void addSkill(Skill *skill);
     void addSkill(const char *skill_name);

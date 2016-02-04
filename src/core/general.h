@@ -45,6 +45,8 @@ public:
     void setGender(Gender gender);
 	int getOrder() const;
 	void setOrder(int order);
+	QString getRealName() const;
+	void setRealName(const QString &name);
 
     void addSkill(Skill *skill);
     void addSkill(const QString &skill_name);
@@ -69,6 +71,7 @@ public slots:
     void lastWord() const;
 
 private:
+	QString real_name;
     QString kingdom;
     int max_hp;
     Gender gender;

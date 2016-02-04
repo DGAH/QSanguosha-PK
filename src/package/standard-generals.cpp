@@ -696,36 +696,46 @@ public:
 void StandardPackage::addGenerals()
 {
 	//审核员·II限稻草人
-	new General(this, "scarecrow_ii", "god", 2);
+	General *scarecrow_ii = new General(this, "scarecrow_ii", "god", 2);
+	scarecrow_ii->setRealName("scarecrow");
+	scarecrow_ii->setOrder(1);
 	//审核员·V限稻草人
-	new General(this, "scarecrow_v", "god", 5);
+	General *scarecrow_v = new General(this, "scarecrow_v", "god", 5);
+	scarecrow_v->setRealName("scarecrow");
+	scarecrow_v->setOrder(3);
 	//原标准版·赵云
 	General *zhaoyun = new General(this, "zhaoyun", "shu");
 	zhaoyun->addSkill(new Longdan);
+	zhaoyun->setOrder(3);
 	//原标准版·诸葛亮
 	General *zhugeliang = new General(this, "zhugeliang", "shu", 3);
 	zhugeliang->addSkill(new Guanxing);
 	zhugeliang->addSkill(new Kongcheng);
 	zhugeliang->addSkill(new KongchengEffect);
 	related_skills.insertMulti("kongcheng", "#kongcheng-effect");
+	zhugeliang->setOrder(5);
 	//原标准版·甄姬
 	General *zhenji = new General(this, "zhenji", "wei", 3, false);
 	zhenji->addSkill(new Qingguo);
 	zhenji->addSkill(new Luoshen);
+	zhenji->setOrder(8);
 	//神·赵云
 	General *shenzhaoyun = new General(this, "shenzhaoyun", "god", 2);
 	shenzhaoyun->addSkill(new Juejing);
 	shenzhaoyun->addSkill(new JuejingKeep);
 	shenzhaoyun->addSkill(new Longhun);
 	related_skills.insertMulti("juejing", "#juejing-draw");
+	shenzhaoyun->setOrder(8);
 	//原标准版·孙权
 	General *sunquan = new General(this, "sunquan", "wu");
 	sunquan->addSkill(new Zhiheng);
 	sunquan->addSkill(new DummySkill("jiuyuan"));
+	sunquan->setOrder(10);
 	//测试·五星诸葛
 	General *wuxingzhuge = new General(this, "wuxingzhuge", "shu", 3);
 	wuxingzhuge->addSkill(new SuperGuanxing);
 	wuxingzhuge->addSkill("kongcheng");
+	wuxingzhuge->setRealName("zhugeliang");
 	//测试·高达一号
 	General *gaodayihao = new General(this, "gaodayihao", "god", 1);
 	gaodayihao->addSkill(new GdJuejing);
@@ -734,11 +744,13 @@ void StandardPackage::addGenerals()
 	gaodayihao->addSkill(new GdLonghunDuojian);
 	related_skills.insertMulti("gdjuejing", "#gdjuejing");
 	related_skills.insertMulti("gdlonghun", "#gdlonghun-duojian");
+	gaodayihao->setRealName("zhaoyun");
 
 	//经典再临·掀桌于吉
 	General *cryuji = new General(this, "cryuji", "god", 3);
 	cryuji->addSkill(new Huanhuo);
 	cryuji->addSkill(new Xianzhuo);
+	cryuji->setRealName("yuji");
 
     // for skill cards
     addMetaObject<ZhihengCard>();

@@ -2040,3 +2040,15 @@ void Client::updateSkill(const QVariant &skill_name)
 
     emit skill_updated(skill_name.toString());
 }
+
+// 02_rank
+
+void Client::setRankModeInfo(RankModeInfoStruct &info)
+{
+	this->m_rank_info = info;
+}
+
+RankModeInfoStruct Client::getRankModeInfo()
+{
+	return this->m_rank_info;
+}
