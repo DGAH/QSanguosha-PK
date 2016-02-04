@@ -744,6 +744,7 @@ QWidget *ServerDialog::createRankSettingsTab()
 	this->order_mode_group = new QButtonGroup;
 	QRadioButton *cold_first_button = new QRadioButton(tr("offensive first"));
 	cold_first_button->setObjectName("CODE_FIRST");
+	cold_first_button->setChecked(true);
 	this->order_mode_group->addButton(cold_first_button);
 	QRadioButton *warm_first_button = new QRadioButton(tr("defensive first"));
 	warm_first_button->setObjectName("WARM_FIRST");

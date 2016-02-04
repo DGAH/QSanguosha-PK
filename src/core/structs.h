@@ -13,7 +13,13 @@ class Slash;
 
 struct RankModeInfoStruct
 {
-	RankModeInfoStruct();
+	RankModeInfoStruct()
+	{
+		total_times = 0;
+		warm_times = 0;
+		cold_times = 0;
+		order_mode = S_ORDER_RANDOMLY;
+	}
 
 	QString challenger;
 	QString gatekeeper;
@@ -23,11 +29,50 @@ struct RankModeInfoStruct
 	int cold_times; // challenger plays first
 
 	int order_mode; 
+	QString record; // game result series like : WwWdLwDlWw
 
 	static const int S_ORDER_RANDOMLY = 0;    // order like : ??????????
 	static const int S_ORDER_WARM_FIRST = 1;  // order like : wwwwwccccc
 	static const int S_ORDER_COLD_FIRST = 2;  // order like : cccccwwwww
 	static const int S_ORDER_ALTERNATELY = 3; // order like : wcwcwcwcwc
+
+	static const char S_WIN_WARM = 'W';
+	static const char S_WIN_COLD = 'w';
+	static const char S_LOSE_WARM = 'L';
+	static const char S_LOSE_COLD = 'l';
+	static const char S_DRAW_WARM = 'D';
+	static const char S_DRAW_COLD = 'd';
+
+	inline int finished_times()
+	{
+		return record.length();
+	}
+
+	inline int win_times()
+	{
+		return record.count(S_WIN_WARM) + record.count(S_WIN_COLD);
+	}
+
+	inline double win_rate()
+	{
+		if (record.isEmpty())
+			return 0;
+
+		return ((double)win_times()) / finished_times();
+	}
+
+	inline int unbeaten_times()
+	{
+		return record.count(S_WIN_WARM) + record.count(S_WIN_COLD) + record.count(S_DRAW_WARM) + record.count(S_DRAW_COLD);
+	}
+
+	inline double unbeaten_rate()
+	{
+		if (record.isEmpty())
+			return 0;
+
+		return ((double)unbeaten_times()) / finished_times();
+	}
 };
 
 struct DamageStruct

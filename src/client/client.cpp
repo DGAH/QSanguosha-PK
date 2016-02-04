@@ -1346,7 +1346,6 @@ void Client::askForSuit(const QVariant &)
 void Client::askForKingdom(const QVariant &)
 {
     QStringList kingdoms = Sanguosha->getKingdoms();
-    kingdoms.removeOne("god"); // god kingdom does not really exist
     emit kingdoms_got(kingdoms);
     setStatus(ExecDialog);
 }
