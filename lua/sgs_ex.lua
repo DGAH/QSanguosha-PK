@@ -636,6 +636,9 @@ function sgs.CreateGeneralLevel(spec)
 	if type(spec.translation) == "string" then
 		sgs.AddTranslationEntry(spec.name, spec.translation)
 	end
+	if type(spec.description) == "string" then
+		level:setDescription(spec.description)
+	end
 	if type(spec.gatekeepers) == "table" then
 		for _,gatekeeper in ipairs(spec.gatekeepers) do
 			level:addGateKeeper(gatekeeper)

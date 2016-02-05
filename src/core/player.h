@@ -37,6 +37,7 @@ class Player : public QObject
     Q_PROPERTY(bool owner READ isOwner WRITE setOwner)
     Q_PROPERTY(bool role_shown READ hasShownRole WRITE setShownRole)
     Q_PROPERTY(General::Gender gender READ getGender WRITE setGender)
+	Q_PROPERTY(QString task READ getTask WRITE setTask)
 
     Q_ENUMS(Phase)
     Q_ENUMS(Place)
@@ -90,6 +91,9 @@ public:
     void setRole(const QString &role);
     QString getRole() const;
     Role getRoleEnum() const;
+
+	void setTask(const QString &task);
+	QString getTask() const;
 
     void setGeneral(const General *general);
     void setGeneralName(const QString &general_name);
@@ -267,6 +271,7 @@ private:
     int hp, max_hp;
     QString kingdom;
     QString role;
+	QString task;
     bool role_shown;
     QString state;
     int seat;

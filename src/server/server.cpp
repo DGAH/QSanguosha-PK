@@ -1129,6 +1129,7 @@ int ServerDialog::config()
 	if (Config.GameMode == "02_rank") {
 		Config.RankModeInfo.challenger = this->m_current_challenger;
 		Config.RankModeInfo.gatekeeper = this->m_current_gatekeeper;
+		Config.RankModeInfo.level = this->current_level_button->getLevelName();
 		int total = this->total_spinbox->value();
 		int warm = this->warm_spinbox->value();
 		int cold = this->cold_spinbox->value();

@@ -1246,22 +1246,57 @@ void Client::gameOver(const QVariant &arg)
         getPlayer(name)->setRole(roles.at(i));
     }
 
-    if (winner == ".") {
-        emit standoff();
-        return;
-    }
+	bool stand_off = (winner == ".");
 
-    QSet<QString> winners = winner.split("+").toSet();
-    foreach (const ClientPlayer *player, players) {
-        QString role = player->getRole();
-        bool win = winners.contains(player->objectName()) || winners.contains(role);
+	if (!stand_off) {
+		QSet<QString> winners = winner.split("+").toSet();
+		foreach(const ClientPlayer *player, players) {
+			QString role = player->getRole();
+			bool win = winners.contains(player->objectName()) || winners.contains(role);
 
-        ClientPlayer *p = const_cast<ClientPlayer *>(player);
-        p->setProperty("win", win);
-    }
+			ClientPlayer *p = const_cast<ClientPlayer *>(player);
+			p->setProperty("win", win);
+		}
+	}
 
     Sanguosha->unregisterRoom();
-    emit game_over();
+
+	if (ServerInfo.GameMode == "02_rank") {
+		const ClientPlayer *challenger = NULL;
+		foreach(const ClientPlayer *player, players) {
+			if (player->getTask() == "challenger") {
+				challenger = player;
+				break;
+			}
+		}
+		if (challenger) {
+			char result;
+			if (challenger->getRoleEnum() == Player::Lord) {
+				if (stand_off)
+					result = RankModeInfoStruct::S_DRAW_WARM;
+				else if (challenger->property("win").toBool())
+					result = RankModeInfoStruct::S_WIN_WARM;
+				else
+					result = RankModeInfoStruct::S_LOSE_WARM;
+			}
+			else {
+				if (stand_off)
+					result = RankModeInfoStruct::S_DRAW_COLD;
+				else if (challenger->property("win").toBool())
+					result = RankModeInfoStruct::S_WIN_COLD;
+				else
+					result = RankModeInfoStruct::S_LOSE_COLD;
+			}
+			this->m_rank_info.record.append(result);
+			emit this->rank_mode_game_over(this->m_rank_info, result);
+			return;
+		}
+	}
+	
+	if (stand_off)
+		emit standoff();
+	else
+		emit game_over();
 }
 
 void Client::killPlayer(const QVariant &player_name)

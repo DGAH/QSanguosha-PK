@@ -447,6 +447,10 @@ signals:
     void restart();
     void return_to_start();
     void game_over_dialog_rejected();
+
+public slots:
+	// 02_rank
+	void onRankModeGameOver(RankModeInfoStruct info, char result);
 };
 
 extern RoomScene *RoomSceneInstance;

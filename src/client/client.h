@@ -361,6 +361,10 @@ public:
 private:
 	// 02_rank 
 	RankModeInfoStruct m_rank_info;
+
+signals:
+	// 02_rank
+	void rank_mode_game_over(RankModeInfoStruct info, char result);
 };
 
 extern Client *ClientInstance;

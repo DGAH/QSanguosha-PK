@@ -79,3 +79,13 @@ QString GeneralLevel::getShareGateKeepersLevel() const
 {
 	return this->share_level;
 }
+
+void GeneralLevel::setDescription(const QString &description)
+{
+	this->m_description = description;
+}
+
+QString GeneralLevel::getDescription() const
+{
+	return this->m_description;
+}

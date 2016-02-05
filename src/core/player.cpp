@@ -358,6 +358,16 @@ Player::Role Player::getRoleEnum() const
     return role_map.value(role);
 }
 
+void Player::setTask(const QString &task)
+{
+	this->task = task;
+}
+
+QString Player::getTask() const
+{
+	return this->task;
+}
+
 const General *Player::getAvatarGeneral() const
 {
     if (general)

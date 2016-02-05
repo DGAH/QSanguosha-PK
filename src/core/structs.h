@@ -23,6 +23,7 @@ struct RankModeInfoStruct
 
 	QString challenger;
 	QString gatekeeper;
+	QString level;
 
 	int total_times;
 	int warm_times; // gatekeeper plays first
@@ -48,9 +49,29 @@ struct RankModeInfoStruct
 		return record.length();
 	}
 
+	inline int warm_finished_times()
+	{
+		return record.count(S_DRAW_WARM) + record.count(S_WIN_WARM) + record.count(S_LOSE_WARM);
+	}
+
+	inline int cold_finished_times()
+	{
+		return record.count(S_DRAW_COLD) + record.count(S_WIN_COLD) + record.count(S_LOSE_COLD); 
+	}
+
 	inline int win_times()
 	{
 		return record.count(S_WIN_WARM) + record.count(S_WIN_COLD);
+	}
+
+	inline int draw_times()
+	{
+		return record.count(S_DRAW_WARM) + record.count(S_DRAW_COLD);
+	}
+
+	inline int lose_times()
+	{
+		return record.count(S_LOSE_WARM) + record.count(S_LOSE_COLD);
 	}
 
 	inline double win_rate()

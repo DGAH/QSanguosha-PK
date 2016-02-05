@@ -87,6 +87,9 @@ public:
 	QStringList getGateKeepers() const;
 	void setShareGateKeepersLevel(const char *level);
 	QString getShareGateKeepersLevel() const;
+
+	void setDescription(const char *description);
+	QString getDescription() const;
 };
 
 class Player: public QObject {
@@ -124,6 +127,9 @@ public:
     void setRole(const char *role);
     QString getRole() const;
     Role getRoleEnum() const;
+
+	void setTask(const char *task);
+	QString getTask() const;
 
     void setGeneral(const General *general);
     void setGeneralName(const char *general_name);
@@ -477,6 +483,7 @@ struct RankModeInfoStruct
 
 	QString challenger;
 	QString gatekeeper;
+	QString level;
 
 	int total_times;
 	int warm_times; // gatekeeper plays first
@@ -502,9 +509,29 @@ struct RankModeInfoStruct
 		return record.length();
 	}
 
+	inline int warm_finished_times()
+	{
+		return record.count(S_DRAW_WARM) + record.count(S_WIN_WARM) + record.count(S_LOSE_WARM);
+	}
+
+	inline int cold_finished_times()
+	{
+		return record.count(S_DRAW_COLD) + record.count(S_WIN_COLD) + record.count(S_LOSE_COLD); 
+	}
+
 	inline int win_times()
 	{
 		return record.count(S_WIN_WARM) + record.count(S_WIN_COLD);
+	}
+
+	inline int draw_times()
+	{
+		return record.count(S_DRAW_WARM) + record.count(S_DRAW_COLD);
+	}
+
+	inline int lose_times()
+	{
+		return record.count(S_LOSE_WARM) + record.count(S_LOSE_COLD);
 	}
 
 	inline double win_rate()

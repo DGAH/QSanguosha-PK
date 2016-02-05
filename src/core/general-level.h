@@ -28,6 +28,9 @@ public:
 	void setShareGateKeepersLevel(const QString &level);
 	QString getShareGateKeepersLevel() const;
 
+	void setDescription(const QString &description);
+	QString getDescription() const;
+
 private:
 	QString parent_level;
 	QString last_level;
@@ -35,6 +38,7 @@ private:
 	QStringList m_sub_levels;
 	QStringList m_gatekeepers;
 	QString share_level;
+	QString m_description;
 };
 
 #endif

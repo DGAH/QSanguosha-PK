@@ -14317,6 +14317,56 @@ fail:
 }
 
 
+static int _wrap_GeneralLevel_setDescription(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("GeneralLevel::setDescription",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::setDescription",1,"GeneralLevel *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("GeneralLevel::setDescription",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_setDescription",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setDescription((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_GeneralLevel_getDescription(lua_State* L) {
+  int SWIG_arg = 0;
+  GeneralLevel *arg1 = (GeneralLevel *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("GeneralLevel::getDescription",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GeneralLevel::getDescription",1,"GeneralLevel const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_GeneralLevel,0))){
+    SWIG_fail_ptr("GeneralLevel_getDescription",1,SWIGTYPE_p_GeneralLevel);
+  }
+  
+  result = ((GeneralLevel const *)arg1)->getDescription();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_GeneralLevel(void *obj) {
 GeneralLevel *arg1 = (GeneralLevel *) obj;
 delete arg1;
@@ -14337,6 +14387,8 @@ static swig_lua_method swig_GeneralLevel_methods[] = {
     {"getGateKeepers", _wrap_GeneralLevel_getGateKeepers}, 
     {"setShareGateKeepersLevel", _wrap_GeneralLevel_setShareGateKeepersLevel}, 
     {"getShareGateKeepersLevel", _wrap_GeneralLevel_getShareGateKeepersLevel}, 
+    {"setDescription", _wrap_GeneralLevel_setDescription}, 
+    {"getDescription", _wrap_GeneralLevel_getDescription}, 
     {0,0}
 };
 static swig_lua_attribute swig_GeneralLevel_attributes[] = {
@@ -14863,6 +14915,56 @@ static int _wrap_Player_getRoleEnum(lua_State* L) {
   
   result = (Player::Role)((Player const *)arg1)->getRoleEnum();
   lua_pushnumber(L, (lua_Number)(int)(result)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_setTask(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("Player::setTask",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::setTask",1,"Player *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Player::setTask",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_setTask",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setTask((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_getTask(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("Player::getTask",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::getTask",1,"Player const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_getTask",1,SWIGTYPE_p_Player);
+  }
+  
+  result = ((Player const *)arg1)->getTask();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -21180,6 +21282,8 @@ static swig_lua_method swig_Player_methods[] = {
     {"setRole", _wrap_Player_setRole}, 
     {"getRole", _wrap_Player_getRole}, 
     {"getRoleEnum", _wrap_Player_getRoleEnum}, 
+    {"setTask", _wrap_Player_setTask}, 
+    {"getTask", _wrap_Player_getTask}, 
     {"setGeneral", _wrap_Player_setGeneral}, 
     {"setGeneralName", _wrap_Player_setGeneralName}, 
     {"getGeneralName", _wrap_Player_getGeneralName}, 
@@ -26427,6 +26531,56 @@ fail:
 }
 
 
+static int _wrap_RankModeInfoStruct_level_set(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  QString arg2 ;
+  
+  SWIG_check_num_args("RankModeInfoStruct::level",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::level",1,"RankModeInfoStruct *");
+  if(!lua_isstring(L,2)) SWIG_fail_arg("RankModeInfoStruct::level",2,"QString");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_level_set",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  arg2 = lua_tostring(L, 2); 
+  if (arg1) (arg1)->level = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_level_get(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::level",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::level",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_level_get",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result =  ((arg1)->level);
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_RankModeInfoStruct_total_times_set(lua_State* L) {
   int SWIG_arg = 0;
   RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
@@ -26701,6 +26855,54 @@ fail:
 }
 
 
+static int _wrap_RankModeInfoStruct_warm_finished_times(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::warm_finished_times",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::warm_finished_times",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_warm_finished_times",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->warm_finished_times();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_cold_finished_times(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::cold_finished_times",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::cold_finished_times",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_cold_finished_times",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->cold_finished_times();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_RankModeInfoStruct_win_times(lua_State* L) {
   int SWIG_arg = 0;
   RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
@@ -26714,6 +26916,54 @@ static int _wrap_RankModeInfoStruct_win_times(lua_State* L) {
   }
   
   result = (int)(arg1)->win_times();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_draw_times(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::draw_times",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::draw_times",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_draw_times",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->draw_times();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_lose_times(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::lose_times",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::lose_times",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_lose_times",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->lose_times();
   lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
@@ -26803,7 +27053,11 @@ delete arg1;
 }
 static swig_lua_method swig_RankModeInfoStruct_methods[] = {
     {"finished_times", _wrap_RankModeInfoStruct_finished_times}, 
+    {"warm_finished_times", _wrap_RankModeInfoStruct_warm_finished_times}, 
+    {"cold_finished_times", _wrap_RankModeInfoStruct_cold_finished_times}, 
     {"win_times", _wrap_RankModeInfoStruct_win_times}, 
+    {"draw_times", _wrap_RankModeInfoStruct_draw_times}, 
+    {"lose_times", _wrap_RankModeInfoStruct_lose_times}, 
     {"win_rate", _wrap_RankModeInfoStruct_win_rate}, 
     {"unbeaten_times", _wrap_RankModeInfoStruct_unbeaten_times}, 
     {"unbeaten_rate", _wrap_RankModeInfoStruct_unbeaten_rate}, 
@@ -26812,6 +27066,7 @@ static swig_lua_method swig_RankModeInfoStruct_methods[] = {
 static swig_lua_attribute swig_RankModeInfoStruct_attributes[] = {
     { "challenger", _wrap_RankModeInfoStruct_challenger_get, _wrap_RankModeInfoStruct_challenger_set},
     { "gatekeeper", _wrap_RankModeInfoStruct_gatekeeper_get, _wrap_RankModeInfoStruct_gatekeeper_set},
+    { "level", _wrap_RankModeInfoStruct_level_get, _wrap_RankModeInfoStruct_level_set},
     { "total_times", _wrap_RankModeInfoStruct_total_times_get, _wrap_RankModeInfoStruct_total_times_set},
     { "warm_times", _wrap_RankModeInfoStruct_warm_times_get, _wrap_RankModeInfoStruct_warm_times_set},
     { "cold_times", _wrap_RankModeInfoStruct_cold_times_get, _wrap_RankModeInfoStruct_cold_times_set},

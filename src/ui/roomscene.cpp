@@ -180,6 +180,9 @@ RoomScene::RoomScene(QMainWindow *main_window)
 
     connect(ClientInstance, &Client::skill_updated, this, &RoomScene::updateSkill);
 
+	// 02_rank
+	connect(ClientInstance, SIGNAL(rank_mode_game_over(RankModeInfoStruct)), this, SLOT(onRankModeGameOver(RankModeInfoStruct)));
+
     guanxing_box = new GuanxingBox;
     guanxing_box->hide();
     addItem(guanxing_box);
@@ -4502,4 +4505,192 @@ void RoomScene::redrawDashboardButtons()
 
     trust_button->redraw();
     trust_button->setRect(G_DASHBOARD_LAYOUT.m_trustButtonArea);
+}
+
+// 02_rank
+
+void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
+{
+	log_box->append(QString(tr("<font color='%1'>---------- Game Finish ----------</font>").arg(Config.TextEditColor.name())));
+
+	m_roomMutex.lock();
+	freeze();
+
+	QDialog *dialog = new QDialog(main_window);
+
+	switch (result)
+	{
+	case RankModeInfoStruct::S_DRAW_WARM:
+	case RankModeInfoStruct::S_DRAW_COLD:
+		dialog->setWindowTitle(tr("Standoff"));
+		break;
+	case RankModeInfoStruct::S_WIN_WARM:
+	case RankModeInfoStruct::S_WIN_COLD:
+		dialog->setWindowTitle(tr("Victory"));
+		break;
+	case RankModeInfoStruct::S_LOSE_WARM:
+	case RankModeInfoStruct::S_LOSE_COLD:
+		dialog->setWindowTitle(tr("Failure"));
+		break;
+	}
+
+	QLabel *challenger_hint = new QLabel(tr("challenger"));
+	const General *challenger = Sanguosha->getGeneral(info.challenger);
+	OptionButton *challenger_button = new OptionButton("", Sanguosha->translate(info.challenger));
+	challenger_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(info.challenger, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	challenger_button->setToolTip(challenger->getSkillDescription(true));
+	QVBoxLayout *challenger_layout = new QVBoxLayout;
+	challenger_layout->addWidget(challenger_hint);
+	challenger_layout->addWidget(challenger_button);
+	challenger_layout->addStretch();
+
+	QLabel *gatekeeper_hint = new QLabel(tr("gatekeeper"));
+	const General *gatekeeper = Sanguosha->getGeneral(info.gatekeeper);
+	OptionButton *gatekeeper_button = new OptionButton("", Sanguosha->translate(info.gatekeeper));
+	gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(info.gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	gatekeeper_button->setToolTip(gatekeeper->getSkillDescription(true));
+	QVBoxLayout *gatekeeper_layout = new QVBoxLayout;
+	gatekeeper_layout->addWidget(gatekeeper_hint);
+	gatekeeper_layout->addWidget(gatekeeper_button);
+	gatekeeper_layout->addStretch();
+
+	QString examine_level = Sanguosha->translate(info.level);
+	QString level_name = info.level;
+	do
+	{
+		GeneralLevel *level = Sanguosha->getGeneralLevel(level_name);
+		QString parent = level->getParentLevel();
+		if (parent == "")
+			break;
+		examine_level = Sanguosha->translate(parent) + ">>" + examine_level;
+		level_name = parent;
+
+	} while (true);
+
+	GeneralLevel *level = Sanguosha->getGeneralLevel(info.level);
+	QLabel *level_screen = new QLabel(tr("Current Level: %1").arg(examine_level));
+	QHBoxLayout *level_layout = new QHBoxLayout;
+	level_layout->addWidget(level_screen);
+	level_layout->addStretch();
+	QLabel *description_hint = new QLabel(tr("Description:"));
+	QHBoxLayout *description_hint_layout = new QHBoxLayout;
+	description_hint_layout->addWidget(description_hint);
+	description_hint_layout->addStretch();
+	QLabel *description_screen = new QLabel(tr("  %1").arg(level->getDescription()));
+	description_screen->setWordWrap(true);
+	QLabel *total_screen = new QLabel(tr("total: %1 / %2").arg(QString::number(info.finished_times())).arg(QString::number(info.total_times)));
+	QHBoxLayout *total_layout = new QHBoxLayout;
+	total_layout->addWidget(total_screen);
+	total_layout->addStretch();
+	QLabel *cold_screen = new QLabel(tr("offensive: %1 / %2").arg(QString::number(info.cold_finished_times())).arg(QString::number(info.total_times)));
+	QHBoxLayout *cold_layout = new QHBoxLayout;
+	cold_layout->addWidget(cold_screen);
+	cold_layout->addStretch();
+	QLabel *warm_screen = new QLabel(tr("defensive: %1 / %2").arg(QString::number(info.warm_finished_times())).arg(QString::number(info.total_times)));
+	QHBoxLayout *warm_layout = new QHBoxLayout;
+	warm_layout->addWidget(warm_screen);
+	warm_layout->addStretch();
+	QLabel *count_screen = new QLabel(tr("result: win(%1) / draw(%2) / lose(%3)").arg(QString::number(info.win_times())).arg(QString::number(info.draw_times())).arg(QString::number(info.lose_times())));
+	QHBoxLayout *count_layout = new QHBoxLayout;
+	count_layout->addWidget(count_screen);
+	count_layout->addStretch();
+	QLabel *win_screen = new QLabel(tr("win rate: %1").arg(QString::number(info.win_rate())));
+	QHBoxLayout *win_layout = new QHBoxLayout;
+	win_layout->addWidget(win_screen);
+	win_layout->addStretch();
+	QLabel *unbeaten_screen = new QLabel(tr("unbeaten rate: %1").arg(QString::number(info.unbeaten_rate())));
+	QHBoxLayout *unbeaten_layout = new QHBoxLayout;
+	unbeaten_layout->addWidget(unbeaten_screen);
+	unbeaten_layout->addStretch();
+
+	QVBoxLayout *details_layout = new QVBoxLayout;
+	details_layout->addLayout(level_layout);
+	details_layout->addLayout(description_hint_layout);
+	details_layout->addWidget(description_screen);
+	details_layout->addLayout(total_layout);
+	details_layout->addLayout(cold_layout);
+	details_layout->addLayout(warm_layout);
+	details_layout->addLayout(count_layout);
+	details_layout->addLayout(win_layout);
+	details_layout->addLayout(unbeaten_layout);
+	QGroupBox *details_box = new QGroupBox(tr("Information"));
+	details_box->setLayout(details_layout);
+
+	QHBoxLayout *info_layout = new QHBoxLayout;
+	info_layout->addLayout(challenger_layout);
+	info_layout->addWidget(details_box);
+	info_layout->addLayout(gatekeeper_layout);
+
+	QLabel *this_hint = new QLabel(tr("current game information:"));
+	QHBoxLayout *this_layout = new QHBoxLayout;
+	this_layout->addWidget(this_hint);
+	this_layout->addStretch();
+
+	QTableWidget *this_game = new QTableWidget;
+	fillTable(this_game, ClientInstance->getPlayers());
+
+	QLabel *history_hint = new QLabel(tr("examine history:"));
+	QHBoxLayout *history_layout = new QHBoxLayout;
+	history_layout->addWidget(history_hint);
+	history_layout->addStretch();
+
+	QTableWidget *history_screen = new QTableWidget;
+	QStringList header;
+	header << tr("index") << tr("role") << tr("result");
+	history_screen->setHorizontalHeaderLabels(header);
+	int row = 0;
+	for each (QChar c in info.record)
+	{
+		char flag = c.toLatin1();
+		QString index = QString::number(row + 1);
+		QTableWidgetItem *item = new QTableWidgetItem(index);
+		history_screen->setItem(row, 0, item);
+		QString role, game_result;
+		switch (flag)
+		{
+		case RankModeInfoStruct::S_WIN_WARM:
+			role = tr("defensive");
+			game_result = tr("win");
+			break;
+		case RankModeInfoStruct::S_WIN_COLD:
+			role = tr("offensive");
+			game_result = tr("win");
+			break;
+		case RankModeInfoStruct::S_LOSE_WARM:
+			role = tr("defensive");
+			game_result = tr("lose");
+			break;
+		case RankModeInfoStruct::S_LOSE_COLD:
+			role = tr("offensive");
+			game_result = tr("lose");
+			break;
+		case RankModeInfoStruct::S_DRAW_WARM:
+			role = tr("defensive");
+			game_result = tr("draw");
+			break;
+		case RankModeInfoStruct::S_DRAW_COLD:
+			role = tr("offensive");
+			game_result = tr("draw");
+			break;
+		}
+		item = new QTableWidgetItem(role);
+		history_screen->setItem(row, 1, item);
+		item = new QTableWidgetItem(game_result);
+		history_screen->setItem(row, 2, item);
+		row++;
+	}
+
+	QVBoxLayout *main_layout = new QVBoxLayout;
+	main_layout->addLayout(info_layout);
+	main_layout->addLayout(this_layout);
+	main_layout->addWidget(this_game);
+	main_layout->addLayout(history_layout);
+	main_layout->addWidget(history_screen);
+	dialog->setLayout(main_layout);
+
+	addRestartButton(dialog);
+	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
+
+	m_roomMutex.unlock();
+	dialog->exec();
 }
