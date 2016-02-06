@@ -1127,6 +1127,7 @@ int ServerDialog::config()
 
 	// game mode : 02_rank
 	if (Config.GameMode == "02_rank") {
+		Config.RankModeInfo.valid = true;
 		Config.RankModeInfo.challenger = this->m_current_challenger;
 		Config.RankModeInfo.gatekeeper = this->m_current_gatekeeper;
 		Config.RankModeInfo.level = this->current_level_button->getLevelName();

@@ -2483,6 +2483,28 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
     }
 }
 
+void Room::arrangeGeneralsForRankMode()
+{
+	ServerPlayer *first = m_players.first();
+	ServerPlayer *second = m_players.last();
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
+	QString first_reply = first->getClientReply().toString();
+	QString second_reply = second->getClientReplyString();
+	ServerPlayer *challenger = first;
+	ServerPlayer *gatekeeper = second;
+	if ((first_reply == "gatekeeper") || (second_reply == "challenger")) {
+		challenger = second;
+		gatekeeper = first;
+	}
+	challenger->setTask("challenger");
+	gatekeeper->setTask("gatekeeper");
+	doBroadcastNotify(S_COMMAND_UPDATE_TASK, QVariant());
+	_setPlayerGeneral(challenger, Config.RankModeInfo.challenger, true);
+	_setPlayerGeneral(gatekeeper, Config.RankModeInfo.gatekeeper, true);
+	broadcastProperty(challenger, "task");
+	broadcastProperty(gatekeeper, "task");
+}
+
 void Room::run()
 {
     // initialize random seed for later use
@@ -2515,12 +2537,16 @@ void Room::run()
 
     if (scenario && !scenario->generalSelection())
         startGame();
-    else if (mode.contains("kof")) {
-        thread_1v1 = new RoomThread1v1(this);
-        thread_1v1->start();
+	else if (mode.contains("kof")) {
+		thread_1v1 = new RoomThread1v1(this);
+		thread_1v1->start();
 
-        connect(thread_1v1, SIGNAL(finished()), this, SLOT(startGame()));
-        connect(thread_1v1, SIGNAL(finished()), thread_1v1, SLOT(deleteLater()));
+		connect(thread_1v1, SIGNAL(finished()), this, SLOT(startGame()));
+		connect(thread_1v1, SIGNAL(finished()), thread_1v1, SLOT(deleteLater()));
+	}
+	else if (mode == "02_rank") {
+		arrangeGeneralsForRankMode();
+		startGame();
     } else {
         chooseGenerals();
         startGame();

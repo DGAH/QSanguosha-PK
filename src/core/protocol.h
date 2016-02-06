@@ -139,7 +139,10 @@ namespace QSanProtocol {
         S_COMMAND_TOGGLE_READY,
         S_COMMAND_ADD_ROBOT,
         S_COMMAND_SIGNUP,
-        S_COMMAND_UPDATE_SKILL
+        S_COMMAND_UPDATE_SKILL,
+		// special mode
+		S_COMMAND_CHECK_TASK,
+		S_COMMAND_UPDATE_TASK
     };
 
     enum GameEventType

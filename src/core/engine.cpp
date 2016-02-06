@@ -755,6 +755,8 @@ QString Engine::getSetupString() const
         << QString::number(Config.NullificationCountDown)
         << Sanguosha->getBanPackages().join("+")
         << flags;
+	if (Config.GameMode == "02_rank")
+		setup_items << Config.RankModeInfo.toString();
 
     return setup_items.join(":");
 }

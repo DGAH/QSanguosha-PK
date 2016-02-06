@@ -357,6 +357,8 @@ public:
 	// common
 	void setTask(const QString &task);
 	QString getTask() const;
+	void checkTask(const QVariant &);
+	void updateTask(const QVariant &);
 	// 02_rank
 	void setRankModeInfo(RankModeInfoStruct &info);
 	RankModeInfoStruct getRankModeInfo();

@@ -83,6 +83,10 @@ bool ServerInfoStruct::parse(const QString &_str)
                 }
             }
         }
+
+		if (GameMode == "02_rank") {
+			RankModeInfo.fromString(str.at(6));
+		}
     }
 
     return true;

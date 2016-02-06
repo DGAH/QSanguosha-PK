@@ -181,7 +181,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
     connect(ClientInstance, &Client::skill_updated, this, &RoomScene::updateSkill);
 
 	// 02_rank
-	connect(ClientInstance, SIGNAL(rank_mode_game_over(RankModeInfoStruct)), this, SLOT(onRankModeGameOver(RankModeInfoStruct)));
+	connect(ClientInstance, SIGNAL(rank_mode_game_over(RankModeInfoStruct, char)), this, SLOT(onRankModeGameOver(RankModeInfoStruct, char)));
 
     guanxing_box = new GuanxingBox;
     guanxing_box->hide();
@@ -4523,14 +4523,23 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	case RankModeInfoStruct::S_DRAW_WARM:
 	case RankModeInfoStruct::S_DRAW_COLD:
 		dialog->setWindowTitle(tr("Standoff"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("standoff");
+#endif
 		break;
 	case RankModeInfoStruct::S_WIN_WARM:
 	case RankModeInfoStruct::S_WIN_COLD:
 		dialog->setWindowTitle(tr("Victory"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("win");
+#endif
 		break;
 	case RankModeInfoStruct::S_LOSE_WARM:
 	case RankModeInfoStruct::S_LOSE_COLD:
 		dialog->setWindowTitle(tr("Failure"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("lose");
+#endif
 		break;
 	}
 
@@ -4538,6 +4547,7 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	const General *challenger = Sanguosha->getGeneral(info.challenger);
 	OptionButton *challenger_button = new OptionButton("", Sanguosha->translate(info.challenger));
 	challenger_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(info.challenger, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	challenger_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
 	challenger_button->setToolTip(challenger->getSkillDescription(true));
 	QVBoxLayout *challenger_layout = new QVBoxLayout;
 	challenger_layout->addWidget(challenger_hint);
@@ -4548,6 +4558,7 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	const General *gatekeeper = Sanguosha->getGeneral(info.gatekeeper);
 	OptionButton *gatekeeper_button = new OptionButton("", Sanguosha->translate(info.gatekeeper));
 	gatekeeper_button->setIcon(QIcon(G_ROOM_SKIN.getGeneralPixmap(info.gatekeeper, QSanRoomSkin::S_GENERAL_ICON_SIZE_CARD)));
+	gatekeeper_button->setIconSize(G_COMMON_LAYOUT.m_chooseGeneralBoxSparseIconSize);
 	gatekeeper_button->setToolTip(gatekeeper->getSkillDescription(true));
 	QVBoxLayout *gatekeeper_layout = new QVBoxLayout;
 	gatekeeper_layout->addWidget(gatekeeper_hint);

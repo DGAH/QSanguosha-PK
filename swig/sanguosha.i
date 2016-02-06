@@ -475,11 +475,14 @@ struct RankModeInfoStruct
 {
 	RankModeInfoStruct()
 	{
+		valid = false;
 		total_times = 0;
 		warm_times = 0;
 		cold_times = 0;
 		order_mode = S_ORDER_RANDOMLY;
 	}
+
+	bool valid;
 
 	QString challenger;
 	QString gatekeeper;
@@ -553,6 +556,38 @@ struct RankModeInfoStruct
 			return 0;
 
 		return ((double)unbeaten_times()) / finished_times();
+	}
+
+	QString toString()
+	{
+		QStringList data;
+		data << (valid ? "T" : "F")
+			<< challenger
+			<< gatekeeper
+			<< level
+			<< QString::number(total_times)
+			<< QString::number(warm_times)
+			<< QString::number(cold_times)
+			<< QString::number(order_mode)
+			<< record;
+		return data.join("|");
+	}
+
+	bool fromString(const QString &str)
+	{
+		QStringList data = str.split("|");
+		if (data.length() < 9)
+			return false;
+		valid = (data.first() == "T");
+		challenger = data.at(1);
+		gatekeeper = data.at(2);
+		level = data.at(3);
+		total_times = data.at(4).toInt();
+		warm_times = data.at(5).toInt();
+		cold_times = data.at(6).toInt();
+		order_mode = data.at(7).toInt();
+		record = data.at(8);
+		return true;
 	}
 };
 

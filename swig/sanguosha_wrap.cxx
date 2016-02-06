@@ -26431,6 +26431,56 @@ fail:
 }
 
 
+static int _wrap_RankModeInfoStruct_valid_set(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("RankModeInfoStruct::valid",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::valid",1,"RankModeInfoStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("RankModeInfoStruct::valid",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_valid_set",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->valid = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_valid_get(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::valid",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::valid",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_valid_get",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (bool) ((arg1)->valid);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_RankModeInfoStruct_challenger_set(lua_State* L) {
   int SWIG_arg = 0;
   RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
@@ -27047,6 +27097,61 @@ fail:
 }
 
 
+static int _wrap_RankModeInfoStruct_toString(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::toString",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::toString",1,"RankModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_toString",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  result = (arg1)->toString();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_RankModeInfoStruct_fromString(lua_State* L) {
+  int SWIG_arg = 0;
+  RankModeInfoStruct *arg1 = (RankModeInfoStruct *) 0 ;
+  QString *arg2 = 0 ;
+  bool result;
+  
+  SWIG_check_num_args("RankModeInfoStruct::fromString",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("RankModeInfoStruct::fromString",1,"RankModeInfoStruct *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("RankModeInfoStruct::fromString",2,"QString const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_RankModeInfoStruct,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_fromString",1,SWIGTYPE_p_RankModeInfoStruct);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QString,0))){
+    SWIG_fail_ptr("RankModeInfoStruct_fromString",2,SWIGTYPE_p_QString);
+  }
+  
+  result = (bool)(arg1)->fromString((QString const &)*arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_RankModeInfoStruct(void *obj) {
 RankModeInfoStruct *arg1 = (RankModeInfoStruct *) obj;
 delete arg1;
@@ -27061,9 +27166,12 @@ static swig_lua_method swig_RankModeInfoStruct_methods[] = {
     {"win_rate", _wrap_RankModeInfoStruct_win_rate}, 
     {"unbeaten_times", _wrap_RankModeInfoStruct_unbeaten_times}, 
     {"unbeaten_rate", _wrap_RankModeInfoStruct_unbeaten_rate}, 
+    {"toString", _wrap_RankModeInfoStruct_toString}, 
+    {"fromString", _wrap_RankModeInfoStruct_fromString}, 
     {0,0}
 };
 static swig_lua_attribute swig_RankModeInfoStruct_attributes[] = {
+    { "valid", _wrap_RankModeInfoStruct_valid_get, _wrap_RankModeInfoStruct_valid_set},
     { "challenger", _wrap_RankModeInfoStruct_challenger_get, _wrap_RankModeInfoStruct_challenger_set},
     { "gatekeeper", _wrap_RankModeInfoStruct_gatekeeper_get, _wrap_RankModeInfoStruct_gatekeeper_set},
     { "level", _wrap_RankModeInfoStruct_level_get, _wrap_RankModeInfoStruct_level_set},

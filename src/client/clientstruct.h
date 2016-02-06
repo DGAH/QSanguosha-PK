@@ -3,6 +3,7 @@
 
 #include "protocol.h"
 #include <QWidget>
+#include "structs.h"
 
 struct ServerInfoStruct
 {
@@ -25,6 +26,9 @@ struct ServerInfoStruct
     bool DisableChat;
     int MaxHpScheme;
     int Scheme0Subtraction;
+
+	// 02_rank
+	RankModeInfoStruct RankModeInfo;
 
     bool DuringGame;
 };

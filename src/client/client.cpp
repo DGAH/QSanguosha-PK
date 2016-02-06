@@ -107,12 +107,14 @@ Client::Client(QObject *parent, const QString &filename)
     // 3v3 mode & 1v1 mode
     m_interactions[S_COMMAND_ASK_GENERAL] = &Client::askForGeneral3v3;
     m_interactions[S_COMMAND_ARRANGE_GENERAL] = &Client::startArrange;
+	m_interactions[S_COMMAND_CHECK_TASK] = &Client::checkTask;
 
     m_callbacks[S_COMMAND_FILL_GENERAL] = &Client::fillGenerals;
     m_callbacks[S_COMMAND_TAKE_GENERAL] = &Client::takeGeneral;
     m_callbacks[S_COMMAND_RECOVER_GENERAL] = &Client::recoverGeneral;
     m_callbacks[S_COMMAND_REVEAL_GENERAL] = &Client::revealGeneral;
     m_callbacks[S_COMMAND_UPDATE_SKILL] = &Client::updateSkill;
+	m_callbacks[S_COMMAND_UPDATE_TASK] = &Client::updateTask;
 
     m_noNullificationThisTime = false;
     m_noNullificationTrickName = ".";
@@ -2087,6 +2089,25 @@ void Client::setTask(const QString &task)
 QString Client::getTask() const
 {
 	return this->m_task;
+}
+
+void Client::checkTask(const QVariant &)
+{
+	replyToServer(S_COMMAND_CHECK_TASK, this->m_task);
+}
+
+void Client::updateTask(const QVariant &)
+{
+	this->m_task = Self->getTask();
+	if (ServerInfo.GameMode == "02_rank") {
+		if (this->m_rank_info.valid) {
+			//
+		}
+		else {
+			this->m_rank_info = ServerInfo.RankModeInfo;
+			this->m_rank_info.valid = true;
+		}
+	}
 }
 
 // 02_rank
