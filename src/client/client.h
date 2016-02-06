@@ -354,11 +354,16 @@ signals:
     void skill_updated(const QString &skill_name);
 
 public:
+	// common
+	void setTask(const QString &task);
+	QString getTask() const;
 	// 02_rank
 	void setRankModeInfo(RankModeInfoStruct &info);
 	RankModeInfoStruct getRankModeInfo();
 
 private:
+	// common
+	QString m_task;
 	// 02_rank 
 	RankModeInfoStruct m_rank_info;
 

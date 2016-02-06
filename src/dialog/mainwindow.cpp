@@ -349,6 +349,8 @@ void MainWindow::enterRoom()
     connect(room_scene, SIGNAL(return_to_start()), this, SLOT(gotoStartScene()));
     connect(room_scene, SIGNAL(game_over_dialog_rejected()), this, SLOT(enableDialogButtons()));
 
+	connect(room_scene, SIGNAL(rank_mode_goto_next_game(RankModeInfoStruct, QString)), this, SLOT(rankModeRestart(RankModeInfoStruct, QString)));
+
     gotoScene(room_scene);
 }
 
@@ -934,3 +936,14 @@ void MainWindow::on_actionAbout_GPLv3_triggered()
     window->appear();
 }
 
+// 02_rank
+
+void MainWindow::rankModeRestart(RankModeInfoStruct info, QString task)
+{
+	Client *client = new Client(this);
+	client->setTask(task);
+	client->setRankModeInfo(info);
+
+	connect(client, SIGNAL(version_checked(QString, QString)), SLOT(checkVersion(QString, QString)));
+	connect(client, SIGNAL(error_message(QString)), SLOT(networkError(QString)));
+}

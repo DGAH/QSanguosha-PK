@@ -4680,17 +4680,38 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 		row++;
 	}
 
+	QPushButton *next_button = new QPushButton(tr("Next game"));
+	QPushButton *save_button = new QPushButton(tr("Save record"));
+	QPushButton *cancel_button = new QPushButton(tr("Give up"));
+	QHBoxLayout *button_layout = new QHBoxLayout;
+	button_layout->addStretch();
+	button_layout->addWidget(next_button);
+	button_layout->addWidget(save_button);
+	button_layout->addWidget(cancel_button);
+
 	QVBoxLayout *main_layout = new QVBoxLayout;
 	main_layout->addLayout(info_layout);
 	main_layout->addLayout(this_layout);
 	main_layout->addWidget(this_game);
 	main_layout->addLayout(history_layout);
 	main_layout->addWidget(history_screen);
+	main_layout->addLayout(button_layout);
 	dialog->setLayout(main_layout);
 
-	addRestartButton(dialog);
+	this->rank_mode_info = info;
+
+	connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+	connect(next_button, SIGNAL(clicked()), this, SLOT(onRankModeWillGotoNextGame()));
+	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
+	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(rejected()));
+	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
 	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
 
 	m_roomMutex.unlock();
 	dialog->exec();
+}
+
+void RoomScene::onRankModeWillGotoNextGame()
+{
+	emit this->rank_mode_goto_next_game(this->rank_mode_info, Self->getTask());
 }

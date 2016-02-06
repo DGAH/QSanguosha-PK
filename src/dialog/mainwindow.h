@@ -70,6 +70,7 @@ private:
 
 public slots:
     void startConnection();
+	void rankModeRestart(RankModeInfoStruct info, QString task);
 
 private slots:
     void on_actionAbout_GPLv3_triggered();

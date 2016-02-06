@@ -448,9 +448,18 @@ signals:
     void return_to_start();
     void game_over_dialog_rejected();
 
+private:
+	// 02_rank
+	RankModeInfoStruct rank_mode_info;
+
+signals:
+	// 02_rank
+	void rank_mode_goto_next_game(RankModeInfoStruct info, QString task);
+
 public slots:
 	// 02_rank
 	void onRankModeGameOver(RankModeInfoStruct info, char result);
+	void onRankModeWillGotoNextGame();
 };
 
 extern RoomScene *RoomSceneInstance;

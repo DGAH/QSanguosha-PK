@@ -2076,6 +2076,19 @@ void Client::updateSkill(const QVariant &skill_name)
     emit skill_updated(skill_name.toString());
 }
 
+// common
+
+void Client::setTask(const QString &task)
+{
+	this->m_task = task;
+	Self->setTask(task);
+}
+
+QString Client::getTask() const
+{
+	return this->m_task;
+}
+
 // 02_rank
 
 void Client::setRankModeInfo(RankModeInfoStruct &info)
