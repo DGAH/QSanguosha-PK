@@ -2039,8 +2039,14 @@ void Room::prepareForStart()
             else
                 notifyProperty(player, player, "role");
         }
-    } else if (mode.contains("kof")) {
-        return;
+	}
+	else if (mode.contains("kof")) {
+		return;
+	}
+	else if (mode == "02_rank") {
+		assignRoles();
+		adjustSeats();
+		return;
     } else if (Config.EnableCheat && Config.value("FreeAssign", false).toBool()) {
         ServerPlayer *owner = getOwner();
         notifyMoveFocus(owner, S_COMMAND_CHOOSE_ROLE);
