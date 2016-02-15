@@ -43,6 +43,7 @@
 #include <QCoreApplication>
 #include <QInputDialog>
 #include <QScrollBar>
+#include <QHeaderView>
 #include <qmath.h>
 #include "ui-utils.h"
 
@@ -4647,15 +4648,20 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	history_layout->addStretch();
 
 	QTableWidget *history_screen = new QTableWidget;
+	history_screen->setColumnCount(3);
+	history_screen->setRowCount(info.record.length());
 	QStringList header;
 	header << tr("index") << tr("role") << tr("result");
 	history_screen->setHorizontalHeaderLabels(header);
+	QHeaderView *left_header = history_screen->verticalHeader();
+	left_header->setHidden(true);
 	int row = 0;
 	for each (QChar c in info.record)
 	{
 		char flag = c.toLatin1();
 		QString index = QString::number(row + 1);
 		QTableWidgetItem *item = new QTableWidgetItem(index);
+		item->setTextAlignment(Qt::AlignCenter);
 		history_screen->setItem(row, 0, item);
 		QString role, game_result;
 		switch (flag)
@@ -4686,8 +4692,10 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 			break;
 		}
 		item = new QTableWidgetItem(role);
+		item->setTextAlignment(Qt::AlignCenter);
 		history_screen->setItem(row, 1, item);
 		item = new QTableWidgetItem(game_result);
+		item->setTextAlignment(Qt::AlignCenter);
 		history_screen->setItem(row, 2, item);
 		row++;
 	}
