@@ -2096,9 +2096,9 @@ void Client::checkTask(const QVariant &)
 	replyToServer(S_COMMAND_CHECK_TASK, this->m_task);
 }
 
-void Client::updateTask(const QVariant &)
+void Client::updateTask(const QVariant &arg)
 {
-	this->m_task = Self->getTask();
+	this->setTask(arg.toString());
 	if (ServerInfo.GameMode == "02_rank") {
 		if (this->m_rank_info.valid) {
 			//

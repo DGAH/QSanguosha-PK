@@ -2495,7 +2495,7 @@ void Room::arrangeGeneralsForRankMode()
 	ServerPlayer *second = m_players.last();
 	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
 	QString first_reply = first->getClientReply().toString();
-	QString second_reply = second->getClientReply().toString();
+	QString second_reply = second->getClientReply().toString(); 
 	ServerPlayer *challenger = first;
 	ServerPlayer *gatekeeper = second;
 	if ((first_reply == "gatekeeper") || (second_reply == "challenger")) {
@@ -2504,7 +2504,8 @@ void Room::arrangeGeneralsForRankMode()
 	}
 	challenger->setTask("challenger");
 	gatekeeper->setTask("gatekeeper");
-	doBroadcastNotify(S_COMMAND_UPDATE_TASK, QVariant());
+	doNotify(challenger, S_COMMAND_UPDATE_TASK, QVariant("challenger"));
+	doNotify(gatekeeper, S_COMMAND_UPDATE_TASK, QVariant("gatekeeper"));
 	_setPlayerGeneral(challenger, Config.RankModeInfo.challenger, true);
 	_setPlayerGeneral(gatekeeper, Config.RankModeInfo.gatekeeper, true);
 	broadcastProperty(challenger, "task");
@@ -2606,18 +2607,21 @@ void Room::swapSeat(ServerPlayer *a, ServerPlayer *b)
 
 void Room::adjustSeats()
 {
-    QList<ServerPlayer *> players;
-    int i = 0;
-    for (i = 0; i < m_players.length(); i++) {
-        if (m_players.at(i)->getRoleEnum() == Player::Lord)
-            break;
-    }
-    for (int j = i; j < m_players.length(); j++)
-        players << m_players.at(j);
-    for (int j = 0; j < i; j++)
-        players << m_players.at(j);
+	if (mode != "02_rank")
+	{
+		QList<ServerPlayer *> players;
+		int i = 0;
+		for (i = 0; i < m_players.length(); i++) {
+			if (m_players.at(i)->getRoleEnum() == Player::Lord)
+				break;
+		}
+		for (int j = i; j < m_players.length(); j++)
+			players << m_players.at(j);
+		for (int j = 0; j < i; j++)
+			players << m_players.at(j);
 
-    m_players = players;
+		m_players = players;
+	}
 
     for (int i = 0; i < m_players.length(); i++)
         m_players.at(i)->setSeat(i + 1);
