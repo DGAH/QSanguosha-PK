@@ -4639,6 +4639,7 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 
 	QTableWidget *this_game = new QTableWidget;
 	fillTable(this_game, ClientInstance->getPlayers());
+	this_game->setMinimumHeight(120);
 
 	QLabel *history_hint = new QLabel(tr("examine history:"));
 	QHBoxLayout *history_layout = new QHBoxLayout;
@@ -4714,10 +4715,10 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
 	connect(next_button, SIGNAL(clicked()), this, SLOT(onRankModeWillGotoNextGame()));
 	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
-	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(rejected()));
+	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(reject()));
 	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
 	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
-
+	
 	m_roomMutex.unlock();
 	dialog->exec();
 }

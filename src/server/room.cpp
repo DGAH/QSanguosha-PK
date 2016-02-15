@@ -2495,7 +2495,7 @@ void Room::arrangeGeneralsForRankMode()
 	ServerPlayer *second = m_players.last();
 	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
 	QString first_reply = first->getClientReply().toString();
-	QString second_reply = second->getClientReplyString();
+	QString second_reply = second->getClientReply().toString();
 	ServerPlayer *challenger = first;
 	ServerPlayer *gatekeeper = second;
 	if ((first_reply == "gatekeeper") || (second_reply == "challenger")) {
