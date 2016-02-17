@@ -5,13 +5,14 @@ config = {
 	big_font = 56,
 	small_font = 27,
 	tiny_font = 18,
-	kingdoms = { "wei", "shu", "wu", "qun", "god" },
+	kingdoms = { "wei", "shu", "wu", "qun", "god", "die" },
 	kingdom_colors = {
 		wei = "#547998",
 		shu = "#D0796C",
 		wu = "#4DB873",
 		qun = "#8A807A",
 		god = "#96943D",
+		die = "#700B0B",
 	},
 
 	skill_type_colors = {
