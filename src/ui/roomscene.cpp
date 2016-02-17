@@ -4700,13 +4700,36 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 		row++;
 	}
 
-	QPushButton *next_button = new QPushButton(tr("Next game"));
-	QPushButton *save_button = new QPushButton(tr("Save record"));
-	QPushButton *cancel_button = new QPushButton(tr("Give up"));
+	bool examine_finished = (info.finished_times() == info.total_times);
+
 	QHBoxLayout *button_layout = new QHBoxLayout;
 	button_layout->addStretch();
-	button_layout->addWidget(next_button);
+
+	if (examine_finished) {
+		QPushButton *restart_button = new QPushButton(tr("Restart Game"));
+		connect(restart_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(restart_button, SIGNAL(clicked()), this, SIGNAL(restart()));
+		button_layout->addWidget(restart_button);
+	}
+	else {
+		QPushButton *next_button = new QPushButton(tr("Next game"));
+		connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(next_button, SIGNAL(clicked()), this, SLOT(onRankModeWillGotoNextGame()));
+		button_layout->addWidget(next_button);
+	}
+
+	QPushButton *save_button = new QPushButton(tr("Save record"));
+	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
 	button_layout->addWidget(save_button);
+
+	QPushButton *cancel_button = NULL;
+	if (examine_finished)
+		cancel_button = new QPushButton(tr("Return to main menu"));
+	else
+		cancel_button = new QPushButton(tr("Give up"));
+	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(reject()));
+	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
+	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
 	button_layout->addWidget(cancel_button);
 
 	QVBoxLayout *main_layout = new QVBoxLayout;
@@ -4719,13 +4742,6 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	dialog->setLayout(main_layout);
 
 	this->rank_mode_info = info;
-
-	connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
-	connect(next_button, SIGNAL(clicked()), this, SLOT(onRankModeWillGotoNextGame()));
-	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
-	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(reject()));
-	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
-	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
 	
 	m_roomMutex.unlock();
 	dialog->exec();
