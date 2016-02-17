@@ -108,6 +108,7 @@ Client::Client(QObject *parent, const QString &filename)
     m_interactions[S_COMMAND_ASK_GENERAL] = &Client::askForGeneral3v3;
     m_interactions[S_COMMAND_ARRANGE_GENERAL] = &Client::startArrange;
 	m_interactions[S_COMMAND_CHECK_TASK] = &Client::checkTask;
+	m_interactions[S_COMMAND_CHECK_PROGRESS] = &Client::checkProgress;
 
     m_callbacks[S_COMMAND_FILL_GENERAL] = &Client::fillGenerals;
     m_callbacks[S_COMMAND_TAKE_GENERAL] = &Client::takeGeneral;
@@ -115,6 +116,7 @@ Client::Client(QObject *parent, const QString &filename)
     m_callbacks[S_COMMAND_REVEAL_GENERAL] = &Client::revealGeneral;
     m_callbacks[S_COMMAND_UPDATE_SKILL] = &Client::updateSkill;
 	m_callbacks[S_COMMAND_UPDATE_TASK] = &Client::updateTask;
+	m_callbacks[S_COMMAND_UPDATE_PROGRESS] = &Client::updateProgress;
 
     m_noNullificationThisTime = false;
     m_noNullificationTrickName = ".";
@@ -2099,15 +2101,20 @@ void Client::checkTask(const QVariant &)
 void Client::updateTask(const QVariant &arg)
 {
 	this->setTask(arg.toString());
-	if (ServerInfo.GameMode == "02_rank") {
-		if (this->m_rank_info.valid) {
-			//
-		}
-		else {
-			this->m_rank_info = ServerInfo.RankModeInfo;
-			this->m_rank_info.valid = true;
-		}
-	}
+}
+
+void Client::checkProgress(const QVariant &)
+{
+	if (this->m_rank_info.valid)
+		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_rank_info.toString());
+	else
+		replyToServer(S_COMMAND_CHECK_PROGRESS, "");
+}
+
+void Client::updateProgress(const QVariant &arg)
+{
+	if (ServerInfo.GameMode == "02_rank")
+		this->m_rank_info.fromString(arg.toString());
 }
 
 // 02_rank

@@ -359,6 +359,8 @@ public:
 	QString getTask() const;
 	void checkTask(const QVariant &);
 	void updateTask(const QVariant &arg);
+	void checkProgress(const QVariant &);
+	void updateProgress(const QVariant &arg);
 	// 02_rank
 	void setRankModeInfo(RankModeInfoStruct &info);
 	RankModeInfoStruct getRankModeInfo();

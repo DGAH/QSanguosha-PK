@@ -2493,9 +2493,10 @@ void Room::arrangeGeneralsForRankMode()
 {
 	ServerPlayer *first = m_players.first();
 	ServerPlayer *second = m_players.last();
+	// task
 	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
 	QString first_reply = first->getClientReply().toString();
-	QString second_reply = second->getClientReply().toString(); 
+	QString second_reply = second->getClientReply().toString();
 	ServerPlayer *challenger = first;
 	ServerPlayer *gatekeeper = second;
 	if ((first_reply == "gatekeeper") || (second_reply == "challenger")) {
@@ -2506,10 +2507,123 @@ void Room::arrangeGeneralsForRankMode()
 	gatekeeper->setTask("gatekeeper");
 	doNotify(challenger, S_COMMAND_UPDATE_TASK, QVariant("challenger"));
 	doNotify(gatekeeper, S_COMMAND_UPDATE_TASK, QVariant("gatekeeper"));
-	_setPlayerGeneral(challenger, Config.RankModeInfo.challenger, true);
-	_setPlayerGeneral(gatekeeper, Config.RankModeInfo.gatekeeper, true);
 	broadcastProperty(challenger, "task");
 	broadcastProperty(gatekeeper, "task");
+	// progress
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_PROGRESS);
+	QString challenger_reply = challenger->getClientReply().toString();
+	QString gatekeeper_reply = gatekeeper->getClientReply().toString();
+	RankModeInfoStruct challenger_info, gatekeeper_info;
+	bool challenger_info_loaded = challenger_info.fromString(challenger_reply);
+	bool gatekeeper_info_loaded = gatekeeper_info.fromString(gatekeeper_reply);
+	RankModeInfoStruct rank_info;
+	if (challenger_info_loaded && challenger_info.valid)
+		rank_info = challenger_info;
+	else if (gatekeeper_info_loaded && gatekeeper_info.valid)
+		rank_info = gatekeeper_info;
+	else
+		rank_info = Config.RankModeInfo;
+	rank_info.valid = true;
+	QString progress = rank_info.record;
+	// role
+	const int order = rank_info.order_mode;
+	if (progress.isEmpty()) {
+		if ((rank_info.warm_times == -1) || (rank_info.cold_times == -1)) {
+			int r = rank_info.total_times + 1;
+			int a = qrand() % r;
+			int b = rank_info.total_times - a;
+			rank_info.warm_times = a;
+			rank_info.cold_times = b;
+		}
+		if (rank_info.warm_times == 0) {
+			challenger->setRole("lord");
+			gatekeeper->setRole("renegade");
+		}
+		else if (rank_info.cold_times == 0) {
+			challenger->setRole("renegade");
+			gatekeeper->setRole("lord");
+		}
+		else if (order == RankModeInfoStruct::S_ORDER_WARM_FIRST) {
+			challenger->setRole("lord");
+			gatekeeper->setRole("renegade"); 
+		}
+		else if (order == RankModeInfoStruct::S_ORDER_COLD_FIRST) {
+			challenger->setRole("renegade");
+			gatekeeper->setRole("lord");
+		}
+		else {
+			if (qrand() % 2 == 0){
+				challenger->setRole("lord");
+				gatekeeper->setRole("renegade");
+			}
+			else {
+				challenger->setRole("renegade");
+				gatekeeper->setRole("lord");
+			}
+		}
+	}
+	else {
+		if (rank_info.warm_finished_times() >= rank_info.warm_times) {
+			challenger->setRole("renegade");
+			gatekeeper->setRole("lord");
+		}
+		else if (rank_info.cold_finished_times() >= rank_info.cold_times) {
+			challenger->setRole("lord");
+			gatekeeper->setRole("renegade");
+		}
+		else if (order == RankModeInfoStruct::S_ORDER_WARM_FIRST) {
+			challenger->setRole("lord");
+			gatekeeper->setRole("renegade");
+		}
+		else if (order == RankModeInfoStruct::S_ORDER_COLD_FIRST) {
+			challenger->setRole("renegade");
+			gatekeeper->setRole("lord");
+		}
+		else if (order == RankModeInfoStruct::S_ORDER_ALTERNATELY) {
+			const char last = progress.at(progress.length() - 1).toLatin1();
+			switch (last)
+			{
+			case RankModeInfoStruct::S_WIN_WARM:
+			case RankModeInfoStruct::S_DRAW_WARM:
+			case RankModeInfoStruct::S_LOSE_WARM:
+				challenger->setRole("renegade");
+				gatekeeper->setRole("lord");
+				break;
+			case RankModeInfoStruct::S_WIN_COLD:
+			case RankModeInfoStruct::S_DRAW_COLD:
+			case RankModeInfoStruct::S_LOSE_COLD:
+				challenger->setRole("lord");
+				gatekeeper->setRole("renegade");
+				break;
+			default:
+				if (qrand() % 2 == 0){
+					challenger->setRole("lord");
+					gatekeeper->setRole("renegade");
+				}
+				else {
+					challenger->setRole("renegade");
+					gatekeeper->setRole("lord");
+				}
+				break;
+			}
+		}
+		else {
+			if (qrand() % 2 == 0){
+				challenger->setRole("lord");
+				gatekeeper->setRole("renegade");
+			}
+			else {
+				challenger->setRole("renegade");
+				gatekeeper->setRole("lord");
+			}
+		}
+	}
+	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(rank_info.toString()));
+	broadcastProperty(challenger, "role", challenger->getRole());
+	broadcastProperty(gatekeeper, "role", gatekeeper->getRole());
+	// general
+	_setPlayerGeneral(challenger, rank_info.challenger, true);
+	_setPlayerGeneral(gatekeeper, rank_info.gatekeeper, true);
 }
 
 void Room::run()
@@ -5485,4 +5599,3 @@ void Room::sortByActionOrder(QList<ServerPlayer *> &players)
     if (players.length() > 1)
         qSort(players.begin(), players.end(), ServerPlayer::CompareByActionOrder);
 }
-

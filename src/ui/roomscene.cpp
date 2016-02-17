@@ -4594,11 +4594,11 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	QHBoxLayout *total_layout = new QHBoxLayout;
 	total_layout->addWidget(total_screen);
 	total_layout->addStretch();
-	QLabel *cold_screen = new QLabel(tr("offensive: %1 / %2").arg(QString::number(info.cold_finished_times())).arg(QString::number(info.total_times)));
+	QLabel *cold_screen = new QLabel(tr("offensive: %1 / %2").arg(QString::number(info.cold_finished_times())).arg(QString::number(info.cold_times)));
 	QHBoxLayout *cold_layout = new QHBoxLayout;
 	cold_layout->addWidget(cold_screen);
 	cold_layout->addStretch();
-	QLabel *warm_screen = new QLabel(tr("defensive: %1 / %2").arg(QString::number(info.warm_finished_times())).arg(QString::number(info.total_times)));
+	QLabel *warm_screen = new QLabel(tr("defensive: %1 / %2").arg(QString::number(info.warm_finished_times())).arg(QString::number(info.warm_times)));
 	QHBoxLayout *warm_layout = new QHBoxLayout;
 	warm_layout->addWidget(warm_screen);
 	warm_layout->addStretch();

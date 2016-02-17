@@ -349,24 +349,24 @@ void RoomThread::run()
 
     // start game
     try {
-        QString order;
-        QList<ServerPlayer *> warm, cool;
-        QList<ServerPlayer *> first, second;
+		QList<ServerPlayer *> players = room->getPlayers();
+		ServerPlayer *first = players.first();
+		if (first->getRole() == "lord")
+			first = players.last();
+		ServerPlayer *second = first->getNext();
 
         constructTriggerTable();
         trigger(GameStart, (Room *)room, NULL);
+		room->setCurrent(first); // always make the renegade(cold,offensive) first, and the lord(warm,defensive) second.
         
-            if (room->getMode().contains("kof")) {
-                ServerPlayer *first = room->getPlayers().first();
-                if (first->getRole() != "renegade")
-                    first = room->getPlayers().at(1);
-                ServerPlayer *second = first->getNext();
-                trigger(Debut, (Room *)room, first);
-                trigger(Debut, (Room *)room, second);
-                room->setCurrent(first);
-            }
+		QString mode = room->getMode();
+		if (mode.contains("kof")) {
+			trigger(Debut, (Room *)room, first);
+			trigger(Debut, (Room *)room, second);
+			room->setCurrent(first);
+		}
 
-            actionNormal(game_rule);
+        actionNormal(game_rule);
         
     }
     catch (TriggerEvent triggerEvent) {

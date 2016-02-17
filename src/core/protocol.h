@@ -142,7 +142,9 @@ namespace QSanProtocol {
         S_COMMAND_UPDATE_SKILL,
 		// special mode
 		S_COMMAND_CHECK_TASK,
-		S_COMMAND_UPDATE_TASK
+		S_COMMAND_UPDATE_TASK,
+		S_COMMAND_CHECK_PROGRESS,
+		S_COMMAND_UPDATE_PROGRESS,
     };
 
     enum GameEventType
