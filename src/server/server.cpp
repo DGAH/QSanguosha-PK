@@ -719,21 +719,33 @@ QWidget *ServerDialog::createRankSettingsTab()
 	level_group_box->setLayout(level_group_layout);
 
 	QGroupBox *order_box = new QGroupBox(tr("game settings"));
+	int tn = Config.RankModeTotalTimes;
+	if (tn < 1)
+		tn = 1;
+	int cn = Config.RankModeColdTimes;
+	if ((cn < -1) || (cn > tn))
+		cn = -1;
+	int wn = Config.RankModeWarmTimes;
+	if ((wn < -1) || (wn > tn))
+		wn = -1;
 	QLabel *total_hint = new QLabel(tr("total times:"));
 	this->total_spinbox = new QSpinBox;
 	this->total_spinbox->setMinimum(1);
+	this->total_spinbox->setValue(tn);
 	QHBoxLayout *total_layout = new QHBoxLayout;
 	total_layout->addWidget(total_hint);
 	total_layout->addWidget(this->total_spinbox);
 	QLabel *cold_hint = new QLabel(tr("offensive times:"));
 	this->cold_spinbox = new QSpinBox;
 	this->cold_spinbox->setMinimum(-1);
+	this->cold_spinbox->setValue(cn);
 	QHBoxLayout *cold_layout = new QHBoxLayout;
 	cold_layout->addWidget(cold_hint);
 	cold_layout->addWidget(this->cold_spinbox);
 	QLabel *warm_hint = new QLabel(tr("defensive times:"));
 	this->warm_spinbox = new QSpinBox;
 	this->warm_spinbox->setMinimum(-1);
+	this->warm_spinbox->setValue(wn);
 	QHBoxLayout *warm_layout = new QHBoxLayout;
 	warm_layout->addWidget(warm_hint);
 	warm_layout->addWidget(this->warm_spinbox);
@@ -742,18 +754,25 @@ QWidget *ServerDialog::createRankSettingsTab()
 	mode_hint_layout->addWidget(mode_hint);
 	mode_hint_layout->addStretch();
 	this->order_mode_group = new QButtonGroup;
+	bool cf = (Config.RankModeExamineOrder == "ColdFirst");
+	bool wf = (Config.RankModeExamineOrder == "WarmFirst");
+	bool af = (Config.RankModeExamineOrder == "Alternately");
+	bool rf = !(cf || wf || af);
 	QRadioButton *cold_first_button = new QRadioButton(tr("offensive first"));
 	cold_first_button->setObjectName("CODE_FIRST");
-	cold_first_button->setChecked(true);
+	cold_first_button->setChecked(cf);
 	this->order_mode_group->addButton(cold_first_button);
 	QRadioButton *warm_first_button = new QRadioButton(tr("defensive first"));
 	warm_first_button->setObjectName("WARM_FIRST");
+	warm_first_button->setChecked(wf);
 	this->order_mode_group->addButton(warm_first_button);
 	QRadioButton *alternately_button = new QRadioButton(tr("alternately"));
 	alternately_button->setObjectName("ALTERNATELY");
+	alternately_button->setChecked(af);
 	this->order_mode_group->addButton(alternately_button);
 	QRadioButton *randomly_button = new QRadioButton(tr("randomly"));
 	randomly_button->setObjectName("RANDOMLY");
+	randomly_button->setChecked(rf);
 	this->order_mode_group->addButton(randomly_button);
 	QGridLayout *mode_layout = new QGridLayout;
 	mode_layout->addWidget(cold_first_button, 0, 0);
@@ -870,6 +889,8 @@ bool ServerDialog::checkRankSettings()
 	if (this->m_current_challenger == "")
 		return false;
 	if (this->m_current_gatekeeper == "")
+		return false;
+	if (!this->order_mode_group->checkedButton())
 		return false;
 	int total = this->total_spinbox->value();
 	int warm = this->warm_spinbox->value();
@@ -1145,14 +1166,25 @@ int ServerDialog::config()
 		Config.RankModeInfo.cold_times = cold;
 		QRadioButton *order_mode_button = dynamic_cast<QRadioButton *>(this->order_mode_group->checkedButton());
 		QString selected_order_mode = order_mode_button->objectName();
-		if (selected_order_mode == "WARM_FIRST")
+		if (selected_order_mode == "WARM_FIRST") {
 			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_WARM_FIRST;
-		else if (selected_order_mode == "COLD_FIRST")
+			Config.setValue("RankMode/OrderMode", "WarmFirst");
+		}
+		else if (selected_order_mode == "COLD_FIRST") {
 			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_COLD_FIRST;
-		else if (selected_order_mode == "ALTERNATELY")
+			Config.setValue("RankMode/OrderMode", "ColdFirst");
+		}
+		else if (selected_order_mode == "ALTERNATELY") {
 			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_ALTERNATELY;
-		else
+			Config.setValue("RankMode/OrderMode", "Alternately");
+		}
+		else {
 			Config.RankModeInfo.order_mode = RankModeInfoStruct::S_ORDER_RANDOMLY;
+			Config.setValue("RankMode/OrderMode", "Randomly");
+		}
+		Config.setValue("RankMode/TotalTimes", total);
+		Config.setValue("RankMode/WarmTimes", warm);
+		Config.setValue("RankMode/ColdTimes", cold);
 	}
 
     return accept_type;

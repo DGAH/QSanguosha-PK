@@ -2776,8 +2776,6 @@ bool Room::_setPlayerGeneral(ServerPlayer *player, const QString &generalName, b
     const General *general = Sanguosha->getGeneral(generalName);
     if (general == NULL)
         return false;
-    else if (!Config.FreeChoose && !player->getSelected().contains(generalName))
-        return false;
 
     if (isFirst) {
         player->setGeneralName(general->objectName());

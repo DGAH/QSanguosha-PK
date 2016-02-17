@@ -153,4 +153,9 @@ void Settings::init()
 
         setValue("Banlist/Pairs", banlist);
     }
+
+	RankModeExamineOrder = value("RankMode/OrderMode", "Alternately").toString();
+	RankModeTotalTimes = value("RankMode/TotalTimes", 10).toInt();
+	RankModeWarmTimes = value("RankMode/WarmTimes", 5).toInt();
+	RankModeColdTimes = value("RankMode/ColdTimes", 5).toInt();
 }

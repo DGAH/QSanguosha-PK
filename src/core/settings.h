@@ -82,6 +82,10 @@ public:
 
 	// game mode
 	RankModeInfoStruct RankModeInfo;
+	QString RankModeExamineOrder;
+	int RankModeTotalTimes;
+	int RankModeWarmTimes;
+	int RankModeColdTimes;
 
     // consts
     static const int S_SURRENDER_REQUEST_MIN_INTERVAL;
