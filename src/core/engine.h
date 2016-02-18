@@ -90,6 +90,7 @@ public:
     QList<const InvaliditySkill *> getInvaliditySkills() const;
     QList<const TriggerSkill *> getGlobalTriggerSkills() const;
     QList<const AttackRangeSkill *> getAttackRangeSkills() const;
+	void addSkill(const Skill *skill);
     void addSkills(const QList<const Skill *> &skills);
 
 	void addGeneralLevel(GeneralLevel *level);

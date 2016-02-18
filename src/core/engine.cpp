@@ -136,35 +136,42 @@ const Scenario *Engine::getScenario(const QString &name) const
     else return NULL;
 }
 
+void Engine::addSkill(const Skill *skill)
+{
+	if (!skill) {
+		QMessageBox::warning(NULL, "", tr("The engine tries to add an invalid skill"));
+		return;
+	}
+	if (skills.contains(skill->objectName())) {
+		QMessageBox::warning(NULL, "", tr("Duplicated skill : %1").arg(skill->objectName()));
+		return;
+	}
+
+	skills.insert(skill->objectName(), skill);
+
+	if (skill->inherits("ProhibitSkill"))
+		prohibit_skills << qobject_cast<const ProhibitSkill *>(skill);
+	else if (skill->inherits("DistanceSkill"))
+		distance_skills << qobject_cast<const DistanceSkill *>(skill);
+	else if (skill->inherits("MaxCardsSkill"))
+		maxcards_skills << qobject_cast<const MaxCardsSkill *>(skill);
+	else if (skill->inherits("TargetModSkill"))
+		targetmod_skills << qobject_cast<const TargetModSkill *>(skill);
+	else if (skill->inherits("InvaliditySkill"))
+		invalidity_skills << qobject_cast<const InvaliditySkill *>(skill);
+	else if (skill->inherits("AttackRangeSkill"))
+		attack_range_skills << qobject_cast<const AttackRangeSkill *>(skill);
+	else if (skill->inherits("TriggerSkill")) {
+		const TriggerSkill *trigger_skill = qobject_cast<const TriggerSkill *>(skill);
+		if (trigger_skill && trigger_skill->isGlobal())
+			global_trigger_skills << trigger_skill;
+	}
+}
+
 void Engine::addSkills(const QList<const Skill *> &all_skills)
 {
     foreach (const Skill *skill, all_skills) {
-        if (!skill) {
-            QMessageBox::warning(NULL, "", tr("The engine tries to add an invalid skill"));
-            continue;
-        }
-        if (skills.contains(skill->objectName()))
-            QMessageBox::warning(NULL, "", tr("Duplicated skill : %1").arg(skill->objectName()));
-
-        skills.insert(skill->objectName(), skill);
-
-        if (skill->inherits("ProhibitSkill"))
-            prohibit_skills << qobject_cast<const ProhibitSkill *>(skill);
-        else if (skill->inherits("DistanceSkill"))
-            distance_skills << qobject_cast<const DistanceSkill *>(skill);
-        else if (skill->inherits("MaxCardsSkill"))
-            maxcards_skills << qobject_cast<const MaxCardsSkill *>(skill);
-        else if (skill->inherits("TargetModSkill"))
-            targetmod_skills << qobject_cast<const TargetModSkill *>(skill);
-        else if (skill->inherits("InvaliditySkill"))
-            invalidity_skills << qobject_cast<const InvaliditySkill *>(skill);
-        else if (skill->inherits("AttackRangeSkill"))
-            attack_range_skills << qobject_cast<const AttackRangeSkill *>(skill);
-        else if (skill->inherits("TriggerSkill")) {
-            const TriggerSkill *trigger_skill = qobject_cast<const TriggerSkill *>(skill);
-            if (trigger_skill && trigger_skill->isGlobal())
-                global_trigger_skills << trigger_skill;
-        }
+		addSkill(skill);
     }
 }
 
