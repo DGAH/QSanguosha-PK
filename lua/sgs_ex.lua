@@ -667,6 +667,12 @@ function sgs.CreateGeneralLevel(spec)
 	return level
 end
 
+function sgs.CreateLuaGeneral(info)
+end
+
+function sgs.CreateLuaPackage(info)
+end
+
 function sgs.LoadTranslationTable(t)
 	for key, value in pairs(t) do
 		sgs.AddTranslationEntry(key, value)

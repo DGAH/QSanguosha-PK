@@ -28,38 +28,87 @@ function load_translations()
 end
 
 function load_extensions()
-	local scripts = sgs.GetFileNames("extensions")
-	local package_names = {}
-	for _, script in ipairs(scripts) do
-		if script:match(".+%.lua$") then
-			local name = script:sub(script:find("%w+"))
-			local module_name = "extensions." .. name
-			local loaded = require(module_name)
-			if loaded and type(loaded) == "table" and loaded.hidden ~= true then -- need to consider the compatibility of 'module'
-				if #loaded > 0 then
-					for _, extension in ipairs(loaded) do
-						if type(extension) == "userdata" and extension:inherits("Package") then
-							table.insert(package_names, extension:objectName())
-							sgs.Sanguosha:addPackage(extension)
+	local list = dofile("extensions/list.lua")
+	if type(list) ~= "table" then
+		error("file extensions/list.lua should return a table!")
+		return false
+	end
+	local lua_packages = {}
+	for key, value in pairs(list) do
+		local name, use = "", false
+		if type(key) == "string" and type(value) == "boolean" then
+			name, use = key, value
+		elseif type(key) == "number" and type(value) == "string" then
+			name, use = value, true
+		end
+		if use then
+			local pack = dofile(string.format("extensions/%s/%s.lua", name, name))
+			if type(pack) == "table" then
+				pack = sgs.CreateLuaPackage(pack)
+			end
+			if type(pack) == "userdata" and pack:inherits("Package") then
+				table.insert(lua_packages, pack:objectName())
+				sgs.Sanguosha:addPackage(pack)
+			elseif type(pack) == "table" then
+				for k, v in pairs(pack) do
+					if type(k) == "userdata" and k:inherits("Package") then
+						if type(v) == "boolean" and v then
+							table.insert(lua_packages, k:objectName())
+							sgs.Sanguosha:addPackage(k)
 						end
+					elseif type(k) == "number" and type(v) == "userdata" and v:inherits("Package") then
+						table.insert(lua_packages, v:objectName())
+						sgs.Sangsuoah:addPackage(v)
 					end
-				else
-					table.insert(package_names, loaded.extension:objectName())
-					sgs.Sanguosha:addPackage(loaded.extension)
 				end
-			elseif type(loaded) == "userdata" and loaded:inherits("Package") then
-				table.insert(package_names, loaded:objectName())
-				sgs.Sanguosha:addPackage(loaded)
 			end
 		end
 	end
-	local lua_packages = ""
-	if #package_names > 0 then lua_packages = table.concat(package_names, "+") end
+	lua_packages = table.concat(lua_packages, "+")
 	sgs.SetConfig("LuaPackages", lua_packages)
+	return true
+end
+
+function load_generals()
+	local list = dofile("generals/list.lua")
+	if type(list) ~= "table" then
+		error("file generals/list.lua should return a table!")
+		return false
+	end
+	for key, value in pairs(list) do
+		local name, use = "", false
+		if type(key) == "string" and type(value) == "boolean" then
+			name, use = key, value
+		elseif type(key) == "number" and type(value) == "string" then
+			name, use = value, true
+		end
+		if use then
+			local general = dofile(string.format("generals/%s/%s.lua", name, name))
+			if type(general) == "table" then
+				general = sgs.CreateLuaGeneral(general)
+			end
+			if type(general) == "userdata" and general:inherits("General") then
+				sgs.Sanguosha:addGeneral(general)
+			elseif type(general) == "table" then
+				for k, v in pairs(general) do
+					if type(k) == "userdata" and k:inherits("General") then
+						if type(v) == "boolean" and v then
+							sgs.Sanguosha:addGeneral(k)
+						end
+					elseif type(k) == "number" and type(v) == "userdata" and v:inherits("General") then
+						table.insert(lua_packages, v:objectName())
+						sgs.Sangsuoah:addGeneral(v)
+					end
+				end
+			end
+		end
+	end
+	return true
 end
 
 if not sgs.GetConfig("DisableLua", false) then
 	load_extensions()
+	load_generals()
 end
 
 local done_loading = sgs.Sanguosha:property("DoneLoading"):toBool()
