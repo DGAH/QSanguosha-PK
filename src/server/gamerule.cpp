@@ -526,7 +526,12 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
 				if (list.length() > 0)
 					break;
 			}
-        }
+		}
+		else if (room->getMode() == "08_endless") {
+			if (player->getTask() == "boss") {
+				break;
+			}
+		}
 
         QString winner = getWinner(player);
         if (!winner.isNull()) {
@@ -571,7 +576,17 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
             else
                 player->setFlags("Global_DebutFlag");
             return false;
-        }
+		}
+		else if (game_mode == "08_endless") {
+			if (player->getTask() == "boss") {
+				changeGeneralEndless(player);
+				if (death.damage == NULL)
+					room->getThread()->trigger(Debut, room, player);
+				else
+					player->setFlags("Global_DebutFlag");
+				return false;
+			}
+		}
 
         break;
     }
@@ -667,12 +682,14 @@ void GameRule::changeGeneral1v1(ServerPlayer *player) const
 
     room->revivePlayer(player);
     room->changeHero(player, new_general, true, true);
+
+	if (player->getKingdom() != player->getGeneral()->getKingdom())
+		room->setPlayerProperty(player, "kingdom", player->getGeneral()->getKingdom());
+
     if (player->getGeneral()->getKingdom() == "god")
         room->setPlayerProperty(player, "kingdom", room->askForKingdom(player));
-    room->addPlayerHistory(player, ".");
 
-    if (player->getKingdom() != player->getGeneral()->getKingdom())
-        room->setPlayerProperty(player, "kingdom", player->getGeneral()->getKingdom());
+    room->addPlayerHistory(player, ".");
 
     QList<ServerPlayer *> notified = classical ? room->getOtherPlayers(player, true) : room->getPlayers();
     room->doBroadcastNotify(notified, QSanProtocol::S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << new_general);
@@ -739,4 +756,48 @@ QString GameRule::getWinner(ServerPlayer *victim) const
     return winner;
 }
 
+// 08_endless
 
+void GameRule::changeGeneralEndless(ServerPlayer *player) const
+{
+	Config.AIDelay = Config.OriginAIDelay;
+	Room *room = player->getRoom();
+	QStringList candidates = Sanguosha->getLimitedGeneralNames();
+	qShuffle(candidates);
+	QString new_general = candidates.first();
+
+	if (player->getPhase() != Player::NotActive)
+		player->changePhase(player->getPhase(), Player::NotActive);
+
+	room->revivePlayer(player);
+	room->changeHero(player, new_general, true, true);
+
+	if (player->getKingdom() != player->getGeneral()->getKingdom())
+		room->setPlayerProperty(player, "kingdom", player->getGeneral()->getKingdom());
+
+	if (player->getGeneral()->getKingdom() == "god")
+		room->setPlayerProperty(player, "kingdom", room->askForKingdom(player));
+
+	room->addPlayerHistory(player, ".");
+
+	if (!player->faceUp())
+		player->turnOver();
+
+	if (player->isChained())
+		room->setPlayerProperty(player, "chained", false);
+
+	room->setTag("FirstRound", true); //For Manjuan
+	QVariant data = 4;
+	room->getThread()->trigger(DrawInitialCards, room, player, data);
+	int draw_num = data.toInt();
+	try {
+		player->drawCards(draw_num);
+		room->setTag("FirstRound", false);
+	}
+	catch (TriggerEvent triggerEvent) {
+		if (triggerEvent == TurnBroken)
+			room->setTag("FirstRound", false);
+		throw triggerEvent;
+	}
+	room->getThread()->trigger(AfterDrawInitialCards, room, player, QVariant(draw_num));
+}

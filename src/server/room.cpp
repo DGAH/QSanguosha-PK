@@ -2481,7 +2481,7 @@ void Room::chooseGenerals(QList<ServerPlayer *> players)
     }
 
     if (Config.Enable2ndGeneral) {
-        QList<ServerPlayer *> to_assign = players;
+        QList<ServerPlayer *> to_assign = players.isEmpty() ? m_players : players;
         assignGeneralsForPlayers(to_assign);
         foreach(ServerPlayer *player, to_assign)
             _setupChooseGeneralRequestArgs(player);
@@ -2633,6 +2633,58 @@ void Room::arrangeGeneralsForRankMode()
 	_setPlayerGeneral(gatekeeper, rank_info.gatekeeper, true);
 }
 
+void Room::arrangeGeneralsForEndless()
+{
+	ServerPlayer *challenger = m_players.first();
+	ServerPlayer *boss = m_players.last();
+	if (challenger->getState() == "robot") {
+		challenger = boss;
+		boss = m_players.first();
+	}
+	// task
+	challenger->setTask("challenger");
+	boss->setTask("boss");
+	doNotify(challenger, S_COMMAND_UPDATE_TASK, QVariant("challenger"));
+	doNotify(boss, S_COMMAND_UPDATE_TASK, QVariant("boss"));
+	broadcastProperty(challenger, "task");
+	broadcastProperty(boss, "task");
+	// role
+	QString order = askForOrder(challenger, "cool");
+	if (order == "cool") {
+		challenger->setRole("renegade");
+		boss->setRole("lord");
+	}
+	else {
+		challenger->setRole("lord");
+		boss->setRole("renegade");
+	}
+	broadcastProperty(challenger, "role", challenger->getRole());
+	broadcastProperty(boss, "role", boss->getRole());
+	// general
+	QList<ServerPlayer *> challengers;
+	challengers << challenger;
+	assignGeneralsForPlayers(challengers);
+	_setupChooseGeneralRequestArgs(challenger);
+	doBroadcastRequest(challengers, S_COMMAND_CHOOSE_GENERAL);
+	if (!challenger->getGeneral()) {
+		QString generalName = challenger->getClientReply().toString();
+		if (!challenger->m_isClientResponseReady || !_setPlayerGeneral(challenger, generalName, true))
+			_setPlayerGeneral(challenger, _chooseDefaultGeneral(challenger), true);
+	}
+	if (Config.Enable2ndGeneral) {
+		_setupChooseGeneralRequestArgs(challenger);
+		doBroadcastRequest(challengers, S_COMMAND_CHOOSE_GENERAL);
+		if (!challenger->getGeneral2()) {
+			QString generalName = challenger->getClientReply().toString();
+			if (!challenger->m_isClientResponseReady || !_setPlayerGeneral(challenger, generalName, false))
+				_setPlayerGeneral(challenger, _chooseDefaultGeneral(challenger), false);
+		}
+	}
+	QStringList candidates = Sanguosha->getLimitedGeneralNames();
+	qShuffle(candidates);
+	_setPlayerGeneral(boss, candidates.first(), true);
+}
+
 void Room::run()
 {
     // initialize random seed for later use
@@ -2674,6 +2726,10 @@ void Room::run()
 	}
 	else if (mode == "02_rank") {
 		arrangeGeneralsForRankMode();
+		startGame();
+	}
+	else if (mode == "08_endless") {
+		arrangeGeneralsForEndless();
 		startGame();
     } else {
         chooseGenerals();
