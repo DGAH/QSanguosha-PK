@@ -21,39 +21,7 @@ void RoomThread1v1::run()
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 	QString game_mode = Config.value("GameMode", "03_kof").toString();
 	int total_num = game_mode == "03_kof" ? 10 : 12;
-	/*
-    if (!Config.value("1v1/UsingExtension", false).toBool()) {
-        const Package *stdpack = Sanguosha->findChild<const Package *>("standard");
-        const Package *windpack = Sanguosha->findChild<const Package *>("wind");
 
-        QStringList candidates;
-        if (rule == "Classical") {
-            foreach(const General *general, stdpack->findChildren<const General *>())
-                candidates << general->objectName();
-            foreach(const General *general, windpack->findChildren<const General *>())
-                candidates << general->objectName();
-        } else {
-            candidates << "nos_caocao" << "nos_simayi" << "nos_xiahoudun" << "kof_nos_zhangliao"
-                << "kof_nos_xuchu" << "nos_guojia" << "kof_zhenji" << "kof_xiahouyuan"
-                << "nos_caoren" << "dianwei" << "kof_nos_guanyu" << "nos_zhangfei"
-                << "zhugeliang" << "nos_zhaoyun" << "nos_machao" << "kof_nos_huangyueying"
-                << "kof_huangzhong" << "kof_jiangwei" << "kof_menghuo" << "kof_zhurong"
-                << "sunquan" << "nos_ganning" << "nos_huanggai" << "nos_zhouyu"
-                << "nos_luxun" << "kof_sunshangxiang" << "sunjian" << "xiaoqiao"
-                << "nos_lvbu" << "kof_nos_diaochan" << "yanliangwenchou" << "hejin";
-            if (rule == "2013") {
-                candidates << "kof_nos_liubei" << "kof_weiyan" << "kof_nos_lvmeng" << "kof_nos_daqiao"
-                    << "nos_zhoutai" << "kof_nos_huatuo" << "nos_zhangjiao" << "pangde"
-                    << "niujin" << "hansui";
-            }
-        }
-        qShuffle(candidates);
-        general_names = candidates.mid(0, total_num);
-    } else {
-        QSet<QString> banset = Config.value("Banlist/1v1").toStringList().toSet();
-        general_names = Sanguosha->getRandomGenerals(total_num, banset);
-    }
-	*/
 	QSet<QString> banset = Config.value("Banlist/1v1").toStringList().toSet();
 	general_names = Sanguosha->getRandomGenerals(total_num, banset);
 
@@ -65,8 +33,6 @@ void RoomThread1v1::run()
             general_names[i + 6] = QString("x%1").arg(QString::number(i));
 
         room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(known_list << "x0" << "x1" << "x2" << "x3"));
-    } else if (game_mode == "05_kof_wzzz") {
-        room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(general_names));
     } else if (game_mode == "04_kof_2013") {
         QStringList known_list = general_names.mid(0, 6);
         unknown_list = general_names.mid(6, 6);
@@ -76,7 +42,10 @@ void RoomThread1v1::run()
 
         room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(known_list << "x0" << "x1" << "x2"
             << "x3" << "x4" << "x5"));
-    }
+	}
+	else if (game_mode == "05_kof_wzzz") {
+		room->doBroadcastNotify(S_COMMAND_FILL_GENERAL, JsonUtils::toJsonArray(general_names));
+	}
 
     int index = qrand() % 2;
     ServerPlayer *first = room->getPlayers().at(index), *next = room->getPlayers().at(1 - index);

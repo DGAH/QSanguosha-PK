@@ -68,4 +68,41 @@ config = {
 
 	extra_hidden_generals = {
 	},
+	
+	kof_classical_generals = {
+		--标准版武将
+		"caocao", "simayi", "xiahoudun", "zhangliao", "xuchu", "guojia", "zhenji",
+		"liubei", "guanyu", "zhangfei", "zhugeliang", "zhaoyun", "machao", "huangyueying",
+		"sunquan", "ganning", "lvmeng", "huanggai", "zhouyu", "daqiao", "luxun", "sunshangxiang",
+		"huatuo", "lvbu", "diaochan",
+		--风包武将
+		"xiahouyuan", "caoren",	
+		"huangzhong", "weiyan",
+		"xiaoqiao", "zhoutai", 
+		"zhangjiao", "yuji",
+	},
+	
+	kof_2013_generals = {
+		"caocao", "simayi", "xiahoudun", "kof_zhangliao", "kof_xuchu", 
+		"guojia", "kof_zhenji", "kof_xiahouyuan", "caoren", "dianwei", 
+		"kof_guanyu", "zhangfei", "zhugeliang", "zhaoyun", "machao", 
+		"kof_huangyueying", "kof_huangzhong", "kof_jiangwei", "kof_menghuo", "kof_zhurong", 
+		"sunquan", "ganning", "huanggai", "zhouyu", "luxun", 
+		"kof_sunshangxiang", "sunjian", "xiaoqiao", 
+		"lvbu", "kof_diaochan", "yanliangwenchou", "hejin",
+	},
+	
+	kof_wzzz_generals = {
+		"caocao", "simayi", "xiahoudun", "kof_zhangliao", "kof_xuchu", 
+		"guojia", "kof_zhenji", "kof_xiahouyuan", "caoren", "dianwei", 
+		"niujin", 
+		"kof_liubei", "kof_guanyu", "zhangfei", "zhugeliang", "zhaoyun", 
+		"machao", "kof_huangyueying", "kof_huangzhong", "kof_weiyan", "kof_jiangwei", 
+		"kof_menghuo", "kof_zhurong", 
+		"sunquan", "ganning", "kof_lvmeng", "huanggai", "zhouyu", 
+		"kof_daqiao", "luxun", "kof_sunshangxiang", "zhoutai", "sunjian", 
+		"xiaoqiao", 
+		"kof_huatuo", "lvbu", "kof_diaochan", "zhangjiao", "pangde", 
+		"yanliangwenchou", "hejin", "hansui",
+	},
 }
