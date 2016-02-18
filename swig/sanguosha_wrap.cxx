@@ -73239,6 +73239,7 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("BuryVictim", BuryVictim)},
     {SWIG_LUA_CONSTTAB_INT("BeforeGameOverJudge", BeforeGameOverJudge)},
     {SWIG_LUA_CONSTTAB_INT("GameOverJudge", GameOverJudge)},
+    {SWIG_LUA_CONSTTAB_INT("BeforeGameFinished", BeforeGameFinished)},
     {SWIG_LUA_CONSTTAB_INT("GameFinished", GameFinished)},
     {SWIG_LUA_CONSTTAB_INT("SlashEffected", SlashEffected)},
     {SWIG_LUA_CONSTTAB_INT("SlashProceed", SlashProceed)},

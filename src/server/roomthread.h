@@ -60,6 +60,7 @@ protected:
 
 private:
     void _handleTurnBrokenNormal(GameRule *game_rule);
+	void _handleGameFinished(GameRule *game_rule);
 
     Room *room;
     QString order;
@@ -68,6 +69,7 @@ private:
     QSet<QString> skillSet;
 
     QList<EventTriplet> event_stack;
+
 };
 
 #endif

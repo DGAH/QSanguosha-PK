@@ -455,6 +455,13 @@ QStringList Room::aliveRoles(ServerPlayer *except) const
 
 void Room::gameOver(const QString &winner)
 {
+	QVariant data = winner;
+	foreach (ServerPlayer *player, m_players) {
+		if (thread->trigger(BeforeGameFinished, this, player, data))
+			return;
+	}
+	QString new_winner = data.toString();
+
     QStringList all_roles;
     foreach (ServerPlayer *player, m_players) {
         all_roles << player->getRole();
@@ -469,7 +476,7 @@ void Room::gameOver(const QString &winner)
 
     game_finished = true;
 
-    emit game_over(winner);
+    emit game_over(new_winner);
 
     Config.AIDelay = Config.OriginAIDelay;
 
@@ -487,7 +494,7 @@ void Room::gameOver(const QString &winner)
     }
 
     JsonArray arg;
-    arg << winner << JsonUtils::toJsonArray(all_roles);
+    arg << new_winner << JsonUtils::toJsonArray(all_roles);
     doBroadcastNotify(S_COMMAND_GAME_OVER, arg);
     throw GameFinished;
 }

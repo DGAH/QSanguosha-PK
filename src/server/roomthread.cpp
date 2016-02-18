@@ -330,13 +330,34 @@ void RoomThread::_handleTurnBrokenNormal(GameRule *game_rule)
     }
 }
 
+void RoomThread::_handleGameFinished(GameRule *game_rule)
+{
+	if (!room->isFinished()) {
+		try {
+			foreach(ServerPlayer *player, room->getPlayers()) {
+				trigger(GameFinished, room, player);
+			}
+			actionNormal(game_rule);
+		}
+		catch (TriggerEvent throwed_event) {
+			if (throwed_event == GameFinished) {
+				_handleGameFinished(game_rule);
+				return;
+			}
+			else {
+				throw throwed_event;
+			}
+		}
+		return;
+	}
+	Sanguosha->unregisterRoom();
+}
+
 void RoomThread::run()
 {
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
     Sanguosha->registerRoom(room);
-    GameRule *game_rule;
-
-        game_rule = new GameRule(this);
+    GameRule *game_rule = new GameRule(this);
 
     addTriggerSkill(game_rule);
     foreach(const TriggerSkill *triggerSkill, Sanguosha->getGlobalTriggerSkills())
@@ -371,7 +392,7 @@ void RoomThread::run()
     }
     catch (TriggerEvent triggerEvent) {
         if (triggerEvent == GameFinished) {
-            Sanguosha->unregisterRoom();
+			_handleGameFinished(game_rule);
             return;
         } else if (triggerEvent == TurnBroken) { // caused in Debut trigger
             ServerPlayer *first = room->getPlayers().first();
@@ -511,4 +532,3 @@ void RoomThread::delay(long secs)
     if (room->property("to_test").toString().isEmpty() && Config.AIDelay > 0)
         msleep(secs);
 }
-

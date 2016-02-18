@@ -633,6 +633,7 @@ enum TriggerEvent
     BuryVictim,
     BeforeGameOverJudge,
     GameOverJudge,
+	BeforeGameFinished,
     GameFinished,
 
     SlashEffected,
