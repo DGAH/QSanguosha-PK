@@ -2685,6 +2685,128 @@ void Room::arrangeGeneralsForEndless()
 	_setPlayerGeneral(boss, candidates.first(), true);
 }
 
+void Room::arrangeGeneralsForArcadeMode()
+{
+	ServerPlayer *first = m_players.first();
+	ServerPlayer *second = m_players.last();
+	// task
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
+	QString first_reply = first->getClientReply().toString();
+	QString second_reply = second->getClientReply().toString();
+	ServerPlayer *challenger = first;
+	ServerPlayer *boss = second;
+	if ((first_reply == "boss") || (second_reply == "challenger")) {
+		challenger = second;
+		boss = first;
+	}
+	challenger->setTask("challenger");
+	boss->setTask("boss");
+	doNotify(challenger, S_COMMAND_UPDATE_TASK, QVariant("challenger"));
+	doNotify(boss, S_COMMAND_UPDATE_TASK, QVariant("gatekeeper"));
+	broadcastProperty(challenger, "task");
+	broadcastProperty(boss, "task");
+	// progress
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_PROGRESS);
+	QString challenger_reply = challenger->getClientReply().toString();
+	QString boss_reply = boss->getClientReply().toString();
+	ArcadeModeInfoStruct challenger_info, boss_info;
+	bool challenger_info_loaded = challenger_info.fromString(challenger_reply);
+	bool boss_info_loaded = boss_info.fromString(boss_reply);
+	ArcadeModeInfoStruct arcade_info;
+	if (challenger_info_loaded && challenger_info.valid)
+		arcade_info = challenger_info;
+	else if (boss_info_loaded && boss_info.valid)
+		arcade_info = boss_info;
+	else
+		arcade_info = Config.ArcadeModeInfo;
+	arcade_info.valid = true;
+	// challenger
+	QStringList generalnames;
+	if (arcade_info.challenger == "") {
+		QList<ServerPlayer *> challengers;
+		challengers << challenger;
+		assignGeneralsForPlayers(challengers);
+		_setupChooseGeneralRequestArgs(challenger);
+		doBroadcastRequest(challengers, S_COMMAND_CHOOSE_GENERAL);
+		if (challenger->getGeneral()) {
+			generalnames.append(challenger->getGeneralName());
+		}
+		else {
+			QString name = challenger->getClientReply().toString();
+			if (!challenger->m_isClientResponseReady || !_setPlayerGeneral(challenger, name, true))
+				name = _chooseDefaultGeneral(challenger);
+			_setPlayerGeneral(challenger, name, true);
+			generalnames.append(name);
+		}
+		if (Config.Enable2ndGeneral) {
+			_setupChooseGeneralRequestArgs(challenger);
+			doBroadcastRequest(challengers, S_COMMAND_CHOOSE_GENERAL);
+			if (challenger->getGeneral2()) {
+				generalnames.append(challenger->getGeneral2Name());
+			}
+			else {
+				QString name = challenger->getClientReply().toString();
+				if (!challenger->m_isClientResponseReady || !_setPlayerGeneral(challenger, name, false))
+					name = _chooseDefaultGeneral(challenger);
+				_setPlayerGeneral(challenger, name, false);
+				generalnames.append(name);
+			}
+		}
+		arcade_info.challenger = generalnames.join("&");
+	}
+	else {
+		generalnames = arcade_info.challenger.split("&");
+		_setPlayerGeneral(challenger, generalnames.first(), true);
+		if (generalnames.length() > 1)
+			_setPlayerGeneral(challenger, generalnames.last(), false);
+	}
+	// boss
+	if (arcade_info.bosses.isEmpty()) {
+		QStringList generals = Sanguosha->getLimitedGeneralNames();
+		QMap<int, QString> groups;
+		QStringList final_bosses;
+		foreach (QString name, generals)
+		{
+			if (generalnames.contains(name))
+				continue;
+			const General *general = Sanguosha->getGeneral(name);
+			int order = general->getOrder();
+			if ((order > 0) && (order < 10))
+				groups.insertMulti(order, name);
+			else if (order == 10)
+				final_bosses.append(name);
+		}
+		QStringList bosses;
+		for (int order = 1; order < 10; order++) {
+			bosses.append(groups.values(order));
+		}
+		int total = bosses.length();
+		int need = final_bosses.isEmpty() ? 15 : 14;
+		need = (need > total) ? total : need;
+		int from = 0;
+		int to = total - need;
+		while (need > 0) {
+			int width = to - from + 1;
+			int index = qrand() % width + from;
+			QString boss = bosses.at(index);
+			arcade_info.bosses.append(boss);
+			from = index + 1;
+			to++;
+			need--;
+		}
+		if (!final_bosses.isEmpty()) {
+			int width = final_bosses.length();
+			int index = qrand() % width;
+			QString final_boss = final_bosses.at(index);
+			arcade_info.bosses.append(final_boss);
+		}
+	}
+	QString name = arcade_info.bosses.at(arcade_info.passed_count);
+	_setPlayerGeneral(boss, name, true);
+	// update
+	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(arcade_info.toString()));
+}
+
 void Room::run()
 {
     // initialize random seed for later use
@@ -2726,6 +2848,10 @@ void Room::run()
 	}
 	else if (mode == "02_rank") {
 		arrangeGeneralsForRankMode();
+		startGame();
+	}
+	else if (mode == "07_arcade") {
+		arrangeGeneralsForArcadeMode();
 		startGame();
 	}
 	else if (mode == "08_endless") {
@@ -2784,7 +2910,7 @@ void Room::swapSeat(ServerPlayer *a, ServerPlayer *b)
 
 void Room::adjustSeats()
 {
-	if (mode != "02_rank")
+	if (mode != "02_rank" && mode != "07_arcade" && mode != "08_endless")
 	{
 		QList<ServerPlayer *> players;
 		int i = 0;

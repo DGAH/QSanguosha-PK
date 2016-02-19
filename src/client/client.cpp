@@ -2105,8 +2105,10 @@ void Client::updateTask(const QVariant &arg)
 
 void Client::checkProgress(const QVariant &)
 {
-	if (this->m_rank_info.valid)
+	if (this->m_rank_info.valid && ServerInfo.GameMode == "02_rank")
 		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_rank_info.toString());
+	else if (this->m_arcade_info.valid && ServerInfo.GameMode == "07_arcade")
+		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_arcade_info.toString());
 	else
 		replyToServer(S_COMMAND_CHECK_PROGRESS, "");
 }
@@ -2115,6 +2117,8 @@ void Client::updateProgress(const QVariant &arg)
 {
 	if (ServerInfo.GameMode == "02_rank")
 		this->m_rank_info.fromString(arg.toString());
+	else if (ServerInfo.GameMode == "07_arcade")
+		this->m_arcade_info.fromString(arg.toString());
 }
 
 // 02_rank
@@ -2127,4 +2131,16 @@ void Client::setRankModeInfo(RankModeInfoStruct &info)
 RankModeInfoStruct Client::getRankModeInfo()
 {
 	return this->m_rank_info;
+}
+
+// 07_arcade
+
+void Client::setArcadeModeInfo(ArcadeModeInfoStruct &info)
+{
+	this->m_arcade_info = info;
+}
+
+ArcadeModeInfoStruct Client::getArcadeModeInfo()
+{
+	return this->m_arcade_info;
 }

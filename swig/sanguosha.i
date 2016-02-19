@@ -591,6 +591,68 @@ struct RankModeInfoStruct
 	}
 };
 
+struct ArcadeModeInfoStruct
+{
+	ArcadeModeInfoStruct()
+	{
+		valid = false;
+		passed_count = 0;
+	}
+
+	bool valid;
+
+	int passed_count;
+	QString challenger;
+	QStringList bosses;
+
+	int current_level()
+	{
+		return passed_count + 1;
+	}
+
+	int level_count()
+	{
+		return bosses.length();
+	}
+
+	QString current_boss()
+	{
+		return bosses.at(passed_count);
+	}
+
+	QStringList defeated_bosses()
+	{
+		return bosses.mid(0, passed_count);
+	}
+
+	QStringList unknown_bosses()
+	{
+		return bosses.mid(passed_count);
+	}
+
+	QString toString()
+	{
+		QStringList data;
+		data << (valid ? "T" : "F")
+			<< QString::number(passed_count)
+			<< challenger
+			<< bosses.join("&");
+		return data.join("|");
+	}
+
+	bool fromString(const QString &str)
+	{
+		QStringList data = str.split("|");
+		if (data.length() < 4)
+			return false;
+		valid = (data.first() == "T");
+		passed_count = data.at(1).toInt();
+		challenger = data.at(2);
+		bosses = data.at(3).split("&");
+		return true;
+	}
+};
+
 struct DamageStruct {
     DamageStruct();
     DamageStruct(const Card *card, ServerPlayer *from, ServerPlayer *to, int damage = 1, DamageStruct::Nature nature = Normal);

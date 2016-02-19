@@ -364,16 +364,23 @@ public:
 	// 02_rank
 	void setRankModeInfo(RankModeInfoStruct &info);
 	RankModeInfoStruct getRankModeInfo();
+	// 07_arcade
+	void setArcadeModeInfo(ArcadeModeInfoStruct &info);
+	ArcadeModeInfoStruct getArcadeModeInfo();
 
 private:
 	// common
 	QString m_task;
 	// 02_rank 
 	RankModeInfoStruct m_rank_info;
+	// 07_arcade
+	ArcadeModeInfoStruct m_arcade_info;
 
 signals:
 	// 02_rank
 	void rank_mode_game_over(RankModeInfoStruct info, char result);
+	// 07_arcade
+	void arcade_mode_game_over(ArcadeModeInfoStruct info);
 };
 
 extern Client *ClientInstance;

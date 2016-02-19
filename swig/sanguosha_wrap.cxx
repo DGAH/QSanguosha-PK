@@ -1865,113 +1865,114 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 
 #define SWIGTYPE_p_AI swig_types[0]
 #define SWIGTYPE_p_Analeptic swig_types[1]
-#define SWIGTYPE_p_Armor swig_types[2]
-#define SWIGTYPE_p_AttackRangeSkill swig_types[3]
-#define SWIGTYPE_p_BasicCard swig_types[4]
-#define SWIGTYPE_p_Card swig_types[5]
-#define SWIGTYPE_p_CardEffectStruct swig_types[6]
-#define SWIGTYPE_p_CardMoveReason swig_types[7]
-#define SWIGTYPE_p_CardPattern swig_types[8]
-#define SWIGTYPE_p_CardResponseStruct swig_types[9]
-#define SWIGTYPE_p_CardUseStruct swig_types[10]
-#define SWIGTYPE_p_Card__Suit swig_types[11]
-#define SWIGTYPE_p_CardsMoveOneTimeStruct swig_types[12]
-#define SWIGTYPE_p_CardsMoveStruct swig_types[13]
-#define SWIGTYPE_p_Client swig_types[14]
-#define SWIGTYPE_p_ClientPlayer swig_types[15]
-#define SWIGTYPE_p_ClientSocket swig_types[16]
-#define SWIGTYPE_p_DamageStruct swig_types[17]
-#define SWIGTYPE_p_DeathStruct swig_types[18]
-#define SWIGTYPE_p_DefensiveHorse swig_types[19]
-#define SWIGTYPE_p_DelayedTrick swig_types[20]
-#define SWIGTYPE_p_DistanceSkill swig_types[21]
-#define SWIGTYPE_p_DummyCard swig_types[22]
-#define SWIGTYPE_p_DummySkill swig_types[23]
-#define SWIGTYPE_p_DyingStruct swig_types[24]
-#define SWIGTYPE_p_Engine swig_types[25]
-#define SWIGTYPE_p_EquipCard swig_types[26]
-#define SWIGTYPE_p_FilterSkill swig_types[27]
-#define SWIGTYPE_p_GameStartSkill swig_types[28]
-#define SWIGTYPE_p_General swig_types[29]
-#define SWIGTYPE_p_GeneralLevel swig_types[30]
-#define SWIGTYPE_p_Horse swig_types[31]
-#define SWIGTYPE_p_InvaliditySkill swig_types[32]
-#define SWIGTYPE_p_JudgeStruct swig_types[33]
-#define SWIGTYPE_p_LogMessage swig_types[34]
-#define SWIGTYPE_p_LuaAI swig_types[35]
-#define SWIGTYPE_p_LuaArmor swig_types[36]
-#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[37]
-#define SWIGTYPE_p_LuaBasicCard swig_types[38]
-#define SWIGTYPE_p_LuaDistanceSkill swig_types[39]
-#define SWIGTYPE_p_LuaDummySkill swig_types[40]
-#define SWIGTYPE_p_LuaFilterSkill swig_types[41]
-#define SWIGTYPE_p_LuaFunction swig_types[42]
-#define SWIGTYPE_p_LuaInvaliditySkill swig_types[43]
-#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[44]
-#define SWIGTYPE_p_LuaProhibitSkill swig_types[45]
-#define SWIGTYPE_p_LuaSkillCard swig_types[46]
-#define SWIGTYPE_p_LuaTargetModSkill swig_types[47]
-#define SWIGTYPE_p_LuaTreasure swig_types[48]
-#define SWIGTYPE_p_LuaTrickCard swig_types[49]
-#define SWIGTYPE_p_LuaTriggerSkill swig_types[50]
-#define SWIGTYPE_p_LuaViewAsSkill swig_types[51]
-#define SWIGTYPE_p_LuaWeapon swig_types[52]
-#define SWIGTYPE_p_MaxCardsSkill swig_types[53]
-#define SWIGTYPE_p_OffensiveHorse swig_types[54]
-#define SWIGTYPE_p_OneCardViewAsSkill swig_types[55]
-#define SWIGTYPE_p_Package swig_types[56]
-#define SWIGTYPE_p_PhaseChangeStruct swig_types[57]
-#define SWIGTYPE_p_PindianStruct swig_types[58]
-#define SWIGTYPE_p_Player swig_types[59]
-#define SWIGTYPE_p_ProhibitSkill swig_types[60]
-#define SWIGTYPE_p_QColor swig_types[61]
-#define SWIGTYPE_p_QDialog swig_types[62]
-#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[63]
-#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[64]
-#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[65]
-#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[66]
-#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[67]
-#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[68]
-#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[69]
-#define SWIGTYPE_p_QListT_Player__Place_t swig_types[70]
-#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[71]
-#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[72]
-#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[73]
-#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[74]
-#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[75]
-#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[76]
-#define SWIGTYPE_p_QListT_bool_t swig_types[77]
-#define SWIGTYPE_p_QListT_int_t swig_types[78]
-#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[79]
-#define SWIGTYPE_p_QObject swig_types[80]
-#define SWIGTYPE_p_QSetT_QString_t swig_types[81]
-#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[82]
-#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[83]
-#define SWIGTYPE_p_QString swig_types[84]
-#define SWIGTYPE_p_QStringList swig_types[85]
-#define SWIGTYPE_p_QThread swig_types[86]
-#define SWIGTYPE_p_QVariant swig_types[87]
-#define SWIGTYPE_p_RankModeInfoStruct swig_types[88]
-#define SWIGTYPE_p_RecoverStruct swig_types[89]
-#define SWIGTYPE_p_Room swig_types[90]
-#define SWIGTYPE_p_RoomThread swig_types[91]
-#define SWIGTYPE_p_Scenario swig_types[92]
-#define SWIGTYPE_p_ServerPlayer swig_types[93]
-#define SWIGTYPE_p_Skill swig_types[94]
-#define SWIGTYPE_p_SkillCard swig_types[95]
-#define SWIGTYPE_p_Slash swig_types[96]
-#define SWIGTYPE_p_SlashEffectStruct swig_types[97]
-#define SWIGTYPE_p_TargetModSkill swig_types[98]
-#define SWIGTYPE_p_Treasure swig_types[99]
-#define SWIGTYPE_p_TrickCard swig_types[100]
-#define SWIGTYPE_p_TriggerSkill swig_types[101]
-#define SWIGTYPE_p_TrustAI swig_types[102]
-#define SWIGTYPE_p_ViewAsSkill swig_types[103]
-#define SWIGTYPE_p_Weapon swig_types[104]
-#define SWIGTYPE_p_WrappedCard swig_types[105]
-#define SWIGTYPE_p_lua_State swig_types[106]
-static swig_type_info *swig_types[108];
-static swig_module_info swig_module = {swig_types, 107, 0, 0, 0, 0};
+#define SWIGTYPE_p_ArcadeModeInfoStruct swig_types[2]
+#define SWIGTYPE_p_Armor swig_types[3]
+#define SWIGTYPE_p_AttackRangeSkill swig_types[4]
+#define SWIGTYPE_p_BasicCard swig_types[5]
+#define SWIGTYPE_p_Card swig_types[6]
+#define SWIGTYPE_p_CardEffectStruct swig_types[7]
+#define SWIGTYPE_p_CardMoveReason swig_types[8]
+#define SWIGTYPE_p_CardPattern swig_types[9]
+#define SWIGTYPE_p_CardResponseStruct swig_types[10]
+#define SWIGTYPE_p_CardUseStruct swig_types[11]
+#define SWIGTYPE_p_Card__Suit swig_types[12]
+#define SWIGTYPE_p_CardsMoveOneTimeStruct swig_types[13]
+#define SWIGTYPE_p_CardsMoveStruct swig_types[14]
+#define SWIGTYPE_p_Client swig_types[15]
+#define SWIGTYPE_p_ClientPlayer swig_types[16]
+#define SWIGTYPE_p_ClientSocket swig_types[17]
+#define SWIGTYPE_p_DamageStruct swig_types[18]
+#define SWIGTYPE_p_DeathStruct swig_types[19]
+#define SWIGTYPE_p_DefensiveHorse swig_types[20]
+#define SWIGTYPE_p_DelayedTrick swig_types[21]
+#define SWIGTYPE_p_DistanceSkill swig_types[22]
+#define SWIGTYPE_p_DummyCard swig_types[23]
+#define SWIGTYPE_p_DummySkill swig_types[24]
+#define SWIGTYPE_p_DyingStruct swig_types[25]
+#define SWIGTYPE_p_Engine swig_types[26]
+#define SWIGTYPE_p_EquipCard swig_types[27]
+#define SWIGTYPE_p_FilterSkill swig_types[28]
+#define SWIGTYPE_p_GameStartSkill swig_types[29]
+#define SWIGTYPE_p_General swig_types[30]
+#define SWIGTYPE_p_GeneralLevel swig_types[31]
+#define SWIGTYPE_p_Horse swig_types[32]
+#define SWIGTYPE_p_InvaliditySkill swig_types[33]
+#define SWIGTYPE_p_JudgeStruct swig_types[34]
+#define SWIGTYPE_p_LogMessage swig_types[35]
+#define SWIGTYPE_p_LuaAI swig_types[36]
+#define SWIGTYPE_p_LuaArmor swig_types[37]
+#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[38]
+#define SWIGTYPE_p_LuaBasicCard swig_types[39]
+#define SWIGTYPE_p_LuaDistanceSkill swig_types[40]
+#define SWIGTYPE_p_LuaDummySkill swig_types[41]
+#define SWIGTYPE_p_LuaFilterSkill swig_types[42]
+#define SWIGTYPE_p_LuaFunction swig_types[43]
+#define SWIGTYPE_p_LuaInvaliditySkill swig_types[44]
+#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[45]
+#define SWIGTYPE_p_LuaProhibitSkill swig_types[46]
+#define SWIGTYPE_p_LuaSkillCard swig_types[47]
+#define SWIGTYPE_p_LuaTargetModSkill swig_types[48]
+#define SWIGTYPE_p_LuaTreasure swig_types[49]
+#define SWIGTYPE_p_LuaTrickCard swig_types[50]
+#define SWIGTYPE_p_LuaTriggerSkill swig_types[51]
+#define SWIGTYPE_p_LuaViewAsSkill swig_types[52]
+#define SWIGTYPE_p_LuaWeapon swig_types[53]
+#define SWIGTYPE_p_MaxCardsSkill swig_types[54]
+#define SWIGTYPE_p_OffensiveHorse swig_types[55]
+#define SWIGTYPE_p_OneCardViewAsSkill swig_types[56]
+#define SWIGTYPE_p_Package swig_types[57]
+#define SWIGTYPE_p_PhaseChangeStruct swig_types[58]
+#define SWIGTYPE_p_PindianStruct swig_types[59]
+#define SWIGTYPE_p_Player swig_types[60]
+#define SWIGTYPE_p_ProhibitSkill swig_types[61]
+#define SWIGTYPE_p_QColor swig_types[62]
+#define SWIGTYPE_p_QDialog swig_types[63]
+#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[64]
+#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[65]
+#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[66]
+#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[67]
+#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[68]
+#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[69]
+#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[70]
+#define SWIGTYPE_p_QListT_Player__Place_t swig_types[71]
+#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[72]
+#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[73]
+#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[74]
+#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[75]
+#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[76]
+#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[77]
+#define SWIGTYPE_p_QListT_bool_t swig_types[78]
+#define SWIGTYPE_p_QListT_int_t swig_types[79]
+#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[80]
+#define SWIGTYPE_p_QObject swig_types[81]
+#define SWIGTYPE_p_QSetT_QString_t swig_types[82]
+#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[83]
+#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[84]
+#define SWIGTYPE_p_QString swig_types[85]
+#define SWIGTYPE_p_QStringList swig_types[86]
+#define SWIGTYPE_p_QThread swig_types[87]
+#define SWIGTYPE_p_QVariant swig_types[88]
+#define SWIGTYPE_p_RankModeInfoStruct swig_types[89]
+#define SWIGTYPE_p_RecoverStruct swig_types[90]
+#define SWIGTYPE_p_Room swig_types[91]
+#define SWIGTYPE_p_RoomThread swig_types[92]
+#define SWIGTYPE_p_Scenario swig_types[93]
+#define SWIGTYPE_p_ServerPlayer swig_types[94]
+#define SWIGTYPE_p_Skill swig_types[95]
+#define SWIGTYPE_p_SkillCard swig_types[96]
+#define SWIGTYPE_p_Slash swig_types[97]
+#define SWIGTYPE_p_SlashEffectStruct swig_types[98]
+#define SWIGTYPE_p_TargetModSkill swig_types[99]
+#define SWIGTYPE_p_Treasure swig_types[100]
+#define SWIGTYPE_p_TrickCard swig_types[101]
+#define SWIGTYPE_p_TriggerSkill swig_types[102]
+#define SWIGTYPE_p_TrustAI swig_types[103]
+#define SWIGTYPE_p_ViewAsSkill swig_types[104]
+#define SWIGTYPE_p_Weapon swig_types[105]
+#define SWIGTYPE_p_WrappedCard swig_types[106]
+#define SWIGTYPE_p_lua_State swig_types[107]
+static swig_type_info *swig_types[109];
+static swig_module_info swig_module = {swig_types, 108, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -27204,6 +27205,469 @@ static swig_lua_const_info swig_RankModeInfoStruct_cls_constants[] = {
 static swig_lua_class *swig_RankModeInfoStruct_bases[] = {0};
 static const char *swig_RankModeInfoStruct_base_names[] = {0};
 static swig_lua_class _wrap_class_RankModeInfoStruct = { "RankModeInfoStruct", &SWIGTYPE_p_RankModeInfoStruct,_wrap_new_RankModeInfoStruct, swig_delete_RankModeInfoStruct, swig_RankModeInfoStruct_methods, swig_RankModeInfoStruct_attributes, { "RankModeInfoStruct", swig_RankModeInfoStruct_cls_methods, swig_RankModeInfoStruct_cls_attributes, swig_RankModeInfoStruct_cls_constants }, swig_RankModeInfoStruct_bases, swig_RankModeInfoStruct_base_names };
+
+static int _wrap_new_ArcadeModeInfoStruct(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *result = 0 ;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::ArcadeModeInfoStruct",0,0)
+  result = (ArcadeModeInfoStruct *)new ArcadeModeInfoStruct();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_ArcadeModeInfoStruct,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_valid_set(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::valid",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::valid",1,"ArcadeModeInfoStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("ArcadeModeInfoStruct::valid",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_valid_set",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->valid = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_valid_get(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::valid",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::valid",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_valid_get",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (bool) ((arg1)->valid);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_passed_count_set(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::passed_count",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::passed_count",1,"ArcadeModeInfoStruct *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("ArcadeModeInfoStruct::passed_count",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_passed_count_set",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  if (arg1) (arg1)->passed_count = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_passed_count_get(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::passed_count",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::passed_count",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_passed_count_get",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (int) ((arg1)->passed_count);
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_challenger_set(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QString arg2 ;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::challenger",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::challenger",1,"ArcadeModeInfoStruct *");
+  if(!lua_isstring(L,2)) SWIG_fail_arg("ArcadeModeInfoStruct::challenger",2,"QString");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_challenger_set",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  arg2 = lua_tostring(L, 2); 
+  if (arg1) (arg1)->challenger = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_challenger_get(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::challenger",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::challenger",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_challenger_get",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result =  ((arg1)->challenger);
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_bosses_set(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QStringList arg2 ;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::bosses",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::bosses",1,"ArcadeModeInfoStruct *");
+  if(!lua_istable(L,2)) SWIG_fail_arg("ArcadeModeInfoStruct::bosses",2,"QStringList");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_bosses_set",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  
+  for (size_t i = 0; i < lua_rawlen(L, 2); ++i) {
+    lua_rawgeti(L, 2, i + 1);
+    const char *elem = luaL_checkstring(L, -1);
+    arg2 << elem;
+    lua_pop(L, 1);
+  }
+  
+  if (arg1) (arg1)->bosses = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_bosses_get(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::bosses",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::bosses",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_bosses_get",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result =  ((arg1)->bosses);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_current_level(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::current_level",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::current_level",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_current_level",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->current_level();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_level_count(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::level_count",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::level_count",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_level_count",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (int)(arg1)->level_count();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_current_boss(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::current_boss",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::current_boss",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_current_boss",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (arg1)->current_boss();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_defeated_bosses(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::defeated_bosses",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::defeated_bosses",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_defeated_bosses",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (arg1)->defeated_bosses();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_unknown_bosses(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::unknown_bosses",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::unknown_bosses",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_unknown_bosses",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (arg1)->unknown_bosses();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_toString(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::toString",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::toString",1,"ArcadeModeInfoStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_toString",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  result = (arg1)->toString();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ArcadeModeInfoStruct_fromString(lua_State* L) {
+  int SWIG_arg = 0;
+  ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) 0 ;
+  QString *arg2 = 0 ;
+  bool result;
+  
+  SWIG_check_num_args("ArcadeModeInfoStruct::fromString",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ArcadeModeInfoStruct::fromString",1,"ArcadeModeInfoStruct *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("ArcadeModeInfoStruct::fromString",2,"QString const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ArcadeModeInfoStruct,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_fromString",1,SWIGTYPE_p_ArcadeModeInfoStruct);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QString,0))){
+    SWIG_fail_ptr("ArcadeModeInfoStruct_fromString",2,SWIGTYPE_p_QString);
+  }
+  
+  result = (bool)(arg1)->fromString((QString const &)*arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_ArcadeModeInfoStruct(void *obj) {
+ArcadeModeInfoStruct *arg1 = (ArcadeModeInfoStruct *) obj;
+delete arg1;
+}
+static swig_lua_method swig_ArcadeModeInfoStruct_methods[] = {
+    {"current_level", _wrap_ArcadeModeInfoStruct_current_level}, 
+    {"level_count", _wrap_ArcadeModeInfoStruct_level_count}, 
+    {"current_boss", _wrap_ArcadeModeInfoStruct_current_boss}, 
+    {"defeated_bosses", _wrap_ArcadeModeInfoStruct_defeated_bosses}, 
+    {"unknown_bosses", _wrap_ArcadeModeInfoStruct_unknown_bosses}, 
+    {"toString", _wrap_ArcadeModeInfoStruct_toString}, 
+    {"fromString", _wrap_ArcadeModeInfoStruct_fromString}, 
+    {0,0}
+};
+static swig_lua_attribute swig_ArcadeModeInfoStruct_attributes[] = {
+    { "valid", _wrap_ArcadeModeInfoStruct_valid_get, _wrap_ArcadeModeInfoStruct_valid_set},
+    { "passed_count", _wrap_ArcadeModeInfoStruct_passed_count_get, _wrap_ArcadeModeInfoStruct_passed_count_set},
+    { "challenger", _wrap_ArcadeModeInfoStruct_challenger_get, _wrap_ArcadeModeInfoStruct_challenger_set},
+    { "bosses", _wrap_ArcadeModeInfoStruct_bosses_get, _wrap_ArcadeModeInfoStruct_bosses_set},
+    {0,0,0}
+};
+static swig_lua_attribute swig_ArcadeModeInfoStruct_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_ArcadeModeInfoStruct_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_ArcadeModeInfoStruct_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_ArcadeModeInfoStruct_bases[] = {0};
+static const char *swig_ArcadeModeInfoStruct_base_names[] = {0};
+static swig_lua_class _wrap_class_ArcadeModeInfoStruct = { "ArcadeModeInfoStruct", &SWIGTYPE_p_ArcadeModeInfoStruct,_wrap_new_ArcadeModeInfoStruct, swig_delete_ArcadeModeInfoStruct, swig_ArcadeModeInfoStruct_methods, swig_ArcadeModeInfoStruct_attributes, { "ArcadeModeInfoStruct", swig_ArcadeModeInfoStruct_cls_methods, swig_ArcadeModeInfoStruct_cls_attributes, swig_ArcadeModeInfoStruct_cls_constants }, swig_ArcadeModeInfoStruct_bases, swig_ArcadeModeInfoStruct_base_names };
 
 static int _wrap_new_DamageStruct__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
@@ -73762,6 +74226,7 @@ static void *_p_HorseTo_p_EquipCard(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 }
 static swig_type_info _swigt__p_AI = {"_p_AI", "AI *", 0, 0, (void*)&_wrap_class_AI, 0};
 static swig_type_info _swigt__p_Analeptic = {"_p_Analeptic", "Analeptic *", 0, 0, (void*)&_wrap_class_Analeptic, 0};
+static swig_type_info _swigt__p_ArcadeModeInfoStruct = {"_p_ArcadeModeInfoStruct", "ArcadeModeInfoStruct *", 0, 0, (void*)&_wrap_class_ArcadeModeInfoStruct, 0};
 static swig_type_info _swigt__p_Armor = {"_p_Armor", "Armor *", 0, 0, (void*)&_wrap_class_Armor, 0};
 static swig_type_info _swigt__p_AttackRangeSkill = {"_p_AttackRangeSkill", "AttackRangeSkill *", 0, 0, (void*)&_wrap_class_AttackRangeSkill, 0};
 static swig_type_info _swigt__p_BasicCard = {"_p_BasicCard", "BasicCard *", 0, 0, (void*)&_wrap_class_BasicCard, 0};
@@ -73871,6 +74336,7 @@ static swig_type_info _swigt__p_lua_State = {"_p_lua_State", "lua_State *", 0, 0
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AI,
   &_swigt__p_Analeptic,
+  &_swigt__p_ArcadeModeInfoStruct,
   &_swigt__p_Armor,
   &_swigt__p_AttackRangeSkill,
   &_swigt__p_BasicCard,
@@ -73980,6 +74446,7 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_AI[] = {  {&_swigt__p_AI, 0, 0, 0},  {&_swigt__p_TrustAI, _p_TrustAITo_p_AI, 0, 0},  {&_swigt__p_LuaAI, _p_LuaAITo_p_AI, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Analeptic[] = {  {&_swigt__p_Analeptic, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ArcadeModeInfoStruct[] = {  {&_swigt__p_ArcadeModeInfoStruct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Armor[] = {  {&_swigt__p_Armor, 0, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_Armor, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_AttackRangeSkill[] = {  {&_swigt__p_AttackRangeSkill, 0, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_AttackRangeSkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicCard[] = {  {&_swigt__p_Slash, _p_SlashTo_p_BasicCard, 0, 0},  {&_swigt__p_Analeptic, _p_AnalepticTo_p_BasicCard, 0, 0},  {&_swigt__p_BasicCard, 0, 0, 0},  {&_swigt__p_LuaBasicCard, _p_LuaBasicCardTo_p_BasicCard, 0, 0},{0, 0, 0, 0}};
@@ -74089,6 +74556,7 @@ static swig_cast_info _swigc__p_lua_State[] = {  {&_swigt__p_lua_State, 0, 0, 0}
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AI,
   _swigc__p_Analeptic,
+  _swigc__p_ArcadeModeInfoStruct,
   _swigc__p_Armor,
   _swigc__p_AttackRangeSkill,
   _swigc__p_BasicCard,

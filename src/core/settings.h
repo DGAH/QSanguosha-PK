@@ -86,6 +86,7 @@ public:
 	int RankModeTotalTimes;
 	int RankModeWarmTimes;
 	int RankModeColdTimes;
+	ArcadeModeInfoStruct ArcadeModeInfo;
 
     // consts
     static const int S_SURRENDER_REQUEST_MIN_INTERVAL;
