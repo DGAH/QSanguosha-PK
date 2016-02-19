@@ -654,7 +654,10 @@ public:
 		return player->getMark("@crXianZhuoMark") > 0;
 	}
 };
-
+/*
+ * 特定技能
+ */
+// 骁袭 ：部分KOF模式中用于替换技能“马术”
 class Xiaoxi : public TriggerSkill
 {
 public:
@@ -679,7 +682,39 @@ public:
 		return false;
 	}
 };
+// 格挡 ： “格斗之王”模式启用援护规则时提供的默认援护技能
+class GeDang : public TriggerSkill
+{
+public:
+	GeDang() :TriggerSkill("gedang")
+	{
+		events << DamageForseen;
+	}
 
+	virtual bool trigger(TriggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
+	{
+		DamageStruct damage = data.value<DamageStruct>();
+		if (damage.from && damage.from != player){
+			if (player->askForSkillInvoke(this, data)) {
+				player->loseMark("@striker");
+				LogMessage msg;
+				msg.type = "#striker";
+				msg.from = player;
+				msg.to.append(damage.from);
+				msg.arg = damage.damage;
+				room->sendLog(msg);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	virtual bool triggerable(ServerPlayer *target) const
+	{
+		return target->getMark("@striker") > 0;
+	}
+};
+// 非锁定技无效
 class NonCompulsoryInvalidity : public InvaliditySkill
 {
 public:
@@ -757,6 +792,6 @@ void StandardPackage::addGenerals()
 	addMetaObject<HuanhuoCard>();
 	addMetaObject<XianzhuoCard>();
 
-    skills << new Xiaoxi << new NonCompulsoryInvalidity;
+    skills << new Xiaoxi << new GeDang << new NonCompulsoryInvalidity;
 }
 
