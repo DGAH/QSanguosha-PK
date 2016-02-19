@@ -380,7 +380,7 @@ signals:
 	// 02_rank
 	void rank_mode_game_over(RankModeInfoStruct info, char result);
 	// 07_arcade
-	void arcade_mode_game_over(ArcadeModeInfoStruct info);
+	void arcade_mode_game_over(ArcadeModeInfoStruct info, bool standoff, bool win);
 };
 
 extern Client *ClientInstance;

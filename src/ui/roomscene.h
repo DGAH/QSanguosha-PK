@@ -451,15 +451,22 @@ signals:
 private:
 	// 02_rank
 	RankModeInfoStruct rank_mode_info;
+	// 07_arcade
+	ArcadeModeInfoStruct arcade_mode_info;
 
 signals:
 	// 02_rank
 	void rank_mode_goto_next_game(RankModeInfoStruct info, QString task);
+	// 07_arcade
+	void arcade_mode_goto_next_game(ArcadeModeInfoStruct info, QString task);
 
 public slots:
 	// 02_rank
 	void onRankModeGameOver(RankModeInfoStruct info, char result);
 	void onRankModeWillGotoNextGame();
+	// 07_arcade
+	void onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win);
+	void onArcadeModeWillGotoNextGame();
 };
 
 extern RoomScene *RoomSceneInstance;

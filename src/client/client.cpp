@@ -1296,6 +1296,20 @@ void Client::gameOver(const QVariant &arg)
 			return;
 		}
 	}
+	else if (ServerInfo.GameMode == "07_arcade") {
+		const ClientPlayer *challenger = NULL;
+		foreach(const ClientPlayer *player, players) {
+			if (player->getTask() == "challenger") {
+				challenger = player;
+				break;
+			}
+		}
+		if (challenger) {
+			bool win = challenger->property("win").toBool();
+			emit this->arcade_mode_game_over(this->m_arcade_info, stand_off, win);
+			return;
+		}
+	}
 	
 	if (stand_off)
 		emit standoff();

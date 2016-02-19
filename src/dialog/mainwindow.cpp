@@ -348,8 +348,10 @@ void MainWindow::enterRoom()
     connect(room_scene, SIGNAL(restart()), this, SLOT(startConnection()));
     connect(room_scene, SIGNAL(return_to_start()), this, SLOT(gotoStartScene()));
     connect(room_scene, SIGNAL(game_over_dialog_rejected()), this, SLOT(enableDialogButtons()));
-
+	// 02_rank
 	connect(room_scene, SIGNAL(rank_mode_goto_next_game(RankModeInfoStruct, QString)), this, SLOT(rankModeRestart(RankModeInfoStruct, QString)));
+	// 07_arcade
+	connect(room_scene, SIGNAL(arcade_mode_goto_next_game(ArcadeModeInfoStruct, QString)), this, SLOT(arcadeModeRestart(ArcadeModeInfoStruct, QString)));
 
     gotoScene(room_scene);
 }
@@ -943,6 +945,18 @@ void MainWindow::rankModeRestart(RankModeInfoStruct info, QString task)
 	Client *client = new Client(this);
 	client->setTask(task);
 	client->setRankModeInfo(info);
+
+	connect(client, SIGNAL(version_checked(QString, QString)), SLOT(checkVersion(QString, QString)));
+	connect(client, SIGNAL(error_message(QString)), SLOT(networkError(QString)));
+}
+
+// 07_arcade
+
+void MainWindow::arcadeModeRestart(ArcadeModeInfoStruct info, QString task)
+{
+	Client *client = new Client(this);
+	client->setTask(task);
+	client->setArcadeModeInfo(info);
 
 	connect(client, SIGNAL(version_checked(QString, QString)), SLOT(checkVersion(QString, QString)));
 	connect(client, SIGNAL(error_message(QString)), SLOT(networkError(QString)));

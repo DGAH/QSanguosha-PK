@@ -183,6 +183,8 @@ RoomScene::RoomScene(QMainWindow *main_window)
 
 	// 02_rank
 	connect(ClientInstance, SIGNAL(rank_mode_game_over(RankModeInfoStruct, char)), this, SLOT(onRankModeGameOver(RankModeInfoStruct, char)));
+	// 07_arcade
+	connect(ClientInstance, SIGNAL(arcade_mode_game_over(ArcadeModeInfoStruct, bool, bool)), this, SLOT(onArcadeModeGameOver(ArcadeModeInfoStruct, bool, bool)));
 
     guanxing_box = new GuanxingBox;
     guanxing_box->hide();
@@ -4750,4 +4752,90 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 void RoomScene::onRankModeWillGotoNextGame()
 {
 	emit this->rank_mode_goto_next_game(this->rank_mode_info, Self->getTask());
+}
+
+// 07_arcade
+
+void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win)
+{
+	log_box->append(QString(tr("<font color='%1'>---------- Game Finish ----------</font>").arg(Config.TextEditColor.name())));
+
+	m_roomMutex.lock();
+	freeze();
+
+	QDialog *dialog = new QDialog(main_window);
+	bool passed = false;
+	bool will_continue = false;
+
+	if (standoff) {
+		passed = (qrand() % 2 == 1);
+		dialog->setWindowTitle(tr("Standoff"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("standoff");
+#endif
+	}
+	else if (win) {
+		passed = true;
+		dialog->setWindowTitle(tr("Victory"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("win");
+#endif
+	}
+	else {
+		passed = false;
+		dialog->setWindowTitle(tr("Failure"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("lose");
+#endif
+	}
+
+	bool final_boss = (info.current_level() == info.level_count());
+	if (passed) {
+		info.passed_count++;
+		will_continue = !final_boss;
+	}
+
+	QHBoxLayout *button_layout = new QHBoxLayout;
+	button_layout->addStretch();
+
+	if (will_continue) {
+		QPushButton *next_button = new QPushButton(tr("Next game"));
+		connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(next_button, SIGNAL(clicked()), this, SLOT(onArcadeModeWillGotoNextGame()));
+		button_layout->addWidget(next_button);
+	}
+	else {
+		QPushButton *restart_button = new QPushButton(tr("Restart Game"));
+		connect(restart_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(restart_button, SIGNAL(clicked()), this, SIGNAL(restart()));
+		button_layout->addWidget(restart_button);
+	}
+
+	QPushButton *save_button = new QPushButton(tr("Save record"));
+	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
+	button_layout->addWidget(save_button);
+
+	QPushButton *cancel_button = NULL;
+	if (will_continue)
+		cancel_button = new QPushButton(tr("Give up"));
+	else
+		cancel_button = new QPushButton(tr("Return to main menu"));
+	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(reject()));
+	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
+	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
+	button_layout->addWidget(cancel_button);
+
+	QVBoxLayout *main_layout = new QVBoxLayout;
+	main_layout->addLayout(button_layout);
+	dialog->setLayout(main_layout);
+
+	this->arcade_mode_info = info;
+
+	m_roomMutex.unlock();
+	dialog->exec();
+}
+
+void RoomScene::onArcadeModeWillGotoNextGame()
+{
+	emit this->arcade_mode_goto_next_game(this->arcade_mode_info, Self->getTask());
 }

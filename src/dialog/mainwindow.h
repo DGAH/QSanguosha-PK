@@ -70,7 +70,10 @@ private:
 
 public slots:
     void startConnection();
+	// 02_rank
 	void rankModeRestart(RankModeInfoStruct info, QString task);
+	// 07_arcade
+	void arcadeModeRestart(ArcadeModeInfoStruct info, QString task);
 
 private slots:
     void on_actionAbout_GPLv3_triggered();
