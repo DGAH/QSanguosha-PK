@@ -4764,6 +4764,7 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	freeze();
 
 	QDialog *dialog = new QDialog(main_window);
+	dialog->resize(800, 600);
 	bool passed = false;
 	bool will_continue = false;
 
@@ -4795,6 +4796,82 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 		will_continue = !final_boss;
 	}
 
+	QVBoxLayout *main_layout = new QVBoxLayout;
+
+	QLabel *super_message = NULL;
+	if (final_boss && passed)
+		super_message = new QLabel(tr("Congratulations!"));
+	else if (!passed)
+		super_message = new QLabel(tr("Game Over!"));
+
+	if (super_message) {
+		super_message->setAlignment(Qt::AlignCenter);
+		QFont font = this->font();
+		font.setPointSize(72);
+		super_message->setFont(font);
+		main_layout->addWidget(super_message);
+	}
+
+	QGroupBox *hint_box = new QGroupBox;
+	hint_box->setTitle(tr("voiceover"));
+	QVBoxLayout *hint_box_layout = new QVBoxLayout;
+	QLabel *voice = NULL;
+	if (standoff) {
+		if (passed) {
+			voice = new QLabel(tr("Although you did not defeat your opponent, the boss still let you pass."));
+		}
+		else {
+			voice = new QLabel(tr("You cannot defeat the boss, so the game is over."));
+		}
+	}
+	else if (passed) {
+		voice = new QLabel(tr("You have won this game! Good job!"));
+	}
+	else {
+		voice = new QLabel(tr("I'm sorry to tell you that you just lost this game. Good luck next time."));
+	}
+	hint_box_layout->addWidget(voice);
+	hint_box->setLayout(hint_box_layout);
+	main_layout->addWidget(hint_box);
+
+	QLabel *this_hint = new QLabel(tr("current game information:"));
+	QHBoxLayout *this_hint_layout = new QHBoxLayout;
+	this_hint_layout->addWidget(this_hint);
+	this_hint_layout->addStretch();
+	main_layout->addLayout(this_hint_layout);
+
+	QTableWidget *this_game = new QTableWidget;
+	fillTable(this_game, ClientInstance->getPlayers());
+	this_game->setMinimumHeight(120);
+	main_layout->addWidget(this_game);
+
+	QLabel *progress_hint = new QLabel(tr("game progress:"));
+	QHBoxLayout *progress_hint_layout = new QHBoxLayout;
+	progress_hint_layout->addWidget(progress_hint);
+	progress_hint_layout->addStretch();
+	main_layout->addLayout(progress_hint_layout);
+
+	QListWidget *progress = new QListWidget;
+
+	for (int index = 0; index < info.passed_count; index++) {
+		QString name = info.bosses.at(index);
+		const General *general = Sanguosha->getGeneral(name);
+		QIcon icon(G_ROOM_SKIN.getGeneralPixmap(name, QSanRoomSkin::S_GENERAL_ICON_SIZE_TINY));
+		QString text = Sanguosha->translate(name);
+		QListWidgetItem *item = new QListWidgetItem(icon, text, progress);
+		item->setToolTip(general->getSkillDescription(true));
+		item->setSizeHint(QSize(60, 60));
+	}
+	for (int index = info.passed_count; index < info.level_count(); index++) {
+		QIcon icon(G_ROOM_SKIN.getGeneralPixmap("anjiang", QSanRoomSkin::S_GENERAL_ICON_SIZE_TINY));
+		QListWidgetItem *item = new QListWidgetItem(icon, tr("???"), progress);
+		item->setSizeHint(QSize(60, 60));
+	}
+	progress->setViewMode(QListView::IconMode);
+	progress->setDragDropMode(QListView::NoDragDrop);
+	progress->setResizeMode(QListView::Adjust);
+	main_layout->addWidget(progress);
+
 	QHBoxLayout *button_layout = new QHBoxLayout;
 	button_layout->addStretch();
 
@@ -4825,8 +4902,8 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
 	button_layout->addWidget(cancel_button);
 
-	QVBoxLayout *main_layout = new QVBoxLayout;
 	main_layout->addLayout(button_layout);
+
 	dialog->setLayout(main_layout);
 
 	this->arcade_mode_info = info;
