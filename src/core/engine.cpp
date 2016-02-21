@@ -87,7 +87,7 @@ Engine::Engine()
 	modes["03_kof"] = tr("KOF (Classical)");
 	modes["04_kof_2013"] = tr("KOF (2013 Rule)");
 	modes["05_kof_wzzz"] = tr("KOF (Online Rule)");
-	modes["06_kof_help"] = tr("KOF (DGAH Rule)");
+	modes["06_teams"] = tr("KOF (DGAH Rule)");
 	modes["07_arcade"] = tr("Arcade");
 	modes["08_endless"] = tr("Endless");
 
