@@ -4658,7 +4658,7 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	QHeaderView *left_header = history_screen->verticalHeader();
 	left_header->setHidden(true);
 	int row = 0;
-	for each (QChar c in info.record)
+	foreach (QChar c, info.record)
 	{
 		char flag = c.toLatin1();
 		QString index = QString::number(row + 1);

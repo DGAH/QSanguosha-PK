@@ -814,7 +814,7 @@ void ServerDialog::updateLevelButtons(const QStringList &levels, const QString &
 		delete button;
 	}
 	int row = 0, column = 0;
-	for each (QString name in levels)
+	foreach (QString name, levels)
 	{
 		LevelButton *button = new LevelButton(Sanguosha->translate(name));
 		button->setLevelName(name);

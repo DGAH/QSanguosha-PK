@@ -163,11 +163,11 @@ void XianzhuoCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &
 	room->doSuperLightbox("cryuji", "crxianzhuo");
 	source->loseMark("@crXianZhuoMark");
 	QList<ServerPlayer *> others = room->getOtherPlayers(source);
-	for each (ServerPlayer *target in others)
+	foreach (ServerPlayer *target, others)
 	{
 		target->throwAllHandCardsAndEquips();
 	}
-	for each (ServerPlayer *target in others)
+	foreach (ServerPlayer *target, others)
 	{
 		room->loseMaxHp(target);
 	}
