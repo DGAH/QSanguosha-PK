@@ -261,7 +261,6 @@ void Engine::addPackage(Package *package)
     QList<General *> all_generals = package->findChildren<General *>();
     foreach (General *general, all_generals) {
 		addGeneral(general);
-        if (isGeneralHidden(general->objectName())) continue;
     }
 
     QList<const QMetaObject *> metas = package->getMetaObjects();
@@ -382,6 +381,15 @@ int Engine::getGeneralCount(bool include_banned, const QString &kingdom) const
     }
 
     return total;
+}
+
+QStringList Engine::getGeneralNames() const
+{
+	QStringList names;
+	foreach (const General *general, this->findChildren<const General *>()) {
+		names << general->objectName();
+	}
+	return names;
 }
 
 void Engine::addGeneralLevel(GeneralLevel *level)

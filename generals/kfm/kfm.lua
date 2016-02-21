@@ -8,6 +8,7 @@
 	性别：男
 	体力上限：5勾玉
 ]]--****************************************************************
+--[[兼容式写法
 general = sgs.General("kfm", "qun", 5)
 --翻译信息
 sgs.LoadTranslationTable{
@@ -16,3 +17,12 @@ sgs.LoadTranslationTable{
 }
 --创建完成
 return general
+]]--
+--推荐写法：
+return {
+	name = "kfm",
+	kingdom = "qun",
+	maxhp = 5,
+	title = "示例武将",
+	translation = "功夫人",
+}

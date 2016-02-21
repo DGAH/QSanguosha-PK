@@ -668,9 +668,123 @@ function sgs.CreateGeneralLevel(spec)
 end
 
 function sgs.CreateLuaGeneral(info)
+	if type(info.name) == "string" and type(info.kingdom) == "string" then
+		local pack = nil
+		if type(info.package) == "string" then
+			pack = sgs.Sanguosha:getPackage(info.package)
+		elseif type(info.package) == "userdata" and info.package:inherits("Package") then
+			pack = info.package
+		end
+		local maxhp = 4
+		if type(info.maxhp) == "number" then
+			maxhp = info.maxhp
+		elseif type(info.maxhp) == "string" then
+			maxhp = tonumber(info.maxhp)
+		end
+		local gender = sgs.General_Male
+		if type(info.gender) == "number" then
+			gender = info.gender
+		elseif info.female and type(info.female) == "boolean" then
+			gender = sgs.General_Female
+		end
+		local male = ( gender == sgs.General_Male )
+		local hidden = false
+		if type(info.hidden) == "boolean" then
+			hidden = info.hidden
+		end
+		local never_shown = false
+		if type(info.never_shown) == "boolean" then
+			never_shown = info.never_shown
+		end
+		local general = nil
+		if pack then
+			general = sgs.General(pack, info.name, info.kingdom, maxhp, male, hidden, never_shown)
+		else
+			general = sgs.General(info.name, info.kingdom, maxhp, male, hidden, never_shown)
+		end
+		if not male then
+			general:setGender(gender)
+		end
+		if type(info.real_name) == "string" and info.real_name ~= "" then
+			general:setRealName(info.real_name)
+		end
+		if type(info.order) == "number" and info.order > 0 and info.order <= 10 then
+			general:setOrder(info.order)
+		end
+		if type(info.skills) == "table" then
+			for _,skill in ipairs(info.skills) do
+				if type(skill) == "string" then
+					general:addSkill(skill)
+				elseif type(skill) == "useradata" and skill:inherits("Skill") then
+					if sgs.Sanguosha:getSkill(skill:objectName()) then
+						general:addSkill(skill:objectName())
+					else
+						general:addSkill(skill)
+					end
+				end
+			end
+		elseif type(info.skills) == "string" then
+			local skills = info.skills:split("+")
+			for _,skill in ipairs(skills) do
+				general:addSkill(skill)
+			end
+		end
+		if type(info.translations) == "table" then
+			for key, value in pairs(info.translations) do
+				sgs.AddTranslationEntry(key, value)
+			end
+		end
+		if type(info.translation) == "string" then
+			sgs.AddTranslationEntry(info.name, info.translation)
+		end
+		if type(info.title) == "string" then
+			sgs.AddTranslationEntry("#"..info.name, info.title)
+		end
+		if type(info.show_name) == "string" then
+			sgs.AddTranslationEntry("&"..info.name, info.show_name)
+		end
+		if type(info.designer) == "string" then
+			sgs.AddTranslationEntry("designer:"..info.name, info.designer)
+		end
+		if type(info.cv) == "string" then
+			sgs.AddTranslationEntry("cv:"..info.name, info.cv)
+		end
+		if type(info.illustrator) == "string" then
+			sgs.AddTranslationEntry("illustrator:"..info.name, info.illustrator)
+		end
+		if type(info.last_word) == "string" then
+			sgs.AddTranslationEntry("~"..info.name, info.last_word)
+		end
+		return general
+	end
+	return info
 end
 
 function sgs.CreateLuaPackage(info)
+	if type(info.name) == "string" then
+		local category = sgs.Package_GeneralPack
+		if type(info.category) == "number" then
+			category = info.category
+		elseif info.GeneralPack and type(info.GeneralPack) == "boolean" then
+			category = sgs.Package_GeneralPack
+		elseif info.CardPack and type(info.CardPack) == "boolean" then
+			category = sgs.Package_CardPack
+		elseif info.SpecialPack and type(info.SpecialPack) == "boolean" then
+			category = sgs.Package_SpecialPack
+		end
+		local pack = sgs.Package(info.name, category)
+		sgs.SetConfig("DebugInfo", type(pack))
+		if type(info.translations) == "table" then
+			for key, value in pairs(info.translations) do
+				sgs.AddTranslationEntry(key, value)
+			end
+		end
+		if type(info.translation) == "string" then
+			sgs.AddTranslationEntry(info.name, info.translation)
+		end
+		return pack
+	end
+	return info
 end
 
 function sgs.LoadTranslationTable(t)

@@ -38528,6 +38528,40 @@ fail:
 }
 
 
+static int _wrap_Engine_getGeneralNames(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGeneralNames",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGeneralNames",1,"Engine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGeneralNames",1,SWIGTYPE_p_Engine);
+  }
+  
+  result = ((Engine const *)arg1)->getGeneralNames();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Engine_getSkill(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -40628,6 +40662,7 @@ static swig_lua_method swig_Engine_methods[] = {
     {"getGeneral", _wrap_Engine_getGeneral}, 
     {"getGeneralCount", _wrap_Engine_getGeneralCount}, 
     {"addGeneral", _wrap_Engine_addGeneral}, 
+    {"getGeneralNames", _wrap_Engine_getGeneralNames}, 
     {"getSkill", _wrap_Engine_getSkill}, 
     {"getTriggerSkill", _wrap_Engine_getTriggerSkill}, 
     {"getViewAsSkill", _wrap_Engine_getViewAsSkill}, 

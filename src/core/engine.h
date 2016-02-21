@@ -79,6 +79,7 @@ public:
     const General *getGeneral(const QString &name) const;
     int getGeneralCount(bool include_banned = false, const QString &kingdom = QString()) const;
 	void addGeneral(General *general);
+	QStringList getGeneralNames() const;
     const Skill *getSkill(const QString &skill_name) const;
     const Skill *getSkill(const EquipCard *card) const;
     QStringList getSkillNames() const;
