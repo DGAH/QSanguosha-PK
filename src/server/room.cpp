@@ -2050,7 +2050,7 @@ void Room::prepareForStart()
 	else if (mode.contains("kof")) {
 		return;
 	}
-	else if (mode == "02_rank") {
+	else if (mode == "02_rank" || mode == "07_arcade") {
 		assignRoles();
 		adjustSeats();
 		return;
