@@ -760,6 +760,8 @@ function sgs.CreateLuaGeneral(info)
 	return info
 end
 
+lua_package_items = {}
+
 function sgs.CreateLuaPackage(info)
 	if type(info.name) == "string" then
 		local category = sgs.Package_GeneralPack
@@ -781,6 +783,30 @@ function sgs.CreateLuaPackage(info)
 		end
 		if type(info.translation) == "string" then
 			sgs.AddTranslationEntry(info.name, info.translation)
+		end
+		if type(info.generals) == "table" then
+			for _,general in ipairs(info.generals) do
+				if type(general) == "userdata" and general:inherits("General") then
+					pack:addGeneral(general)
+					table.insert(lua_package_items, general)
+				end
+			end
+		end
+		if type(info.cards) == "table" then
+			for _,card in ipairs(info.cards) do
+				if type(card) == "userdata" and card:inherits("Card") then
+					pack:addCard(card)
+					table.insert(lua_package_items, card)
+				end
+			end
+		end
+		if type(info.skills) == "table" then
+			for _,skill in ipairs(info.skills) do
+				if type(skill) == "userdata" and skill:inherits("Skill") then
+					pack:addSkill(skill)
+					table.insert(lua_package_items, skill)
+				end
+			end
 		end
 		return pack
 	end

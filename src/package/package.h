@@ -4,6 +4,7 @@
 class Skill;
 class Card;
 class Player;
+class General;
 
 #include <QObject>
 #include <QHash>
@@ -72,6 +73,21 @@ public:
     {
         related_skills.insertMulti(main_skill, related_skill);
     }
+
+	inline void addGeneral(General *general)
+	{
+		((QObject *)general)->setParent(this);
+	}
+
+	inline void addCard(Card *card)
+	{
+		((QObject *)card)->setParent(this);
+	}
+
+	inline void addSkill(Skill *skill)
+	{
+		skills << skill;
+	}
 
 protected:
     QList<const QMetaObject *> metaobjects;
