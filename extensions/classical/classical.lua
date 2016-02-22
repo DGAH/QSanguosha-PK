@@ -51,6 +51,7 @@ CaoCao = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	order = 4,
 	last_word = "霸业未成、未成啊！",
+	death_audio = "caocao/caocao.ogg",
 }
 --[[****************************************************************
 	称号：狼顾之鬼
@@ -76,6 +77,7 @@ SiMaYi = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 3,
 	last_word = "难道真的是天命难违？",
+	death_audio = "simayi/simayi.ogg",
 }
 --[[****************************************************************
 	称号：独眼的罗刹
@@ -95,7 +97,8 @@ XiaHouDun = sgs.CreateLuaGeneral{
 	title = "独眼的罗刹",
 	kingdom = "wei",
 	order = 3,
-	last_word = "两边都看不见啦……",
+	last_word = "两、两边都看不见啦……",
+	death_audio = "xiahoudun/xiahoudun.ogg",
 }
 --[[****************************************************************
 	称号：前将军
@@ -116,6 +119,7 @@ ZhangLiao = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	order = 1,
 	last_word = "真没想到……",
+	death_audio = "zhangliao/zhangliao.ogg",
 }
 --[[****************************************************************
 	称号：虎痴
@@ -136,6 +140,7 @@ XuChu = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	order = 1,
 	last_word = "冷……好冷啊！",
+	death_audio = "xuchu/xuchu.ogg",
 }
 --[[****************************************************************
 	称号：早终的先知
@@ -160,7 +165,8 @@ GuoJia = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	maxhp = 3,
 	order = 4,
-	last_word = "咳咳、咳、咳、咳、咳……",
+	last_word = "咳咳咳、呃咳咳咳……",
+	death_audio = "guojia/guojia.ogg",
 }
 --[[****************************************************************
 	称号：薄幸的美人
@@ -214,6 +220,7 @@ LiuBei = sgs.CreateLuaGeneral{
 	kingdom = "shu",
 	order = 2,
 	last_word = "这就是桃园么？",
+	death_audio = "liubei/liubei.ogg",
 }
 --[[****************************************************************
 	称号：美髯公
@@ -234,6 +241,7 @@ GuanYu = sgs.CreateLuaGeneral{
 	kingdom = "shu",
 	order = 4,
 	last_word = "什么？此地叫麦城？",
+	death_audio = "guanyu/guanyu.ogg",
 }
 --[[****************************************************************
 	称号：万夫不当
@@ -255,6 +263,7 @@ ZhangFei = sgs.CreateLuaGeneral{
 	order = 2,
 	skills = "paoxiao",
 	last_word = "实在是杀不动啦！",
+	death_audio = "zhangfei/zhangfei.ogg",
 }
 --[[****************************************************************
 	称号：迟暮的丞相
@@ -330,6 +339,7 @@ MaChao = sgs.CreateLuaGeneral{
 	kingdom = "shu",
 	order = 7,
 	last_word = "（马蹄声）",
+	death_audio = "machao/machao.ogg",
 }
 --[[****************************************************************
 	称号：归隐的杰女
@@ -356,6 +366,7 @@ HuangYueYing = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 5,
 	last_word = "亮！",
+	death_audio = "huangyueying/huangyueying.ogg",
 }
 --[[****************************************************************
 	称号：年轻的贤君
@@ -403,6 +414,7 @@ GanNing = sgs.CreateLuaGeneral{
 	kingdom = "wu",
 	order = 6,
 	last_word = "二十年后，又是一条好汉！",
+	death_audio = "ganning/ganning.ogg",
 }
 --[[****************************************************************
 	称号：白衣渡江
@@ -423,6 +435,7 @@ LvMeng = sgs.CreateLuaGeneral{
 	kingdom = "wu",
 	order = 5,
 	last_word = "呃……被看穿了吗？",
+	death_audio = "lvmeng/lvmeng.ogg",
 }
 --[[****************************************************************
 	称号：轻身为国
@@ -443,6 +456,7 @@ HuangGai = sgs.CreateLuaGeneral{
 	kingdom = "wu",
 	order = 3,
 	last_word = "失血过多了……",
+	death_audio = "huanggai/huanggai.ogg",
 }
 --[[****************************************************************
 	称号：大都督
@@ -468,6 +482,7 @@ ZhouYu = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 7,
 	last_word = "既生瑜，何生……",
+	death_audio = "zhouyu/zhouyu.ogg",
 }
 --[[****************************************************************
 	称号：矜持之花
@@ -494,6 +509,7 @@ DaQiao = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 1,
 	last_word = "伯符……我去了……",
+	death_audio = "daqiao/daqiao.ogg",
 }
 --[[****************************************************************
 	称号：儒生雄才
@@ -519,6 +535,7 @@ LuXun = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 2,
 	last_word = "我还是太年轻了……",
+	death_audio = "luxun/luxun.ogg",
 }
 --[[****************************************************************
 	称号：弓腰姬
@@ -545,6 +562,7 @@ SunShangXiang = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 4,
 	last_word = "不……还不可以死……",
+	death_audio = "sunshangxiang/sunshangxiang.ogg",
 }
 --[[****************************************************************
 	称号：神医
@@ -570,6 +588,7 @@ HuaTuo = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 5,
 	last_word = "医者不能自医啊……",
+	death_audio = "huatuo/huatuo.ogg",
 }
 --[[****************************************************************
 	称号：武的化身
@@ -591,6 +610,7 @@ LvBu = sgs.CreateLuaGeneral{
 	order = 7,
 	skills = "wushuang",
 	last_word = "不可能！",
+	death_audio = "lvbu/lvbu.ogg",
 }
 --[[****************************************************************
 	称号：绝世的舞姬
@@ -617,6 +637,7 @@ DiaoChan = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 7,
 	last_word = "父亲大人……对不起……",
+	death_audio = "diaochan/diaochan.ogg",
 }
 --[[****************************************************************
 	经典标准版武将包

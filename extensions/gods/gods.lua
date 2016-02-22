@@ -38,6 +38,7 @@ GuanYu = sgs.CreateLuaGeneral{
 	order = 2,
 	cv = "奈何",
 	last_word = "吾一世英明，竟葬于小人之手！",
+	death_audio = "guanyu/shenguanyu.ogg",
 }
 --[[****************************************************************
 	称号：圣光之国士
@@ -66,6 +67,7 @@ LvMeng = sgs.CreateLuaGeneral{
 	order = 10,
 	cv = "宇文天启",
 	last_word = "死去方知万事空……",
+	death_audio = "lvmeng/shenlvmeng.ogg",
 }
 --[[****************************************************************
 	称号：赤壁的火神
@@ -93,6 +95,7 @@ ZhouYu = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "血桜の涙",
 	last_word = "残炎黯然，弦歌不复……",
+	death_audio = "zhouyu/shenzhouyu.ogg",
 }
 --[[****************************************************************
 	称号：赤壁的妖术师
@@ -125,6 +128,7 @@ ZhuGeLiang = sgs.CreateLuaGeneral{
 	order = 9,
 	cv = "背后灵",
 	last_word = "吾命将至，再不能临阵讨贼矣……",
+	death_audio = "zhugeliang/shenzhugeliang.ogg",
 }
 --[[****************************************************************
 	称号：超世之英杰
@@ -153,6 +157,7 @@ CaoCao = sgs.CreateLuaGeneral{
 	order = 2,
 	cv = "倚天の剑",
 	last_word = "神龟虽寿，犹有竟时；腾蛇乘雾，终为土灰……",
+	death_audio = "caocao/shencaocao.ogg",
 }
 --[[****************************************************************
 	称号：修罗之道
@@ -193,6 +198,7 @@ LvBu = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "笑傲糨糊",
 	last_word = "大耳贼最叵信！啊……",
+	death_audio = "lvbu/shenlvbu.ogg",
 }
 --[[****************************************************************
 	称号：晋国之祖
@@ -228,6 +234,7 @@ SiMaYi = sgs.CreateLuaGeneral{
 	order = 9,
 	cv = "泥马",
 	last_word = "我已谋划至此，奈何……",
+	death_audio = "simayi/shensimayi.ogg",
 }
 --[[****************************************************************
 	称号：神威如龙
@@ -257,6 +264,7 @@ ZhaoYun = sgs.CreateLuaGeneral{
 	hidden = true,
 	cv = "猎狐",
 	last_word = "血染麟甲，龙坠九天……",
+	death_audio = "zhaoyun/shenzhaoyun.ogg",
 }
 --[[****************************************************************
 	神武将包

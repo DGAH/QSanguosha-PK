@@ -64,6 +64,9 @@ public:
     QString getPackage() const;
     QString getSkillDescription(bool include_name = false) const;
 
+	void addResourcePath(const char *key, const char *path);
+	QString getResourcePath(const char *key) const;
+
     void lastWord() const;
 };
 

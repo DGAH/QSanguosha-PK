@@ -32,6 +32,7 @@ XuHuang = sgs.CreateLuaGeneral{
 	cv = "木津川",
 	illustrator = "Tuu.",
 	last_word = "生遇明主，死亦无憾！",
+	death_audio = "xuhuang/xuhuang.ogg",
 }
 --[[****************************************************************
 	称号：霸业的继承者
@@ -63,6 +64,7 @@ CaoPi = sgs.CreateLuaGeneral{
 	cv = "V7，殆尘，烨子，蒲小猫",
 	illustrator = "Sonia Tang",
 	last_word = "嗟我白发，生一何早；长吟永叹，怀我圣考……",
+	death_audio = "caopi/caopi.ogg",
 }
 --[[****************************************************************
 	称号：南蛮王
@@ -89,6 +91,7 @@ MengHuo = sgs.CreateLuaGeneral{
 	cv = "墨染の飞猫",
 	illustrator = "废柴男",
 	last_word = "荆民之地，再无主矣！",
+	death_audio = "menghuo/menghuo.ogg",
 }
 --[[****************************************************************
 	称号：野性的女王
@@ -115,7 +118,8 @@ ZhuRong = sgs.CreateLuaGeneral{
 	order = 4,
 	cv = "妙妙",
 	illustrator = "废柴男",
-	last_word = "火神湮世，妾身去矣！",
+	last_word = "大王，火神湮世，妾身去矣！",
+	death_audio = "zhurong/zhurong.ogg",
 }
 --[[****************************************************************
 	称号：武烈帝
@@ -138,6 +142,7 @@ SunJian = sgs.CreateLuaGeneral{
 	cv = "木津川",
 	illustrator = "LiuHeng",
 	last_word = "死去何愁无勇将，英魂依旧卫江东……",
+	death_audio = "sunjian/sunjian.ogg",
 }
 --[[****************************************************************
 	称号：独断的外交家
@@ -165,6 +170,7 @@ LuSu = sgs.CreateLuaGeneral{
 	cv = "听雨",
 	illustrator = "LiuHeng",
 	last_word = "荆湘未还，虽死难安……",
+	death_audio = "lusu/lusu.ogg",
 }
 --[[****************************************************************
 	称号：魔王
@@ -200,6 +206,7 @@ DongZhuo = sgs.CreateLuaGeneral{
 	cv = "やまもとみ，迷宫女友(肉林2)",
 	illustrator = "小冷",
 	last_word = "吾儿奉先何在？呃……",
+	death_audio = "dongzhuo/dongzhuo.ogg",
 }
 --[[****************************************************************
 	称号：冷酷的毒士
@@ -230,6 +237,7 @@ JiaXu = sgs.CreateLuaGeneral{
 	order = 3,
 	cv = "落凤一箭",
 	last_word = "大势已去，吾不能自保矣……",
+	death_audio = "jiaxu/jiaxu.ogg",
 }
 --[[****************************************************************
 	林武将包

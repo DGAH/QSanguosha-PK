@@ -499,8 +499,8 @@ void GeneralOverview::on_tableWidget_itemSelectionChanged()
         addLines(skill);
 
     QString last_word = Sanguosha->translate("~" + general->objectName());
-    if (last_word.startsWith("~") && general->objectName().contains("_"))
-        last_word = Sanguosha->translate(("~") + general->objectName().split("_").last());
+	if (last_word.startsWith("~"))
+		last_word = Sanguosha->translate("~" + general->getRealName());
 
     if (!last_word.startsWith("~")) {
         QCommandLinkButton *death_button = new QCommandLinkButton(tr("Death"), last_word);

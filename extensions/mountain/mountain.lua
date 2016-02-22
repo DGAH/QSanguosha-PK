@@ -32,6 +32,7 @@ ZhangHe = sgs.CreateLuaGeneral{
 	cv = "爪子",
 	illustrator = "张帅",
 	last_word = "归兵勿追，追兵难归啊……",
+	death_audio = "zhanghe/zhanghe.ogg",
 }
 --[[****************************************************************
 	称号：矫然的壮士
@@ -61,6 +62,7 @@ DengAi = sgs.CreateLuaGeneral{
 	order = 7,
 	cv = "烨子",
 	last_word = "吾破蜀克敌，竟葬于奸贼之手！",
+	death_audio = "dengai/dengai.ogg",
 }
 --[[****************************************************************
 	称号：龙的衣钵
@@ -90,6 +92,7 @@ JiangWei = sgs.CreateLuaGeneral{
 	order = 8,
 	cv = "Jr. Wakaran，LeleK",
 	last_word = "臣等正欲死战，陛下何故先降？",
+	death_audio = "jiangwei/jiangwei.ogg",
 }
 --[[****************************************************************
 	称号：无为的真命主
@@ -125,6 +128,7 @@ LiuShan = sgs.CreateLuaGeneral{
 	cv = "V7",
 	illustrator = "LiuHeng",
 	last_word = "吾降！吾降矣……",
+	death_audio = "liushan/liushan.ogg",
 }
 --[[****************************************************************
 	称号：江东的小霸王
@@ -162,6 +166,7 @@ SunCe = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "猎狐",
 	last_word = "内事不决问张昭，外事不决问周瑜……",
+	death_audio = "sunce/sunce.ogg",
 }
 --[[****************************************************************
 	称号：经天纬地
@@ -189,6 +194,7 @@ ZhangZhaoZhangHong = sgs.CreateLuaGeneral{
 	cv = "喵小林，风叹息",
 	illustrator = "废柴男",
 	last_word = "此生智谋，已为江东尽……",
+	death_audio = "zhangzhaozhanghong/erzhang.ogg",
 }
 --[[****************************************************************
 	称号：迷之仙人
@@ -216,6 +222,7 @@ ZuoCi = sgs.CreateLuaGeneral{
 	cv = "东方胤弘，眠眠",
 	illustrator = "废柴男",
 	last_word = "释知遗形，神灭形消……",
+	death_audio = "zuoci/zuoci.ogg",
 }
 --[[****************************************************************
 	称号：异乡的孤女
@@ -244,7 +251,6 @@ CaiWenJi = sgs.CreateLuaGeneral{
 	order = 5,
 	cv = "呼呼",
 	illustrator = "Sonia Tang",
-	last_word = "胡人落泪沾边草，汉使断肠对归客……",
 }
 --[[****************************************************************
 	山武将包

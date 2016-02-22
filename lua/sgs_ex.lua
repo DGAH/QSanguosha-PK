@@ -755,6 +755,28 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.last_word) == "string" then
 			sgs.AddTranslationEntry("~"..info.name, info.last_word)
 		end
+		if type(info.resources) == "table" then
+			if info.use_absolute_path then
+				for key, resource in pairs(info.resources) do
+					if type(key) == "string" and type(resource) == "string" then
+						general:addResourcePath(key, resource)
+					end
+				end
+			else
+				for key, resource in pairs(info.resources) do
+					if type(key) == "string" and type(resource) == "string" then
+						general:addResourcePath(key, string.format("%s/%s", global_path, resource))
+					end
+				end
+			end
+		end
+		if type(info.death_audio) == "string" then
+			if info.use_absolute_path then
+				general:addResourcePath("death", info.death_audio)
+			else
+				general:addResourcePath("death", string.format("%s/%s", global_path, info.death_audio))
+			end
+		end
 		return general
 	end
 	return info

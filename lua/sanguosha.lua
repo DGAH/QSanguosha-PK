@@ -8,6 +8,7 @@ dofile "lua/levels.lua"
 
 lua_packages = {}
 lua_generals = {}
+global_path = "lua"
 
 function load_translation(file)
 	local t = dofile(file)
@@ -36,6 +37,7 @@ function load_extensions()
 		error("file extensions/list.lua should return a table!")
 		return false
 	end
+	global_path = "extensions"
 	for key, value in pairs(list) do
 		local name, use = "", false
 		if type(key) == "string" and type(value) == "boolean" then
@@ -44,6 +46,7 @@ function load_extensions()
 			name, use = value, true
 		end
 		if use then
+			global_path = "extensions/"..name
 			local pack = dofile(string.format("extensions/%s/%s.lua", name, name))
 			if type(pack) == "table" then
 				pack = sgs.CreateLuaPackage(pack)
@@ -63,6 +66,7 @@ function load_extensions()
 			end
 		end
 	end
+	global_path = "extensions"
 	local names = {}
 	for _,pack in ipairs(lua_packages) do
 		table.insert(names, pack:objectName())
@@ -78,6 +82,7 @@ function load_generals()
 		error("file generals/list.lua should return a table!")
 		return false
 	end
+	global_path = "generals"
 	for key, value in pairs(list) do
 		local name, use = "", false
 		if type(key) == "string" and type(value) == "boolean" then
@@ -86,6 +91,7 @@ function load_generals()
 			name, use = value, true
 		end
 		if use then
+			global_path = "generals/"..name
 			local general = dofile(string.format("generals/%s/%s.lua", name, name))
 			if type(general) == "table" then
 				general = sgs.CreateLuaGeneral(general)
@@ -105,6 +111,7 @@ function load_generals()
 			end
 		end
 	end
+	global_path = "generals"
 	for _,general in ipairs(lua_generals) do
 		sgs.Sanguosha:addGeneral(general)
 	end

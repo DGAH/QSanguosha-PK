@@ -67,6 +67,16 @@ public:
         return extra_set;
     }
 
+	inline void addResourcePath(const QString &key, const QString &path)
+	{
+		resources.insert(key, path);
+	}
+
+	inline QString getResourcePath(const QString &key) const
+	{
+		return resources.value(key, "");
+	}
+
 public slots:
     void lastWord() const;
 
@@ -81,6 +91,7 @@ private:
     bool hidden;
     bool never_shown;
 	int order;
+	QHash<QString, QString> resources;
 };
 
 #endif

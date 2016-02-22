@@ -32,6 +32,7 @@ DianWei = sgs.CreateLuaGeneral{
 	cv = "褪色",
 	illustrator = "小冷",
 	last_word = "主公……我就到……这儿了……",
+	death_audio = "dianwei/dianwei.ogg",
 }
 --[[****************************************************************
 	称号：王佐之才
@@ -59,6 +60,7 @@ XunYu = sgs.CreateLuaGeneral{
 	cv = "听雨",
 	illustrator = "LiuHeng",
 	last_word = "身为汉臣，至死不渝。",
+	death_audio = "xunyu/xunyu.ogg",
 }
 --[[****************************************************************
 	称号：凤雏
@@ -85,6 +87,7 @@ PangTong = sgs.CreateLuaGeneral{
 	order = 5,
 	cv = "无花有酒",
 	last_word = "落凤坡？此地不利于吾。",
+	death_audio = "pangtong/pangtong.ogg",
 }
 --[[****************************************************************
 	称号：卧龙
@@ -118,6 +121,7 @@ ZhuGeLiang = sgs.CreateLuaGeneral{
 	cv = "彗星",
 	illustrator = "北",
 	last_word = "悠悠苍天，曷此其极……",
+	death_audio = "zhugeliang/wolong.ogg",
 }
 --[[****************************************************************
 	称号：笃烈之士
@@ -140,6 +144,7 @@ TaiShiCi = sgs.CreateLuaGeneral{
 	cv = "口渴口樂",
 	illustrator = "Tuu.",
 	last_word = "今所志未遂，奈何死乎？",
+	death_audio = "taishici/taishici.ogg",
 }
 --[[****************************************************************
 	称号：高贵的名门
@@ -166,6 +171,7 @@ YuanShao = sgs.CreateLuaGeneral{
 	cv = "耗子王",
 	illustrator = "Sonia Tang",
 	last_word = "天不助袁哪！",
+	death_audio = "yuanshao/yuanshao.ogg",
 }
 --[[****************************************************************
 	称号：虎狼兄弟
@@ -187,6 +193,7 @@ YanLiangWenChou = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "墨染の飞猫，霸气爷们",
 	last_word = "生不逢时啊！",
+	death_audio = "yanliangwenchou/yanliangwenchou.ogg",
 }
 --[[****************************************************************
 	称号：人马一体
@@ -213,6 +220,7 @@ PangDe = sgs.CreateLuaGeneral{
 	cv = "Glory",
 	illustrator = "LiuHeng",
 	last_word = "宁做国家鬼，不为贼将也！",
+	death_audio = "pangde/pangde.ogg",
 }
 --[[****************************************************************
 	火武将包

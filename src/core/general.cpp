@@ -198,13 +198,18 @@ QString General::getSkillDescription(bool include_name) const
 
 void General::lastWord() const
 {
-    QString filename = QString("audio/death/%1.ogg").arg(objectName());
-    bool fileExists = QFile::exists(filename);
-    if (!fileExists) {
-        QStringList origin_generals = objectName().split("_");
-        if (origin_generals.length() > 1)
-            filename = QString("audio/death/%1.ogg").arg(origin_generals.last());
-    }
+	QString filename = getResourcePath("death");
+	if (!QFile::exists(filename)) {
+		QString name = objectName();
+		filename = QString("audio/death/%1.ogg").arg(name);
+		if ((!QFile::exists(filename)) && (real_name != name)) {
+			const General *original = Sanguosha->getGeneral(real_name);
+			if (original)
+				filename = original->getResourcePath("death");
+			if (!QFile::exists(filename))
+				filename = QString("audio/death/%1.ogg").arg(real_name);
+		}
+	}
     Sanguosha->playAudioEffect(filename);
 }
 
