@@ -88,6 +88,16 @@ void General::setRealName(const QString &name)
 	this->real_name = name;
 }
 
+QString General::getResourcePath() const
+{
+	return this->resource;
+}
+
+void General::setResourcePath(const QString &path)
+{
+	this->resource = path;
+}
+
 void General::addSkill(Skill *skill)
 {
     if (!skill) {
@@ -198,14 +208,14 @@ QString General::getSkillDescription(bool include_name) const
 
 void General::lastWord() const
 {
-	QString filename = getResourcePath("death");
+	QString filename = QString("%1/death.ogg").arg(this->resource);
 	if (!QFile::exists(filename)) {
 		QString name = objectName();
 		filename = QString("audio/death/%1.ogg").arg(name);
 		if ((!QFile::exists(filename)) && (real_name != name)) {
 			const General *original = Sanguosha->getGeneral(real_name);
 			if (original)
-				filename = original->getResourcePath("death");
+				filename = QString("%1/death.ogg").arg(original->getResourcePath());
 			if (!QFile::exists(filename))
 				filename = QString("audio/death/%1.ogg").arg(real_name);
 		}

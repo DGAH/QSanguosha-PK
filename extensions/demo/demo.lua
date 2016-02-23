@@ -22,4 +22,5 @@ return {
 	name = "demo",
 	category = sgs.Package_GeneralPack,
 	translation = "示例扩展包",
+	generals = {},
 }

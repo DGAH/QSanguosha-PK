@@ -13383,6 +13383,56 @@ fail:
 }
 
 
+static int _wrap_General_getResourcePath(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("General::getResourcePath",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::getResourcePath",1,"General const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_getResourcePath",1,SWIGTYPE_p_General);
+  }
+  
+  result = ((General const *)arg1)->getResourcePath();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setResourcePath(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("General::setResourcePath",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::setResourcePath",1,"General *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::setResourcePath",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_setResourcePath",1,SWIGTYPE_p_General);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setResourcePath((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_General_addSkill__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -13817,62 +13867,6 @@ static int _wrap_General_getSkillDescription(lua_State* L) {
 }
 
 
-static int _wrap_General_addResourcePath(lua_State* L) {
-  int SWIG_arg = 0;
-  General *arg1 = (General *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
-  
-  SWIG_check_num_args("General::addResourcePath",3,3)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::addResourcePath",1,"General *");
-  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::addResourcePath",2,"char const *");
-  if(!SWIG_lua_isnilstring(L,3)) SWIG_fail_arg("General::addResourcePath",3,"char const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
-    SWIG_fail_ptr("General_addResourcePath",1,SWIGTYPE_p_General);
-  }
-  
-  arg2 = (char *)lua_tostring(L, 2);
-  arg3 = (char *)lua_tostring(L, 3);
-  (arg1)->addResourcePath((char const *)arg2,(char const *)arg3);
-  
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_General_getResourcePath(lua_State* L) {
-  int SWIG_arg = 0;
-  General *arg1 = (General *) 0 ;
-  char *arg2 = (char *) 0 ;
-  QString result;
-  
-  SWIG_check_num_args("General::getResourcePath",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::getResourcePath",1,"General const *");
-  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::getResourcePath",2,"char const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
-    SWIG_fail_ptr("General_getResourcePath",1,SWIGTYPE_p_General);
-  }
-  
-  arg2 = (char *)lua_tostring(L, 2);
-  result = ((General const *)arg1)->getResourcePath((char const *)arg2);
-  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_General_lastWord(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -13914,6 +13908,8 @@ static swig_lua_method swig_General_methods[] = {
     {"setOrder", _wrap_General_setOrder}, 
     {"getRealName", _wrap_General_getRealName}, 
     {"setRealName", _wrap_General_setRealName}, 
+    {"getResourcePath", _wrap_General_getResourcePath}, 
+    {"setResourcePath", _wrap_General_setResourcePath}, 
     {"addSkill", _wrap_General_addSkill}, 
     {"hasSkill", _wrap_General_hasSkill}, 
     {"getSkillList", _wrap_General_getSkillList}, 
@@ -13924,8 +13920,6 @@ static swig_lua_method swig_General_methods[] = {
     {"getRelatedSkillNames", _wrap_General_getRelatedSkillNames}, 
     {"getPackage", _wrap_General_getPackage}, 
     {"getSkillDescription", _wrap_General_getSkillDescription}, 
-    {"addResourcePath", _wrap_General_addResourcePath}, 
-    {"getResourcePath", _wrap_General_getResourcePath}, 
     {"lastWord", _wrap_General_lastWord}, 
     {0,0}
 };

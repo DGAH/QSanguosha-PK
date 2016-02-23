@@ -30,7 +30,7 @@ XiaHouYuan = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	order = 4,
 	last_word = "竟然……比我还……快……",
-	death_audio = "xiahouyuan/xiahouyuan.ogg",
+	resource = "xiahouyuan",
 }
 --[[****************************************************************
 	称号：大将军
@@ -51,7 +51,7 @@ CaoRen = sgs.CreateLuaGeneral{
 	kingdom = "wei",
 	order = 6,
 	last_word = "实在是……守不住了……",
-	death_audio = "caoren/caoren.ogg",
+	resource = "caoren",
 }
 --[[****************************************************************
 	称号：老当益壮
@@ -72,7 +72,7 @@ HuangZhong = sgs.CreateLuaGeneral{
 	kingdom = "shu",
 	order = 7,
 	last_word = "不得不服老了……",
-	death_audio = "huangzhong/huangzhong.ogg",
+	resource = "huangzhong",
 }
 --[[****************************************************************
 	称号：嗜血的独狼
@@ -94,7 +94,7 @@ WeiYan = sgs.CreateLuaGeneral{
 	order = 5,
 	illustrator = "Sonia Tang",
 	last_word = "谁敢杀我？啊！",
-	death_audio = "weiyan/weiyan.ogg",
+	resource = "weiyan",
 }
 --[[****************************************************************
 	称号：矫情之花
@@ -121,7 +121,7 @@ XiaoQiao = sgs.CreateLuaGeneral{
 	maxhp = 3,
 	order = 2,
 	last_word = "公瑾，我先走一步……",
-	death_audio = "xiaoqiao/xiaoqiao.ogg",
+	resource = "xiaoqiao",
 }
 --[[****************************************************************
 	称号：历战之躯
@@ -142,7 +142,7 @@ ZhouTai = sgs.CreateLuaGeneral{
 	kingdom = "wu",
 	order = 2,
 	last_word = "已经……尽力了……",
-	death_audio = "zhoutai/zhoutai.ogg",
+	resource = "zhoutai",
 }
 --[[****************************************************************
 	称号：天公将军
@@ -173,7 +173,7 @@ ZhangJiao = sgs.CreateLuaGeneral{
 	order = 4,
 	illustrator = "LiuHeng",
 	last_word = "黄天……也死了……",
-	death_audio = "zhangjiao/zhangjiao.ogg",
+	resource = "zhangjiao",
 }
 --[[****************************************************************
 	称号：太平道人
@@ -196,7 +196,7 @@ YuJi = sgs.CreateLuaGeneral{
 	order = 4,
 	illustrator = "LiuHeng",
 	last_word = "竟然……被猜到了……",
-	death_audio = "yuji/yuji.ogg",
+	resource = "yuji",
 }
 --[[****************************************************************
 	风武将包

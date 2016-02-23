@@ -49,6 +49,8 @@ public:
 	void setOrder(int order);
 	QString getRealName() const;
 	void setRealName(const char *name);
+	QString getResourcePath() const;
+	void setResourcePath(const char *path);
 
     void addSkill(Skill *skill);
     void addSkill(const char *skill_name);
@@ -63,9 +65,6 @@ public:
 
     QString getPackage() const;
     QString getSkillDescription(bool include_name = false) const;
-
-	void addResourcePath(const char *key, const char *path);
-	QString getResourcePath(const char *key) const;
 
     void lastWord() const;
 };
