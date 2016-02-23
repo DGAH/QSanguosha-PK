@@ -264,7 +264,7 @@ ZhaoYun = sgs.CreateLuaGeneral{
 	hidden = true,
 	cv = "猎狐",
 	last_word = "血染麟甲，龙坠九天……",
-	resource = "zhaoyun/shenzhaoyun.ogg",
+	resource = "zhaoyun",
 }
 --[[****************************************************************
 	神武将包

@@ -11,14 +11,14 @@
 General::General(Package *package, const QString &name, const QString &kingdom,
     int max_hp, bool male, bool hidden, bool never_shown)
     : QObject(package), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female),
-	hidden(hidden), never_shown(never_shown), order(0), real_name(name)
+	hidden(hidden), never_shown(never_shown), crowded(false), order(0), real_name(name)
 {
     setObjectName(name);
 }
 
 General::General(const QString &name, const QString &kingdom, int max_hp, bool male, bool hidden, bool never_shown)
 	:QObject(NULL), kingdom(kingdom), max_hp(max_hp), gender(male ? Male : Female), 
-	hidden(hidden), never_shown(never_shown), order(0), real_name(name)
+	hidden(hidden), never_shown(never_shown), crowded(false), order(0), real_name(name)
 {
 	setObjectName(name);
 }
@@ -66,6 +66,16 @@ bool General::isHidden() const
 bool General::isTotallyHidden() const
 {
     return never_shown;
+}
+
+bool General::isCrowded() const
+{
+	return this->crowded;
+}
+
+void General::setCrowded(bool flag)
+{
+	this->crowded = flag;
 }
 
 int General::getOrder() const

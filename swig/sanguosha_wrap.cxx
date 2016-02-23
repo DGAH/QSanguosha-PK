@@ -13283,6 +13283,128 @@ fail:
 }
 
 
+static int _wrap_General_isCrowded(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("General::isCrowded",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::isCrowded",1,"General const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_isCrowded",1,SWIGTYPE_p_General);
+  }
+  
+  result = (bool)((General const *)arg1)->isCrowded();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setCrowded__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("General::setCrowded",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::setCrowded",1,"General *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("General::setCrowded",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_setCrowded",1,SWIGTYPE_p_General);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setCrowded(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setCrowded__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  
+  SWIG_check_num_args("General::setCrowded",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::setCrowded",1,"General *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_setCrowded",1,SWIGTYPE_p_General);
+  }
+  
+  (arg1)->setCrowded();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_General_setCrowded(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_General, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_General_setCrowded__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_General, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_General_setCrowded__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'General_setCrowded'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    General::setCrowded(bool)\n"
+    "    General::setCrowded()\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_General_getOrder(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -13904,6 +14026,8 @@ static swig_lua_method swig_General_methods[] = {
     {"isTotallyHidden", _wrap_General_isTotallyHidden}, 
     {"getGender", _wrap_General_getGender}, 
     {"setGender", _wrap_General_setGender}, 
+    {"isCrowded", _wrap_General_isCrowded}, 
+    {"setCrowded", _wrap_General_setCrowded}, 
     {"getOrder", _wrap_General_getOrder}, 
     {"setOrder", _wrap_General_setOrder}, 
     {"getRealName", _wrap_General_getRealName}, 

@@ -45,6 +45,8 @@ public:
     enum Gender { Sexless, Male, Female, Neuter };
     Gender getGender() const;
     void setGender(Gender gender);
+	bool isCrowded() const;
+	void setCrowded(bool flag = true);
 	int getOrder() const;
 	void setOrder(int order);
 	QString getRealName() const;

@@ -22,6 +22,7 @@ class General : public QObject
     Q_PROPERTY(Gender gender READ getGender CONSTANT)
     Q_PROPERTY(bool hidden READ isHidden CONSTANT)
 	Q_PROPERTY(int order READ getOrder CONSTANT)
+	Q_PROPERTY(bool crowded READ isCrowded CONSTANT)
 
 public:
     explicit General(Package *package, const QString &name, const QString &kingdom,
@@ -43,6 +44,8 @@ public:
     };
     Gender getGender() const;
     void setGender(Gender gender);
+	bool isCrowded() const;
+	void setCrowded(bool flag = true);
 	int getOrder() const;
 	void setOrder(int order);
 	QString getRealName() const;
@@ -82,6 +85,7 @@ private:
     QStringList related_skills;
     bool hidden;
     bool never_shown;
+	bool crowded;
 	int order;
 	QString resource;
 };

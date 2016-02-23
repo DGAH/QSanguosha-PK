@@ -63,6 +63,7 @@ const char *QSanRoomSkin::S_SKIN_KEY_HAND_CARD_NUMBER_RED = "handCardNumber-red-
 const char *QSanRoomSkin::S_SKIN_KEY_PLAYER_AUDIO_EFFECT = "playerAudioEffect-%1-%2";
 const char *QSanRoomSkin::S_SKIN_KEY_SYSTEM_AUDIO_EFFECT = "systemAudioEffect-%1";
 const char *QSanRoomSkin::S_SKIN_KEY_PLAYER_GENERAL_ICON = "playerGeneralIcon-%2-%1";
+const char *QSanRoomSkin::S_SKIN_KEY_PLAYER_LUA_GENERAL_ICON = "playerLuaGeneralIcon-%2-%1";
 const char *QSanRoomSkin::S_SKIN_KEY_MAGATAMAS_BG = "magatamasBg%1";
 const char *QSanRoomSkin::S_SKIN_KEY_MAGATAMAS = "magatamas%1";
 const char *QSanRoomSkin::S_SKIN_KEY_PROGRESS_BAR_IMAGE = "progressBar";
@@ -287,6 +288,12 @@ QPixmap QSanRoomSkin::getProgressBarPixmap(int percentile) const
 QPixmap QSanRoomSkin::getCardMainPixmap(const QString &cardName, bool cache) const
 {
     if (cardName == "unknown") return getPixmap("handCardBack", QString(), true);
+
+	const General *general = Sanguosha->getGeneral(cardName);
+	if (general) {
+		return getGeneralPixmap(cardName, S_GENERAL_ICON_SIZE_CARD, cache);
+	}
+
     return getPixmap(S_SKIN_KEY_HAND_CARD_MAIN_PHOTO, cardName, cache);
 }
 
@@ -311,11 +318,62 @@ QPixmap QSanRoomSkin::getCardAvatarPixmap(const QString &generalName) const
     return getGeneralPixmap(generalName, S_GENERAL_ICON_SIZE_TINY);
 }
 
-QPixmap QSanRoomSkin::getGeneralPixmap(const QString &generalName, GeneralIconSize size) const
+QPixmap QSanRoomSkin::getGeneralPixmap(const QString &generalName, GeneralIconSize size, bool cache) const
 {
-    QString name = generalName;
-    if (size == S_GENERAL_ICON_SIZE_CARD)
-        return getCardMainPixmap(name);
+	int skin_index = Config.value(QString("HeroSkin/%1").arg(generalName), 0).toInt();
+
+	const General *general = Sanguosha->getGeneral(generalName);
+	if (general) {
+		QString resource = general->getResourcePath();
+		if (!resource.isEmpty()) {
+			QString key;
+			if (general->isCrowded())
+				key = QString(S_SKIN_KEY_PLAYER_LUA_GENERAL_ICON).arg(size).arg(S_SKIN_KEY_DEFAULT_SECOND);
+			else
+				key = QString(S_SKIN_KEY_PLAYER_LUA_GENERAL_ICON).arg(size).arg(S_SKIN_KEY_DEFAULT);
+			QRect clipRegion;
+			bool clipping;
+			QSize scaleRegion;
+			bool scaled;
+			QString path = _readImageConfig(key, clipRegion, clipping, scaleRegion, scaled);
+			if (!path.isEmpty()) {
+				QString fullpath;
+				if (skin_index == 0)
+					fullpath = QString("%1/%2").arg(resource).arg(path);
+				else {
+					fullpath = QString("%1/heroskin/%2").arg(resource).arg(path);
+					fullpath.replace(".", QString("_%1.").arg(QString::number(skin_index)));
+				}
+				QPixmap image = getPixmapFromFileName(fullpath, cache);
+				if (image.width() > 1) { // QPixmap(1, 1) means "invalid".
+					if (clipping) {
+						QRect actualClip = clipRegion;
+						if (actualClip.right() > image.width())
+							actualClip.setRight(image.width());
+						if (actualClip.bottom() > image.height())
+							actualClip.setBottom(image.height());
+
+						QPixmap clipped = QPixmap(clipRegion.size());
+						clipped.fill(Qt::transparent);
+						QPainter painter(&clipped);
+						painter.drawPixmap(0, 0, image.copy(actualClip));
+
+						if (scaled)
+							clipped = clipped.scaled(scaleRegion, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+						image = clipped;
+					}
+					return image;
+				}
+			}
+		}
+	}
+
+	if (skin_index != 0)
+		return QPixmap(1, 1);
+
+	QString name = generalName;
+	if (size == S_GENERAL_ICON_SIZE_CARD) 
+		return getPixmap(S_SKIN_KEY_HAND_CARD_MAIN_PHOTO, name);
     else {
         QString key = QString(S_SKIN_KEY_PLAYER_GENERAL_ICON).arg(size).arg(name);
         if (isImageKeyDefined(key))
@@ -620,16 +678,6 @@ QPixmap IQSanComponentSkin::getPixmap(const QString &key, const QString &arg, bo
             groupKey = key.arg(S_SKIN_KEY_DEFAULT_SECOND);
             QString fileNameToResolve = _readImageConfig(groupKey, clipRegion, clipping, scaleRegion, scaled);
             fileName = fileNameToResolve.arg(arg);
-        }
-    }
-
-    // Hero skin?
-    QString general_name = fileName.split("/").last().split(".").first();
-    if (Sanguosha->getGeneral(general_name)) {
-        int skin_index = Config.value(QString("HeroSkin/%1").arg(general_name), 0).toInt();
-        if (skin_index > 0) {
-            fileName.replace("image/", "image/heroskin/");
-            fileName.replace(general_name, QString("%1_%2").arg(general_name).arg(skin_index));
         }
     }
 

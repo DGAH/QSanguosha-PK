@@ -295,7 +295,7 @@ public:
     QPixmap getCardJudgeIconPixmap(const QString &judgeName) const;
     QPixmap getCardFramePixmap(const QString &frameType) const;
     QPixmap getCardAvatarPixmap(const QString &generalName) const;
-    QPixmap getGeneralPixmap(const QString &generalName, GeneralIconSize size) const;
+    QPixmap getGeneralPixmap(const QString &generalName, GeneralIconSize size, bool cache = false) const;
     QString getPlayerAudioEffectPath(const QString &eventName, bool isMale, int index = -1) const;
     QString getPlayerAudioEffectPath(const QString &eventName, const QString &category, int index = -1) const;
     QPixmap getProgressBarPixmap(int percentile) const;
@@ -348,6 +348,7 @@ public:
     static const char *S_SKIN_KEY_HAND_CARD_NUMBER_RED;
     static const char *S_SKIN_KEY_HAND_CARD_FRAME;
     static const char *S_SKIN_KEY_PLAYER_GENERAL_ICON;
+	static const char *S_SKIN_KEY_PLAYER_LUA_GENERAL_ICON;
     static const char *S_SKIN_KEY_EXTRA_SKILL_BG;
     static const char *S_SKIN_KEY_MAGATAMAS_BG;
     static const char *S_SKIN_KEY_MAGATAMAS;

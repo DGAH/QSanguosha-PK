@@ -708,6 +708,9 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.real_name) == "string" and info.real_name ~= "" then
 			general:setRealName(info.real_name)
 		end
+		if type(info.crowded) == "boolean" and info.crowded then
+			general:setCrowded(info.crowded)
+		end
 		if type(info.order) == "number" and info.order > 0 and info.order <= 10 then
 			general:setOrder(info.order)
 		end

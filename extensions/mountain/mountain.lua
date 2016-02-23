@@ -190,6 +190,7 @@ ZhangZhaoZhangHong = sgs.CreateLuaGeneral{
 	title = "经天纬地",
 	kingdom = "wu",
 	maxhp = 3,
+	crowded = true,
 	order = 1,
 	cv = "喵小林，风叹息",
 	illustrator = "废柴男",

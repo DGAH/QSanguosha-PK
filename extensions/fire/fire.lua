@@ -25,7 +25,7 @@
 --武将信息：典韦
 DianWei = sgs.CreateLuaGeneral{
 	name = "dianwei",
-	translation = "强袭",
+	translation = "典韦",
 	title = "古之恶来",
 	kingdom = "wei",
 	order = 6,
@@ -190,6 +190,7 @@ YanLiangWenChou = sgs.CreateLuaGeneral{
 	translation = "颜良文丑",
 	title = "虎狼兄弟",
 	kingdom = "qun",
+	crowded = true,
 	order = 6,
 	cv = "墨染の飞猫，霸气爷们",
 	last_word = "生不逢时啊！",
