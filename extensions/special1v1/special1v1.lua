@@ -43,6 +43,7 @@ ZhangLiao = sgs.CreateLuaGeneral{
 	title = "前将军",
 	kingdom = "wei",
 	order = 4,
+	resource = "zhangliao",
 }
 --[[****************************************************************
 	称号：虎痴
@@ -68,6 +69,7 @@ XuChu = sgs.CreateLuaGeneral{
 	title = "虎痴",
 	kingdom = "wei",
 	order = 4,
+	resource = "xuchu",
 }
 --[[****************************************************************
 	称号：薄幸的美人
@@ -93,6 +95,7 @@ ZhenJi = sgs.CreateLuaGeneral{
 	title = "薄幸的美人",
 	kingdom = "wei",
 	order = 6,
+	resource = "zhenji",
 }
 --[[****************************************************************
 	称号：疾行的猎豹
@@ -118,6 +121,7 @@ XiaHouYuan = sgs.CreateLuaGeneral{
 	title = "疾行的猎豹",
 	kingdom = "wei",
 	order = 4,
+	resource = "xiahouyuan",
 }
 --[[****************************************************************
 	称号：乱世的枭雄
@@ -143,6 +147,7 @@ LiuBei = sgs.CreateLuaGeneral{
 	title = "乱世的枭雄",
 	kingdom = "shu",
 	order = 5,
+	resource = "liubei",
 }
 --[[****************************************************************
 	称号：美髯公
@@ -168,6 +173,7 @@ GuanYu = sgs.CreateLuaGeneral{
 	title = "美髯公",
 	kingdom = "shu",
 	order = 5,
+	resource = "guanyu",
 }
 --[[****************************************************************
 	称号：归隐的杰女
@@ -195,6 +201,7 @@ HuangYueYing = sgs.CreateLuaGeneral{
 	female = true,
 	maxhp = 3,
 	order = 5,
+	resource = "huangyueying",
 }
 --[[****************************************************************
 	称号：老当益壮
@@ -216,6 +223,7 @@ HuangZhong = sgs.CreateLuaGeneral{
 	title = "老当益壮",
 	kingdom = "shu",
 	order = 5,
+	resource = "huangzhong",
 }
 --[[****************************************************************
 	称号：嗜血的独狼
@@ -237,6 +245,7 @@ WeiYan = sgs.CreateLuaGeneral{
 	title = "嗜血的独狼",
 	kingdom = "shu",
 	order = 5,
+	resource = "weiyan",
 }
 --[[****************************************************************
 	称号：龙的衣钵
@@ -258,6 +267,7 @@ JiangWei = sgs.CreateLuaGeneral{
 	title = "龙的衣钵",
 	kingdom = "shu",
 	order = 7,
+	resource = "jiangwei",
 }
 --[[****************************************************************
 	称号：南蛮王
@@ -283,6 +293,7 @@ MengHuo = sgs.CreateLuaGeneral{
 	title = "南蛮王",
 	kingdom = "shu",
 	order = 7,
+	resource = "menghuo",
 }
 --[[****************************************************************
 	称号：野性的女王
@@ -309,6 +320,7 @@ ZhuRong = sgs.CreateLuaGeneral{
 	kingdom = "shu",
 	female = true,
 	order = 4,
+	resource = "zhurong",
 }
 --[[****************************************************************
 	称号：士别三日
@@ -334,6 +346,7 @@ LvMeng = sgs.CreateLuaGeneral{
 	title = "士别三日",
 	kingdom = "wu",
 	order = 6,
+	resource = "lvmeng",
 }
 --[[****************************************************************
 	称号：矜持之花
@@ -361,6 +374,7 @@ DaQiao = sgs.CreateLuaGeneral{
 	female = true,
 	maxhp = 3,
 	order = 4,
+	resource = "daqiao",
 }
 --[[****************************************************************
 	称号：弓腰姬
@@ -388,6 +402,7 @@ SunShangXiang = sgs.CreateLuaGeneral{
 	female = true,
 	maxhp = 3,
 	order = 7,
+	resource = "sunshangxiang",
 }
 --[[****************************************************************
 	称号：神医
@@ -414,6 +429,7 @@ HuaTuo = sgs.CreateLuaGeneral{
 	kingdom = "qun",
 	maxhp = 3,
 	order = 5,
+	resource = "huatuo",
 }
 --[[****************************************************************
 	称号：绝世的舞姬
@@ -441,6 +457,7 @@ DiaoChan = sgs.CreateLuaGeneral{
 	female = true,
 	maxhp = 3,
 	order = 7,
+	resource = "diaochan",
 }
 --[[****************************************************************
 	称号：色厉内荏
@@ -464,6 +481,7 @@ HeJin = sgs.CreateLuaGeneral{
 	title = "色厉内荏",
 	kingdom = "qun",
 	order = 7,
+	resource = "hejin",
 }
 --[[****************************************************************
 	称号：独进的兵胆
@@ -487,6 +505,7 @@ NiuJin = sgs.CreateLuaGeneral{
 	title = "独进的兵胆",
 	kingdom = "wei",
 	order = 4,
+	resource = "niujin",
 }
 --[[****************************************************************
 	称号：蹯踞西疆
@@ -510,6 +529,7 @@ HanSui = sgs.CreateLuaGeneral{
 	title = "蹯踞西疆",
 	kingdom = "qun",
 	order = 5,
+	resource = "hansui",
 }
 --[[****************************************************************
 	1v1专属武将包
