@@ -1,9 +1,12 @@
 -- this script file defines all functions written by Lua
 
+on_trigger_default = function(self, event, player, data)
+	return false
+end
+
 -- trigger skills
 function sgs.CreateTriggerSkill(spec)
 	assert(type(spec.name) == "string")
-	assert(type(spec.on_trigger) == "function")
 	if spec.frequency then assert(type(spec.frequency) == "number") end
 	if spec.limit_mark then assert(type(spec.limit_mark) == "string") end
 	
@@ -23,7 +26,11 @@ function sgs.CreateTriggerSkill(spec)
 
 	if type(spec.global) == "boolean" then skill:setGlobal(spec.global) end
 
-	skill.on_trigger = spec.on_trigger
+	if type(spec.on_trigger) == "function" then
+		skill.on_trigger = spec.on_trigger
+	else
+		skill.on_trigger = on_trigger_default
+	end
 
 	if spec.can_trigger then
 		skill.can_trigger = spec.can_trigger
@@ -667,6 +674,48 @@ function sgs.CreateGeneralLevel(spec)
 	return level
 end
 
+lua_skills = {}
+
+function sgs.CreateLuaSkill(info)
+	local class = type(info.class) == "string" and info.class or "DummySkill"
+	local method = sgs["Create"..class]
+	if type(method) == "function" then
+		local skill = method(info)
+		if type(skill) == "userdata" and skill:inherits("Skill") then
+			if type(info.translation) == "string" then
+				sgs.AddTranslationEntry(info.name, info.translation)
+			end
+			if type(info.description) == "string" then
+				sgs.AddTranslationEntry(":"..info.name, info.description)
+			end
+			if type(info.audio) == "table" then
+				local onlyone = not info.audio[2]
+				for k, v in pairs(info.audio) do
+					if type(k) == "number" and type(v) == "string" then
+						if onlyone and k == 1 then
+							sgs.AddTranslationEntry("$"..info.name, v)
+						else
+							sgs.AddTranslationEntry("$"..info.name..k, v)
+						end
+					elseif type(k) == "string" and type(v) == "string" then
+						sgs.AddTranslationEntry("$"..k, v)
+					end
+				end
+			elseif type(info.audio) == "string" then
+				sgs.AddTranslationEntry("$"..info.name, info.audio)
+			end
+			if type(info.translations) == "table" then
+				for k, v in pairs(info.translations) do
+					sgs.AddTranslationEntry(k, v)
+				end
+			end
+			table.insert(lua_skills, skill)
+			return skill
+		end
+	end
+	return sgs.CreateDummySkill(info)
+end
+
 function sgs.CreateLuaGeneral(info)
 	if type(info.name) == "string" and type(info.kingdom) == "string" then
 		local pack = nil
@@ -718,7 +767,7 @@ function sgs.CreateLuaGeneral(info)
 			for _,skill in ipairs(info.skills) do
 				if type(skill) == "string" then
 					general:addSkill(skill)
-				elseif type(skill) == "useradata" and skill:inherits("Skill") then
+				elseif type(skill) == "userdata" and skill:inherits("Skill") then
 					if sgs.Sanguosha:getSkill(skill:objectName()) then
 						general:addSkill(skill:objectName())
 					else
@@ -726,10 +775,46 @@ function sgs.CreateLuaGeneral(info)
 					end
 				end
 			end
+		elseif type(info.skills) == "userdata" and info.skills:inherits("Skill") then
+			if sgs.Sanguosha:getSkill(info.skills:objectName()) then
+				general:addSkill(info.skills:objectName())
+			else
+				general:addSkill(info.skills)
+			end
 		elseif type(info.skills) == "string" then
 			local skills = info.skills:split("+")
 			for _,skill in ipairs(skills) do
 				general:addSkill(skill)
+			end
+		end
+		if type(info.related_skills) == "string" then
+			local skills = info.related_skills:split("+")
+			for _,skill in ipairs(skills) do
+				general:addRelateSkill(skill)
+			end
+		elseif type(info.related_skills) == "userdata" and info.related_skills:inherits("Skill") then
+			if not sgs.Sanguosha:getSkill(info.related_skills:objectName()) then
+				if pack then
+					pack:addSkill(info.related_skills)
+				else
+					sgs.Sanguosha:addSkill(info.related_skills)
+				end
+			end
+			general:addRelateSkill(info.related_skills:objectName())
+		elseif type(info.related_skills) == "table" then
+			for _,skill in ipairs(info.related_skills) do
+				if type(skill) == "string" then
+					general:addRelateSkill(skill)
+				elseif type(skill) == "userdata" and skill:inherits("Skill") then
+					if not sgs.Sanguosha:getSkill(skill:objectName()) then
+						if pack then
+							pack:addSkill(skill)
+						else
+							sgs.Sanguosha:addSkill(skill)
+						end
+					end
+					general:addRelateSkill(skill:objectName())
+				end
 			end
 		end
 		if type(info.translations) == "table" then
@@ -785,7 +870,6 @@ function sgs.CreateLuaPackage(info)
 			category = sgs.Package_SpecialPack
 		end
 		local pack = sgs.Package(info.name, category)
-		sgs.SetConfig("DebugInfo", type(pack))
 		if type(info.translations) == "table" then
 			for key, value in pairs(info.translations) do
 				sgs.AddTranslationEntry(key, value)
