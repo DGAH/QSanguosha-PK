@@ -191,8 +191,6 @@ LuaSkillCard *LuaSkillCard::Parse(const QString &str)
 
     new_card->setUserString(user_string);
     QString skillName = LuaSkillCardsSkillName.value(name, QString());
-    if (skillName.isEmpty())
-        skillName = name.toLower().remove("card");
     new_card->setSkillName(skillName);
     return new_card;
 }

@@ -359,6 +359,7 @@ DongZhuo = sgs.CreateLuaGeneral{
 ]]--
 LuanWuCard = sgs.CreateSkillCard{
 	name = "LuanWuCard",
+	skill_name = "LuanWu",
 	target_fixed = true,
 	will_throw = true,
 	on_use = function(self, room, source, targets)

@@ -467,13 +467,6 @@ const Card *Card::Parse(const QString &str)
 
         card->addSubcards(StringList2IntList(subcard_ids));
 
-        // skill name
-        // @todo: This is extremely dirty and would cause endless troubles.
-        QString skillName = card->getSkillName();
-        if (skillName.isNull()) {
-            skillName = card_name.remove("Card").toLower();
-            card->setSkillName(skillName);
-        }
         if (!card_suit.isEmpty())
             card->setSuit(suit_map.value(card_suit, Card::NoSuit));
 
