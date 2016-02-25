@@ -68,4 +68,9 @@ return {
 为3，视为你拥有“结姻”；\
 为2，视为你拥有“集智”；\
 不大于1，视为你拥有“仁德”",
+	["FiveLinesRenDe"] = "五道杠·仁德",
+	["FiveLinesJiZhi"] = "五道杠·集智",
+	["FiveLinesJieYin"] = "五道杠·结姻",
+	["FiveLinesGuoSe"] = "五道杠·国色",
+	["FiveLinesKuRou"] = "五道杠·苦肉",
 }

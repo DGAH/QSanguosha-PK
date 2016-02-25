@@ -287,7 +287,7 @@ RenDe = sgs.CreateLuaSkill{
 JiJiang = sgs.CreateLuaSkill{
 	name = "JiJiang",
 	translation = "激将",
-	description = "<font color=\"yellow\"><b>主公技/b></font>，每当你需要使用或打出一张【杀】时，你可以令其他蜀势力角色打出一张【杀】，视为你使用或打出之。",
+	description = "<font color=\"yellow\"><b>主公技</b></font>，每当你需要使用或打出一张【杀】时，你可以令其他蜀势力角色打出一张【杀】，视为你使用或打出之。",
 }
 --武将信息：刘备
 LiuBei = sgs.CreateLuaGeneral{
@@ -678,7 +678,7 @@ DaQiao = sgs.CreateLuaGeneral{
 	female = true,
 	maxhp = 3,
 	order = 1,
-	skill = {GuoSe, LiuLi},
+	skills = {GuoSe, LiuLi},
 	last_word = "伯符……我去了……",
 	resource = "daqiao",
 }

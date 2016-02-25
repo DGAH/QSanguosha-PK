@@ -114,44 +114,31 @@ public:
     Q_INVOKABLE YxSword(Card::Suit suit, int number);
 };
 
-class RendeCard : public SkillCard
+class FiveLinesRendeCard : public SkillCard
 {
 	Q_OBJECT
 
 public:
-	Q_INVOKABLE RendeCard();
+	Q_INVOKABLE FiveLinesRendeCard();
 	virtual void use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &targets) const;
 };
 
-class JieyinCard : public SkillCard
+class FiveLinesJieyinCard : public SkillCard
 {
 	Q_OBJECT
 
 public:
-	Q_INVOKABLE JieyinCard();
+	Q_INVOKABLE FiveLinesJieyinCard();
 	virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const;
 	virtual void onEffect(const CardEffectStruct &effect) const;
 };
 
-class GuoseCard : public SkillCard
+class FiveLinesKurouCard : public SkillCard
 {
 	Q_OBJECT
 
 public:
-	Q_INVOKABLE GuoseCard();
-
-	virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self) const;
-	virtual const Card *validate(CardUseStruct &cardUse) const;
-	virtual void onUse(Room *room, const CardUseStruct &use) const;
-	virtual void onEffect(const CardEffectStruct &effect) const;
-};
-
-class KurouCard : public SkillCard
-{
-	Q_OBJECT
-
-public:
-	Q_INVOKABLE KurouCard();
+	Q_INVOKABLE FiveLinesKurouCard();
 
 	virtual void use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &targets) const;
 };
@@ -162,8 +149,6 @@ class FiveLines : public Armor
 
 public:
     Q_INVOKABLE FiveLines(Card::Suit suit, int number);
-
-    virtual void onInstall(ServerPlayer *player) const;
 };
 
 #endif // JOYPACKAGE_H
