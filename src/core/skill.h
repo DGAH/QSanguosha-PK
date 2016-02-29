@@ -35,6 +35,8 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *card) const;
     virtual QDialog *getDialog() const;
 
+	QString getAudioPath() const;
+	void setAudioPath(const QString &path);
     void initMediaSource();
     void playAudioEffect(int index = -1, bool superpose = true) const;
     virtual Frequency getFrequency(const Player *target = NULL) const;
@@ -48,6 +50,7 @@ protected:
 
 private:
     QStringList sources;
+	QString resource;
 };
 
 class ViewAsSkill : public Skill

@@ -13505,6 +13505,33 @@ fail:
 }
 
 
+static int _wrap_General_isGeneral(lua_State* L) {
+  int SWIG_arg = 0;
+  General *arg1 = (General *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("General::isGeneral",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("General::isGeneral",1,"General const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("General::isGeneral",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_General,0))){
+    SWIG_fail_ptr("General_isGeneral",1,SWIGTYPE_p_General);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (bool)((General const *)arg1)->isGeneral((char const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_General_getResourcePath(lua_State* L) {
   int SWIG_arg = 0;
   General *arg1 = (General *) 0 ;
@@ -14032,6 +14059,7 @@ static swig_lua_method swig_General_methods[] = {
     {"setOrder", _wrap_General_setOrder}, 
     {"getRealName", _wrap_General_getRealName}, 
     {"setRealName", _wrap_General_setRealName}, 
+    {"isGeneral", _wrap_General_isGeneral}, 
     {"getResourcePath", _wrap_General_getResourcePath}, 
     {"setResourcePath", _wrap_General_setResourcePath}, 
     {"addSkill", _wrap_General_addSkill}, 
@@ -15303,6 +15331,185 @@ static int _wrap_Player_getGeneral2(lua_State* L) {
 fail:
   lua_error(L);
   return SWIG_arg;
+}
+
+
+static int _wrap_Player_isGeneral__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  bool arg4 ;
+  bool result;
+  
+  SWIG_check_num_args("Player::isGeneral",4,4)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::isGeneral",1,"Player *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Player::isGeneral",2,"char const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Player::isGeneral",3,"bool");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("Player::isGeneral",4,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_isGeneral",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  result = (bool)(arg1)->isGeneral((char const *)arg2,arg3,arg4);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_isGeneral__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  bool result;
+  
+  SWIG_check_num_args("Player::isGeneral",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::isGeneral",1,"Player *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Player::isGeneral",2,"char const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Player::isGeneral",3,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_isGeneral",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = (bool)(arg1)->isGeneral((char const *)arg2,arg3);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_isGeneral__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("Player::isGeneral",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::isGeneral",1,"Player *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Player::isGeneral",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_isGeneral",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (bool)(arg1)->isGeneral((char const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_isGeneral(lua_State* L) {
+  int argc;
+  int argv[5]={
+    1,2,3,4,5
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Player_isGeneral__SWIG_2(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_Player_isGeneral__SWIG_1(L);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            return _wrap_Player_isGeneral__SWIG_0(L);
+          }
+        }
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Player_isGeneral'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Player::isGeneral(char const *,bool,bool)\n"
+    "    Player::isGeneral(char const *,bool)\n"
+    "    Player::isGeneral(char const *)\n");
+  lua_error(L);return 0;
 }
 
 
@@ -21467,6 +21674,7 @@ static swig_lua_method swig_Player_methods[] = {
     {"setGeneral2Name", _wrap_Player_setGeneral2Name}, 
     {"getGeneral2Name", _wrap_Player_getGeneral2Name}, 
     {"getGeneral2", _wrap_Player_getGeneral2}, 
+    {"isGeneral", _wrap_Player_isGeneral}, 
     {"setState", _wrap_Player_setState}, 
     {"getState", _wrap_Player_getState}, 
     {"getSeat", _wrap_Player_getSeat}, 
@@ -41240,6 +41448,56 @@ fail:
 }
 
 
+static int _wrap_Skill_getAudioPath(lua_State* L) {
+  int SWIG_arg = 0;
+  Skill *arg1 = (Skill *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("Skill::getAudioPath",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Skill::getAudioPath",1,"Skill const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Skill,0))){
+    SWIG_fail_ptr("Skill_getAudioPath",1,SWIGTYPE_p_Skill);
+  }
+  
+  result = ((Skill const *)arg1)->getAudioPath();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Skill_setAudioPath(lua_State* L) {
+  int SWIG_arg = 0;
+  Skill *arg1 = (Skill *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("Skill::setAudioPath",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Skill::setAudioPath",1,"Skill *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Skill::setAudioPath",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Skill,0))){
+    SWIG_fail_ptr("Skill_setAudioPath",1,SWIGTYPE_p_Skill);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setAudioPath((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Skill_initMediaSource(lua_State* L) {
   int SWIG_arg = 0;
   Skill *arg1 = (Skill *) 0 ;
@@ -41592,6 +41850,8 @@ static swig_lua_method swig_Skill_methods[] = {
     {"isVisible", _wrap_Skill_isVisible}, 
     {"getEffectIndex", _wrap_Skill_getEffectIndex}, 
     {"getDialog", _wrap_Skill_getDialog}, 
+    {"getAudioPath", _wrap_Skill_getAudioPath}, 
+    {"setAudioPath", _wrap_Skill_setAudioPath}, 
     {"initMediaSource", _wrap_Skill_initMediaSource}, 
     {"playAudioEffect", _wrap_Skill_playAudioEffect}, 
     {"getFrequency", _wrap_Skill_getFrequency}, 

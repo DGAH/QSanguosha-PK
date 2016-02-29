@@ -319,6 +319,19 @@ const General *Player::getGeneral2() const
     return general2;
 }
 
+bool Player::isGeneral(const QString &name, bool head, bool deputy)
+{
+	if (head && general) {
+		if (general->isGeneral(name))
+			return true;
+	}
+	if (deputy && general2) {
+		if (general2->isGeneral(name))
+			return true;
+	}
+	return false;
+}
+
 QString Player::getState() const
 {
     return state;

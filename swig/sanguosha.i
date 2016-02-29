@@ -51,6 +51,7 @@ public:
 	void setOrder(int order);
 	QString getRealName() const;
 	void setRealName(const char *name);
+	bool isGeneral(const char *name) const;
 	QString getResourcePath() const;
 	void setResourcePath(const char *path);
 
@@ -142,6 +143,8 @@ public:
     void setGeneral2Name(const char *general_name);
     QString getGeneral2Name() const;
     const General *getGeneral2() const;
+
+	bool isGeneral(const char *name, bool head = true, bool deputy = false);
 
     void setState(const char *state);
     QString getState() const;
@@ -1200,6 +1203,8 @@ public:
     virtual int getEffectIndex(const ServerPlayer *player, const Card *card) const;
     virtual QDialog *getDialog() const;
 
+	QString getAudioPath() const;
+	void setAudioPath(const char *path);
     void initMediaSource();
     void playAudioEffect(int index = -1, bool superpose = true) const;
     virtual Frequency getFrequency(const Player *target = NULL) const;

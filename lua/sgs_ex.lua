@@ -704,6 +704,9 @@ function sgs.CreateLuaSkill(info)
 			elseif type(info.audio) == "string" then
 				sgs.AddTranslationEntry("$"..info.name, info.audio)
 			end
+			if type(info.resource) == "string" then
+				skill:setAudioPath(info.resource)
+			end
 			if type(info.translations) == "table" then
 				for k, v in pairs(info.translations) do
 					sgs.AddTranslationEntry(k, v)
@@ -763,11 +766,23 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.order) == "number" and info.order > 0 and info.order <= 10 then
 			general:setOrder(info.order)
 		end
+		local resource = nil
+		if type(info.resource) == "string" then
+			if info.use_absolute_path then
+				resource = info.resource
+			else
+				resource = string.format("%s/%s", global_path, info.resource)
+			end
+			general:setResourcePath(resource)
+		end
 		if type(info.skills) == "table" then
 			for _,skill in ipairs(info.skills) do
 				if type(skill) == "string" then
 					general:addSkill(skill)
 				elseif type(skill) == "userdata" and skill:inherits("Skill") then
+					if resource and skill:getAudioPath() == "" then
+						skill:setAudioPath(resource)
+					end
 					if sgs.Sanguosha:getSkill(skill:objectName()) then
 						general:addSkill(skill:objectName())
 					else
@@ -776,6 +791,9 @@ function sgs.CreateLuaGeneral(info)
 				end
 			end
 		elseif type(info.skills) == "userdata" and info.skills:inherits("Skill") then
+			if resource and info.skills:getAudioPath() == "" then
+				info.skills:setAudioPath(resource)
+			end
 			if sgs.Sanguosha:getSkill(info.skills:objectName()) then
 				general:addSkill(info.skills:objectName())
 			else
@@ -794,6 +812,9 @@ function sgs.CreateLuaGeneral(info)
 			end
 		elseif type(info.related_skills) == "userdata" and info.related_skills:inherits("Skill") then
 			if not sgs.Sanguosha:getSkill(info.related_skills:objectName()) then
+				if resource and info.related_skills:getAudioPath() == "" then
+					info.related_skills:setAudioPath(resource)
+				end
 				if pack then
 					pack:addSkill(info.related_skills)
 				else
@@ -806,6 +827,9 @@ function sgs.CreateLuaGeneral(info)
 				if type(skill) == "string" then
 					general:addRelateSkill(skill)
 				elseif type(skill) == "userdata" and skill:inherits("Skill") then
+					if resource and skill:getAudioPath() == ""then
+						skill:setAudioPath(resource)
+					end
 					if not sgs.Sanguosha:getSkill(skill:objectName()) then
 						if pack then
 							pack:addSkill(skill)
@@ -842,13 +866,6 @@ function sgs.CreateLuaGeneral(info)
 		end
 		if type(info.last_word) == "string" then
 			sgs.AddTranslationEntry("~"..info.name, info.last_word)
-		end
-		if type(info.resource) == "string" then
-			if info.use_absolute_path then
-				general:setResourcePath(info.resource)
-			else
-				general:setResourcePath(string.format("%s/%s", global_path, info.resource))
-			end
 		end
 		return general
 	end

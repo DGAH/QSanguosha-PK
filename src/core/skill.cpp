@@ -84,6 +84,16 @@ bool Skill::isVisible() const
     return !objectName().startsWith("#");
 }
 
+QString Skill::getAudioPath() const
+{
+	return this->resource;
+}
+
+void Skill::setAudioPath(const QString &path)
+{
+	this->resource = path;
+}
+
 int Skill::getEffectIndex(const ServerPlayer *, const Card *) const
 {
     return -1;
@@ -92,8 +102,11 @@ int Skill::getEffectIndex(const ServerPlayer *, const Card *) const
 void Skill::initMediaSource()
 {
     sources.clear();
+	if (this->resource.isEmpty())
+		this->resource = "audio/skill";
+
     for (int i = 1;; i++) {
-        QString effect_file = QString("audio/skill/%1%2.ogg").arg(objectName()).arg(QString::number(i));
+        QString effect_file = QString("%1/%2%3.ogg").arg(resource).arg(objectName()).arg(QString::number(i));
         if (QFile::exists(effect_file))
             sources << effect_file;
         else
@@ -101,7 +114,7 @@ void Skill::initMediaSource()
     }
 
     if (sources.isEmpty()) {
-        QString effect_file = QString("audio/skill/%1.ogg").arg(objectName());
+        QString effect_file = QString("%1/%2.ogg").arg(resource).arg(objectName());
         if (QFile::exists(effect_file))
             sources << effect_file;
     }

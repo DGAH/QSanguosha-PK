@@ -103,6 +103,8 @@ public:
     QString getGeneral2Name() const;
     const General *getGeneral2() const;
 
+	bool isGeneral(const QString &name, bool head = true, bool deputy = false);
+
     void setState(const QString &state);
     QString getState() const;
 

@@ -50,6 +50,7 @@ public:
 	void setOrder(int order);
 	QString getRealName() const;
 	void setRealName(const QString &name);
+	bool isGeneral(const QString &name) const;
 	QString getResourcePath() const;
 	void setResourcePath(const QString &path);
 

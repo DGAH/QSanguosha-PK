@@ -98,6 +98,11 @@ void General::setRealName(const QString &name)
 	this->real_name = name;
 }
 
+bool General::isGeneral(const QString &name) const
+{
+	return this->real_name == name;
+}
+
 QString General::getResourcePath() const
 {
 	return this->resource;
