@@ -15,6 +15,7 @@
 #include <QRadioButton>
 #include <QCheckBox>
 #include <QTabWidget>
+#include <QScrollArea>
 
 using namespace QSanProtocol;
 
@@ -253,7 +254,12 @@ FreeChooseDialog::FreeChooseDialog(QWidget *parent, ButtonGroupType type)
 
         if (!generals.isEmpty()) {
             QWidget *tab = createTab(generals);
-            tab_widget->addTab(tab,
+			QScrollArea *area = new QScrollArea;
+			area->setMinimumWidth(tab->width());
+			area->setWidget(tab);
+			area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+			area->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            tab_widget->addTab(area,
                 QIcon(G_ROOM_SKIN.getPixmap(QSanRoomSkin::S_SKIN_KEY_KINGDOM_ICON, kingdom)),
                 Sanguosha->translate(kingdom));
         }
