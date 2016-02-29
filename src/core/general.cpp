@@ -200,7 +200,10 @@ QString General::getSkillDescription(bool include_name) const
         QString skill_name = Sanguosha->translate(skill->objectName());
         QString desc = skill->getDescription();
         desc.replace("\n", "<br/>");
-        description.append(QString("<b>%1</b>: %2 <br/> <br/>").arg(skill_name).arg(desc));
+		if (skill->inherits("DummySkill"))
+			description.append(QString("<font color=gray><s><b>%1</b></s></font>: %2 <br/> <br/>").arg(skill_name).arg(desc));
+		else
+			description.append(QString("<b>%1</b>: %2 <br/> <br/>").arg(skill_name).arg(desc));
     }
 
     if (include_name) {
