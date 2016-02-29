@@ -77,11 +77,18 @@ void ServerPlayer::broadcastSkillInvoke(const Card *card) const
 
 int ServerPlayer::getRandomHandCardId() const
 {
-    return getRandomHandCard()->getEffectiveId();
+	const Card *card = getRandomHandCard();
+	if (!card)
+		return Card::S_UNKNOWN_CARD_ID;
+
+    return card->getEffectiveId();
 }
 
 const Card *ServerPlayer::getRandomHandCard() const
 {
+	if (handcards.isEmpty())
+		return NULL;
+
     int index = qrand() % handcards.length();
     return handcards.at(index);
 }
@@ -943,9 +950,6 @@ int ServerPlayer::getGeneralMaxHp() const
 
         max_hp = qMax(max_hp, 1);
     }
-
-    if (room->hasWelfare(this))
-        max_hp++;
 
     return max_hp;
 }

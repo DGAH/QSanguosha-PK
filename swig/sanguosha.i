@@ -1351,6 +1351,7 @@ public:
     ServerPlayer *findPlayer(const char *general_name, bool include_dead = false) const;
     ServerPlayer *findPlayerBySkillName(const char *skill_name) const;
     QList<ServerPlayer *> findPlayersBySkillName(const char *skill_name) const;
+	ServerPlayer *findPlayerByObjectName(const char *object_name) const;
     void installEquip(ServerPlayer *player, const char *equip_name);
     void resetAI(ServerPlayer *player);
     void changeHero(ServerPlayer *player, const char *new_general, bool full_state, bool invokeStart = true, bool isSecondaryHero = false, bool sendLog = true);
@@ -1360,7 +1361,6 @@ public:
     void removeFixedDistance(Player *from, const Player *to, int distance);
     void insertAttackRangePair(Player *from, const Player *to);
     void removeAttackRangePair(Player *from, const Player *to);
-    bool hasWelfare(const ServerPlayer *player) const;
     ServerPlayer *getFront(ServerPlayer *a, ServerPlayer *b) const;
     void signup(ServerPlayer *player, const char *screen_name, const char *avatar, bool is_robot);
     ServerPlayer *getOwner() const;

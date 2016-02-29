@@ -50468,6 +50468,33 @@ fail:
 }
 
 
+static int _wrap_Room_findPlayerByObjectName(lua_State* L) {
+  int SWIG_arg = 0;
+  Room *arg1 = (Room *) 0 ;
+  char *arg2 = (char *) 0 ;
+  ServerPlayer *result = 0 ;
+  
+  SWIG_check_num_args("Room::findPlayerByObjectName",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Room::findPlayerByObjectName",1,"Room const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Room::findPlayerByObjectName",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Room,0))){
+    SWIG_fail_ptr("Room_findPlayerByObjectName",1,SWIGTYPE_p_Room);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (ServerPlayer *)((Room const *)arg1)->findPlayerByObjectName((char const *)arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_ServerPlayer,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Room_installEquip(lua_State* L) {
   int SWIG_arg = 0;
   Room *arg1 = (Room *) 0 ;
@@ -51082,37 +51109,6 @@ static int _wrap_Room_removeAttackRangePair(lua_State* L) {
   
   (arg1)->removeAttackRangePair(arg2,(Player const *)arg3);
   
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
-static int _wrap_Room_hasWelfare(lua_State* L) {
-  int SWIG_arg = 0;
-  Room *arg1 = (Room *) 0 ;
-  ServerPlayer *arg2 = (ServerPlayer *) 0 ;
-  bool result;
-  
-  SWIG_check_num_args("Room::hasWelfare",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Room::hasWelfare",1,"Room const *");
-  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Room::hasWelfare",2,"ServerPlayer const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Room,0))){
-    SWIG_fail_ptr("Room_hasWelfare",1,SWIGTYPE_p_Room);
-  }
-  
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_ServerPlayer,0))){
-    SWIG_fail_ptr("Room_hasWelfare",2,SWIGTYPE_p_ServerPlayer);
-  }
-  
-  result = (bool)((Room const *)arg1)->hasWelfare((ServerPlayer const *)arg2);
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -61197,6 +61193,7 @@ static swig_lua_method swig_Room_methods[] = {
     {"findPlayer", _wrap_Room_findPlayer}, 
     {"findPlayerBySkillName", _wrap_Room_findPlayerBySkillName}, 
     {"findPlayersBySkillName", _wrap_Room_findPlayersBySkillName}, 
+    {"findPlayerByObjectName", _wrap_Room_findPlayerByObjectName}, 
     {"installEquip", _wrap_Room_installEquip}, 
     {"resetAI", _wrap_Room_resetAI}, 
     {"changeHero", _wrap_Room_changeHero}, 
@@ -61206,7 +61203,6 @@ static swig_lua_method swig_Room_methods[] = {
     {"removeFixedDistance", _wrap_Room_removeFixedDistance}, 
     {"insertAttackRangePair", _wrap_Room_insertAttackRangePair}, 
     {"removeAttackRangePair", _wrap_Room_removeAttackRangePair}, 
-    {"hasWelfare", _wrap_Room_hasWelfare}, 
     {"getFront", _wrap_Room_getFront}, 
     {"signup", _wrap_Room_signup}, 
     {"getOwner", _wrap_Room_getOwner}, 
