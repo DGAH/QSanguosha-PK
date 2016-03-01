@@ -110,23 +110,6 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
         }
         if (!has_changed || subcardsLength() == 0) {
             QVariant data = QVariant::fromValue(use);
-            if (player->hasSkill("lihuo")) {
-                FireSlash *fire_slash = new FireSlash(getSuit(), getNumber());
-                if (!isVirtualCard() || subcardsLength() > 0)
-                    fire_slash->addSubcard(this);
-                fire_slash->setSkillName("lihuo");
-                bool can_use = true;
-                foreach (ServerPlayer *p, use.to) {
-                    if (!player->canSlash(p, fire_slash, false)) {
-                        can_use = false;
-                        break;
-                    }
-                }
-                if (can_use && room->askForSkillInvoke(player, "lihuo", data))
-                    use.card = fire_slash;
-                else
-                    delete fire_slash;
-            }
             if (use.card->objectName() == "slash" && player->hasWeapon("fan")) {
                 FireSlash *fire_slash = new FireSlash(getSuit(), getNumber());
                 if (!isVirtualCard() || subcardsLength() > 0)
@@ -181,14 +164,9 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
             name = "paoxiao";
         if (!name.isEmpty()) {
             player->setFlags("-Global_MoreSlashInOneTurn");
-            int index = qrand() % 2 + 1;
-            room->broadcastSkillInvoke(name, index);
+            room->broadcastSkillInvoke(name);
             room->notifySkillInvoked(player, name);
         }
-    }
-    if (use.to.size() > 1 && player->hasSkill("shenji")) {
-        room->broadcastSkillInvoke("shenji");
-        room->notifySkillInvoked(player, "shenji");
     }
 
     int rangefix = 0;
@@ -199,13 +177,6 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
         }
         if (use.from->getOffensiveHorse() && use.card->getSubcards().contains(use.from->getOffensiveHorse()->getId()))
             rangefix += 1;
-    }
-    foreach (ServerPlayer *p, use.to) {
-        if (p->hasSkill("tongji") && p->getHandcardNum() > p->getHp() && use.from->inMyAttackRange(p, rangefix)) {
-            room->broadcastSkillInvoke("tongji");
-            room->notifySkillInvoked(p, "tongji");
-            break;
-        }
     }
 
     if (use.from->hasFlag("BladeUse")) {
