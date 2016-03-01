@@ -541,6 +541,7 @@ bool WeaponSkill::triggerable(const ServerPlayer *target) const
 {
     if (target == NULL) return false;
     if (target->getMark("Equips_Nullified_to_Yourself") > 0) return false;
+	if (target->getMark("View_As_" + objectName()) > 0) return true;
     return target->hasWeapon(objectName());
 }
 
@@ -552,8 +553,10 @@ ArmorSkill::ArmorSkill(const QString &name)
 
 bool ArmorSkill::triggerable(const ServerPlayer *target) const
 {
-    if (target == NULL || target->getArmor() == NULL)
-        return false;
+    if (target == NULL) return false;
+	if (target->getMark("Equips_Nullified_to_Yourself") > 0) return false;
+	if (target->getMark("View_As_" + objectName()) > 0) return true;
+	if (target->getArmor() == NULL) return false;
     return target->hasArmorEffect(objectName());
 }
 
@@ -565,8 +568,10 @@ TreasureSkill::TreasureSkill(const QString &name)
 
 bool TreasureSkill::triggerable(const ServerPlayer *target) const
 {
-    if (target == NULL || target->getTreasure() == NULL)
-        return false;
+    if (target == NULL) return false;
+	if (target->getMark("Equips_Nullified_to_Yourself") > 0) return false;
+	if (target->getMark("View_As_" + objectName()) > 0) return true;
+	if (target->getTreasure() == NULL) return false;
     return target->hasTreasure(objectName());
 }
 

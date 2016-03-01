@@ -666,8 +666,9 @@ public:
         QString asked = data.toStringList().first();
         if (asked == "jink") {
             if (room->askForSkillInvoke(player, "eight_diagram")) {
-                int armor_id = player->getArmor()->getId();
-                room->setCardFlag(armor_id, "using");
+				WrappedCard *armor = player->getArmor();
+				if (armor)
+					room->setCardFlag(armor->getId(), "using");
                 JudgeStruct judge;
                 judge.pattern = ".|red";
                 judge.good = true;
@@ -675,7 +676,8 @@ public:
                 judge.who = player;
 
                 room->judge(judge);
-                room->setCardFlag(armor_id, "-using");
+				if (armor)
+					room->setCardFlag(armor->getId(), "-using");
 
                 if (judge.isGood()) {
                     room->setEmotion(player, "armor/eight_diagram");
