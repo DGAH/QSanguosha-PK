@@ -177,8 +177,8 @@ public:
 				use.from->tag["Jink_" + use.card->toString()] = QVariant::fromValue(jink_list);
 
 				if (play_effect) {
-					bool drunk = (use.card->tag.value("drunk", 0).toInt() > 0);
-					int index = drunk ? 3 : 2;
+					bool drank = use.card->hasFlag("drank");
+					int index = drank ? 3 : 2;
 					room->broadcastSkillInvoke(objectName(), index);
 					room->sendCompulsoryTriggerLog(player, objectName());
 				}
