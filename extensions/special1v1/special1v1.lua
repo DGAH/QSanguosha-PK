@@ -531,6 +531,7 @@ CangJi = sgs.CreateLuaSkill{
 	can_trigger = function(self, target)
 		return target and target:hasSkill("kofCangJi") and target:hasEquip()
 	end,
+	related_skills = CangJiInstall,
 }
 --武将信息：黄月英
 HuangYueYing = sgs.CreateLuaGeneral{
@@ -750,6 +751,7 @@ ManYi = sgs.CreateLuaSkill{
 		end
 		return false
 	end,
+	related_skills = ManYiAvoid,
 }
 --[[
 	技能：再起
@@ -876,6 +878,7 @@ BoTu = sgs.CreateLuaSkill{
 		return false
 	end,
 	priority = 1,
+	related_skills = BoTuCount,
 }
 --武将信息：吕蒙
 LvMeng = sgs.CreateLuaGeneral{
@@ -1533,7 +1536,7 @@ NiLuanRecord = sgs.CreateLuaSkill{
 			if player:getPhase() == sgs.Player_RoundStart then
 				local alives = room:getAlivePlayers()
 				for _,p in sgs.qlist(alives) do
-					room:setFlags("-kofNiLuanSlashTarget")
+					room:setPlayerFlag(p, "-kofNiLuanSlashTarget")
 				end
 			end
 		end
@@ -1618,6 +1621,7 @@ NiLuan = sgs.CreateLuaSkill{
 	can_trigger = function(self, target)
 		return target and target:isAlive()
 	end,
+	related_skills = NiLuanRecord,
 }
 --武将信息：韩遂
 HanSui = sgs.CreateLuaGeneral{

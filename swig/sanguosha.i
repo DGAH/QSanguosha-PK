@@ -1131,6 +1131,7 @@ public:
     const CardPattern *getPattern(const char *name) const;
     bool matchExpPattern(const char *pattern, const Player *player, const Card *card) const;
     Card::HandlingMethod getCardHandlingMethod(const char *method_name) const;
+    void addRelatedSkill(const char *main_skill, const char *related_skill);
     QList<const Skill *> getRelatedSkills(const char *skill_name) const;
     const Skill *getMainSkill(const char *skill_name) const;
 

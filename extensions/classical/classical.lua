@@ -1020,6 +1020,7 @@ KeJi = sgs.CreateLuaSkill{
 		end
 		return false
 	end,
+	related_skills = KeJiRecord,
 }
 --武将信息：吕蒙
 LvMeng = sgs.CreateLuaGeneral{

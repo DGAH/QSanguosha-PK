@@ -334,6 +334,11 @@ Card::HandlingMethod Engine::getCardHandlingMethod(const QString &method_name) c
     }
 }
 
+void Engine::addRelatedSkill(const QString &main_skill, const QString &related_skill)
+{
+	related_skills.insertMulti(main_skill, related_skill);
+}
+
 QList<const Skill *> Engine::getRelatedSkills(const QString &skill_name) const
 {
     QList<const Skill *> skills;

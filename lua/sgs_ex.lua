@@ -526,6 +526,7 @@ function sgs.CreateViewAsSkill(spec)
 	if type(spec.guhuo_type) == "string" and spec.guhuo_type ~= "" then skill:setGuhuoDialog(guhuo_type) end
 
 	skill.should_be_visible = spec.should_be_visible
+	skill.effect_index = spec.effect_index
 	skill.enabled_at_play = spec.enabled_at_play
 	skill.enabled_at_response = spec.enabled_at_response
 	skill.enabled_at_nullification = spec.enabled_at_nullification
@@ -712,11 +713,42 @@ function sgs.CreateLuaSkill(info)
 					sgs.AddTranslationEntry(k, v)
 				end
 			end
+			if type(info.related_skills) == "userdata" and info.related_skills:inherits("Skill") then
+				if not sgs.Sanguosha:getSkill(info.related_skills:objectName()) then
+					sgs.Sanguosha:addSkill(info.related_skills)
+				end
+				sgs.Sanguosha:addRelatedSkill(info.name, info.related_skills:objectName())
+			elseif type(info.related_skills) == "table" then
+				for _,skill in ipairs(info.related_skills) do
+					if type(skill) == "userdata" and skill:inherits("Skill") then
+						if not sgs.Sanguosha:getSkill(skill:objectName()) then
+							sgs.Sanguosha:addSkill(skill)
+						end
+						sgs.Sanguosha:addRelatedSkill(info.name, skill:objectName())
+					end
+				end
+			end
 			table.insert(lua_skills, skill)
 			return skill
 		end
 	end
 	return sgs.CreateDummySkill(info)
+end
+
+local function addSkillToGeneral(general, skill)
+	general:addSkill(skill)
+	local related_skills = sgs.Sanguosha:getRelatedSkills(skill:objectName())
+	for _,rsk in sgs.qlist(related_skills) do
+		general:addSkill(rsk:objectName())
+	end
+end
+
+local function addSkillToGeneralByName(general, skname)
+	general:addSkill(skname)
+	local related_skills = sgs.Sanguosha:getRelatedSkills(skname)
+	for _,rsk in sgs.qlist(related_skills) do
+		general:addSkill(rsk:objectName())
+	end
 end
 
 function sgs.CreateLuaGeneral(info)
@@ -778,15 +810,15 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.skills) == "table" then
 			for _,skill in ipairs(info.skills) do
 				if type(skill) == "string" then
-					general:addSkill(skill)
+					addSkillToGeneralByName(general, skill)
 				elseif type(skill) == "userdata" and skill:inherits("Skill") then
 					if resource and skill:getAudioPath() == "" then
 						skill:setAudioPath(resource)
 					end
 					if sgs.Sanguosha:getSkill(skill:objectName()) then
-						general:addSkill(skill:objectName())
+						addSkillToGeneralByName(general, skill:objectName())
 					else
-						general:addSkill(skill)
+						addSkillToGeneral(general, skill)
 					end
 				end
 			end
@@ -795,14 +827,14 @@ function sgs.CreateLuaGeneral(info)
 				info.skills:setAudioPath(resource)
 			end
 			if sgs.Sanguosha:getSkill(info.skills:objectName()) then
-				general:addSkill(info.skills:objectName())
+				addSkillToGeneralByName(general, info.skills:objectName())
 			else
-				general:addSkill(info.skills)
+				addSkillToGeneral(general, info.skills)
 			end
 		elseif type(info.skills) == "string" then
 			local skills = info.skills:split("+")
 			for _,skill in ipairs(skills) do
-				general:addSkill(skill)
+				addSkillToGeneralByName(general, skill)
 			end
 		end
 		if type(info.related_skills) == "string" then

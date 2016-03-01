@@ -38647,6 +38647,35 @@ fail:
 }
 
 
+static int _wrap_Engine_addRelatedSkill(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  
+  SWIG_check_num_args("Engine::addRelatedSkill",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::addRelatedSkill",1,"Engine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::addRelatedSkill",2,"char const *");
+  if(!SWIG_lua_isnilstring(L,3)) SWIG_fail_arg("Engine::addRelatedSkill",3,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_addRelatedSkill",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (char *)lua_tostring(L, 3);
+  (arg1)->addRelatedSkill((char const *)arg2,(char const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Engine_getRelatedSkills(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -41133,6 +41162,7 @@ static swig_lua_method swig_Engine_methods[] = {
     {"getPattern", _wrap_Engine_getPattern}, 
     {"matchExpPattern", _wrap_Engine_matchExpPattern}, 
     {"getCardHandlingMethod", _wrap_Engine_getCardHandlingMethod}, 
+    {"addRelatedSkill", _wrap_Engine_addRelatedSkill}, 
     {"getRelatedSkills", _wrap_Engine_getRelatedSkills}, 
     {"getMainSkill", _wrap_Engine_getMainSkill}, 
     {"getModScenarioNames", _wrap_Engine_getModScenarioNames}, 
