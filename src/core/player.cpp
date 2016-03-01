@@ -1205,9 +1205,3 @@ QList<const Player *> Player::getAliveSiblings() const
     }
     return siblings;
 }
-
-bool Player::isNostalGeneral(const Player *p, const QString &general_name)
-{
-    return p->getGeneralName() == "nos_" + general_name
-        || (p->getGeneralName() != general_name && p->getGeneral2Name() == "nos_" + general_name);
-}

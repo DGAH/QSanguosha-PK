@@ -73,14 +73,6 @@ public:
 		else
 			return NULL;
 	}
-
-	virtual int getEffectIndex(const ServerPlayer *player, const Card *) const
-	{
-		int index = qrand() % 2 + 1;
-		if (Player::isNostalGeneral(player, "zhaoyun"))
-			index += 2;
-		return index;
-	}
 };
 /*
  * Ô­±ê×¼°æ¡¤Öî¸ğÁÁ

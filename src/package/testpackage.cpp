@@ -337,11 +337,9 @@ public:
 	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
 	{
 		if (triggerEvent == TargetSpecified) {
-			int index = qrand() % 2 + 1;
-			if (Player::isNostalGeneral(player, "lvbu")) index += 2;
 			CardUseStruct use = data.value<CardUseStruct>();
 			if (use.card->isKindOf("Slash") && TriggerSkill::triggerable(player)) {
-				room->broadcastSkillInvoke(objectName(), index);
+				room->broadcastSkillInvoke(objectName());
 				room->sendCompulsoryTriggerLog(player, objectName());
 
 				QVariantList jink_list = player->tag["Jink_" + use.card->toString()].toList();
@@ -353,7 +351,7 @@ public:
 			}
 			else if (use.card->isKindOf("Duel")) {
 				if (TriggerSkill::triggerable(player)) {
-					room->broadcastSkillInvoke(objectName(), index);
+					room->broadcastSkillInvoke(objectName());
 					room->sendCompulsoryTriggerLog(player, objectName());
 
 					QStringList wushuang_tag;
@@ -363,7 +361,7 @@ public:
 				}
 				foreach(ServerPlayer *p, use.to.toSet()) {
 					if (TriggerSkill::triggerable(p)) {
-						room->broadcastSkillInvoke(objectName(), index);
+						room->broadcastSkillInvoke(objectName());
 						room->sendCompulsoryTriggerLog(p, objectName());
 
 						p->tag["Wushuang_" + use.card->toString()] = QStringList(player->objectName());

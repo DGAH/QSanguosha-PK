@@ -21524,33 +21524,6 @@ fail:
 }
 
 
-static int _wrap_Player_isNostalGeneral(lua_State* L) {
-  int SWIG_arg = 0;
-  Player *arg1 = (Player *) 0 ;
-  char *arg2 = (char *) 0 ;
-  bool result;
-  
-  SWIG_check_num_args("Player::isNostalGeneral",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::isNostalGeneral",1,"Player const *");
-  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Player::isNostalGeneral",2,"char const *");
-  
-  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
-    SWIG_fail_ptr("Player_isNostalGeneral",1,SWIGTYPE_p_Player);
-  }
-  
-  arg2 = (char *)lua_tostring(L, 2);
-  result = (bool)Player::isNostalGeneral((Player const *)arg1,(char const *)arg2);
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_Player_setTag(lua_State* L) {
   int SWIG_arg = 0;
   Player *arg1 = (Player *) 0 ;
@@ -21793,7 +21766,6 @@ static swig_lua_attribute swig_Player_cls_attributes[] = {
     {0,0,0}
 };
 static swig_lua_method swig_Player_cls_methods[] = {
-    {"isNostalGeneral", _wrap_Player_isNostalGeneral}, 
     {0,0}
 };
 static swig_lua_const_info swig_Player_cls_constants[] = {
@@ -74118,7 +74090,6 @@ static const struct luaL_Reg swig_commands[] = {
     { "SetConfig",SetConfig},
     { "GetProperty",GetProperty},
     { "Alert",Alert},
-    { "Player_isNostalGeneral", _wrap_Player_isNostalGeneral},
     { "Card_CompareByNumber", _wrap_Card_CompareByNumber},
     { "Card_CompareBySuit", _wrap_Card_CompareBySuit},
     { "Card_CompareByType", _wrap_Card_CompareByType},

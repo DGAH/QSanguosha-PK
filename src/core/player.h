@@ -254,8 +254,6 @@ public:
 
     QVariantMap tag;
 
-    static bool isNostalGeneral(const Player *p, const QString &general_name);
-
 protected:
     QMap<QString, int> marks;
     QMap<QString, QList<int> > piles;

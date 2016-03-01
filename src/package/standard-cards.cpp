@@ -182,10 +182,6 @@ void Slash::onUse(Room *room, const CardUseStruct &card_use) const
         if (!name.isEmpty()) {
             player->setFlags("-Global_MoreSlashInOneTurn");
             int index = qrand() % 2 + 1;
-            if (name == "paoxiao") {
-                if (Player::isNostalGeneral(player, "zhangfei"))
-                    index += 2;
-            }
             room->broadcastSkillInvoke(name, index);
             room->notifySkillInvoked(player, name);
         }
