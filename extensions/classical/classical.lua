@@ -404,7 +404,74 @@ YiJi = sgs.CreateLuaSkill{
 		for i=1, damage.damage, 1 do
 			if player:askForSkillInvoke("YiJi", data) then
 				room:broadcastSkillInvoke("YiJi")
-				--Waiting For More Details
+				local guojia = sgs.SPlayerList()
+				guojia:append(player)
+				local yiji_cards = room:getNCards(2, false)
+				local move = sgs.CardsMoveStruct(
+					yiji_cards,
+					nil,
+					player,
+					sgs.Player_PlaceTable,
+					sgs.Player_PlaceHand,
+					sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_PREVIEW, player:objectName(), "YiJi", "")
+				)
+				local moves = sgs.CardsMoveList()
+				moves:append(move)
+				room:notifyMoveCards(true, moves, false, guojia)
+				room:notifyMoveCards(false, moves, false, guojia)
+				local origin_yiji = sgs.IntList()
+				for _,id in sgs.qlist(yiji_cards) do
+					origin_yiji:append(id)
+				end
+				while true do
+					local alives = room:getAlivePlayers()
+					if room:askForYiji(player, yiji_cards, "YiJi", true, false, true, -1, alives) then
+						move = sgs.CardsMoveStruct(
+							sgs.IntList(),
+							player,
+							nil,
+							sgs.Player_PlaceHand,
+							sgs.Player_PlaceTable,
+							sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_PREVIEW, player:objectName(), "YiJi", "")
+						)
+						for _,id in sgs.qlist(origin_yiji) do
+							if room:getCardPlace(id) ~= sgs.Player_DrawPile then
+								move.card_ids:append(id)
+								yiji_cards:removeOne(id)
+							end
+						end
+						origin_yiji = sgs.IntList()
+						for _,id in sgs.qlist(yiji_cards) do
+							origin_yiji:append(id)
+						end
+						moves = sgs.CardsMoveList()
+						moves:append(move)
+						room:notifyMoveCards(true, moves, false, guojia)
+						room:notifyMoveCards(false, moves, false, guojia)
+						if not player:isAlive() then
+							return false
+						end
+					else
+						break
+					end
+				end
+				if not yiji_cards:isEmpty() then
+					move = sgs.CardsMoveStruct(
+						yiji_cards,
+						player,
+						nil,
+						sgs.Player_PlaceHand,
+						sgs.Player_PlaceTable,
+						sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_PREVIEW, player:objectName(), "YiJi", "")
+					)
+					moves = sgs.CardsMoveList()
+					moves:append(move)
+					room:notifyMoveCards(true, moves, false, guojia)
+					room:notifyMoveCards(false, moves, false, guojia)
+					local dummy = sgs.DummyCard(yiji_cards)
+					player:obtainCard(dummy, false)
+					dummy:deleteLater()
+				end
 			else
 				break
 			end
@@ -705,6 +772,40 @@ TieJi = sgs.CreateLuaSkill{
 	translation = "铁骑",
 	description = "每当你指定【杀】的目标后，你可以进行判定：若结果为红色，该角色不能使用【闪】响应此【杀】。",
 	audio = "全军突击！",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.TargetSpecifying},
+	on_trigger = function(self, event, player, data)
+		local use = data:toCardUse()
+		local slash = use.card
+		if slash and slash:isKindOf("Slash") then
+			local room = player:getRoom()
+			local key = "Jink_"..slash:toString()
+			local jinkList = player:getTag(key):toIntList()
+			local newJinkList = sgs.IntList()
+			for index, target in sgs.qlist(use.to) do
+				local jink = jinkList:at(index)
+				local prompt = string.format("invoke:%s", target:objectName())
+				if player:askForSkillInvoke("TieJi", sgs.QVariant(prompt)) then
+					room:broadcastSkillInvoke("TieJi")
+					local judge = sgs.JudgeStruct()
+					judge.who = player
+					judge.reason = "TieJi"
+					judge.pattern = ".|red"
+					judge.good = true
+					room:judge(judge)
+					if judge:isGood() then
+						jink = 0
+					end
+				end
+				newJinkList:append(jink)
+			end
+			local tag = sgs.QVariant()
+			tag:setValue(newJinkList)
+			player:setTag(key, tag)
+		end
+		return false
+	end,
 }
 --武将信息：马超
 MaChao = sgs.CreateLuaGeneral{
@@ -1162,6 +1263,23 @@ LianYing = sgs.CreateLuaSkill{
 	translation = "连营",
 	description = "每当你失去最后的手牌后，你可以摸一张牌。",
 	audio = "牌不是万能的，但是没牌是万万不能的！",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Frequent,
+	events = {sgs.CardsMoveOneTime},
+	on_trigger = function(self, event, player, data)
+		local move = data:toMoveOneTime()
+		if move.is_last_handcard then
+			local source = move.from
+			if source and source:objectName() == player:objectName() then
+				if player:askForSkillInvoke("LianYing", data) then
+					local room = player:getRoom()
+					room:broadcastSkillInvoke("LianYing")
+					room:drawCards(player, 1, "LianYing")
+				end
+			end
+		end
+		return false
+	end,
 }
 --武将信息：陆逊
 LuXun = sgs.CreateLuaGeneral{
@@ -1267,6 +1385,34 @@ XiaoJi = sgs.CreateLuaSkill{
 		"哼！",
 		"看我的厉害！",
 	},
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Frequent,
+	events = {sgs.CardsMoveOneTime},
+	on_trigger = function(self, event, player, data)
+		local move = data:toMoveOneTime()
+		local source = move.from
+		if source and source:objectName() == player:objectName() then
+			local count = 0
+			for index, place in sgs.qlist(move.from_places) do
+				if place == sgs.Player_PlaceEquip then
+					count = count + 1
+				end
+			end
+			if count == 0 then
+				return false
+			end
+			local room = player:getRoom()
+			for i=1, count, 1 do
+				if player:askForSkillInvoke("XiaoJi", data) then
+					room:broadcastSkillInvoke("XiaoJi")
+					room:drawCards(player, 2, "XiaoJi")
+				else
+					break
+				end
+			end
+		end
+		return false
+	end,
 }
 --武将信息：孙尚香
 SunShangXiang = sgs.CreateLuaGeneral{
