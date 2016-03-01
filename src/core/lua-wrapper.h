@@ -73,6 +73,7 @@ public:
     virtual const Card *viewAs(const QList<const Card *> &cards) const;
 
     virtual bool shouldBeVisible(const Player *player) const;
+	virtual int getEffectIndex(const ServerPlayer *player, const Card *card) const;
 
     void pushSelf(lua_State *L) const;
     inline void setGuhuoDialog(const char *type)
@@ -84,6 +85,7 @@ public:
     LuaFunction view_as;
 
     LuaFunction should_be_visible;
+	LuaFunction effect_index;
 
     LuaFunction enabled_at_play;
     LuaFunction enabled_at_response;

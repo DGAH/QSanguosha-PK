@@ -139,8 +139,10 @@ public:
     virtual const Card *viewAs(const QList<const Card *> &cards) const;
 
     virtual bool shouldBeVisible(const Player *player) const;
+	virtual int getEffectIndex(const ServerPlayer *player, const Card *card) const;
 
     LuaFunction should_be_visible;
+	LuaFunction effect_index;
 
     LuaFunction view_filter;
     LuaFunction view_as;
@@ -851,6 +853,32 @@ bool LuaViewAsSkill::shouldBeVisible(const Player *player) const
         return false;
     } else {
         bool result = lua_toboolean(L, -1);
+        lua_pop(L, 1);
+        return result;
+    }
+}
+
+int LuaViewAsSkill::getEffectIndex(const ServerPlayer *player, const Card *card) const
+{
+    if (effect_index == 0)
+        return ViewAsSkill::getEffectIndex(player, card);
+
+    lua_State *L = Sanguosha->getLuaState();
+
+    // the callback
+    lua_rawgeti(L, LUA_REGISTRYINDEX, effect_index);
+
+    pushSelf(L);
+
+    SWIG_NewPointerObj(L, player, SWIGTYPE_p_ServerPlayer, 0);
+	SWIG_NewPointerObj(L, card, SWIGTYPE_p_Card, 0);
+
+    int error = lua_pcall(L, 3, 1, 0);
+    if (error) {
+        Error(L);
+        return false;
+    } else {
+        int result = lua_tointeger(L, -1);
         lua_pop(L, 1);
         return result;
     }

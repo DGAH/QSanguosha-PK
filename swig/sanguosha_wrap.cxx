@@ -2877,6 +2877,32 @@ bool LuaViewAsSkill::shouldBeVisible(const Player *player) const
     }
 }
 
+int LuaViewAsSkill::getEffectIndex(const ServerPlayer *player, const Card *card) const
+{
+    if (effect_index == 0)
+        return ViewAsSkill::getEffectIndex(player, card);
+
+    lua_State *L = Sanguosha->getLuaState();
+
+    // the callback
+    lua_rawgeti(L, LUA_REGISTRYINDEX, effect_index);
+
+    pushSelf(L);
+
+    SWIG_NewPointerObj(L, player, SWIGTYPE_p_ServerPlayer, 0);
+	SWIG_NewPointerObj(L, card, SWIGTYPE_p_Card, 0);
+
+    int error = lua_pcall(L, 3, 1, 0);
+    if (error) {
+        Error(L);
+        return false;
+    } else {
+        int result = lua_tointeger(L, -1);
+        lua_pop(L, 1);
+        return result;
+    }
+}
+
 bool LuaViewAsSkill::isEnabledAtPlay(const Player *player) const
 {
     if (enabled_at_play == 0)
@@ -65890,6 +65916,44 @@ fail:
 }
 
 
+static int _wrap_LuaViewAsSkill_getEffectIndex(lua_State* L) {
+  int SWIG_arg = 0;
+  LuaViewAsSkill *arg1 = (LuaViewAsSkill *) 0 ;
+  ServerPlayer *arg2 = (ServerPlayer *) 0 ;
+  Card *arg3 = (Card *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("LuaViewAsSkill::getEffectIndex",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("LuaViewAsSkill::getEffectIndex",1,"LuaViewAsSkill const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("LuaViewAsSkill::getEffectIndex",2,"ServerPlayer const *");
+  if(!SWIG_isptrtype(L,3)) SWIG_fail_arg("LuaViewAsSkill::getEffectIndex",3,"Card const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_LuaViewAsSkill,0))){
+    SWIG_fail_ptr("LuaViewAsSkill_getEffectIndex",1,SWIGTYPE_p_LuaViewAsSkill);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_ServerPlayer,0))){
+    SWIG_fail_ptr("LuaViewAsSkill_getEffectIndex",2,SWIGTYPE_p_ServerPlayer);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,3,(void**)&arg3,SWIGTYPE_p_Card,0))){
+    SWIG_fail_ptr("LuaViewAsSkill_getEffectIndex",3,SWIGTYPE_p_Card);
+  }
+  
+  result = (int)((LuaViewAsSkill const *)arg1)->getEffectIndex((ServerPlayer const *)arg2,(Card const *)arg3);
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_LuaViewAsSkill_should_be_visible_set(lua_State* L) {
   int SWIG_arg = 0;
   LuaViewAsSkill *arg1 = (LuaViewAsSkill *) 0 ;
@@ -65935,6 +65999,65 @@ static int _wrap_LuaViewAsSkill_should_be_visible_get(lua_State* L) {
   }
   
   result =  ((arg1)->should_be_visible);
+  
+  lua_rawgeti(L, LUA_REGISTRYINDEX, result);
+  SWIG_arg ++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_LuaViewAsSkill_effect_index_set(lua_State* L) {
+  int SWIG_arg = 0;
+  LuaViewAsSkill *arg1 = (LuaViewAsSkill *) 0 ;
+  LuaFunction arg2 ;
+  
+  SWIG_check_num_args("LuaViewAsSkill::effect_index",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("LuaViewAsSkill::effect_index",1,"LuaViewAsSkill *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_LuaViewAsSkill,0))){
+    SWIG_fail_ptr("LuaViewAsSkill_effect_index_set",1,SWIGTYPE_p_LuaViewAsSkill);
+  }
+  
+  
+  if (lua_isfunction(L, 2)) {
+    lua_pushvalue(L, 2);
+    arg2 = luaL_ref(L, LUA_REGISTRYINDEX);
+  } else {
+    arg2 = 0;
+  }
+  
+  if (arg1) (arg1)->effect_index = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_LuaViewAsSkill_effect_index_get(lua_State* L) {
+  int SWIG_arg = 0;
+  LuaViewAsSkill *arg1 = (LuaViewAsSkill *) 0 ;
+  LuaFunction result;
+  
+  SWIG_check_num_args("LuaViewAsSkill::effect_index",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("LuaViewAsSkill::effect_index",1,"LuaViewAsSkill *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_LuaViewAsSkill,0))){
+    SWIG_fail_ptr("LuaViewAsSkill_effect_index_get",1,SWIGTYPE_p_LuaViewAsSkill);
+  }
+  
+  result =  ((arg1)->effect_index);
   
   lua_rawgeti(L, LUA_REGISTRYINDEX, result);
   SWIG_arg ++;
@@ -66278,11 +66401,13 @@ static swig_lua_method swig_LuaViewAsSkill_methods[] = {
     {"viewFilter", _wrap_LuaViewAsSkill_viewFilter}, 
     {"viewAs", _wrap_LuaViewAsSkill_viewAs}, 
     {"shouldBeVisible", _wrap_LuaViewAsSkill_shouldBeVisible}, 
+    {"getEffectIndex", _wrap_LuaViewAsSkill_getEffectIndex}, 
     {"setGuhuoDialog", _wrap_LuaViewAsSkill_setGuhuoDialog}, 
     {0,0}
 };
 static swig_lua_attribute swig_LuaViewAsSkill_attributes[] = {
     { "should_be_visible", _wrap_LuaViewAsSkill_should_be_visible_get, _wrap_LuaViewAsSkill_should_be_visible_set},
+    { "effect_index", _wrap_LuaViewAsSkill_effect_index_get, _wrap_LuaViewAsSkill_effect_index_set},
     { "view_filter", _wrap_LuaViewAsSkill_view_filter_get, _wrap_LuaViewAsSkill_view_filter_set},
     { "view_as", _wrap_LuaViewAsSkill_view_as_get, _wrap_LuaViewAsSkill_view_as_set},
     { "enabled_at_play", _wrap_LuaViewAsSkill_enabled_at_play_get, _wrap_LuaViewAsSkill_enabled_at_play_set},
