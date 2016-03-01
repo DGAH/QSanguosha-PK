@@ -19,8 +19,10 @@ return extension
 ]]--
 --推荐写法
 return {
-	name = "demo",
-	category = sgs.Package_GeneralPack,
-	translation = "示例扩展包",
-	generals = {},
+	name = "demo", --扩展包名称
+	category = sgs.Package_GeneralPack, --扩展包类型
+	translation = "示例扩展包", --扩展包名称的翻译
+	generals = {}, --扩展包中包含的武将
+	cards = {}, --扩展包中包含的卡牌
+	skills = {}, --扩展包中包含的自由技能
 }
