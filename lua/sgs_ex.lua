@@ -201,6 +201,23 @@ function sgs.CreateGameStartSkill(spec)
 	return sgs.CreateTriggerSkill(spec)
 end
 
+function sgs.CreateDetachEffectSkill(spec)
+	assert(type(spec.on_skill_detached) == "function")
+	
+	spec.events = sgs.EventLoseSkill
+	
+	function spec.on_trigger(skill, event, player, data)
+		spec.on_skill_detached(skill, player:getRoom(), player)
+		return false
+	end
+	
+	function spec.can_trigger(skill, target)
+		return target ~= nil
+	end
+	
+	return sgs.CreateTriggerSkill(spec)
+end
+
 --------------------------------------------
 
 -- skill cards
