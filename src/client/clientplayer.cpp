@@ -192,7 +192,7 @@ void ClientPlayer::setMark(const QString &mark, int value)
     foreach (QString key, keys) {
         if (key.startsWith("@") && marks[key] > 0) {
             int val = marks[key];
-            QString mark_text = QString("<img src='image/mark/%1.png' />").arg(key);
+            QString mark_text = QString("<img src='%1' />").arg(Sanguosha->getMarkPath(key));
             if (val != 1)
                 mark_text.append(QString("%1").arg(val));
             if (this != Self)

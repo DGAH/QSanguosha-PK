@@ -455,6 +455,7 @@ JiaXu = sgs.CreateLuaGeneral{
 	skills = {"wansha", LuanWu, WeiMu},
 	last_word = "大势已去，吾不能自保矣……",
 	resource = "jiaxu",
+	marks = {"@chaos"},
 }
 --[[****************************************************************
 	林武将包

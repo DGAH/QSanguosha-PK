@@ -59,6 +59,7 @@ GuanYu = sgs.CreateLuaGeneral{
 	skills = {WuShen, WuHun},
 	last_word = "吾一世英明，竟葬于小人之手！",
 	resource = "guanyu",
+	marks = {"@nightmare"},
 }
 --[[****************************************************************
 	称号：圣光之国士
@@ -156,6 +157,7 @@ ZhouYu = sgs.CreateLuaGeneral{
 	skills = {QinYin, YeYan},
 	last_word = "残炎黯然，弦歌不复……",
 	resource = "zhouyu",
+	marks = {"@flame"},
 }
 --[[****************************************************************
 	称号：赤壁的妖术师
@@ -211,6 +213,7 @@ ZhuGeLiang = sgs.CreateLuaGeneral{
 	skills = {QiXing, KuangFeng, DaWu},
 	last_word = "吾命将至，再不能临阵讨贼矣……",
 	resource = "zhugeliang",
+	marks = {"@gale", "@fog"},
 }
 --[[****************************************************************
 	称号：超世之英杰
@@ -325,6 +328,7 @@ LvBu = sgs.CreateLuaGeneral{
 	related_skills = "wushuang",
 	last_word = "大耳贼最叵信！啊……",
 	resource = "lvbu",
+	marks = {"@wrath"},
 }
 --[[****************************************************************
 	称号：晋国之祖
@@ -395,6 +399,7 @@ SiMaYi = sgs.CreateLuaGeneral{
 	related_skills = JiLve,
 	last_word = "我已谋划至此，奈何……",
 	resource = "simayi",
+	marks = {"@bear"},
 }
 --[[****************************************************************
 	称号：神威如龙

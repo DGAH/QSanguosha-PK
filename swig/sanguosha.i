@@ -1154,6 +1154,10 @@ public:
 	void addSkill(const Skill *skill);
     void addSkills(const QList<const Skill *> &skills);
 
+    void addMarkPath(const char *mark, const char *path);
+    QString getMarkPath(const char *mark) const;
+    QStringList getVisibleMarks() const;
+
 	void addGeneralLevel(GeneralLevel *level);
 	GeneralLevel *getGeneralLevel(const char *level) const;
 	QStringList getGeneralLevels(const char *parent_level = "") const;

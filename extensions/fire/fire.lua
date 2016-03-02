@@ -127,6 +127,7 @@ PangTong = sgs.CreateLuaGeneral{
 	skills = {LianHuan, NiePan},
 	last_word = "落凤坡？此地不利于吾。",
 	resource = "pangtong",
+	marks = {"@nirvana"},
 }
 --[[****************************************************************
 	称号：卧龙

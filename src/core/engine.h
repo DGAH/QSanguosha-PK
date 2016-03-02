@@ -95,6 +95,10 @@ public:
 	void addSkill(const Skill *skill);
     void addSkills(const QList<const Skill *> &skills);
 
+	void addMarkPath(const QString &mark, const QString &path);
+	QString getMarkPath(const QString &mark) const;
+	QStringList getVisibleMarks() const;
+
 	void addGeneralLevel(GeneralLevel *level);
 	GeneralLevel *getGeneralLevel(const QString &level) const;
 	QStringList getGeneralLevels(const QString &parent_level = "") const;
@@ -144,6 +148,7 @@ private:
     QHash<QString, const QMetaObject *> metaobjects;
     QHash<QString, QString> className2objectName;
     QHash<QString, const Skill *> skills;
+	QHash<QString, QString> marks;
     QHash<QThread *, QObject *> m_rooms;
     QMap<QString, QString> modes;
     QMultiMap<QString, QString> related_skills;

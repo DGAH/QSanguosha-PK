@@ -359,6 +359,21 @@ const Skill *Engine::getMainSkill(const QString &skill_name) const
     return skill;
 }
 
+void Engine::addMarkPath(const QString &mark, const QString &path)
+{
+	marks.insert(mark, path);
+}
+
+QString Engine::getMarkPath(const QString &mark) const
+{
+	return marks.value(mark, QString("image/mark/%1.png").arg(mark));
+}
+
+QStringList Engine::getVisibleMarks() const
+{
+	return marks.keys();
+}
+
 const General *Engine::getGeneral(const QString &name) const
 {
     return generals.value(name, NULL);

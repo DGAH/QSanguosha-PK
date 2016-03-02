@@ -368,6 +368,7 @@ ZuoCi = sgs.CreateLuaGeneral{
 	skills = {HuaShen, XinSheng},
 	last_word = "释知遗形，神灭形消……",
 	resource = "zuoci",
+	marks = {"@huashen"},
 }
 --[[****************************************************************
 	称号：异乡的孤女
@@ -418,6 +419,7 @@ CaiWenJi = sgs.CreateLuaGeneral{
 	illustrator = "Sonia Tang",
 	skills = {BeiGe, DuanChang},
 	resource = "caiyan",
+	marks = {"@duanchang"},
 }
 --[[****************************************************************
 	山武将包

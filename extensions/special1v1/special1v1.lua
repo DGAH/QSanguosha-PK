@@ -186,6 +186,7 @@ XuChu = sgs.CreateLuaGeneral{
 	order = 4,
 	skills = {"LuoYi", XieChan},
 	resource = "xuchu",
+	marks = {"@twine"},
 }
 --[[****************************************************************
 	称号：薄幸的美人

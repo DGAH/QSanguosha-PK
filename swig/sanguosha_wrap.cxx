@@ -39346,6 +39346,96 @@ fail:
 }
 
 
+static int _wrap_Engine_addMarkPath(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  
+  SWIG_check_num_args("Engine::addMarkPath",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::addMarkPath",1,"Engine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::addMarkPath",2,"char const *");
+  if(!SWIG_lua_isnilstring(L,3)) SWIG_fail_arg("Engine::addMarkPath",3,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_addMarkPath",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (char *)lua_tostring(L, 3);
+  (arg1)->addMarkPath((char const *)arg2,(char const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getMarkPath(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("Engine::getMarkPath",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getMarkPath",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::getMarkPath",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getMarkPath",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((Engine const *)arg1)->getMarkPath((char const *)arg2);
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getVisibleMarks(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getVisibleMarks",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getVisibleMarks",1,"Engine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getVisibleMarks",1,SWIGTYPE_p_Engine);
+  }
+  
+  result = ((Engine const *)arg1)->getVisibleMarks();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Engine_addGeneralLevel(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -41182,6 +41272,9 @@ static swig_lua_method swig_Engine_methods[] = {
     {"getGlobalTriggerSkills", _wrap_Engine_getGlobalTriggerSkills}, 
     {"addSkill", _wrap_Engine_addSkill}, 
     {"addSkills", _wrap_Engine_addSkills}, 
+    {"addMarkPath", _wrap_Engine_addMarkPath}, 
+    {"getMarkPath", _wrap_Engine_getMarkPath}, 
+    {"getVisibleMarks", _wrap_Engine_getVisibleMarks}, 
     {"addGeneralLevel", _wrap_Engine_addGeneralLevel}, 
     {"getGeneralLevel", _wrap_Engine_getGeneralLevel}, 
     {"getGeneralLevels", _wrap_Engine_getGeneralLevels}, 

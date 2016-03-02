@@ -43,5 +43,6 @@ return {
 	related_skills = {}, --武将相关联的技能（通常为觉醒技中将获得的技能）
 	resource = "kfm_resource", --武将资源目录
 	use_absolute_path = false, --武将资源目录是否为绝对路径
+	marks = {}, --武将自带的标记
 	translations = {}, --其他需要翻译的内容
 }

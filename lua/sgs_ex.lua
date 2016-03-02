@@ -707,6 +707,14 @@ function sgs.CreateLuaSkill(info)
 			end
 			if type(info.resource) == "string" then
 				skill:setAudioPath(info.resource)
+				if type(info.marks) == "table" then
+					for _,mark in ipairs(info.marks) do
+						if type(mark) == "string" then
+							local path = string.format("%s/%s.png", info.resource, mark)
+							sgs.Sanguosha:addMarkPath(mark, path)
+						end
+					end
+				end
 			end
 			if type(info.translations) == "table" then
 				for k, v in pairs(info.translations) do
@@ -806,6 +814,14 @@ function sgs.CreateLuaGeneral(info)
 				resource = string.format("%s/%s", global_path, info.resource)
 			end
 			general:setResourcePath(resource)
+		end
+		if resource and type(info.marks) == "table" then
+			for _,mark in ipairs(info.marks) do
+				if type(mark) == "string" then
+					local path = string.format("%s/%s.png", resource, mark)
+					sgs.Sanguosha:addMarkPath(mark, path)
+				end
+			end
 		end
 		if type(info.skills) == "table" then
 			for _,skill in ipairs(info.skills) do
