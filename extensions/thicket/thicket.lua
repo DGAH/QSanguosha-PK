@@ -22,6 +22,16 @@
 	技能：断粮
 	描述：你可以将一张黑色的基本牌或黑色的装备牌当【兵粮寸断】使用。你使用【兵粮寸断】的距离限制为2。
 ]]--
+DuanLiangMod = sgs.CreateLuaSkill{
+	name = "#DuanLiangMod",
+	class = "TargetModSkill",
+	distance_limit_func = function(self, player, card)
+		if card:isKindOf("SupplyShortage") and player:hasSkill("DuanLiang") then
+			return 1
+		end
+		return 0
+	end,
+}
 DuanLiang = sgs.CreateLuaSkill{
 	name = "DuanLiang",
 	translation = "断粮",
@@ -30,6 +40,29 @@ DuanLiang = sgs.CreateLuaSkill{
 		"断汝粮草，以绝后路！",
 		"焚其辎重，乱其军心！",
 	},
+	class = "ViewAsSkill",
+	n = 1,
+	view_filter = function(self, selected, to_select)
+		if to_select:isBlack() then
+			return to_select:isKindOf("BasicCard") or to_select:isKindOf("EquipCard")
+		end
+		return false
+	end,
+	view_as = function(self, cards)
+		if #cards == 1 then
+			local card = cards[1]
+			local suit = card:getSuit()
+			local point = card:getNumber()
+			local trick = sgs.Sanguosha:cloneCard("supply_shortage", suit, point)
+			trick:addSubcard(card)
+			trick:setSkillName("DuanLiang")
+			return trick
+		end
+	end,
+	enabled_at_play = function(self, player)
+		return not player:isNude()
+	end,
+	related_skills = DuanLiangMod,
 }
 --武将信息：徐晃
 XuHuang = sgs.CreateLuaGeneral{
@@ -64,6 +97,45 @@ XingShang = sgs.CreateLuaSkill{
 		"珠沉玉殁，其香犹存！",
 		"痛神曜之幽浅，哀鼎俎之虚置……",
 	},
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.Death},
+	on_trigger = function(self, event, player, data)
+		local death = data:toDeath()
+		local victim = death.who
+		if victim and victim:objectName() == player:objectName() then
+			local room = player:getRoom()
+			local alives = player:getAlivePlayers()
+			for _,source in sgs.qlist(alives) do
+				if source:hasSkill("XingShang") then
+					if source:askForSkillInvoke("XingShang", data) then
+						if victim:isGeneral("caocao", true, true) then
+							room:broadcastSkillInvoke("XingShang", 3)
+						elseif victim:isMale() then
+							room:broadcastSkillInvoke("XingShang", 1)
+						else
+							room:broadcastSkillInvoke("XingShang", 2)
+						end
+						local dummy = sgs.DummySkill(victim:handCards())
+						local equips = victim:getEquips()
+						for _,equip in sgs.qlist(equips) do
+							dummy:addSubcard(equip)
+						end
+						if dummy:subcardsLength() > 0 then
+							local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_RECYCLE, source:objectName())
+							room:obtainCard(source, dummy, reason, false)
+						end
+						dummy:deleteLater()
+						return false
+					end
+				end
+			end
+		end
+		return false
+	end,
+	can_trigger = function(self, target)
+		return target
+	end,
 }
 --[[
 	技能：放逐
@@ -78,6 +150,26 @@ FangZhu = sgs.CreateLuaSkill{
 		"特赦天下，奉旨回京！",
 		"本自同根生，相煎何太急？……",
 	},
+	class = "MasochismSkill",
+	on_damaged = function(self, player, damage)
+		local room = player:getRoom()
+		local others = room:getOtherPlayers(player)
+		local target = room:askForPlayerChosen(player, others, "FangZhu", "@FangZhu", true, true)
+		if target then
+			if target:faceUp() then
+				if target:isGeneral("caozhi", true, true) then
+					room:broadcastSkillInvoke("FangZhu", 3)
+				else
+					room:broadcastSkillInvoke("FangZhu", 1)
+				end
+			else
+				room:broadcastSkillInvoke("FangZhu", 2)
+			end
+			local x = player:getLostHp()
+			room:drawCards(target, x, "FangZhu")
+			target:turnOver()
+		end
+	end,
 }
 --[[
 	技能：颂威（主公技）[空壳技能]
@@ -113,11 +205,76 @@ CaoPi = sgs.CreateLuaGeneral{
 	技能：祸首（锁定技）
 	描述：【南蛮入侵】对你无效。每当一名角色指定【南蛮入侵】的目标后，你成为【南蛮入侵】的伤害来源。
 ]]--
+HuoShouAvoid = sgs.CreateLuaSkill{
+	name = "#HuoShouAvoid",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Compulsory,
+	events = {sgs.CardEffected},
+	on_trigger = function(self, event, player, data)
+		local effect = data:toCardEffect()
+		local trick = effect.card
+		if trick and trick:isKindOf("SavageAssault") then
+			local room = player:getRoom()
+			room:broadcastSkillInvoke("HuoShou")
+			local msg = sgs.LogMessage()
+			msg.type = "#SkillNullify"
+			msg.from = player
+			msg.arg = "HuoShou"
+			msg.arg2 = "savage_assault"
+			room:sendLog(msg)
+			return true
+		end
+		return false
+	end,
+}
 HuoShou = sgs.CreateLuaSkill{
 	name = "HuoShou",
 	translation = "祸首",
 	description = "<font color=\"blue\"><b>锁定技</b></font>，【南蛮入侵】对你无效。每当一名角色指定【南蛮入侵】的目标后，你成为【南蛮入侵】的伤害来源。",
 	audio = "南蛮之地，皆我子民！",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Compulsory,
+	events = {sgs.TargetSpecified, sgs.ConfirmDamage},
+	on_trigger = function(self, event, player, data)
+		local room = player:getRoom()
+		if event == sgs.TargetSpecified then
+			local use = data:toCardUse()
+			if use.from and use.card:isKindOf("SavageAssault") then
+				local source = room:findPlayerBySkillName("HuoShou")
+				if source and source:objectName() ~= use.from:objectName() then
+					room:broadcastSkillInvoke("HuoShou")
+					room:sendCompulsoryTriggerLog(source, "HuoShou")
+					use.card:setFlags("HuoShouDamage_"..source:objectName())
+				end
+			end
+		elseif event == sgs.ConfirmDamage then
+			local damage = data:toDamage()
+			local trick = damage.card
+			if trick and trick:isKindOf("SavageAssault") then
+				local allplayers = room:getAllPlayers()
+				local source = nil
+				for _,p in sgs.qlist(allplayers) do
+					if trick:hasFlag("HuoShouDamage_"..p:objectName()) then
+						source = p
+						break
+					end
+				end
+				if source then
+					if source:isAlive() then
+						damage.from = source
+					else
+						damage.from = nil
+					end
+					data:setValue(damage)
+				end
+			end
+		end
+		return false
+	end,
+	can_trigger = function(self, target)
+		return target
+	end,
+	related_skills = HuoShouAvoid,
 }
 --[[
 	技能：再起
@@ -132,6 +289,65 @@ ZaiQi = sgs.CreateLuaSkill{
 		"孔明！汝技穷也！",
 		"敌军势大，吾先退避……",
 	},
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.EventPhaseStart},
+	on_trigger = function(self, event, player, data)
+		if player:getPhase() == sgs.Player_Draw then
+			if player:isWounded() then
+				if player:askForSkillInvoke("ZaiQi", data) then
+					local room = player:getRoom()
+					room:broadcastSkillInvoke("ZaiQi", 1)
+					local has_heart = false
+					local x = player:getLostHp()
+					if x == 0 then
+						return false
+					end
+					local ids = room:getNCards(x, false)
+					local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_TURNOVER, player:objectName(), "ZaiQi", "")
+					local move = sgs.CardsMoveStruct(ids, player, sgs.Player_PlaceTable, reason)
+					room:moveCardsAtomic(move, true)
+					room:getThread():delay()
+					room:getThread():delay()
+					local card_to_throw = sgs.IntList()
+					local card_to_gotback = sgs.IntList()
+					for index, id in sgs.qlist(ids) do
+						local card = sgs.Sanguosha:getCard(id)
+						if card:getSuit() == sgs.Card_Heart then
+							card_to_throw:append(id)
+						else
+							card_to_gotback:append(id)
+						end
+					end
+					if not card_to_throw:isEmpty() then
+						local recover = sgs.RecoverStruct()
+						recover.who = player
+						recover.recover = card_to_throw:length()
+						room:recover(player, recover)
+						local dummy = sgs.DummyCard(card_to_throw)
+						reason = sgs.CardMoveReason(
+							sgs.CardMoveReason_S_REASON_NATURAL_ENTER, player:objectName(), "ZaiQi", ""
+						)
+						room:throwCard(dummy, reason, nil)
+						dummy:deleteLater()
+						has_heart = true
+					end
+					if not card_to_gotback:isEmpty() then
+						local dummy = sgs.DummyCard(card_to_gotback)
+						room:obtainCard(player, dummy)
+						dummy:deleteLater()
+					end
+					if has_heart then
+						room:broadcastSkillInvoke("ZaiQi", 2)
+					else
+						room:broadcastSkillInvoke("ZaiQi", 3)
+					end
+					return true
+				end
+			end
+		end
+		return false
+	end,
 }
 --武将信息：孟获
 MengHuo = sgs.CreateLuaGeneral{
@@ -157,11 +373,62 @@ MengHuo = sgs.CreateLuaGeneral{
 	技能：巨象（锁定技）
 	描述：【南蛮入侵】对你无效。其他角色使用的未转化的【南蛮入侵】在结算完毕后置入弃牌堆时，你获得之。
 ]]--
+JuXiangAvoid = sgs.CreateLuaSkill{
+	name = "#JuXiangAvoid",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Compulsory,
+	events = {sgs.CardEffected},
+	on_trigger = function(self, event, player, data)
+		local effect = data:toCardEffect()
+		local trick = effect.card
+		if trick and trick:isKindOf("SavageAssault") then
+			local room = player:getRoom()
+			room:broadcastSkillInvoke("JuXiang")
+			local msg = sgs.LogMessage()
+			msg.type = "#SkillNullify"
+			msg.from = player
+			msg.arg = "JuXiang"
+			msg.arg2 = "savage_assault"
+			room:sendLog(msg)
+			return true
+		end
+		return false
+	end,
+}
 JuXiang = sgs.CreateLuaSkill{
 	name = "JuXiang",
 	translation = "巨象",
 	description = "<font color=\"blue\"><b>锁定技</b></font>，【南蛮入侵】对你无效。其他角色使用的未转化的【南蛮入侵】在结算完毕后置入弃牌堆时，你获得之。",
 	audio = "万象奔腾，随吾心意！",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_Compulsory,
+	events = {sgs.BeforeCardsMove},
+	on_trigger = function(self, event, player, data)
+		local move = data:toMoveOneTime()
+		if move.card_ids:length() == 1 and move.to_place == sgs.Player_DiscardPile then
+			if move.from_places:contains(sgs.Player_PlaceTable) then
+				if move.reason.m_reason == sgs.CardMoveReason_S_REASON_USE then
+					local card = move.reason.m_extraData:toCard()
+					if card and card:isKindOf("SavageAssault") then
+						if card:isVirtualCard() then
+							return false
+						end
+						local source = move.from
+						if source and source:objectName() == player:objectName() then
+							return false
+						end
+						room:broadcastSkillInvoke("JuXiang")
+						room:sendCompulsoryTriggerLog(player, "JuXiang")
+						room:obtainCard(player, card)
+						move:removeCardIds(move.card_ids)
+						data:setValue(move)
+					end
+				end
+			end
+		end
+		return false
+	end,
+	related_skills = JuXiangAvoid,
 }
 --[[
 	技能：烈刃
@@ -176,6 +443,42 @@ LieRen = sgs.CreateLuaSkill{
 		"呵呵呵呵~~~~",
 		"神不佑我，唉……",
 	},
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.Damage},
+	on_trigger = function(self, event, player, data)
+		local damage = data:toDamage()
+		local slash = damage.card
+		if slash and slash:isKindOf("Slash") and not player:isKongcheng() then
+			local target = damage.to
+			if target:isKongcheng() or target:hasFlag("Global_DebutFlag") then
+				return false
+			elseif damage.transfer or damage.chain then
+				return false
+			elseif player:askForSkillInvoke("LieRen", data) then
+				local room = player:getRoom()
+				room:broadcastSkillInvoke("LieRen", 1)
+				local success = player:pindian(target, "LieRen")
+				if success then
+					room:broadcastSkillInvoke("LieRen", 2)
+					if target:isNude() then
+						return false
+					end
+				else
+					room:broadcastSkillInvoke("LieRen", 3)
+					return false
+				end
+				local id = room:askForCardChosen(player, target, "he", "LieRen")
+				if id >= 0 then
+					local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_EXTRACTION, player:objectName())
+					local card = sgs.Sanguosha:getCard(id)
+					local place = room:getCardPlace(id)
+					room:obtainCard(player, card, reason, place ~= sgs.Player_PlaceHand)
+				end
+			end
+		end
+		return false
+	end,
 }
 --武将信息：祝融
 ZhuRong = sgs.CreateLuaGeneral{
@@ -210,6 +513,40 @@ YingHun = sgs.CreateLuaSkill{
 		"同举义兵，勠力一心！",
 		"孙文台在此，此贼可诛！",
 	},
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.EventPhaseStart},
+	on_trigger = function(self, event, player, data)
+		if player:getPhase() == sgs.Player_Start then
+			if player:isWounded() then
+				local room = player:getRoom()
+				local others = room:getOtherPlayers(player)
+				local target = room:askForPlayerChosen(player, others, "YingHun", "@YingHun", true, true)
+				if target then
+					local x = player:getLostHp()
+					local choice = "draw"
+					if x ~= 1 then
+						choice = room:askForChoice(player, "YingHun", "discard+draw")
+					end
+					if choice == "discard" then
+						room:broadcastSkillInvoke("YingHun", 2)
+						room:drawCards(target, 1, "YingHun")
+						room:askForDiscard(target, "YingHun", x, x, false, true)
+					elseif choice == "draw" then
+						room:broadcastSkillInvoke("YingHun", 1)
+						room:drawCards(target, x, "YingHun")
+						room:askForDiscard(target, "YingHun", 1, 1, false, true)
+					end
+				end
+			end
+		end
+		return false
+	end,
+	translations = {
+		["@YingHun"] = "您可以选择一名角色发动技能“英魂”",
+		["YingHun:discard"] = "令其摸一张牌，然后弃X张牌",
+		["YingHun:draw"] = "令其摸X张牌，然后弃一张牌",
+	},
 }
 --武将信息：孙坚
 SunJian = sgs.CreateLuaGeneral{
@@ -235,11 +572,130 @@ SunJian = sgs.CreateLuaGeneral{
 	技能：好施
 	描述：摸牌阶段，你可以额外摸两张牌：若你拥有五张或更多的手牌，你将一半数量（向下取整）的手牌交给除你外场上手牌数最少的一名角色。
 ]]--
+HaoShiCard = sgs.CreateSkillCard{
+	name = "HaoShiCard",
+	skill_name = "HaoShi",
+	target_fixed = false,
+	will_throw = false,
+	mute = true,
+	filter = function(self, targets, to_select)
+		if #targets == 0 then
+			if to_select:objectName() ~= sgs.Self:objectName() then
+				return to_select:getHandcardNum() == sgs.Self:getMark("HaoShiNum")
+			end
+		end
+		return false
+	end,
+	on_use = function(self, room, source, targets)
+		local target = targets[1]
+		local reason = sgs.CardMoveReason(
+			sgs.CardMoveReason_S_REASON_GIVE, 
+			source:objectName(), 
+			target:objectName(), 
+			"HaoShi", 
+			""
+		)
+		room:moveCardTo(self, target, sgs.Player_PlaceHand, reason)
+	end,
+}
+HaoShiVS = sgs.CreateLuaSkill{
+	name = "HaoShi",
+	class = "ViewAsSkill",
+	n = 999,
+	view_filter = function(self, selected, to_select)
+		if to_select:isEquipped() then
+			return false
+		elseif #selected >= math.floor( sgs.Self:getHandcardNum() / 2 ) then
+			return false
+		end
+		return true
+	end,
+	view_as = function(self, cards)
+		if #cards == math.floor( sgs.Self:getHandcardNum() / 2 ) then
+			local card = HaoShiCard:clone()
+			for _,c in ipairs(cards) do
+				card:addSubcard(c)
+			end
+			return card
+		end
+	end,
+	enabled_at_play = function(self, player)
+		return false
+	end,
+	enabled_at_response = function(self, player, pattern)
+		return pattern == "@@HaoShi!"
+	end,
+}
 HaoShi = sgs.CreateLuaSkill{
 	name = "HaoShi",
 	translation = "好施",
 	description = "摸牌阶段，你可以额外摸两张牌：若你拥有五张或更多的手牌，你将一半数量（向下取整）的手牌交给除你外场上手牌数最少的一名角色。",
 	audio = "公瑾莫忧，吾有余粮。",
+	class = "TriggerSkill",
+	frequency = sgs.Skill_NotFrequent,
+	events = {sgs.DrawNCards, sgs.AfterDrawNCards},
+	view_as_skill = HaoShiVS,
+	on_trigger = function(self, event, player, data)
+		local room = player:getRoom()
+		if event == sgs.DrawNCards then
+			if player:askForSkillInvoke("HaoShi", data) then
+				room:broadcastSkillInvoke("HaoShi")
+				room:setPlayerFlag(player, "HaoShiInvoked")
+				local n = data:toInt() + 2
+				data:setValue(n)
+			end
+		elseif event == sgs.AfterDrawNCards then
+			if player:hasFlag("HaoShiInvoked") then
+				room:setPlayerFlag(player, "-HaoShiInvoked")
+				local mynum = player:getHandcardNum()
+				if mynum > 5 then
+					local min_num = 999
+					local others = room:getOtherPlayers(player)
+					for _,p in sgs.qlist(others) do
+						local num = p:getHandcardNum()
+						if num < min_num then
+							min_num = num
+						end
+					end
+					room:setPlayerMark(player, "HaoShiNum", min_num)
+					local success = room:askForUseCard(player, "@@HaoShi!", "@HaoShi", -1, sgs.Card_MethodNone)
+					if not success then
+						local target = nil
+						for _,p in sgs.qlist(others) do
+							if p:getHandcardNum() == min_num then
+								target = p
+								break
+							end
+						end
+						if target then
+							local n = math.floor( min_num / 2 )
+							local handcards = player:handCards()
+							local to_give = sgs.IntList()
+							for index, id in sgs.qlist(handcards) do
+								if index <= n then
+									to_give:append(id)
+								else
+									break
+								end
+							end
+							local skillcard = HaoShiCard:clone()
+							skillcard:addSubcards(to_give)
+							local use = sgs.CardUseStruct()
+							use.from = player
+							use.to:append(target)
+							use.card = skillcard
+							room:useCard(use)
+						end
+					end
+				end
+			end
+		end
+		return false
+	end,
+	translations = {
+		["@HaoShi"] = "请将一半手牌交给场上手牌最少的一名其他角色",
+		["~HaoShi"] = "选择要给出的手牌->选择一名其他角色->点击“确定”",
+	},
 }
 --[[
 	技能：缔盟（阶段技）[空壳技能]
