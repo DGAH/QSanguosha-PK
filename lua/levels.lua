@@ -103,10 +103,16 @@ LevelG = sgs.CreateGeneralLevel{
 	gatekeepers = {"cryuji"},
 	last_level = "LevelF",
 }
---[[测试
-LevelX = sgs.CreateGeneralLevel{
-	name = "LevelX",
-	translation = "目中无人",
-	gatekeepers = {"zqsh", "zhiba_sunquan", "super_yuanshu", "super_caoren", "bnzs"},
+--[[示例级别
+DemoLevel = sgs.CreateGeneralLevel{
+	name = "DemoLevel", --级别名称
+	translation = "示例级别", --级别名称的翻译
+	description = "", --级别描述
+	gatekeepers = {}, --审核员
+	share_gatekeepers = nil, --审核员共享级别（在本级别无审核员时，启用共享级别中的审核员作为本级别审核员）
+	last_level = nil, --上一个级别
+	next_level = nil, --下一个级别
+	parent_level = nil, --所属父级别
+	sub_levels = {}, --所含子级别
 }
 ]]--

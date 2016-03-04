@@ -28,7 +28,9 @@ ScenarioOverview::ScenarioOverview(QWidget *parent)
 
     setLayout(layout);
 
-    QStringList names = Sanguosha->getModScenarioNames();
+	QStringList names;
+	names << "generallevel" << "rankmode" << "kofmode" << "teamsmode" << "arcade" << "endless";
+	names << Sanguosha->getModScenarioNames();
     foreach (QString name, names) {
         QString text = Sanguosha->translate(name);
         QListWidgetItem *item = new QListWidgetItem(text, list);
