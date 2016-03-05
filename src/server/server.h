@@ -157,10 +157,20 @@ private:
     QCheckBox *kof_card_extension_checkbox;
     QCheckBox *disable_lua_checkbox;
 
+	QPushButton *select_all_generals_button;
+	QPushButton *deselect_all_generals_button;
+	QPushButton *select_reverse_generals_button;
+	QPushButton *select_all_cards_button;
+	QPushButton *deselect_all_cards_button;
+	QPushButton *select_reverse_cards_button;
+
     QButtonGroup *extension_group;
     QButtonGroup *mode_group;
 
     int accept_type; // -1 means console start while 1 means server start
+
+	QList<QCheckBox *> m_generalPackages;
+	QList<QCheckBox *> m_cardPackages;
 
 private slots:
     void setMaxHpSchemeBox();
@@ -171,6 +181,14 @@ private slots:
     void onDetectButtonClicked();
     void edit1v1Banlist();
     void updateButtonEnablility(QAbstractButton *button);
+
+	void selectAllGenerals();
+	void deselectAllGenerals();
+	void selectReverseGenerals();
+
+	void selectAllCards();
+	void deselectAllCards();
+	void selectReverseCards();
 
 	void onChallengerButtonClicked();
 	void onChallengerGeneralChosen(const QString &general);
