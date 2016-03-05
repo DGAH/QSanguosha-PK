@@ -104,6 +104,7 @@ XieChanCard = sgs.CreateSkillCard{
 		return false
 	end,
 	on_use = function(self, room, source, targets)
+		room:doSuperLightbox("kof_xuchu", "XieChan")
 		source:loseMark("@twine")
 		for _,target in ipairs(targets) do
 			room:cardEffect(self, source, target)

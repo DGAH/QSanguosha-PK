@@ -312,6 +312,7 @@ ZaoXian = sgs.CreateLuaSkill{
 			local room = player:getRoom()
 			room:broadcastSkillInvoke("ZaoXian")
 			room:notifySkillInvoked(player, "ZaoXian")
+			room:doSuperLightbox("dengai", "ZaoXian")
 			local msg = sgs.LogMessage()
 			msg.type = "#ZaoXianWake"
 			msg.from = player
@@ -455,6 +456,7 @@ ZhiJi = sgs.CreateLuaSkill{
 		local room = player:getRoom()
 		room:broadcastSkillInvoke("ZhiJi")
 		room:notifySkillInvoked(player, "ZhiJi")
+		room:doSuperLightbox("jiangwei", "ZhiJi")
 		local msg = sgs.LogMessage()
 		msg.type = "#ZhiJiWake"
 		msg.from = player
@@ -789,6 +791,7 @@ HunZi = sgs.CreateLuaSkill{
 		local room = player:getRoom()
 		room:broadcastSkillInvoke("HunZi")
 		room:notifySkillInvoked(player, "HunZi")
+		room:doSuperLightbox("sunce", "HunZi")
 		local msg = sgs.LogMessage()
 		msg.type = "#HunziWake"
 		msg.from = player

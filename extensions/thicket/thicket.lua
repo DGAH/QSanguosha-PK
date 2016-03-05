@@ -819,6 +819,7 @@ LuanWuCard = sgs.CreateSkillCard{
 	target_fixed = true,
 	will_throw = true,
 	on_use = function(self, room, source, targets)
+		room:doSuperLightbox("jiaxu", "LuanWu")
 		source:loseMark("@chaos")
 		local others = room:getOtherPlayers(source)
 		for _,target in sgs.qlist(others) do

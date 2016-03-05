@@ -49564,6 +49564,35 @@ static int _wrap_Room_doLightbox(lua_State* L) {
 }
 
 
+static int _wrap_Room_doSuperLightbox(lua_State* L) {
+  int SWIG_arg = 0;
+  Room *arg1 = (Room *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  
+  SWIG_check_num_args("Room::doSuperLightbox",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Room::doSuperLightbox",1,"Room *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Room::doSuperLightbox",2,"char const *");
+  if(!SWIG_lua_isnilstring(L,3)) SWIG_fail_arg("Room::doSuperLightbox",3,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Room,0))){
+    SWIG_fail_ptr("Room_doSuperLightbox",1,SWIGTYPE_p_Room);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (char *)lua_tostring(L, 3);
+  (arg1)->doSuperLightbox((char const *)arg2,(char const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Room_doAnimate__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   Room *arg1 = (Room *) 0 ;
@@ -61586,6 +61615,7 @@ static swig_lua_method swig_Room_methods[] = {
     {"notifySkillInvoked", _wrap_Room_notifySkillInvoked}, 
     {"broadcastSkillInvoke", _wrap_Room_broadcastSkillInvoke}, 
     {"doLightbox", _wrap_Room_doLightbox}, 
+    {"doSuperLightbox", _wrap_Room_doSuperLightbox}, 
     {"doAnimate", _wrap_Room_doAnimate}, 
     {"notifyMoveCards", _wrap_Room_notifyMoveCards}, 
     {"notifyUpdateCard", _wrap_Room_notifyUpdateCard}, 

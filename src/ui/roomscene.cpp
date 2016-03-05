@@ -3842,11 +3842,22 @@ void RoomScene::doLightboxAnimation(const QString &, const QStringList &args)
     else if (word.startsWith("skill=")) {
         const QString hero = word.mid(6);
         const QString skill = args.value(1, QString());
+		const General *general = Sanguosha->getGeneral(hero);
+		QString animSourcePath;
+		if (general) {
+			QString resource = general->getResourcePath();
+			if (!resource.isEmpty())
+				animSourcePath = QString("%1/animate.png").arg(resource);
+		}
+		if (!QFile::exists(animSourcePath))
+			animSourcePath = QString("../image/animate/%1.png").arg(hero);
+		else if (animSourcePath.indexOf(":") < 0)
+			animSourcePath = QString("../%1").arg(animSourcePath);
 
         _m_animationContext->setContextProperty("sceneWidth", sceneRect().width());
         _m_animationContext->setContextProperty("sceneHeight", sceneRect().height());
         _m_animationContext->setContextProperty("tableWidth", m_tableCenterPos.x() * 2);
-        _m_animationContext->setContextProperty("hero", hero);
+		_m_animationContext->setContextProperty("animSourcePath", animSourcePath);
         _m_animationContext->setContextProperty("skill", Sanguosha->translate(skill));
         QGraphicsObject *object = qobject_cast<QGraphicsObject *>(_m_animationComponent->create(_m_animationContext));
         connect(object, SIGNAL(animationCompleted()), object, SLOT(deleteLater())); // cannot replace?

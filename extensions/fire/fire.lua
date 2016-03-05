@@ -304,6 +304,8 @@ NiePan = sgs.CreateLuaSkill{
 			if player:askForSkillInvoke("NiePan", data) then
 				local room = player:getRoom()
 				room:broadcastSkillInvoke("NiePan")
+				room:notifySkillInvoked(player, "NiePan")
+				room:doSuperLightbox("pangtong", "NiePan")
 				player:loseMark("@nirvana")
 				player:throwAllHandCardsAndEquips()
 				local tricks = player:getJudgingArea()
