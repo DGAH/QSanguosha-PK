@@ -95,4 +95,8 @@ return {
 	["super_defensive_distance"] = "距离+X",
 	["xiaoxi"] = "骁袭",
 	[":xiaoxi"] = "你登场时，你可以视为使用一张【杀】。",
+	["gedang"] = "格挡",
+	[":gedang"] = "一名其他角色对你造成的伤害结算开始时，你可以弃一枚“援护”标记，防止该伤害。",
+	["#striker"] = "%from 启用援护，发动了技能“<font color=\"yellow\">格挡</font>”，防止了 %to 对其造成的 %arg 点伤害",
+	["@striker"] = "援护",
 }
