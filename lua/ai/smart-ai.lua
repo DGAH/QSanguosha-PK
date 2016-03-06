@@ -173,7 +173,7 @@ function SmartAI:askForCardChosen(who, flags, reason, method)
 	end
 end
 function SmartAI:askForCard(pattern, prompt, data)
-	local promptlist = promptlist:split(":")
+	local promptlist = prompt:split(":")
 	local reason, src, dest, arg, arg2 = promptlist[1], promptlist[2], promptlist[3], promptlist[4], promptlist[5]
 	reason = reason or "dummy"
 	local callback = sgs.askForCardAI[reason]

@@ -4530,6 +4530,8 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	m_roomMutex.lock();
 	freeze();
 
+	bool isOpponent = (Self->getTask() == "gatekeeper");
+
 	QDialog *dialog = new QDialog(main_window);
 
 	switch (result)
@@ -4543,16 +4545,28 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 		break;
 	case RankModeInfoStruct::S_WIN_WARM:
 	case RankModeInfoStruct::S_WIN_COLD:
-		dialog->setWindowTitle(tr("Victory"));
+		if (isOpponent)
+			dialog->setWindowTitle(tr("Failure"));
+		else
+			dialog->setWindowTitle(tr("Victory"));
 #ifdef AUDIO_SUPPORT
-		Sanguosha->playSystemAudioEffect("win");
+		if (isOpponent)
+			Sanguosha->playSystemAudioEffect("lose");
+		else
+			Sanguosha->playSystemAudioEffect("win");
 #endif
 		break;
 	case RankModeInfoStruct::S_LOSE_WARM:
 	case RankModeInfoStruct::S_LOSE_COLD:
-		dialog->setWindowTitle(tr("Failure"));
+		if (isOpponent)
+			dialog->setWindowTitle(tr("Victory"));
+		else
+			dialog->setWindowTitle(tr("Failure"));
 #ifdef AUDIO_SUPPORT
-		Sanguosha->playSystemAudioEffect("lose");
+		if (isOpponent)
+			Sanguosha->playSystemAudioEffect("win");
+		else
+			Sanguosha->playSystemAudioEffect("lose");
 #endif
 		break;
 	}
@@ -4712,6 +4726,7 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 		history_screen->setItem(row, 2, item);
 		row++;
 	}
+	history_screen->resizeColumnsToContents();
 
 	bool examine_finished = (info.finished_times() == info.total_times);
 
@@ -4745,12 +4760,21 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
 	button_layout->addWidget(cancel_button);
 
+	QVBoxLayout *left_part_layout = new QVBoxLayout;
+	left_part_layout->addLayout(info_layout);
+	left_part_layout->addLayout(this_layout);
+	left_part_layout->addWidget(this_game);
+
+	QVBoxLayout *right_part_layout = new QVBoxLayout;
+	right_part_layout->addLayout(history_layout);
+	right_part_layout->addWidget(history_screen);
+
+	QHBoxLayout *main_part_layout = new QHBoxLayout;
+	main_part_layout->addLayout(left_part_layout);
+	main_part_layout->addLayout(right_part_layout);
+
 	QVBoxLayout *main_layout = new QVBoxLayout;
-	main_layout->addLayout(info_layout);
-	main_layout->addLayout(this_layout);
-	main_layout->addWidget(this_game);
-	main_layout->addLayout(history_layout);
-	main_layout->addWidget(history_screen);
+	main_layout->addLayout(main_part_layout);
 	main_layout->addLayout(button_layout);
 	dialog->setLayout(main_layout);
 
