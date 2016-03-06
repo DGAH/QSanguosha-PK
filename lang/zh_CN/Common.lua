@@ -22,7 +22,7 @@ CommonTranslationTable = {
 	["@dummy-slash2"] = "请选择 %src 使用【杀】的目标角色",
 
 	["spade"] = "黑桃",
-	["club"] = "梅花",
+	["club"] = "草花",
 	["heart"] = "红心",
 	["diamond"] = "方块",
 	["no_suit"] = "无色",
