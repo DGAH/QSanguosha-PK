@@ -3,72 +3,86 @@
 #include "standard-skillcards.h"
 #include "clientplayer.h"
 
-/*Shit::Shit(Suit suit, int number):BasicCard(suit, number){
-    setObjectName("shit");
+Shit::Shit(Card::Suit suit, int number)
+    :BasicCard(suit, number)
+{
+	setObjectName("shit");
+	target_fixed = true;
+}
 
-    target_fixed = true;
-    }
+QString Shit::getSubtype() const
+{
+	return "disgusting_card";
+}
 
-    QString Shit::getSubtype() const{
-    return "disgusting_card";
-    }
+class ShitEffect : public TriggerSkill
+{
+public:
+	ShitEffect() :TriggerSkill("#shit_effect")
+	{
+		events << CardsMoveOneTime;
+		frequency = Compulsory;
+		global = true;
+	}
 
-    void Shit::onMove(const CardMoveStruct &move) const{
-    ServerPlayer *from = (ServerPlayer*)move.from;
-    if(from && move.from_place == Player::PlaceHand &&
-    from->getRoom()->getCurrent() == move.from
-    && (move.to_place == Player::DiscardPile
-    || move.to_place == Player::PlaceSpecial
-    || move.to_place == Player::PlaceTable)
-    && move.to == NULL
-    && from->isAlive()){
+	virtual bool trigger(TriggerEvent , Room *room, ServerPlayer *player, QVariant &data) const
+	{
+		CardsMoveOneTimeStruct move = data.value<CardsMoveOneTimeStruct>();
+		if (move.from != player)
+			return false;
+		if (move.to_place != Player::DiscardPile) {
+			if (move.to_place != Player::PlaceTable) {
+				if (move.to_place != Player::PlaceTable)
+					return false;
+			}
+		}
+		for (int i = 0; i < move.card_ids.length(); i++) {
+			if (move.from_places.at(i) != Player::PlaceHand)
+				continue;
+			int id = move.card_ids.at(i);
+			const Card *card = Sanguosha->getCard(id);
+			if (!card->isKindOf("Shit"))
+				continue;
+			LogMessage msg;
+			msg.from = player;
+			msg.card_str = card->toString();
+			Card::Suit suit = card->getSuit();
+			if (suit == Card::Spade) {
+				msg.type = "$ShitLostHp";
+				room->sendLog(msg);
+				room->loseHp(player);
+			}
+			else{
+				msg.type = "$ShitDamage";
+				room->sendLog(msg);
+				DamageStruct damage;
+				damage.from = player;
+				damage.to = player;
+				damage.card = card;
+				switch (suit)
+				{
+				case Card::Club:
+					damage.nature = DamageStruct::Thunder;
+					break;
+				case Card::Heart:
+					damage.nature = DamageStruct::Fire;
+					break;
+				default:
+					damage.nature = DamageStruct::Thunder;
+					break;
+				}
+				room->damage(damage);
+			}
+			if (player->isDead())
+				return false;
+		}
+	}
 
-    LogMessage log;
-    log.card_str = getEffectIdString();
-    log.from = from;
-
-    Room *room = from->getRoom();
-
-    if(getSuit() == Spade){
-    log.type = "$ShitLostHp";
-    room->sendLog(log);
-
-    room->loseHp(from);
-
-    return;
-    }
-
-    DamageStruct damage;
-    damage.from = damage.to = from;
-    damage.card = this;
-
-    switch(getSuit()){
-    case Club: damage.nature = DamageStruct::Thunder; break;
-    case Heart: damage.nature = DamageStruct::Fire; break;
-    default:
-    damage.nature = DamageStruct::Normal;
-    }
-
-    log.type = "$ShitDamage";
-    room->sendLog(log);
-
-    room->damage(damage);
-    }
-    }
-
-    bool Shit::HasShit(const Card *card){
-    if(card->isVirtualCard()){
-    QList<int> card_ids = card->getSubcards();
-    foreach(int card_id, card_ids){
-    const Card *c = Sanguosha->getCard(card_id);
-    if(c->objectName() == "shit")
-    return true;
-    }
-
-    return false;
-    }else
-    return card->objectName() == "shit";
-    }*/
+	virtual bool triggerable(ServerPlayer *target) const
+	{
+		return target && target->isAlive();
+	}
+};
 
 // -----------  Deluge -----------------
 
@@ -580,9 +594,9 @@ DisasterPackage::DisasterPackage()
     type = CardPack;
 }
 
-/*JoyPackage::JoyPackage()
+JoyPackage::JoyPackage()
     :Package("joy")
-    {
+{
     QList<Card *> cards;
 
     cards << new Shit(Card::Club, 1)
@@ -593,8 +607,10 @@ DisasterPackage::DisasterPackage()
     foreach(Card *card, cards)
     card->setParent(this);
 
+	skills << new ShitEffect;
+
     type = CardPack;
-    }*/
+}
 
 class YxSwordSkill : public WeaponSkill
 {
@@ -657,6 +673,6 @@ JoyEquipPackage::JoyEquipPackage()
 	addMetaObject<FiveLinesKurouCard>();
 }
 
-//ADD_PACKAGE(Joy)
+ADD_PACKAGE(Joy)
 ADD_PACKAGE(Disaster)
 ADD_PACKAGE(JoyEquip)
