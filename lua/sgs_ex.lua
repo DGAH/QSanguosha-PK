@@ -218,6 +218,22 @@ function sgs.CreateDetachEffectSkill(spec)
 	return sgs.CreateTriggerSkill(spec)
 end
 
+function sgs.CreateMarkAssignSkill(spec)
+	assert(type(spec.mark) == "string")
+	spec.n = spec.n or 1
+	assert(type(spec.n) == "number")
+	spec.name = spec.name or string.format("#%s-%d", spec.mark, spec.n)
+	
+	spec.events = sgs.GameStart
+	
+	spec.on_trigger = function(skill, event, player, data)
+		player:gainMark(spec.mark, spec.n)
+		return false
+	end
+	
+	return sgs.CreateTriggerSkill(spec)
+end
+
 --------------------------------------------
 
 -- skill cards
