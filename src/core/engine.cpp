@@ -890,6 +890,9 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
     // shuffle them
     qShuffle(all_generals);
 
+	if (count == -1)
+		return all_generals;
+
     QStringList general_list = all_generals.mid(0, count);
     Q_ASSERT(general_list.count() == count);
 

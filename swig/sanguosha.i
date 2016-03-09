@@ -1503,3 +1503,4 @@ void Room::doScript(const QString &script)
 %include "card.i"
 %include "luaskills.i"
 %include "ai.i"
+%include "kofgame.i"

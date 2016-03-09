@@ -76,6 +76,7 @@ public:
 			if (player->isDead())
 				return false;
 		}
+		return false;
 	}
 
 	virtual bool triggerable(ServerPlayer *target) const

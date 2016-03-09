@@ -1898,81 +1898,85 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 #define SWIGTYPE_p_Horse swig_types[32]
 #define SWIGTYPE_p_InvaliditySkill swig_types[33]
 #define SWIGTYPE_p_JudgeStruct swig_types[34]
-#define SWIGTYPE_p_LogMessage swig_types[35]
-#define SWIGTYPE_p_LuaAI swig_types[36]
-#define SWIGTYPE_p_LuaArmor swig_types[37]
-#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[38]
-#define SWIGTYPE_p_LuaBasicCard swig_types[39]
-#define SWIGTYPE_p_LuaDistanceSkill swig_types[40]
-#define SWIGTYPE_p_LuaDummySkill swig_types[41]
-#define SWIGTYPE_p_LuaFilterSkill swig_types[42]
-#define SWIGTYPE_p_LuaFunction swig_types[43]
-#define SWIGTYPE_p_LuaInvaliditySkill swig_types[44]
-#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[45]
-#define SWIGTYPE_p_LuaProhibitSkill swig_types[46]
-#define SWIGTYPE_p_LuaSkillCard swig_types[47]
-#define SWIGTYPE_p_LuaTargetModSkill swig_types[48]
-#define SWIGTYPE_p_LuaTreasure swig_types[49]
-#define SWIGTYPE_p_LuaTrickCard swig_types[50]
-#define SWIGTYPE_p_LuaTriggerSkill swig_types[51]
-#define SWIGTYPE_p_LuaViewAsSkill swig_types[52]
-#define SWIGTYPE_p_LuaWeapon swig_types[53]
-#define SWIGTYPE_p_MaxCardsSkill swig_types[54]
-#define SWIGTYPE_p_OffensiveHorse swig_types[55]
-#define SWIGTYPE_p_OneCardViewAsSkill swig_types[56]
-#define SWIGTYPE_p_Package swig_types[57]
-#define SWIGTYPE_p_PhaseChangeStruct swig_types[58]
-#define SWIGTYPE_p_PindianStruct swig_types[59]
-#define SWIGTYPE_p_Player swig_types[60]
-#define SWIGTYPE_p_ProhibitSkill swig_types[61]
-#define SWIGTYPE_p_QColor swig_types[62]
-#define SWIGTYPE_p_QDialog swig_types[63]
-#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[64]
-#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[65]
-#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[66]
-#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[67]
-#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[68]
-#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[69]
-#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[70]
-#define SWIGTYPE_p_QListT_Player__Place_t swig_types[71]
-#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[72]
-#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[73]
-#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[74]
-#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[75]
-#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[76]
-#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[77]
-#define SWIGTYPE_p_QListT_bool_t swig_types[78]
-#define SWIGTYPE_p_QListT_int_t swig_types[79]
-#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[80]
-#define SWIGTYPE_p_QObject swig_types[81]
-#define SWIGTYPE_p_QSetT_QString_t swig_types[82]
-#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[83]
-#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[84]
-#define SWIGTYPE_p_QString swig_types[85]
-#define SWIGTYPE_p_QStringList swig_types[86]
-#define SWIGTYPE_p_QThread swig_types[87]
-#define SWIGTYPE_p_QVariant swig_types[88]
-#define SWIGTYPE_p_RankModeInfoStruct swig_types[89]
-#define SWIGTYPE_p_RecoverStruct swig_types[90]
-#define SWIGTYPE_p_Room swig_types[91]
-#define SWIGTYPE_p_RoomThread swig_types[92]
-#define SWIGTYPE_p_Scenario swig_types[93]
-#define SWIGTYPE_p_ServerPlayer swig_types[94]
-#define SWIGTYPE_p_Skill swig_types[95]
-#define SWIGTYPE_p_SkillCard swig_types[96]
-#define SWIGTYPE_p_Slash swig_types[97]
-#define SWIGTYPE_p_SlashEffectStruct swig_types[98]
-#define SWIGTYPE_p_TargetModSkill swig_types[99]
-#define SWIGTYPE_p_Treasure swig_types[100]
-#define SWIGTYPE_p_TrickCard swig_types[101]
-#define SWIGTYPE_p_TriggerSkill swig_types[102]
-#define SWIGTYPE_p_TrustAI swig_types[103]
-#define SWIGTYPE_p_ViewAsSkill swig_types[104]
-#define SWIGTYPE_p_Weapon swig_types[105]
-#define SWIGTYPE_p_WrappedCard swig_types[106]
-#define SWIGTYPE_p_lua_State swig_types[107]
-static swig_type_info *swig_types[109];
-static swig_module_info swig_module = {swig_types, 108, 0, 0, 0, 0};
+#define SWIGTYPE_p_KOFGameEngine swig_types[35]
+#define SWIGTYPE_p_KOFGameStage swig_types[36]
+#define SWIGTYPE_p_KOFGameTeam swig_types[37]
+#define SWIGTYPE_p_KOFGameTeamLevel swig_types[38]
+#define SWIGTYPE_p_LogMessage swig_types[39]
+#define SWIGTYPE_p_LuaAI swig_types[40]
+#define SWIGTYPE_p_LuaArmor swig_types[41]
+#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[42]
+#define SWIGTYPE_p_LuaBasicCard swig_types[43]
+#define SWIGTYPE_p_LuaDistanceSkill swig_types[44]
+#define SWIGTYPE_p_LuaDummySkill swig_types[45]
+#define SWIGTYPE_p_LuaFilterSkill swig_types[46]
+#define SWIGTYPE_p_LuaFunction swig_types[47]
+#define SWIGTYPE_p_LuaInvaliditySkill swig_types[48]
+#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[49]
+#define SWIGTYPE_p_LuaProhibitSkill swig_types[50]
+#define SWIGTYPE_p_LuaSkillCard swig_types[51]
+#define SWIGTYPE_p_LuaTargetModSkill swig_types[52]
+#define SWIGTYPE_p_LuaTreasure swig_types[53]
+#define SWIGTYPE_p_LuaTrickCard swig_types[54]
+#define SWIGTYPE_p_LuaTriggerSkill swig_types[55]
+#define SWIGTYPE_p_LuaViewAsSkill swig_types[56]
+#define SWIGTYPE_p_LuaWeapon swig_types[57]
+#define SWIGTYPE_p_MaxCardsSkill swig_types[58]
+#define SWIGTYPE_p_OffensiveHorse swig_types[59]
+#define SWIGTYPE_p_OneCardViewAsSkill swig_types[60]
+#define SWIGTYPE_p_Package swig_types[61]
+#define SWIGTYPE_p_PhaseChangeStruct swig_types[62]
+#define SWIGTYPE_p_PindianStruct swig_types[63]
+#define SWIGTYPE_p_Player swig_types[64]
+#define SWIGTYPE_p_ProhibitSkill swig_types[65]
+#define SWIGTYPE_p_QColor swig_types[66]
+#define SWIGTYPE_p_QDialog swig_types[67]
+#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[68]
+#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[69]
+#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[70]
+#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[71]
+#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[72]
+#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[73]
+#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[74]
+#define SWIGTYPE_p_QListT_Player__Place_t swig_types[75]
+#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[76]
+#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[77]
+#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[78]
+#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[79]
+#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[80]
+#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[81]
+#define SWIGTYPE_p_QListT_bool_t swig_types[82]
+#define SWIGTYPE_p_QListT_int_t swig_types[83]
+#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[84]
+#define SWIGTYPE_p_QObject swig_types[85]
+#define SWIGTYPE_p_QSetT_QString_t swig_types[86]
+#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[87]
+#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[88]
+#define SWIGTYPE_p_QString swig_types[89]
+#define SWIGTYPE_p_QStringList swig_types[90]
+#define SWIGTYPE_p_QThread swig_types[91]
+#define SWIGTYPE_p_QVariant swig_types[92]
+#define SWIGTYPE_p_RankModeInfoStruct swig_types[93]
+#define SWIGTYPE_p_RecoverStruct swig_types[94]
+#define SWIGTYPE_p_Room swig_types[95]
+#define SWIGTYPE_p_RoomThread swig_types[96]
+#define SWIGTYPE_p_Scenario swig_types[97]
+#define SWIGTYPE_p_ServerPlayer swig_types[98]
+#define SWIGTYPE_p_Skill swig_types[99]
+#define SWIGTYPE_p_SkillCard swig_types[100]
+#define SWIGTYPE_p_Slash swig_types[101]
+#define SWIGTYPE_p_SlashEffectStruct swig_types[102]
+#define SWIGTYPE_p_TargetModSkill swig_types[103]
+#define SWIGTYPE_p_Treasure swig_types[104]
+#define SWIGTYPE_p_TrickCard swig_types[105]
+#define SWIGTYPE_p_TriggerSkill swig_types[106]
+#define SWIGTYPE_p_TrustAI swig_types[107]
+#define SWIGTYPE_p_ViewAsSkill swig_types[108]
+#define SWIGTYPE_p_Weapon swig_types[109]
+#define SWIGTYPE_p_WrappedCard swig_types[110]
+#define SWIGTYPE_p_lua_State swig_types[111]
+static swig_type_info *swig_types[113];
+static swig_module_info swig_module = {swig_types, 112, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4105,6 +4109,11 @@ Card::Suit LuaAI::askForSuit(const QString &reason)
     return TrustAI::askForSuit(reason);
 }
 
+
+
+
+
+#include "kofgame-engine.h"
 
 
 #ifdef __cplusplus
@@ -74387,6 +74396,1653 @@ static swig_lua_class *swig_LuaAI_bases[] = {0,0};
 static const char *swig_LuaAI_base_names[] = {"TrustAI *",0};
 static swig_lua_class _wrap_class_LuaAI = { "LuaAI", &SWIGTYPE_p_LuaAI,_wrap_new_LuaAI, swig_delete_LuaAI, swig_LuaAI_methods, swig_LuaAI_attributes, { "LuaAI", swig_LuaAI_cls_methods, swig_LuaAI_cls_attributes, swig_LuaAI_cls_constants }, swig_LuaAI_bases, swig_LuaAI_base_names };
 
+static int _wrap_new_KOFGameTeamLevel__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  bool arg2 ;
+  KOFGameTeamLevel *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameTeamLevel::KOFGameTeamLevel",2,2)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("KOFGameTeamLevel::KOFGameTeamLevel",1,"char const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameTeamLevel::KOFGameTeamLevel",2,"bool");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = (KOFGameTeamLevel *)new KOFGameTeamLevel((char const *)arg1,arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeamLevel,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameTeamLevel__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  KOFGameTeamLevel *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameTeamLevel::KOFGameTeamLevel",1,1)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("KOFGameTeamLevel::KOFGameTeamLevel",1,"char const *");
+  arg1 = (char *)lua_tostring(L, 1);
+  result = (KOFGameTeamLevel *)new KOFGameTeamLevel((char const *)arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeamLevel,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameTeamLevel(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      return _wrap_new_KOFGameTeamLevel__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      _v = SWIG_lua_isnilstring(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_new_KOFGameTeamLevel__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'new_KOFGameTeamLevel'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameTeamLevel::KOFGameTeamLevel(char const *,bool)\n"
+    "    KOFGameTeamLevel::KOFGameTeamLevel(char const *)\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameTeamLevel_isBossLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeamLevel *arg1 = (KOFGameTeamLevel *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameTeamLevel::isBossLevel",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeamLevel::isBossLevel",1,"KOFGameTeamLevel const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeamLevel,0))){
+    SWIG_fail_ptr("KOFGameTeamLevel_isBossLevel",1,SWIGTYPE_p_KOFGameTeamLevel);
+  }
+  
+  result = (bool)((KOFGameTeamLevel const *)arg1)->isBossLevel();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_KOFGameTeamLevel(void *obj) {
+KOFGameTeamLevel *arg1 = (KOFGameTeamLevel *) obj;
+delete arg1;
+}
+static swig_lua_method swig_KOFGameTeamLevel_methods[] = {
+    {"isBossLevel", _wrap_KOFGameTeamLevel_isBossLevel}, 
+    {0,0}
+};
+static swig_lua_attribute swig_KOFGameTeamLevel_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_KOFGameTeamLevel_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_KOFGameTeamLevel_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_KOFGameTeamLevel_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_KOFGameTeamLevel_bases[] = {0,0};
+static const char *swig_KOFGameTeamLevel_base_names[] = {"QObject *",0};
+static swig_lua_class _wrap_class_KOFGameTeamLevel = { "KOFGameTeamLevel", &SWIGTYPE_p_KOFGameTeamLevel,_wrap_new_KOFGameTeamLevel, swig_delete_KOFGameTeamLevel, swig_KOFGameTeamLevel_methods, swig_KOFGameTeamLevel_attributes, { "KOFGameTeamLevel", swig_KOFGameTeamLevel_cls_methods, swig_KOFGameTeamLevel_cls_attributes, swig_KOFGameTeamLevel_cls_constants }, swig_KOFGameTeamLevel_bases, swig_KOFGameTeamLevel_base_names };
+
+static int _wrap_new_KOFGameTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  KOFGameTeam *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameTeam::KOFGameTeam",2,2)
+  if(!SWIG_lua_isnilstring(L,1)) SWIG_fail_arg("KOFGameTeam::KOFGameTeam",1,"char const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameTeam::KOFGameTeam",2,"char const *");
+  arg1 = (char *)lua_tostring(L, 1);
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (KOFGameTeam *)new KOFGameTeam((char const *)arg1,(char const *)arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeam,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_getTeamLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameTeam::getTeamLevel",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::getTeamLevel",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_getTeamLevel",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = ((KOFGameTeam const *)arg1)->getTeamLevel();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_isBossTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameTeam::isBossTeam",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::isBossTeam",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_isBossTeam",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = (bool)((KOFGameTeam const *)arg1)->isBossTeam();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_addGeneral(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("KOFGameTeam::addGeneral",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::addGeneral",1,"KOFGameTeam *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameTeam::addGeneral",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_addGeneral",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->addGeneral((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_getGenerals__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  bool arg2 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameTeam::getGenerals",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::getGenerals",1,"KOFGameTeam const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameTeam::getGenerals",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_getGenerals",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = ((KOFGameTeam const *)arg1)->getGenerals(arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_getGenerals__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameTeam::getGenerals",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::getGenerals",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_getGenerals",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = ((KOFGameTeam const *)arg1)->getGenerals();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_getGenerals(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameTeam, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameTeam_getGenerals__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameTeam, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameTeam_getGenerals__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameTeam_getGenerals'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameTeam::getGenerals(bool) const\n"
+    "    KOFGameTeam::getGenerals() const\n");
+  lua_error(L);return 0;
+}
+
+
+static void swig_delete_KOFGameTeam(void *obj) {
+KOFGameTeam *arg1 = (KOFGameTeam *) obj;
+delete arg1;
+}
+static swig_lua_method swig_KOFGameTeam_methods[] = {
+    {"getTeamLevel", _wrap_KOFGameTeam_getTeamLevel}, 
+    {"isBossTeam", _wrap_KOFGameTeam_isBossTeam}, 
+    {"addGeneral", _wrap_KOFGameTeam_addGeneral}, 
+    {"getGenerals", _wrap_KOFGameTeam_getGenerals}, 
+    {0,0}
+};
+static swig_lua_attribute swig_KOFGameTeam_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_KOFGameTeam_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_KOFGameTeam_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_KOFGameTeam_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_KOFGameTeam_bases[] = {0,0};
+static const char *swig_KOFGameTeam_base_names[] = {"QObject *",0};
+static swig_lua_class _wrap_class_KOFGameTeam = { "KOFGameTeam", &SWIGTYPE_p_KOFGameTeam,_wrap_new_KOFGameTeam, swig_delete_KOFGameTeam, swig_KOFGameTeam_methods, swig_KOFGameTeam_attributes, { "KOFGameTeam", swig_KOFGameTeam_cls_methods, swig_KOFGameTeam_cls_attributes, swig_KOFGameTeam_cls_constants }, swig_KOFGameTeam_bases, swig_KOFGameTeam_base_names };
+
+static int _wrap_new_KOFGameStage__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  int arg1 ;
+  bool arg2 ;
+  bool arg3 ;
+  KOFGameStage *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameStage::KOFGameStage",3,3)
+  if(!lua_isnumber(L,1)) SWIG_fail_arg("KOFGameStage::KOFGameStage",1,"int");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameStage::KOFGameStage",2,"bool");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("KOFGameStage::KOFGameStage",3,"bool");
+  arg1 = (int)lua_tonumber(L, 1);
+  arg2 = (lua_toboolean(L, 2)!=0);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = (KOFGameStage *)new KOFGameStage(arg1,arg2,arg3);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameStage__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  int arg1 ;
+  bool arg2 ;
+  KOFGameStage *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameStage::KOFGameStage",2,2)
+  if(!lua_isnumber(L,1)) SWIG_fail_arg("KOFGameStage::KOFGameStage",1,"int");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameStage::KOFGameStage",2,"bool");
+  arg1 = (int)lua_tonumber(L, 1);
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = (KOFGameStage *)new KOFGameStage(arg1,arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameStage__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  int arg1 ;
+  KOFGameStage *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameStage::KOFGameStage",1,1)
+  if(!lua_isnumber(L,1)) SWIG_fail_arg("KOFGameStage::KOFGameStage",1,"int");
+  arg1 = (int)lua_tonumber(L, 1);
+  result = (KOFGameStage *)new KOFGameStage(arg1);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameStage__SWIG_3(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameStage::KOFGameStage",0,0)
+  result = (KOFGameStage *)new KOFGameStage();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameStage(lua_State* L) {
+  int argc;
+  int argv[4]={
+    1,2,3,4
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 0) {
+    return _wrap_new_KOFGameStage__SWIG_3(L);
+  }
+  if (argc == 1) {
+    int _v;
+    {
+      _v = lua_isnumber(L,argv[0]);
+    }
+    if (_v) {
+      return _wrap_new_KOFGameStage__SWIG_2(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      _v = lua_isnumber(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_new_KOFGameStage__SWIG_1(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      _v = lua_isnumber(L,argv[0]);
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_new_KOFGameStage__SWIG_0(L);
+        }
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'new_KOFGameStage'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameStage::KOFGameStage(int,bool,bool)\n"
+    "    KOFGameStage::KOFGameStage(int,bool)\n"
+    "    KOFGameStage::KOFGameStage(int)\n"
+    "    KOFGameStage::KOFGameStage()\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameStage_setStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("KOFGameStage::setStage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::setStage",1,"KOFGameStage *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameStage::setStage",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_setStage",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setStage(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_getStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameStage::getStage",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::getStage",1,"KOFGameStage const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_getStage",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  result = (int)((KOFGameStage const *)arg1)->getStage();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_isBossStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameStage::isBossStage",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::isBossStage",1,"KOFGameStage const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_isBossStage",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  result = (bool)((KOFGameStage const *)arg1)->isBossStage();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_isSpecialStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameStage::isSpecialStage",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::isSpecialStage",1,"KOFGameStage const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_isSpecialStage",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  result = (bool)((KOFGameStage const *)arg1)->isSpecialStage();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_addTeamLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("KOFGameStage::addTeamLevel",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::addTeamLevel",1,"KOFGameStage *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameStage::addTeamLevel",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_addTeamLevel",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->addTeamLevel((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_getTeamLevels(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameStage::getTeamLevels",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::getTeamLevels",1,"KOFGameStage const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_getTeamLevels",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  result = ((KOFGameStage const *)arg1)->getTeamLevels();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameStage_containsLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameStage *arg1 = (KOFGameStage *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameStage::containsLevel",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameStage::containsLevel",1,"KOFGameStage const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameStage::containsLevel",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameStage_containsLevel",1,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (bool)((KOFGameStage const *)arg1)->containsLevel((char const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_KOFGameStage(void *obj) {
+KOFGameStage *arg1 = (KOFGameStage *) obj;
+delete arg1;
+}
+static swig_lua_method swig_KOFGameStage_methods[] = {
+    {"setStage", _wrap_KOFGameStage_setStage}, 
+    {"getStage", _wrap_KOFGameStage_getStage}, 
+    {"isBossStage", _wrap_KOFGameStage_isBossStage}, 
+    {"isSpecialStage", _wrap_KOFGameStage_isSpecialStage}, 
+    {"addTeamLevel", _wrap_KOFGameStage_addTeamLevel}, 
+    {"getTeamLevels", _wrap_KOFGameStage_getTeamLevels}, 
+    {"containsLevel", _wrap_KOFGameStage_containsLevel}, 
+    {0,0}
+};
+static swig_lua_attribute swig_KOFGameStage_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_KOFGameStage_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_KOFGameStage_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_KOFGameStage_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_KOFGameStage_bases[] = {0,0};
+static const char *swig_KOFGameStage_base_names[] = {"QObject *",0};
+static swig_lua_class _wrap_class_KOFGameStage = { "KOFGameStage", &SWIGTYPE_p_KOFGameStage,_wrap_new_KOFGameStage, swig_delete_KOFGameStage, swig_KOFGameStage_methods, swig_KOFGameStage_attributes, { "KOFGameStage", swig_KOFGameStage_cls_methods, swig_KOFGameStage_cls_attributes, swig_KOFGameStage_cls_constants }, swig_KOFGameStage_bases, swig_KOFGameStage_base_names };
+
+static int _wrap_KOFGameEngine_addTeamLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  KOFGameTeamLevel *arg2 = (KOFGameTeamLevel *) 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::addTeamLevel",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::addTeamLevel",1,"KOFGameEngine *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("KOFGameEngine::addTeamLevel",2,"KOFGameTeamLevel *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_addTeamLevel",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_KOFGameTeamLevel,0))){
+    SWIG_fail_ptr("KOFGameEngine_addTeamLevel",2,SWIGTYPE_p_KOFGameTeamLevel);
+  }
+  
+  (arg1)->addTeamLevel(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getTeamLevel(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  KOFGameTeamLevel *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::getTeamLevel",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getTeamLevel",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getTeamLevel",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getTeamLevel",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (KOFGameTeamLevel *)((KOFGameEngine const *)arg1)->getTeamLevel((char const *)arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeamLevel,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_addTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  KOFGameTeam *arg2 = (KOFGameTeam *) 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::addTeam",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::addTeam",1,"KOFGameEngine *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("KOFGameEngine::addTeam",2,"KOFGameTeam *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_addTeam",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameEngine_addTeam",2,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  (arg1)->addTeam(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  KOFGameTeam *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::getTeam",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getTeam",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getTeam",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getTeam",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (KOFGameTeam *)((KOFGameEngine const *)arg1)->getTeam((char const *)arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeam,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_addStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  KOFGameStage *arg2 = (KOFGameStage *) 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::addStage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::addStage",1,"KOFGameEngine *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("KOFGameEngine::addStage",2,"KOFGameStage *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_addStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_KOFGameStage,0))){
+    SWIG_fail_ptr("KOFGameEngine_addStage",2,SWIGTYPE_p_KOFGameStage);
+  }
+  
+  (arg1)->addStage(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int arg2 ;
+  KOFGameStage *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::getStage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStage",1,"KOFGameEngine const *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameEngine::getStage",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  result = (KOFGameStage *)((KOFGameEngine const *)arg1)->getStage(arg2);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_isBossGeneral(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::isBossGeneral",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::isBossGeneral",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::isBossGeneral",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_isBossGeneral",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (bool)((KOFGameEngine const *)arg1)->isBossGeneral((char const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setStartStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setStartStage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setStartStage",1,"KOFGameEngine *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameEngine::setStartStage",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setStartStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setStartStage(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStartStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getStartStage",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStartStage",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStartStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (int)((KOFGameEngine const *)arg1)->getStartStage();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setFinalStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setFinalStage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setFinalStage",1,"KOFGameEngine *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameEngine::setFinalStage",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setFinalStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setFinalStage(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getFinalStage(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getFinalStage",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getFinalStage",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getFinalStage",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (int)((KOFGameEngine const *)arg1)->getFinalStage();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setBossTeamEnabled(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setBossTeamEnabled",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setBossTeamEnabled",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setBossTeamEnabled",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setBossTeamEnabled",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setBossTeamEnabled(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_canSelectBossTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::canSelectBossTeam",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::canSelectBossTeam",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_canSelectBossTeam",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->canSelectBossTeam();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setRecordChooseResult(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setRecordChooseResult",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setRecordChooseResult",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setRecordChooseResult",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setRecordChooseResult",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setRecordChooseResult(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_recordFreeChooseResult(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::recordFreeChooseResult",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::recordFreeChooseResult",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_recordFreeChooseResult",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->recordFreeChooseResult();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setTimeLimit(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setTimeLimit",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setTimeLimit",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setTimeLimit",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setTimeLimit",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setTimeLimit(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_isTimeLimited(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::isTimeLimited",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::isTimeLimited",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_isTimeLimited",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->isTimeLimited();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setStrikerMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setStrikerMode",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setStrikerMode",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setStrikerMode",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setStrikerMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setStrikerMode(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_useStrikerMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::useStrikerMode",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::useStrikerMode",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_useStrikerMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->useStrikerMode();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setStrikerCount(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setStrikerCount",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setStrikerCount",1,"KOFGameEngine *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameEngine::setStrikerCount",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setStrikerCount",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setStrikerCount(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStrikerCount(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getStrikerCount",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStrikerCount",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStrikerCount",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (int)((KOFGameEngine const *)arg1)->getStrikerCount();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setStrikerSkill(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setStrikerSkill",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setStrikerSkill",1,"KOFGameEngine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::setStrikerSkill",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setStrikerSkill((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStrikerSkill(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameEngine::getStrikerSkill",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStrikerSkill",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getStrikerSkill();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setCriticalMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setCriticalMode",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setCriticalMode",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setCriticalMode",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setCriticalMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setCriticalMode(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_useCriticalMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::useCriticalMode",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::useCriticalMode",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_useCriticalMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->useCriticalMode();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setDefaultCriticalRate(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setDefaultCriticalRate",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setDefaultCriticalRate",1,"KOFGameEngine *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("KOFGameEngine::setDefaultCriticalRate",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setDefaultCriticalRate",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  (arg1)->setDefaultCriticalRate(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getDefaultCriticalRate(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getDefaultCriticalRate",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getDefaultCriticalRate",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getDefaultCriticalRate",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (int)((KOFGameEngine const *)arg1)->getDefaultCriticalRate();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setFightBossEnabled(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setFightBossEnabled",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setFightBossEnabled",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setFightBossEnabled",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setFightBossEnabled",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setFightBossEnabled(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_extraCriticalRateWhenFightBoss(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::extraCriticalRateWhenFightBoss",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::extraCriticalRateWhenFightBoss",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_extraCriticalRateWhenFightBoss",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->extraCriticalRateWhenFightBoss();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_setEvolutionMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setEvolutionMode",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setEvolutionMode",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setEvolutionMode",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setEvolutionMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setEvolutionMode(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_useEvolutionMode(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::useEvolutionMode",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::useEvolutionMode",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_useEvolutionMode",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->useEvolutionMode();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_KOFGameEngine(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::KOFGameEngine",0,0)
+  result = (KOFGameEngine *)new KOFGameEngine();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameEngine,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_KOFGameEngine(void *obj) {
+KOFGameEngine *arg1 = (KOFGameEngine *) obj;
+delete arg1;
+}
+static swig_lua_method swig_KOFGameEngine_methods[] = {
+    {"addTeamLevel", _wrap_KOFGameEngine_addTeamLevel}, 
+    {"getTeamLevel", _wrap_KOFGameEngine_getTeamLevel}, 
+    {"addTeam", _wrap_KOFGameEngine_addTeam}, 
+    {"getTeam", _wrap_KOFGameEngine_getTeam}, 
+    {"addStage", _wrap_KOFGameEngine_addStage}, 
+    {"getStage", _wrap_KOFGameEngine_getStage}, 
+    {"isBossGeneral", _wrap_KOFGameEngine_isBossGeneral}, 
+    {"setStartStage", _wrap_KOFGameEngine_setStartStage}, 
+    {"getStartStage", _wrap_KOFGameEngine_getStartStage}, 
+    {"setFinalStage", _wrap_KOFGameEngine_setFinalStage}, 
+    {"getFinalStage", _wrap_KOFGameEngine_getFinalStage}, 
+    {"setBossTeamEnabled", _wrap_KOFGameEngine_setBossTeamEnabled}, 
+    {"canSelectBossTeam", _wrap_KOFGameEngine_canSelectBossTeam}, 
+    {"setRecordChooseResult", _wrap_KOFGameEngine_setRecordChooseResult}, 
+    {"recordFreeChooseResult", _wrap_KOFGameEngine_recordFreeChooseResult}, 
+    {"setTimeLimit", _wrap_KOFGameEngine_setTimeLimit}, 
+    {"isTimeLimited", _wrap_KOFGameEngine_isTimeLimited}, 
+    {"setStrikerMode", _wrap_KOFGameEngine_setStrikerMode}, 
+    {"useStrikerMode", _wrap_KOFGameEngine_useStrikerMode}, 
+    {"setStrikerCount", _wrap_KOFGameEngine_setStrikerCount}, 
+    {"getStrikerCount", _wrap_KOFGameEngine_getStrikerCount}, 
+    {"setStrikerSkill", _wrap_KOFGameEngine_setStrikerSkill}, 
+    {"getStrikerSkill", _wrap_KOFGameEngine_getStrikerSkill}, 
+    {"setCriticalMode", _wrap_KOFGameEngine_setCriticalMode}, 
+    {"useCriticalMode", _wrap_KOFGameEngine_useCriticalMode}, 
+    {"setDefaultCriticalRate", _wrap_KOFGameEngine_setDefaultCriticalRate}, 
+    {"getDefaultCriticalRate", _wrap_KOFGameEngine_getDefaultCriticalRate}, 
+    {"setFightBossEnabled", _wrap_KOFGameEngine_setFightBossEnabled}, 
+    {"extraCriticalRateWhenFightBoss", _wrap_KOFGameEngine_extraCriticalRateWhenFightBoss}, 
+    {"setEvolutionMode", _wrap_KOFGameEngine_setEvolutionMode}, 
+    {"useEvolutionMode", _wrap_KOFGameEngine_useEvolutionMode}, 
+    {0,0}
+};
+static swig_lua_attribute swig_KOFGameEngine_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_attribute swig_KOFGameEngine_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_KOFGameEngine_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_KOFGameEngine_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_KOFGameEngine_bases[] = {0,0};
+static const char *swig_KOFGameEngine_base_names[] = {"QObject *",0};
+static swig_lua_class _wrap_class_KOFGameEngine = { "KOFGameEngine", &SWIGTYPE_p_KOFGameEngine,_wrap_new_KOFGameEngine, swig_delete_KOFGameEngine, swig_KOFGameEngine_methods, swig_KOFGameEngine_attributes, { "KOFGameEngine", swig_KOFGameEngine_cls_methods, swig_KOFGameEngine_cls_attributes, swig_KOFGameEngine_cls_constants }, swig_KOFGameEngine_bases, swig_KOFGameEngine_base_names };
+
+static int _wrap_GameEX_set(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  
+  SWIG_check_num_args("GameEX",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("GameEX",1,"KOFGameEngine *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("GameEX_set",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  GameEX = arg1;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_GameEX_get(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *result = 0 ;
+  
+  SWIG_check_num_args("GameEX",0,0)
+  result = (KOFGameEngine *)GameEX;
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameEngine,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 #ifdef __cplusplus
 }
 #endif
@@ -74415,6 +76071,7 @@ static swig_lua_var_info swig_variables[] = {
     { "Self", _wrap_Self_get, _wrap_Self_set },
     { "Card_AllSuits", _wrap_Card_AllSuits_get, SWIG_Lua_set_immutable },
     { "Sanguosha", _wrap_Sanguosha_get, _wrap_Sanguosha_set },
+    { "GameEX", _wrap_GameEX_get, _wrap_GameEX_set },
     {0,0,0}
 };
 
@@ -74749,6 +76406,9 @@ static void *_p_LuaArmorTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 static void *_p_AITo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *)  ((AI *) x));
 }
+static void *_p_KOFGameStageTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *)  ((KOFGameStage *) x));
+}
 static void *_p_EquipCardTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *) ((EquipCard *) x));
 }
@@ -74781,6 +76441,9 @@ static void *_p_LuaTreasureTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory))
 }
 static void *_p_DelayedTrickTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *)(TrickCard *) ((DelayedTrick *) x));
+}
+static void *_p_KOFGameTeamTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *)  ((KOFGameTeam *) x));
 }
 static void *_p_HorseTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *)(EquipCard *) ((Horse *) x));
@@ -74854,6 +76517,9 @@ static void *_p_RoomThreadTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) 
 static void *_p_QThreadTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *)  ((QThread *) x));
 }
+static void *_p_KOFGameTeamLevelTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *)  ((KOFGameTeamLevel *) x));
+}
 static void *_p_ProhibitSkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Skill *) ((ProhibitSkill *) x));
 }
@@ -74889,6 +76555,9 @@ static void *_p_RoomTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 }
 static void *_p_GameStartSkillTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Skill *)(TriggerSkill *) ((GameStartSkill *) x));
+}
+static void *_p_KOFGameEngineTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((QObject *)  ((KOFGameEngine *) x));
 }
 static void *_p_SlashTo_p_QObject(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((QObject *) (Card *)(BasicCard *) ((Slash *) x));
@@ -75099,6 +76768,10 @@ static swig_type_info _swigt__p_GeneralLevel = {"_p_GeneralLevel", "GeneralLevel
 static swig_type_info _swigt__p_Horse = {"_p_Horse", "Horse *", 0, 0, (void*)&_wrap_class_Horse, 0};
 static swig_type_info _swigt__p_InvaliditySkill = {"_p_InvaliditySkill", "InvaliditySkill *", 0, 0, (void*)&_wrap_class_InvaliditySkill, 0};
 static swig_type_info _swigt__p_JudgeStruct = {"_p_JudgeStruct", "JudgeStruct *", 0, 0, (void*)&_wrap_class_JudgeStruct, 0};
+static swig_type_info _swigt__p_KOFGameEngine = {"_p_KOFGameEngine", "KOFGameEngine *", 0, 0, (void*)&_wrap_class_KOFGameEngine, 0};
+static swig_type_info _swigt__p_KOFGameStage = {"_p_KOFGameStage", "KOFGameStage *", 0, 0, (void*)&_wrap_class_KOFGameStage, 0};
+static swig_type_info _swigt__p_KOFGameTeam = {"_p_KOFGameTeam", "KOFGameTeam *", 0, 0, (void*)&_wrap_class_KOFGameTeam, 0};
+static swig_type_info _swigt__p_KOFGameTeamLevel = {"_p_KOFGameTeamLevel", "KOFGameTeamLevel *", 0, 0, (void*)&_wrap_class_KOFGameTeamLevel, 0};
 static swig_type_info _swigt__p_LogMessage = {"_p_LogMessage", "LogMessage *", 0, 0, (void*)&_wrap_class_LogMessage, 0};
 static swig_type_info _swigt__p_LuaAI = {"_p_LuaAI", "LuaAI *", 0, 0, (void*)&_wrap_class_LuaAI, 0};
 static swig_type_info _swigt__p_LuaArmor = {"_p_LuaArmor", "LuaArmor *", 0, 0, (void*)&_wrap_class_LuaArmor, 0};
@@ -75209,6 +76882,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Horse,
   &_swigt__p_InvaliditySkill,
   &_swigt__p_JudgeStruct,
+  &_swigt__p_KOFGameEngine,
+  &_swigt__p_KOFGameStage,
+  &_swigt__p_KOFGameTeam,
+  &_swigt__p_KOFGameTeamLevel,
   &_swigt__p_LogMessage,
   &_swigt__p_LuaAI,
   &_swigt__p_LuaArmor,
@@ -75319,6 +76996,10 @@ static swig_cast_info _swigc__p_GeneralLevel[] = {  {&_swigt__p_GeneralLevel, 0,
 static swig_cast_info _swigc__p_Horse[] = {  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_Horse, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_Horse, 0, 0},  {&_swigt__p_Horse, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_InvaliditySkill[] = {  {&_swigt__p_InvaliditySkill, 0, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_InvaliditySkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_JudgeStruct[] = {  {&_swigt__p_JudgeStruct, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_KOFGameEngine[] = {  {&_swigt__p_KOFGameEngine, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_KOFGameStage[] = {  {&_swigt__p_KOFGameStage, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_KOFGameTeam[] = {  {&_swigt__p_KOFGameTeam, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_KOFGameTeamLevel[] = {  {&_swigt__p_KOFGameTeamLevel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LogMessage[] = {  {&_swigt__p_LogMessage, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaAI[] = {  {&_swigt__p_LuaAI, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LuaArmor[] = {  {&_swigt__p_LuaArmor, 0, 0, 0},{0, 0, 0, 0}};
@@ -75365,7 +77046,7 @@ static swig_cast_info _swigc__p_QListT_TriggerSkill_const_p_t[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_QListT_bool_t[] = {  {&_swigt__p_QListT_bool_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_int_t[] = {  {&_swigt__p_QListT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QMapT_QString_QString_t[] = {  {&_swigt__p_QMapT_QString_QString_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_QObject[] = {  {&_swigt__p_LuaAI, _p_LuaAITo_p_QObject, 0, 0},  {&_swigt__p_Package, _p_PackageTo_p_QObject, 0, 0},  {&_swigt__p_GeneralLevel, _p_GeneralLevelTo_p_QObject, 0, 0},  {&_swigt__p_Analeptic, _p_AnalepticTo_p_QObject, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_QObject, 0, 0},  {&_swigt__p_Horse, _p_HorseTo_p_QObject, 0, 0},  {&_swigt__p_EquipCard, _p_EquipCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaSkillCard, _p_LuaSkillCardTo_p_QObject, 0, 0},  {&_swigt__p_SkillCard, _p_SkillCardTo_p_QObject, 0, 0},  {&_swigt__p_Room, _p_RoomTo_p_QObject, 0, 0},  {&_swigt__p_Armor, _p_ArmorTo_p_QObject, 0, 0},  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_QObject, 0, 0},  {&_swigt__p_DummySkill, _p_DummySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_QObject, 0, 0},  {&_swigt__p_Treasure, _p_TreasureTo_p_QObject, 0, 0},  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_DelayedTrick, _p_DelayedTrickTo_p_QObject, 0, 0},  {&_swigt__p_TrustAI, _p_TrustAITo_p_QObject, 0, 0},  {&_swigt__p_General, _p_GeneralTo_p_QObject, 0, 0},  {&_swigt__p_DummyCard, _p_DummyCardTo_p_QObject, 0, 0},  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_ServerPlayer, _p_ServerPlayerTo_p_QObject, 0, 0},  {&_swigt__p_ClientPlayer, _p_ClientPlayerTo_p_QObject, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_TrickCard, _p_TrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTrickCard, _p_LuaTrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_RoomThread, _p_RoomThreadTo_p_QObject, 0, 0},  {&_swigt__p_QThread, _p_QThreadTo_p_QObject, 0, 0},  {&_swigt__p_Skill, _p_SkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_BasicCard, _p_BasicCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaBasicCard, _p_LuaBasicCardTo_p_QObject, 0, 0},  {&_swigt__p_WrappedCard, _p_WrappedCardTo_p_QObject, 0, 0},  {&_swigt__p_QObject, 0, 0, 0},  {&_swigt__p_Slash, _p_SlashTo_p_QObject, 0, 0},  {&_swigt__p_AI, _p_AITo_p_QObject, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_QObject, 0, 0},  {&_swigt__p_Weapon, _p_WeaponTo_p_QObject, 0, 0},  {&_swigt__p_Player, _p_PlayerTo_p_QObject, 0, 0},  {&_swigt__p_Card, _p_CardTo_p_QObject, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_QObject, 0, 0},  {&_swigt__p_Engine, _p_EngineTo_p_QObject, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_QObject, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QObject[] = {  {&_swigt__p_LuaAI, _p_LuaAITo_p_QObject, 0, 0},  {&_swigt__p_Package, _p_PackageTo_p_QObject, 0, 0},  {&_swigt__p_GeneralLevel, _p_GeneralLevelTo_p_QObject, 0, 0},  {&_swigt__p_Analeptic, _p_AnalepticTo_p_QObject, 0, 0},  {&_swigt__p_ViewAsSkill, _p_ViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaViewAsSkill, _p_LuaViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_OneCardViewAsSkill, _p_OneCardViewAsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaArmor, _p_LuaArmorTo_p_QObject, 0, 0},  {&_swigt__p_KOFGameStage, _p_KOFGameStageTo_p_QObject, 0, 0},  {&_swigt__p_Horse, _p_HorseTo_p_QObject, 0, 0},  {&_swigt__p_EquipCard, _p_EquipCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaSkillCard, _p_LuaSkillCardTo_p_QObject, 0, 0},  {&_swigt__p_SkillCard, _p_SkillCardTo_p_QObject, 0, 0},  {&_swigt__p_Room, _p_RoomTo_p_QObject, 0, 0},  {&_swigt__p_Armor, _p_ArmorTo_p_QObject, 0, 0},  {&_swigt__p_LuaDummySkill, _p_LuaDummySkillTo_p_QObject, 0, 0},  {&_swigt__p_DummySkill, _p_DummySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTreasure, _p_LuaTreasureTo_p_QObject, 0, 0},  {&_swigt__p_Treasure, _p_TreasureTo_p_QObject, 0, 0},  {&_swigt__p_MaxCardsSkill, _p_MaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaMaxCardsSkill, _p_LuaMaxCardsSkillTo_p_QObject, 0, 0},  {&_swigt__p_KOFGameTeam, _p_KOFGameTeamTo_p_QObject, 0, 0},  {&_swigt__p_DelayedTrick, _p_DelayedTrickTo_p_QObject, 0, 0},  {&_swigt__p_TrustAI, _p_TrustAITo_p_QObject, 0, 0},  {&_swigt__p_General, _p_GeneralTo_p_QObject, 0, 0},  {&_swigt__p_DummyCard, _p_DummyCardTo_p_QObject, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_QObject, 0, 0},  {&_swigt__p_ClientPlayer, _p_ClientPlayerTo_p_QObject, 0, 0},  {&_swigt__p_ServerPlayer, _p_ServerPlayerTo_p_QObject, 0, 0},  {&_swigt__p_DistanceSkill, _p_DistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaDistanceSkill, _p_LuaDistanceSkillTo_p_QObject, 0, 0},  {&_swigt__p_AttackRangeSkill, _p_AttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaAttackRangeSkill, _p_LuaAttackRangeSkillTo_p_QObject, 0, 0},  {&_swigt__p_FilterSkill, _p_FilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaFilterSkill, _p_LuaFilterSkillTo_p_QObject, 0, 0},  {&_swigt__p_TrickCard, _p_TrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTrickCard, _p_LuaTrickCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaTriggerSkill, _p_LuaTriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_TriggerSkill, _p_TriggerSkillTo_p_QObject, 0, 0},  {&_swigt__p_RoomThread, _p_RoomThreadTo_p_QObject, 0, 0},  {&_swigt__p_QThread, _p_QThreadTo_p_QObject, 0, 0},  {&_swigt__p_Skill, _p_SkillTo_p_QObject, 0, 0},  {&_swigt__p_KOFGameTeamLevel, _p_KOFGameTeamLevelTo_p_QObject, 0, 0},  {&_swigt__p_LuaProhibitSkill, _p_LuaProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_ProhibitSkill, _p_ProhibitSkillTo_p_QObject, 0, 0},  {&_swigt__p_InvaliditySkill, _p_InvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_QObject, 0, 0},  {&_swigt__p_BasicCard, _p_BasicCardTo_p_QObject, 0, 0},  {&_swigt__p_LuaBasicCard, _p_LuaBasicCardTo_p_QObject, 0, 0},  {&_swigt__p_WrappedCard, _p_WrappedCardTo_p_QObject, 0, 0},  {&_swigt__p_QObject, 0, 0, 0},  {&_swigt__p_Slash, _p_SlashTo_p_QObject, 0, 0},  {&_swigt__p_AI, _p_AITo_p_QObject, 0, 0},  {&_swigt__p_LuaWeapon, _p_LuaWeaponTo_p_QObject, 0, 0},  {&_swigt__p_Weapon, _p_WeaponTo_p_QObject, 0, 0},  {&_swigt__p_Player, _p_PlayerTo_p_QObject, 0, 0},  {&_swigt__p_Card, _p_CardTo_p_QObject, 0, 0},  {&_swigt__p_GameStartSkill, _p_GameStartSkillTo_p_QObject, 0, 0},  {&_swigt__p_Engine, _p_EngineTo_p_QObject, 0, 0},  {&_swigt__p_KOFGameEngine, _p_KOFGameEngineTo_p_QObject, 0, 0},  {&_swigt__p_TargetModSkill, _p_TargetModSkillTo_p_QObject, 0, 0},  {&_swigt__p_LuaTargetModSkill, _p_LuaTargetModSkillTo_p_QObject, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_QString_t[] = {  {&_swigt__p_QSetT_QString_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_Skill_const_p_t[] = {  {&_swigt__p_QSetT_Skill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QSetT_TriggerSkill_const_p_t[] = {  {&_swigt__p_QSetT_TriggerSkill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -75429,6 +77110,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Horse,
   _swigc__p_InvaliditySkill,
   _swigc__p_JudgeStruct,
+  _swigc__p_KOFGameEngine,
+  _swigc__p_KOFGameStage,
+  _swigc__p_KOFGameTeam,
+  _swigc__p_KOFGameTeamLevel,
   _swigc__p_LogMessage,
   _swigc__p_LuaAI,
   _swigc__p_LuaArmor,

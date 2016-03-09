@@ -111,7 +111,7 @@ public:
     Card *getCard(int cardId);
     WrappedCard *getWrappedCard(int cardId);
 
-    QStringList getRandomGenerals(int count, const QSet<QString> &ban_set = QSet<QString>(), const QString &kingdom = QString()) const;
+    QStringList getRandomGenerals(int count = -1, const QSet<QString> &ban_set = QSet<QString>(), const QString &kingdom = QString()) const;
     QList<int> getRandomCards() const;
     QString getRandomGeneralName() const;
     QStringList getLimitedGeneralNames(const QString &kingdom = QString()) const;
