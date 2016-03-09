@@ -1113,6 +1113,12 @@ void ServerDialog::onGameModeRadioButtonClicked(int id)
 	foreach(QWidget *item, this->kof_info_items) {
 		item->setVisible(show_kof);
 	}
+	if (show_kof) {
+		bool use_generals = Config.value(QString("%1/%2").arg(mode).arg("UseGeneralExtensions"), true).toBool();
+		bool use_cards = Config.value(QString("%1/%2").arg(mode).arg("UseCardExtensions"), true).toBool();
+		this->kof_general_extension_checkbox->setChecked(use_generals);
+		this->kof_card_extension_checkbox->setChecked(use_cards);
+	}
 	bool show_box = show_kof;
 	this->info_box->setVisible(show_box);
 }
