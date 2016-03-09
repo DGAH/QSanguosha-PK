@@ -38,30 +38,22 @@ function load_extensions()
 		return false
 	end
 	global_path = "extensions"
-	for key, value in pairs(list) do
-		local name, use = "", false
-		if type(key) == "string" and type(value) == "boolean" then
-			name, use = key, value
-		elseif type(key) == "number" and type(value) == "string" then
-			name, use = value, true
+	for _,name in pairs(list) do
+		global_path = "extensions/"..name
+		local pack = dofile(string.format("extensions/%s/%s.lua", name, name))
+		if type(pack) == "table" then
+			pack = sgs.CreateLuaPackage(pack)
 		end
-		if use then
-			global_path = "extensions/"..name
-			local pack = dofile(string.format("extensions/%s/%s.lua", name, name))
-			if type(pack) == "table" then
-				pack = sgs.CreateLuaPackage(pack)
-			end
-			if type(pack) == "userdata" and pack:inherits("Package") then
-				table.insert(lua_packages, pack)
-			elseif type(pack) == "table" then
-				for k, v in pairs(pack) do
-					if type(k) == "userdata" and k:inherits("Package") then
-						if type(v) == "boolean" and v then
-							table.insert(lua_packages, k)
-						end
-					elseif type(k) == "number" and type(v) == "userdata" and v:inherits("Package") then
-						table.insert(lua_packages, v)
+		if type(pack) == "userdata" and pack:inherits("Package") then
+			table.insert(lua_packages, pack)
+		elseif type(pack) == "table" then
+			for k, v in pairs(pack) do
+				if type(k) == "userdata" and k:inherits("Package") then
+					if type(v) == "boolean" and v then
+						table.insert(lua_packages, k)
 					end
+				elseif type(k) == "number" and type(v) == "userdata" and v:inherits("Package") then
+					table.insert(lua_packages, v)
 				end
 			end
 		end
@@ -83,30 +75,22 @@ function load_generals()
 		return false
 	end
 	global_path = "generals"
-	for key, value in pairs(list) do
-		local name, use = "", false
-		if type(key) == "string" and type(value) == "boolean" then
-			name, use = key, value
-		elseif type(key) == "number" and type(value) == "string" then
-			name, use = value, true
+	for _,name in pairs(list) do
+		global_path = "generals/"..name
+		local general = dofile(string.format("generals/%s/%s.lua", name, name))
+		if type(general) == "table" then
+			general = sgs.CreateLuaGeneral(general)
 		end
-		if use then
-			global_path = "generals/"..name
-			local general = dofile(string.format("generals/%s/%s.lua", name, name))
-			if type(general) == "table" then
-				general = sgs.CreateLuaGeneral(general)
-			end
-			if type(general) == "userdata" and general:inherits("General") then
-				table.insert(lua_generals, general)
-			elseif type(general) == "table" then
-				for k, v in pairs(general) do
-					if type(k) == "userdata" and k:inherits("General") then
-						if type(v) == "boolean" and v then
-							table.insert(lua_generals, k)
-						end
-					elseif type(k) == "number" and type(v) == "userdata" and v:inherits("General") then
-						table.insert(lua_generals, v)
+		if type(general) == "userdata" and general:inherits("General") then
+			table.insert(lua_generals, general)
+		elseif type(general) == "table" then
+			for k, v in pairs(general) do
+				if type(k) == "userdata" and k:inherits("General") then
+					if type(v) == "boolean" and v then
+						table.insert(lua_generals, k)
 					end
+				elseif type(k) == "number" and type(v) == "userdata" and v:inherits("General") then
+					table.insert(lua_generals, v)
 				end
 			end
 		end
