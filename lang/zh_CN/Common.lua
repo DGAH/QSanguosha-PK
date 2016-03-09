@@ -198,6 +198,7 @@ CommonTranslationTable = {
 	["_pack"] = "自由武将",
 
 	["@waked"] = "觉醒",
+	["@striker"] = "援护",
 
 	["CAPITAL(1)"] = "一",
 	["CAPITAL(2)"] = "二",
