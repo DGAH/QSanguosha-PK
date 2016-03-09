@@ -4798,6 +4798,8 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	m_roomMutex.lock();
 	freeze();
 
+	bool isOpponent = (Self->getTask() == "boss");
+
 	QDialog *dialog = new QDialog(main_window);
 	dialog->resize(800, 600);
 	bool passed = false;
@@ -4812,16 +4814,28 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	}
 	else if (win) {
 		passed = true;
-		dialog->setWindowTitle(tr("Victory"));
+		if (isOpponent)
+			dialog->setWindowTitle(tr("Failure"));
+		else
+			dialog->setWindowTitle(tr("Victory"));
 #ifdef AUDIO_SUPPORT
-		Sanguosha->playSystemAudioEffect("win");
+		if (isOpponent)
+			Sanguosha->playSystemAudioEffect("lose");
+		else
+			Sanguosha->playSystemAudioEffect("win");
 #endif
 	}
 	else {
 		passed = false;
-		dialog->setWindowTitle(tr("Failure"));
+		if (isOpponent)
+			dialog->setWindowTitle(tr("win"));
+		else
+			dialog->setWindowTitle(tr("Failure"));
 #ifdef AUDIO_SUPPORT
-		Sanguosha->playSystemAudioEffect("lose");
+		if (isOpponent)
+			Sanguosha->playSystemAudioEffect("win");
+		else
+			Sanguosha->playSystemAudioEffect("lose");
 #endif
 	}
 
@@ -4834,8 +4848,12 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	QVBoxLayout *main_layout = new QVBoxLayout;
 
 	QLabel *super_message = NULL;
-	if (final_boss && passed)
-		super_message = new QLabel(tr("Congratulations!"));
+	if (final_boss && passed) {
+		if (isOpponent)
+			super_message = new QLabel(tr("Thank you!"));
+		else
+			super_message = new QLabel(tr("Congratulations!"));
+	}
 	else if (!passed)
 		super_message = new QLabel(tr("Game Over!"));
 
@@ -4853,17 +4871,29 @@ void RoomScene::onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, b
 	QLabel *voice = NULL;
 	if (standoff) {
 		if (passed) {
-			voice = new QLabel(tr("Although you did not defeat your opponent, the boss still let you pass."));
+			if (isOpponent)
+				voice = new QLabel(tr("You're really a kind-hearted boss! Though the challenger cannot defeat you, you still give him/her a chance."));
+			else
+				voice = new QLabel(tr("Although you did not defeat your opponent, the boss still let you pass."));
 		}
 		else {
-			voice = new QLabel(tr("You cannot defeat the boss, so the game is over."));
+			if (isOpponent)
+				voice = new QLabel(tr("You're really strick in your work! So the challenger have to go home now."));
+			else
+				voice = new QLabel(tr("You cannot defeat the boss, so the game is over."));
 		}
 	}
 	else if (passed) {
-		voice = new QLabel(tr("You have won this game! Good job!"));
+		if (isOpponent)
+			voice = new QLabel(tr("The challenger will remember and appreciate the ordeal which you bring to him/her. Thank you."));
+		else
+			voice = new QLabel(tr("You have won this game! Good job!"));
 	}
 	else {
-		voice = new QLabel(tr("I'm sorry to tell you that you just lost this game. Good luck next time."));
+		if (isOpponent)
+			voice = new QLabel(tr("You have defeated the challenger. Good job!"));
+		else
+			voice = new QLabel(tr("I'm sorry to tell you that you just lost this game. Good luck next time."));
 	}
 	hint_box_layout->addWidget(voice);
 	hint_box->setLayout(hint_box_layout);
