@@ -83,6 +83,10 @@ config = {
 		"zhangjiao", "yuji",
 	},
 	
+	kof_classical_cards = {
+		"New1v1Card",
+	},
+	
 	kof_2013_generals = {
 		"caocao", "simayi", "xiahoudun", "kof_zhangliao", "kof_xuchu", 
 		"guojia", "kof_zhenji", "kof_xiahouyuan", "caoren", "dianwei", 
@@ -91,6 +95,10 @@ config = {
 		"sunquan", "ganning", "huanggai", "zhouyu", "luxun", 
 		"kof_sunshangxiang", "sunjian", "xiaoqiao", 
 		"lvbu", "kof_diaochan", "yanliangwenchou", "hejin",
+	},
+	
+	kof_2013_cards = {
+		"New1v1Card",
 	},
 	
 	kof_wzzz_generals = {
@@ -105,5 +113,9 @@ config = {
 		"xiaoqiao", 
 		"kof_huatuo", "lvbu", "kof_diaochan", "zhangjiao", "pangde", 
 		"yanliangwenchou", "hejin", "hansui",
+	},
+	
+	kof_wzzz_cards = {
+		"New1v1Card",
 	},
 }

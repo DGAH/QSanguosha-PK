@@ -86,6 +86,7 @@ QWidget *ServerDialog::createBasicTab()
     lay->addWidget(edit_button);
     form_layout->addRow(tr("Operation timeout"), lay);
     form_layout->addRow(createGameModeBox());
+	form_layout->addRow(createInfoBox());
 
     QWidget *widget = new QWidget;
     widget->setLayout(form_layout);
@@ -668,6 +669,42 @@ QGroupBox *ServerDialog::createGameModeBox()
     return mode_box;
 }
 
+QGroupBox *ServerDialog::createInfoBox()
+{
+	this->info_box = new QGroupBox(tr("game mode info"));
+	const QString mode = Config.GameMode;
+
+	QLabel *kof_hint = new QLabel(tr("use extensions:"));
+
+	this->kof_general_extension_checkbox = new QCheckBox(tr("generals"));
+	bool flag = Config.value(QString("%1/%2").arg(mode).arg("UseGeneralExtensions"), true).toBool();
+	this->kof_general_extension_checkbox->setChecked(flag);
+	
+	this->kof_card_extension_checkbox = new QCheckBox(tr("cards"));
+	flag = Config.value(QString("%1/%2").arg(mode).arg("UseCardExtensions"), true).toBool();
+	this->kof_card_extension_checkbox->setChecked(flag);
+
+	QHBoxLayout *kof_layout = new QHBoxLayout;
+	kof_layout->addWidget(kof_hint);
+	kof_layout->addWidget(this->kof_general_extension_checkbox);
+	kof_layout->addWidget(this->kof_card_extension_checkbox);
+
+	this->kof_info_items << kof_hint << this->kof_general_extension_checkbox << this->kof_card_extension_checkbox;
+	bool show_kof = (mode.contains("kof"));
+	foreach(QWidget *item, this->kof_info_items) {
+		item->setVisible(show_kof);
+	}
+	
+	QVBoxLayout *main_layout = new QVBoxLayout;
+	main_layout->addLayout(kof_layout);
+	this->info_box->setLayout(main_layout);
+
+	bool show_box = show_kof;
+	this->info_box->setVisible(show_box);
+	
+	return this->info_box;
+}
+
 void ServerDialog::selectAllGenerals()
 {
 	foreach(QCheckBox *c, m_generalPackages) {
@@ -1061,14 +1098,23 @@ void ServerDialog::onSubLevelsButtonClicked()
 void ServerDialog::onGameModeRadioButtonClicked(int id)
 {
 	QRadioButton *button = dynamic_cast<QRadioButton *>(this->mode_group->button(id));
+	const QString mode = button->objectName();
+
 	int index = this->tab_widget->indexOf(this->rank_page);
-	if (button->objectName() == "02_rank") {
+	if (mode == "02_rank") {
 		this->tab_widget->setTabEnabled(index, true);
 		this->tab_widget->setCurrentIndex(index);
 	}
 	else{
 		this->tab_widget->setTabEnabled(index, false);
 	}
+
+	bool show_kof = (mode.contains("kof"));
+	foreach(QWidget *item, this->kof_info_items) {
+		item->setVisible(show_kof);
+	}
+	bool show_box = show_kof;
+	this->info_box->setVisible(show_box);
 }
 
 QLayout *ServerDialog::createButtonLayout()
@@ -1174,6 +1220,8 @@ int ServerDialog::config()
             Config.GameMode = objname;
     }
 
+	const QString mode = Config.GameMode;
+
     Config.setValue("ServerName", Config.ServerName);
     Config.setValue("GameMode", Config.GameMode);
     Config.setValue("OperationTimeout", Config.OperationTimeout);
@@ -1203,6 +1251,11 @@ int ServerDialog::config()
     Config.setValue("ServerPort", Config.ServerPort);
     Config.setValue("Address", Config.Address);
     Config.setValue("DisableLua", disable_lua_checkbox->isChecked());
+
+	if (mode.contains("kof")) {
+		Config.setValue(QString("%1/%2").arg(mode).arg("UseGeneralExtensions"), this->kof_general_extension_checkbox->isChecked());
+		Config.setValue(QString("%1/%2").arg(mode).arg("UseCardExtensions"), this->kof_card_extension_checkbox->isChecked());
+	}
 
     QSet<QString> ban_packages;
     QList<QAbstractButton *> checkboxes = extension_group->buttons();

@@ -91,6 +91,7 @@ private:
     QLayout *createButtonLayout();
 
     QGroupBox *createGameModeBox();
+	QGroupBox *createInfoBox();
 	QWidget *createRankSettingsTab();
 	void updateLevelButtons(const QStringList &levels, const QString &current = "");
 	void updateGatekeeperByCurrentLevel();
@@ -118,6 +119,11 @@ private:
 	QSpinBox *warm_spinbox;
 	QSpinBox *cold_spinbox;
 	QButtonGroup *order_mode_group;
+
+	QGroupBox *info_box;
+	QList<QWidget *> kof_info_items;
+	QCheckBox *kof_general_extension_checkbox;
+	QCheckBox *kof_card_extension_checkbox;
 
     QLineEdit *server_name_edit;
     QSpinBox *timeout_spinbox;
@@ -152,9 +158,6 @@ private:
     QCheckBox *luck_card_checkbox;
     QComboBox *role_choose_ComboBox;
     QCheckBox *exclude_disaster_checkbox;
-    QComboBox *official_1v1_ComboBox;
-    QCheckBox *kof_using_extension_checkbox;
-    QCheckBox *kof_card_extension_checkbox;
     QCheckBox *disable_lua_checkbox;
 
 	QPushButton *select_all_generals_button;

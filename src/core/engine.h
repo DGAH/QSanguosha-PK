@@ -184,7 +184,8 @@ private:
 
     QStringList extra_hidden_generals;
     QStringList removed_hidden_generals;
-
+	QHash<QString, QStringList> specified_generals;
+	QHash<QString, QStringList> specified_card_packages;
 };
 
 static inline QVariant GetConfigFromLuaState(lua_State *L, const char *key)

@@ -65,6 +65,18 @@ Engine::Engine()
 
     extra_hidden_generals = GetConfigFromLuaState(lua, "extra_hidden_generals").toStringList();
     removed_hidden_generals = GetConfigFromLuaState(lua, "removed_hidden_generals").toStringList();
+	QStringList kof_classical_generals = GetConfigFromLuaState(lua, "kof_classical_generals").toStringList();
+	QStringList kof_classical_cards = GetConfigFromLuaState(lua, "kof_classical_cards").toStringList();
+	QStringList kof_2013_generals = GetConfigFromLuaState(lua, "kof_2013_generals").toStringList();
+	QStringList kof_2013_cards = GetConfigFromLuaState(lua, "kof_2013_cards").toStringList();
+	QStringList kof_wzzz_generals = GetConfigFromLuaState(lua, "kof_wzzz_generals").toStringList();
+	QStringList kof_wzzz_cards = GetConfigFromLuaState(lua, "kof_wzzz_cards").toStringList();
+	this->specified_generals.insert("03_kof", kof_classical_generals);
+	this->specified_generals.insert("04_kof_2013", kof_2013_generals);
+	this->specified_generals.insert("05_kof_wzzz", kof_wzzz_generals);
+	this->specified_card_packages.insert("03_kof", kof_classical_cards);
+	this->specified_card_packages.insert("04_kof_2013", kof_2013_cards);
+	this->specified_card_packages.insert("05_kof_wzzz", kof_wzzz_cards);
 
     QStringList package_names = GetConfigFromLuaState(lua, "package_names").toStringList();
     foreach(QString name, package_names)
@@ -834,13 +846,31 @@ int Engine::getCardCount() const
 QStringList Engine::getLimitedGeneralNames(const QString &kingdom) const
 {
     QStringList general_names;
+	QStringList specified;
+	QStringList ban_packages = getBanPackages();
+	bool specified_flag = false;
+	const QString mode = Config.GameMode;
+	if (mode.contains("kof")) {
+		specified_flag = !Config.value(QString("%1/%2").arg(mode).arg("UseGeneralExtensions"), true).toBool();
+		if (specified_flag) {
+			specified = this->specified_generals.value(mode);
+			if (specified.isEmpty())
+				specified_flag = false;
+		}
+	}
     QHashIterator<QString, const General *> itor(generals);
     while (itor.hasNext()) {
         itor.next();
         const General *gen = itor.value();
-        if ((kingdom.isEmpty() || gen->getKingdom() == kingdom)
-            && !isGeneralHidden(gen->objectName()) && !getBanPackages().contains(gen->getPackage()))
-            general_names << itor.key();
+		if (kingdom.isEmpty() || gen->getKingdom() == kingdom) {
+			if (isGeneralHidden(gen->objectName()))
+				continue;
+			if (ban_packages.contains(gen->getPackage()))
+				continue;
+			if (specified_flag && !specified.contains(gen->objectName()))
+				continue;
+			general_names << itor.key();
+		}
     }
     return general_names;
 }
@@ -868,13 +898,25 @@ QStringList Engine::getRandomGenerals(int count, const QSet<QString> &ban_set, c
 
 QList<int> Engine::getRandomCards() const
 {
-    bool exclude_disaters = false;
+    bool exclude_disaters = false, specified_flag = false;
+	QStringList specified;
+	QStringList ban_packages = getBanPackages();
+	QStringList banned_patterns = Config.value("Banlist/Cards").toStringList();
+
+	const QString mode = Config.GameMode;
+	if (mode.contains("kof")) {
+		specified_flag = !Config.value(QString("%1/%2").arg(mode).arg("UseCardExtensions"), true).toBool();
+		if (specified_flag) {
+			specified = specified_card_packages.value(mode);
+			if (specified.isEmpty())
+				specified_flag = false;
+		}
+	}
 
     QList<int> list;
     foreach (Card *card, cards) {
         card->clearFlags();
 
-        QStringList banned_patterns = Config.value("Banlist/Cards").toStringList();
         bool removed = false;
         foreach (QString banned_pattern, banned_patterns) {
             if (matchExpPattern(banned_pattern, NULL, card)) {
@@ -888,8 +930,14 @@ QList<int> Engine::getRandomCards() const
         if (exclude_disaters && card->isKindOf("Disaster"))
             continue;
 
-        if (!getBanPackages().contains(card->getPackage()))
-            list << card->getId();
+		QString pack = card->getPackage();
+		if (ban_packages.contains(pack))
+			continue;
+
+		if (specified_flag && !specified.contains(pack))
+			continue;
+
+        list << card->getId();
     }
 
     qShuffle(list);
