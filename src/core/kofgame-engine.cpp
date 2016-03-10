@@ -105,6 +105,16 @@ QStringList KOFGameTeam::getGenerals(bool certain) const
 	return names;
 }
 
+void KOFGameTeam::setResourcePath(const QString &path)
+{
+	this->path = path;
+}
+
+QString KOFGameTeam::getResourcePath() const
+{
+	return this->path;
+}
+
 //****************KOFGameStage****************//
 
 KOFGameStage::KOFGameStage(int stage, bool is_boss, bool is_special)

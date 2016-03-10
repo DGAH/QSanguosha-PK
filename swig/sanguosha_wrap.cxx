@@ -74860,6 +74860,56 @@ static int _wrap_KOFGameTeam_getGenerals(lua_State* L) {
 }
 
 
+static int _wrap_KOFGameTeam_setResourcePath(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  SWIG_check_num_args("KOFGameTeam::setResourcePath",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::setResourcePath",1,"KOFGameTeam *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameTeam::setResourcePath",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_setResourcePath",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  (arg1)->setResourcePath((char const *)arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_getResourcePath(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameTeam::getResourcePath",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::getResourcePath",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_getResourcePath",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = ((KOFGameTeam const *)arg1)->getResourcePath();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_KOFGameTeam(void *obj) {
 KOFGameTeam *arg1 = (KOFGameTeam *) obj;
 delete arg1;
@@ -74869,6 +74919,8 @@ static swig_lua_method swig_KOFGameTeam_methods[] = {
     {"isBossTeam", _wrap_KOFGameTeam_isBossTeam}, 
     {"addGeneral", _wrap_KOFGameTeam_addGeneral}, 
     {"getGenerals", _wrap_KOFGameTeam_getGenerals}, 
+    {"setResourcePath", _wrap_KOFGameTeam_setResourcePath}, 
+    {"getResourcePath", _wrap_KOFGameTeam_getResourcePath}, 
     {0,0}
 };
 static swig_lua_attribute swig_KOFGameTeam_attributes[] = {

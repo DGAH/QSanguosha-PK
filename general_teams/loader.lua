@@ -113,6 +113,15 @@ function loadTeams(teams, options)
 			for _,general in ipairs(details["generals"]) do
 				team:addGeneral(general)
 			end
+			local path = details["resource"]
+			if type(path) == "string" then
+				if not details["use_absolute_path"] then
+					path = string.format("general_teams/%s/%s", name, path)
+				end
+			else
+				path = string.format("general_teams/%s", name)
+			end
+			team:setResourcePath(path)
 			table.insert(global_kofgame_teams, team)
 			sgs.AddTranslationEntry(name, details["translation"])
 			sgs.GameEX:addTeam(team)

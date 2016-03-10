@@ -26,10 +26,13 @@ public:
 	bool isBossTeam() const;
 	void addGeneral(const QString &general);
 	QStringList getGenerals(bool certain = false) const;
+	void setResourcePath(const QString &path);
+	QString getResourcePath() const;
 
 private:
 	QString level;
 	QStringList generals;
+	QString path;
 };
 
 class KOFGameStage : public QObject
