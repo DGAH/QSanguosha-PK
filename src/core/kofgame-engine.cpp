@@ -20,7 +20,7 @@ bool KOFGameTeamLevel::isBossLevel() const
 //****************KOFGameTeam****************//
 
 KOFGameTeam::KOFGameTeam(const QString &name, const QString &level)
-    : QObject(), level(level)
+    : QObject(), level(level), fix(false)
 {
 	setObjectName(name);
 }
@@ -115,6 +115,16 @@ QString KOFGameTeam::getResourcePath() const
 	return this->path;
 }
 
+void KOFGameTeam::setOrderFixed(bool flag)
+{
+	this->fix = flag;
+}
+
+bool KOFGameTeam::isOrderFixed() const
+{
+	return this->fix;
+}
+
 //****************KOFGameStage****************//
 
 KOFGameStage::KOFGameStage(int stage, bool is_boss, bool is_special)
@@ -171,6 +181,14 @@ striker_mode(false), striker_count(5), default_striker_skill("gedang"),
 critical_mode(false), default_critical_rate(20), fight_boss(true), evolution_mode(false), send_server_log(false)
 {
 	GameEX = this;
+	
+	this->free_choose_team = new KOFGameTeam("_FreeChooseTeam", "");
+	for (int i = 1; i <= 5; i++) {
+		this->free_choose_team->addGeneral("?");
+	}
+	this->free_choose_team->setResourcePath("image/system/06_teams");
+	this->free_choose_team->setParent(this);
+	
 }
 
 KOFGameEngine::~KOFGameEngine()

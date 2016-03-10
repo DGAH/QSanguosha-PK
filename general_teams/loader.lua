@@ -122,6 +122,9 @@ function loadTeams(teams, options)
 				path = string.format("general_teams/%s", name)
 			end
 			team:setResourcePath(path)
+			if type(details["fix_order"]) == "boolean" then
+				team:setOrderFixed(details["fix_order"])
+			end
 			table.insert(global_kofgame_teams, team)
 			sgs.AddTranslationEntry(name, details["translation"])
 			sgs.GameEX:addTeam(team)

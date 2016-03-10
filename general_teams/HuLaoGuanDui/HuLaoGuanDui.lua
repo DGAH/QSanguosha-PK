@@ -10,5 +10,5 @@ return {
 		"zqsh", --测试·最强神话
 		"bnzs", --测试·暴怒战神
 	},
-	in_order = true,
+	fix_order = true,
 }

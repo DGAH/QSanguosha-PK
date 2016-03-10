@@ -28,11 +28,14 @@ public:
 	QStringList getGenerals(bool certain = false) const;
 	void setResourcePath(const QString &path);
 	QString getResourcePath() const;
+	void setOrderFixed(bool flag = true);
+	bool isOrderFixed() const;
 
 private:
 	QString level;
 	QStringList generals;
 	QString path;
+	bool fix;
 };
 
 class KOFGameStage : public QObject
@@ -109,6 +112,7 @@ private:
 	QHash<QString, KOFGameTeamLevel *> team_levels;
 	QHash<QString, KOFGameTeam *> teams;
 	QStringList boss_generals;
+	KOFGameTeam *free_choose_team;
 
 	QList<KOFGameStage *> stages;
 	int start_stage;

@@ -193,6 +193,48 @@ struct ArcadeModeInfoStruct
 	}
 };
 
+struct KOFGameInfoStruct
+{
+	KOFGameInfoStruct()
+	{
+		valid = false;
+		team = "";
+		stage = 0;
+	}
+
+	bool valid;
+
+	QString team;
+	QStringList generals;
+	QString striker;
+
+	int stage;
+
+	QString toString()
+	{
+		QStringList data;
+		data << (valid ? "T" : "F")
+			<< team
+			<< generals.join("+")
+			<< striker
+			<< QString::number(stage);
+		return data.join("|");
+	}
+
+	bool fromString(const QString &str)
+	{
+		QStringList data = str.split("|");
+		if (data.length() < 5)
+			return false;
+		valid = (data.first() == "T");
+		team = data.at(1);
+		generals = data.at(2).split("+");
+		striker = data.at(3);
+		stage = data.at(4).toInt();
+		return true;
+	}
+};
+
 struct DamageStruct
 {
     enum Nature

@@ -74910,6 +74910,128 @@ fail:
 }
 
 
+static int _wrap_KOFGameTeam_setOrderFixed__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameTeam::setOrderFixed",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::setOrderFixed",1,"KOFGameTeam *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameTeam::setOrderFixed",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_setOrderFixed",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setOrderFixed(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_setOrderFixed__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  
+  SWIG_check_num_args("KOFGameTeam::setOrderFixed",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::setOrderFixed",1,"KOFGameTeam *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_setOrderFixed",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  (arg1)->setOrderFixed();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_setOrderFixed(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameTeam, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameTeam_setOrderFixed__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameTeam, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameTeam_setOrderFixed__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameTeam_setOrderFixed'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameTeam::setOrderFixed(bool)\n"
+    "    KOFGameTeam::setOrderFixed()\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameTeam_isOrderFixed(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameTeam::isOrderFixed",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::isOrderFixed",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_isOrderFixed",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = (bool)((KOFGameTeam const *)arg1)->isOrderFixed();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_KOFGameTeam(void *obj) {
 KOFGameTeam *arg1 = (KOFGameTeam *) obj;
 delete arg1;
@@ -74921,6 +75043,8 @@ static swig_lua_method swig_KOFGameTeam_methods[] = {
     {"getGenerals", _wrap_KOFGameTeam_getGenerals}, 
     {"setResourcePath", _wrap_KOFGameTeam_setResourcePath}, 
     {"getResourcePath", _wrap_KOFGameTeam_getResourcePath}, 
+    {"setOrderFixed", _wrap_KOFGameTeam_setOrderFixed}, 
+    {"isOrderFixed", _wrap_KOFGameTeam_isOrderFixed}, 
     {0,0}
 };
 static swig_lua_attribute swig_KOFGameTeam_attributes[] = {

@@ -21,6 +21,8 @@ public:
 	QStringList getGenerals(bool certain = false) const;
 	void setResourcePath(const char *path);
 	QString getResourcePath() const;
+	void setOrderFixed(bool flag = true);
+	bool isOrderFixed() const;
 };
 
 class KOFGameStage : public QObject

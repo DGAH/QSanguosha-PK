@@ -199,6 +199,7 @@ CommonTranslationTable = {
 
 	["@waked"] = "觉醒",
 	["@striker"] = "援护",
+	["_FreeChooseTeam"] = "自由组队",
 
 	["CAPITAL(1)"] = "一",
 	["CAPITAL(2)"] = "二",
