@@ -69,6 +69,14 @@ public:
 	bool extraCriticalRateWhenFightBoss() const;
 	void setEvolutionMode(bool open);
 	bool useEvolutionMode() const;
+	void setSendServerLog(bool flag);
+	bool willSendServerLog() const;
+
+	void addStrikerSkill(const char *general, const char *skill);
+	QString getStrikerSkill(const char *general) const;
+
+	void addCriticalRate(const char *general, int rate);
+	int getCriticalRate(const char *general) const;
 };
 
 extern KOFGameEngine *GameEX;

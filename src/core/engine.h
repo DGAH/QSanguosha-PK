@@ -44,6 +44,7 @@ public:
     void addBanPackage(const QString &package_name);
     QList<const Package *> getPackages() const;
     QStringList getBanPackages() const;
+	bool hasPackage(const QString &name, bool include_banned = true) const;
     Card *cloneCard(const Card *card) const;
     Card *cloneCard(const QString &name, Card::Suit suit = Card::SuitToBeDecided, int number = -1, const QStringList &flags = QStringList()) const;
     SkillCard *cloneSkillCard(const QString &name) const;

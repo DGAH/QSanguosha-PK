@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
     qApp->installTranslator(&qt_translator);
     qApp->installTranslator(&translator);
 
+	GameEX = new KOFGameEngine;
     Sanguosha = new Engine;
     Config.init();
     qApp->setFont(Config.AppFont);
@@ -99,6 +100,7 @@ int main(int argc, char *argv[])
     MainWindow *main_window = new MainWindow;
 
     Sanguosha->setParent(main_window);
+	GameEX->setParent(main_window);
     main_window->show();
 
     foreach (QString arg, qApp->arguments()) {

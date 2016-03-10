@@ -2,6 +2,7 @@
 #define _MAIN_WINDOW_H
 
 #include "engine.h"
+#include "kofgame-engine.h"
 #include "connectiondialog.h"
 #include "configdialog.h"
 

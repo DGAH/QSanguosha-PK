@@ -37880,6 +37880,122 @@ fail:
 }
 
 
+static int _wrap_Engine_hasPackage__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  bool result;
+  
+  SWIG_check_num_args("Engine::hasPackage",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::hasPackage",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::hasPackage",2,"char const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Engine::hasPackage",3,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_hasPackage",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = (bool)((Engine const *)arg1)->hasPackage((char const *)arg2,arg3);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_hasPackage__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("Engine::hasPackage",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::hasPackage",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::hasPackage",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_hasPackage",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (bool)((Engine const *)arg1)->hasPackage((char const *)arg2);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_hasPackage(lua_State* L) {
+  int argc;
+  int argv[4]={
+    1,2,3,4
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Engine_hasPackage__SWIG_1(L);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          return _wrap_Engine_hasPackage__SWIG_0(L);
+        }
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Engine_hasPackage'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Engine::hasPackage(char const *,bool) const\n"
+    "    Engine::hasPackage(char const *) const\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_Engine_cloneCard__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -41244,6 +41360,7 @@ static swig_lua_method swig_Engine_methods[] = {
     {"addPackage", _wrap_Engine_addPackage}, 
     {"addBanPackage", _wrap_Engine_addBanPackage}, 
     {"getBanPackages", _wrap_Engine_getBanPackages}, 
+    {"hasPackage", _wrap_Engine_hasPackage}, 
     {"cloneCard", _wrap_Engine_cloneCard}, 
     {"cloneSkillCard", _wrap_Engine_cloneSkillCard}, 
     {"getVersion", _wrap_Engine_getVersion}, 
@@ -75708,7 +75825,7 @@ fail:
 }
 
 
-static int _wrap_KOFGameEngine_getStrikerSkill(lua_State* L) {
+static int _wrap_KOFGameEngine_getStrikerSkill__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
   QString result;
@@ -75932,6 +76049,217 @@ fail:
 }
 
 
+static int _wrap_KOFGameEngine_setSendServerLog(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("KOFGameEngine::setSendServerLog",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setSendServerLog",1,"KOFGameEngine *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::setSendServerLog",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_setSendServerLog",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  (arg1)->setSendServerLog(arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_willSendServerLog(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameEngine::willSendServerLog",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::willSendServerLog",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_willSendServerLog",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (bool)((KOFGameEngine const *)arg1)->willSendServerLog();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_addStrikerSkill(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  char *arg3 = (char *) 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::addStrikerSkill",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::addStrikerSkill",1,"KOFGameEngine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::addStrikerSkill",2,"char const *");
+  if(!SWIG_lua_isnilstring(L,3)) SWIG_fail_arg("KOFGameEngine::addStrikerSkill",3,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_addStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (char *)lua_tostring(L, 3);
+  (arg1)->addStrikerSkill((char const *)arg2,(char const *)arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStrikerSkill__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameEngine::getStrikerSkill",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStrikerSkill",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getStrikerSkill",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((KOFGameEngine const *)arg1)->getStrikerSkill((char const *)arg2);
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStrikerSkill(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameEngine_getStrikerSkill__SWIG_0(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameEngine_getStrikerSkill__SWIG_1(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getStrikerSkill'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameEngine::getStrikerSkill() const\n"
+    "    KOFGameEngine::getStrikerSkill(char const *) const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameEngine_addCriticalRate(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int arg3 ;
+  
+  SWIG_check_num_args("KOFGameEngine::addCriticalRate",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::addCriticalRate",1,"KOFGameEngine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::addCriticalRate",2,"char const *");
+  if(!lua_isnumber(L,3)) SWIG_fail_arg("KOFGameEngine::addCriticalRate",3,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_addCriticalRate",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (int)lua_tonumber(L, 3);
+  (arg1)->addCriticalRate((char const *)arg2,arg3);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getCriticalRate(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getCriticalRate",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getCriticalRate",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getCriticalRate",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getCriticalRate",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = (int)((KOFGameEngine const *)arg1)->getCriticalRate((char const *)arg2);
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_new_KOFGameEngine(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *result = 0 ;
@@ -75976,7 +76304,6 @@ static swig_lua_method swig_KOFGameEngine_methods[] = {
     {"setStrikerCount", _wrap_KOFGameEngine_setStrikerCount}, 
     {"getStrikerCount", _wrap_KOFGameEngine_getStrikerCount}, 
     {"setStrikerSkill", _wrap_KOFGameEngine_setStrikerSkill}, 
-    {"getStrikerSkill", _wrap_KOFGameEngine_getStrikerSkill}, 
     {"setCriticalMode", _wrap_KOFGameEngine_setCriticalMode}, 
     {"useCriticalMode", _wrap_KOFGameEngine_useCriticalMode}, 
     {"setDefaultCriticalRate", _wrap_KOFGameEngine_setDefaultCriticalRate}, 
@@ -75985,6 +76312,12 @@ static swig_lua_method swig_KOFGameEngine_methods[] = {
     {"extraCriticalRateWhenFightBoss", _wrap_KOFGameEngine_extraCriticalRateWhenFightBoss}, 
     {"setEvolutionMode", _wrap_KOFGameEngine_setEvolutionMode}, 
     {"useEvolutionMode", _wrap_KOFGameEngine_useEvolutionMode}, 
+    {"setSendServerLog", _wrap_KOFGameEngine_setSendServerLog}, 
+    {"willSendServerLog", _wrap_KOFGameEngine_willSendServerLog}, 
+    {"addStrikerSkill", _wrap_KOFGameEngine_addStrikerSkill}, 
+    {"getStrikerSkill", _wrap_KOFGameEngine_getStrikerSkill}, 
+    {"addCriticalRate", _wrap_KOFGameEngine_addCriticalRate}, 
+    {"getCriticalRate", _wrap_KOFGameEngine_getCriticalRate}, 
     {0,0}
 };
 static swig_lua_attribute swig_KOFGameEngine_attributes[] = {

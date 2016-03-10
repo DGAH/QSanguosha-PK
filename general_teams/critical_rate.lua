@@ -28,7 +28,7 @@ return {
 	--暴击削弱
 	["zhouyu"] = 15, --经典标准版·周瑜
 	["sunquan"] = 10, --审核包·孙权
-	["classical_sunquan"] --经典标准版·孙权
+	["classical_sunquan"] = 10, --经典标准版·孙权
 	["shenzhouyu"] = 8, --神·周瑜
 	["shenzhugeliang"] = 5, --神·诸葛亮
 	["shensimayi"] = 5, --神·司马懿

@@ -107,6 +107,9 @@ if not sgs.GetConfig("DisableLua", false) then
 	load_generals()
 end
 
+local success = dofile "general_teams/loader.lua"
+sgs.Sanguosha:setProperty("GeneralTeamsLoadSuccess", sgs.QVariant(success))
+
 local done_loading = sgs.Sanguosha:property("DoneLoading"):toBool()
 if not done_loading then
 	load_translations()

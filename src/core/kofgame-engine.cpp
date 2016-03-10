@@ -157,7 +157,8 @@ bool KOFGameStage::containsLevel(const QString &level) const
 
 KOFGameEngine::KOFGameEngine()
 :QObject(), start_stage(1), final_stage(1), can_select_boss_team(false), record_free_choose_result(true), time_limit(false), 
-striker_mode(false), striker_count(5), striker_skill("gedang"), critical_mode(false), critical_rate(20), fight_boss(true), evolution_mode(false), send_server_log(false)
+striker_mode(false), striker_count(5), default_striker_skill("gedang"), 
+critical_mode(false), default_critical_rate(20), fight_boss(true), evolution_mode(false), send_server_log(false)
 {
 	GameEX = this;
 }
@@ -303,12 +304,12 @@ int KOFGameEngine::getStrikerCount() const
 
 void KOFGameEngine::setStrikerSkill(const QString &skill)
 {
-	this->striker_skill = skill;
+	this->default_striker_skill = skill;
 }
 
 QString KOFGameEngine::getStrikerSkill() const
 {
-	return this->striker_skill;
+	return this->default_striker_skill;
 }
 
 void KOFGameEngine::setCriticalMode(bool open)
@@ -323,12 +324,12 @@ bool KOFGameEngine::useCriticalMode() const
 
 void KOFGameEngine::setDefaultCriticalRate(int rate)
 {
-	this->critical_rate = rate;
+	this->default_critical_rate = rate;
 }
 
 int KOFGameEngine::getDefaultCriticalRate() const
 {
-	return this->critical_rate;
+	return this->default_critical_rate;
 }
 
 void KOFGameEngine::setFightBossEnabled(bool flag)
@@ -349,4 +350,34 @@ void KOFGameEngine::setEvolutionMode(bool open)
 bool KOFGameEngine::useEvolutionMode() const
 {
 	return this->critical_mode && this->evolution_mode;
+}
+
+void KOFGameEngine::setSendServerLog(bool flag)
+{
+	this->send_server_log = flag;
+}
+
+bool KOFGameEngine::willSendServerLog() const
+{
+	return this->send_server_log;
+}
+
+void KOFGameEngine::addStrikerSkill(const QString &general, const QString &skill)
+{
+	this->striker_skills.insert(general, skill);
+}
+
+QString KOFGameEngine::getStrikerSkill(const QString &general) const
+{
+	return this->striker_skills.value(general, this->default_striker_skill);
+}
+
+void KOFGameEngine::addCriticalRate(const QString &general, int rate)
+{
+	this->critical_rates.insert(general, rate);
+}
+
+int KOFGameEngine::getCriticalRate(const QString &general) const
+{
+	return this->critical_rates.value(general, this->default_critical_rate);
 }

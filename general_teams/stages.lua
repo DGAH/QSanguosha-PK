@@ -48,7 +48,7 @@ return {
 		name = "大BOSS队",
 		boss = true,
 	},
-	LevelFinialBoss = {
+	LevelFinalBoss = {
 		name = "最终BOSS队",
 		boss = true,
 	},

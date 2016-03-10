@@ -93,6 +93,14 @@ public:
 	bool extraCriticalRateWhenFightBoss() const;
 	void setEvolutionMode(bool open);
 	bool useEvolutionMode() const;
+	void setSendServerLog(bool flag);
+	bool willSendServerLog() const;
+
+	void addStrikerSkill(const QString &general, const QString &skill);
+	QString getStrikerSkill(const QString &general) const;
+
+	void addCriticalRate(const QString &general, int rate);
+	int getCriticalRate(const QString &general) const;
 
 private:
 	QHash<QString, KOFGameTeamLevel *> team_levels;
@@ -109,11 +117,13 @@ private:
 
 	bool striker_mode;
 	int striker_count;
-	QString striker_skill;
+	QString default_striker_skill;
+	QHash<QString, QString> striker_skills;
 
 	bool critical_mode;
-	int critical_rate;
+	int default_critical_rate;
 	bool fight_boss;
+	QHash<QString, int> critical_rates;
 
 	bool evolution_mode;
 	bool send_server_log;

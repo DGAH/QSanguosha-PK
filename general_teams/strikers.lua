@@ -10,6 +10,7 @@ return {
 	--测试包
 	["zhiba_sunquan"] = "super_zhiheng", --制霸孙权：制衡
 	["nobenghuai_dongzhuo"] = "jiuchi", --无崩董卓：酒池
+	--自由武将
 	--经典标准版
 	["guanyu"] = "WuSheng", --关羽：武圣
 	["classical_zhaoyun"] = "longdan", --赵云：龙胆

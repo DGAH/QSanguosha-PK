@@ -298,6 +298,20 @@ QList<const Package *> Engine::getPackages() const
     return findChildren<const Package *>();
 }
 
+bool Engine::hasPackage(const QString &name, bool include_banned) const
+{
+	QList<const Package *> packs = findChildren<const Package *>();
+	foreach(const Package *pack, packs) {
+		if (pack->objectName() == name){
+			if (!include_banned)
+				return true;
+			QStringList banpacks = getBanPackages();
+			return !banpacks.contains(name);
+		}
+	}
+	return false;
+}
+
 QString Engine::translate(const QString &to_translate) const
 {
     QStringList list = to_translate.split("\\");

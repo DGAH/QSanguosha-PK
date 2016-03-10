@@ -1111,6 +1111,7 @@ public:
     void addPackage(Package *package);
     void addBanPackage(const char *package_name);
     QStringList getBanPackages() const;
+	bool hasPackage(const char *name, bool include_banned = true) const;
     Card *cloneCard(const Card *card) const;
     Card *cloneCard(const char *name, Card::Suit suit = Card::SuitToBeDecided, int number = -1, const QStringList &flags = QStringList()) const;
     SkillCard *cloneSkillCard(const char *name) const;
