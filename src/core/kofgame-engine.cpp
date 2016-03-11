@@ -125,6 +125,74 @@ bool KOFGameTeam::isOrderFixed() const
 	return this->fix;
 }
 
+QString KOFGameTeam::getDescription() const
+{
+	QString name = Sanguosha->translate(this->objectName());
+	QString role = Sanguosha->translate(this->level);
+	QStringList generalnames;
+	foreach(QString general, this->generals) {
+		if (general.startsWith("?")) {
+			QStringList args;
+			QRegExp exp;
+			exp.setCaseSensitivity(Qt::CaseInsensitive);
+			exp.setMinimal(true);
+			exp.setPattern("<kingdom=(.*)>");
+			if (exp.indexIn(general) >= 0){
+				QString kingdom = exp.capturedTexts().at(1);
+				args << tr("kingdom is %1").arg(Sanguosha->translate(kingdom));
+			}
+			QString sex;
+			exp.setPattern("<male=(.*)>");
+			if (exp.indexIn(general) >= 0) {
+				QString flag = exp.capturedTexts().at(1);
+				bool male = ((flag == "yes") || (flag == "true"));
+				sex = male ? "male" : "female";
+			}
+			else{
+				exp.setPattern("<female=(.*)>");
+				if (exp.indexIn(general) >= 0) {
+					QString flag = exp.capturedTexts().at(1);
+					bool female = ((flag == "yes") || (flag == "true"));
+					sex = female ? "female" : "male";
+				}
+			}
+			if (!sex.isEmpty()) {
+				args << tr("sex is %1").arg(Sanguosha->translate(sex));
+			}
+			exp.setPattern("<boss=(.*)>");
+			if (exp.indexIn(general) >= 0) {
+				QString flag = exp.capturedTexts().at(1);
+				bool boss = ((flag == "yes") || (flag == "true"));
+				if (boss)
+					args << tr("role is a boss");
+				else
+					args << tr("role is not a boss");
+			}
+			if (args.isEmpty())
+				generalnames.append(tr("another general ."));
+			else
+				generalnames.append(tr("a general whose %1 .").arg(args.join(tr(" and "))));
+		}
+		else {
+			generalnames.append(Sanguosha->translate(general));
+		}
+	}
+	QString description;
+	description.append(QString("<font color=blue><b>%1</b></font>:<br/><br/>").arg(name));
+	description.append(QString("<b>%1</b>:%2<br/><br/>").arg(tr("team level")).arg(role));
+	description.append(QString("<b>%1</b>:%2<br/>").arg(tr("members")).arg(generalnames.join(",")));
+	return description;
+}
+
+bool KOFGameTeam::hasUncertainGeneral() const
+{
+	foreach(QString general, this->generals) {
+		if (general.startsWith("?"))
+			return true;
+	}
+	return false;
+}
+
 //****************KOFGameStage****************//
 
 KOFGameStage::KOFGameStage(int stage, bool is_boss, bool is_special)
@@ -188,7 +256,7 @@ critical_mode(false), default_critical_rate(20), fight_boss(true), evolution_mod
 	}
 	this->free_choose_team->setResourcePath("image/system/06_teams");
 	this->free_choose_team->setParent(this);
-	
+	this->teams.insert(this->free_choose_team->objectName(), this->free_choose_team);
 }
 
 KOFGameEngine::~KOFGameEngine()
@@ -197,6 +265,10 @@ KOFGameEngine::~KOFGameEngine()
 
 void KOFGameEngine::addTeamLevel(KOFGameTeamLevel *level)
 {
+	if (this->level_names.contains(level->objectName()))
+		return;
+
+	this->level_names.append(level->objectName());
 	this->team_levels.insert(level->objectName(), level);
 }
 
@@ -205,8 +277,40 @@ KOFGameTeamLevel *KOFGameEngine::getTeamLevel(const QString &level) const
 	return this->team_levels.value(level, NULL);
 }
 
+QStringList KOFGameEngine::getAllLevelNames(bool include_boss) const
+{
+	QStringList result;
+	foreach(QString name, this->level_names) {
+		KOFGameTeamLevel *level = this->getTeamLevel(name);
+		if (!level)
+			continue;
+		if (level->isBossLevel() && !include_boss)
+			continue;
+		result << name;
+	}
+	return result;
+}
+
+QList<KOFGameTeamLevel *> KOFGameEngine::getAllLevels(bool include_boss) const
+{
+	QList<KOFGameTeamLevel *> result;
+	foreach(QString name, this->level_names) {
+		KOFGameTeamLevel *level = this->getTeamLevel(name);
+		if (!level)
+			continue;
+		if (level->isBossLevel() && !include_boss)
+			continue;
+		result << level;
+	}
+	return result;
+}
+
 void KOFGameEngine::addTeam(KOFGameTeam *team)
 {
+	if (this->team_names.contains(team->objectName()))
+		return;
+
+	this->team_names.append(team->objectName());
 	this->teams.insert(team->objectName(), team);
 
 	if (team->isBossTeam()) {
@@ -221,6 +325,43 @@ void KOFGameEngine::addTeam(KOFGameTeam *team)
 KOFGameTeam *KOFGameEngine::getTeam(const QString &team) const
 {
 	return this->teams.value(team, NULL);
+}
+
+QStringList KOFGameEngine::getAllTeamNames(const QString &level) const
+{
+	bool flag = !level.isEmpty();
+
+	QStringList result;
+	foreach(QString name, this->team_names) {
+		KOFGameTeam *team = this->getTeam(name);
+		if (!team)
+			continue;
+		if (flag && team->getTeamLevel() != level)
+			continue;
+		result << name;
+	}
+	return result;
+}
+
+QList<KOFGameTeam *> KOFGameEngine::getAllTeams(const QString &level) const
+{
+	bool flag = !level.isEmpty();
+
+	QList<KOFGameTeam *> result;
+	foreach(QString name, this->team_names) {
+		KOFGameTeam *team = this->getTeam(name);
+		if (!team)
+			continue;
+		if (flag && team->getTeamLevel() != level)
+			continue;
+		result << team;
+	}
+	return result;
+}
+
+KOFGameTeam *KOFGameEngine::getFreeChooseTeam() const
+{
+	return this->free_choose_team;
 }
 
 void KOFGameEngine::addStage(KOFGameStage *stage)

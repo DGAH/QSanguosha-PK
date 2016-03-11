@@ -198,39 +198,56 @@ struct KOFGameInfoStruct
 	KOFGameInfoStruct()
 	{
 		valid = false;
-		team = "";
 		stage = 0;
+		pk = false;
 	}
 
 	bool valid;
+	
+	QString playerA_team;
+	QStringList playerA_generals;
+	QString playerA_striker;
 
-	QString team;
-	QStringList generals;
-	QString striker;
+	QString playerB_team;
+	QStringList playerB_generals;
+	QString playerB_striker;
+
+	bool pk;
 
 	int stage;
+	QStringList defeated_teams;
 
 	QString toString()
 	{
 		QStringList data;
 		data << (valid ? "T" : "F")
-			<< team
-			<< generals.join("+")
-			<< striker
-			<< QString::number(stage);
+			<< playerA_team
+			<< playerA_generals.join("+")
+			<< playerA_striker
+			<< playerB_team
+			<< playerB_generals.join("+")
+			<< playerB_striker
+			<< (pk ? "T" : "F")
+			<< QString::number(stage)
+			<< defeated_teams.join("+");
 		return data.join("|");
 	}
 
 	bool fromString(const QString &str)
 	{
 		QStringList data = str.split("|");
-		if (data.length() < 5)
+		if (data.length() < 10)
 			return false;
 		valid = (data.first() == "T");
-		team = data.at(1);
-		generals = data.at(2).split("+");
-		striker = data.at(3);
-		stage = data.at(4).toInt();
+		playerA_team = data.at(1);
+		playerA_generals = data.at(2).split("+");
+		playerA_striker = data.at(3);
+		playerB_team = data.at(4);
+		playerB_generals = data.at(5).split("+");
+		playerB_striker = data.at(6);
+		pk = (data.at(7) == "T");
+		stage = data.at(8).toInt();
+		defeated_teams = data.at(9).split("+");
 		return true;
 	}
 };

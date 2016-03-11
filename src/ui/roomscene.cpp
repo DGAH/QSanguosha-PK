@@ -6,6 +6,7 @@
 #include "distanceviewdialog.h"
 #include "playercarddialog.h"
 #include "choosegeneraldialog.h"
+#include "chooseteamdialog.h"
 #include "window.h"
 #include "button.h"
 #include "cardcontainer.h"
@@ -180,9 +181,13 @@ RoomScene::RoomScene(QMainWindow *main_window)
     connect(ClientInstance, SIGNAL(start_in_xs()), this, SLOT(startInXs()));
 
     connect(ClientInstance, &Client::skill_updated, this, &RoomScene::updateSkill);
+	connect(ClientInstance, SIGNAL(show_information(QString)), this, SLOT(showInformation(QString)));
 
 	// 02_rank
 	connect(ClientInstance, SIGNAL(rank_mode_game_over(RankModeInfoStruct, char)), this, SLOT(onRankModeGameOver(RankModeInfoStruct, char)));
+	// 06_teams
+	connect(ClientInstance, SIGNAL(kofgame_teams_got()), this, SLOT(onKOFGameAskForTeam()));
+	connect(ClientInstance, SIGNAL(kofgame_confirm_generals(QString)), this, SLOT(onKOFGameConfirmGenerals(QString)));
 	// 07_arcade
 	connect(ClientInstance, SIGNAL(arcade_mode_game_over(ArcadeModeInfoStruct, bool, bool)), this, SLOT(onArcadeModeGameOver(ArcadeModeInfoStruct, bool, bool)));
 
@@ -2142,6 +2147,10 @@ void RoomScene::useSelectedCard()
         card_container->clear();
         break;
     }
+	case Client::Notice:{
+		prompt_box->disappear();
+		break;
+	}
     }
 
     const ViewAsSkill *skill = dashboard->currentSkill();
@@ -2302,7 +2311,12 @@ void RoomScene::doTimeout()
     case Client::AskForArrangement: {
         arrange_items << down_generals.mid(0, 3 - arrange_items.length());
         finishArrange();
+		break;
     }
+	case Client::Notice:{
+		prompt_box->disappear();
+		break;
+	}
     default:
         break;
     }
@@ -2559,6 +2573,10 @@ void RoomScene::updateStatus(Client::Status oldStatus, Client::Status newStatus)
 
         break;
     }
+	case Client::Notice:{
+		showPromptBox();
+		break;
+	}
     }
     if (newStatus != oldStatus && newStatus != Client::Playing && newStatus != Client::NotActive)
         QApplication::alert(QApplication::focusWidget());
@@ -2712,6 +2730,10 @@ void RoomScene::doCancelButton()
         prompt_box->disappear();
         break;
     }
+	case Client::Notice: {
+		prompt_box->disappear();
+		break;
+	}
     default:
         break;
     }
@@ -4787,6 +4809,24 @@ void RoomScene::onRankModeGameOver(RankModeInfoStruct info, char result)
 void RoomScene::onRankModeWillGotoNextGame()
 {
 	emit this->rank_mode_goto_next_game(this->rank_mode_info, Self->getTask());
+}
+
+// 06_teams
+
+void RoomScene::onKOFGameAskForTeam()
+{
+	ChooseKOFGameTeamDialog *dialog = new ChooseKOFGameTeamDialog;
+	connect(dialog, SIGNAL(team_chosen(QString)), ClientInstance, SLOT(onPlayerChooseKOFGameTeam(QString)));
+	
+	delete m_choiceDialog;
+	m_choiceDialog = dialog;
+}
+
+void RoomScene::onKOFGameConfirmGenerals(QString team)
+{
+	ConfirmKOFGameGeneralsDialog *dialog = new ConfirmKOFGameGeneralsDialog(team);
+	delete m_choiceDialog;
+	m_choiceDialog = dialog;
 }
 
 // 07_arcade

@@ -1,5 +1,6 @@
 #include "room.h"
 #include "engine.h"
+#include "kofgame-engine.h"
 #include "settings.h"
 #include "standard.h"
 #include "ai.h"
@@ -2640,6 +2641,104 @@ void Room::arrangeGeneralsForRankMode()
 	_setPlayerGeneral(gatekeeper, rank_info.gatekeeper, true);
 }
 
+void Room::arrangeGeneralsForKOFGameMode()
+{
+	ServerPlayer *playerA = m_players.first(); // 1P
+	ServerPlayer *playerB = m_players.last();  // 2P
+	if (playerA->getState() == "robot") {
+		playerA = playerB;
+		playerB = m_players.first();
+	}
+	// task
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_TASK);
+	QString replyA = playerA->getClientReply().toString();
+	QString replyB = playerB->getClientReply().toString();
+	if ((replyA == "playerB") || (replyB == "playerA")) {
+		playerA = playerB;
+		playerB = playerA->getNext();
+	}
+	playerA->setTask("playerA");
+	playerB->setTask("playerB");
+	doNotify(playerA, S_COMMAND_UPDATE_TASK, QVariant("playerA"));
+	doNotify(playerB, S_COMMAND_UPDATE_TASK, QVariant("playerB"));
+	broadcastProperty(playerA, "task");
+	broadcastProperty(playerB, "task");
+	// progress
+	doBroadcastRequest(m_players, S_COMMAND_CHECK_PROGRESS);
+	replyA = playerA->getClientReply().toString();
+	replyB = playerB->getClientReply().toString();
+	KOFGameInfoStruct infoA, infoB;
+	bool infoA_loaded = infoA.fromString(replyA);
+	bool infoB_loaded = infoB.fromString(replyB);
+	bool pk_mode = ((playerA->getState() != "robot") && (playerB->getState() != "robot"));
+	KOFGameInfoStruct game_info;
+	if (pk_mode) {
+		game_info.pk = true;
+	} else {
+		if (infoA_loaded && infoA.valid)
+			game_info = infoA;
+		else if (infoB_loaded && infoB.valid)
+			game_info = infoB;
+		pk_mode = game_info.pk;
+		if (!pk_mode)
+			game_info.stage++;
+	}
+	game_info.valid = true;
+	// choose team
+	QList<ServerPlayer *> to_ask, to_wait;
+	if (pk_mode || game_info.playerA_team.isEmpty())
+		to_ask.append(playerA);
+	else
+		to_wait.append(playerA);
+	if (pk_mode || game_info.playerB_team.isEmpty())
+		to_ask.append(playerB);
+	else
+		to_wait.append(playerB);
+	bool may_need_wait = !to_ask.isEmpty();
+	QString teamA, teamB;
+	QString default_team = GameEX->getFreeChooseTeam()->objectName();
+	if (may_need_wait && !to_wait.isEmpty())
+		doBroadcastNotify(to_wait, S_COMMAND_SHOW_INFORMATION, QVariant(tr("Your opponent is choosing team. Please wait...")));
+	if (may_need_wait) {
+		doBroadcastRequest(to_ask, S_COMMAND_CHOOSE_KOFGAME_TEAM);
+		foreach(ServerPlayer *p, to_ask) {
+			QString team = p->getClientReply().toString();
+			if (team.isEmpty())
+				team = default_team;
+			if (p == playerA)
+				teamA = team;
+			else if (p == playerB)
+				teamB == team;
+		}
+	}
+	if (teamA.isEmpty()) {
+		teamA = game_info.playerA_team;
+		if (teamA.isEmpty())
+			teamA = default_team;
+	}
+	if (teamB.isEmpty()) {
+		teamB = game_info.playerB_team;
+		if (teamB.isEmpty())
+			teamB = default_team;
+	}
+	game_info.playerA_team = teamA;
+	game_info.playerB_team = teamB;
+	// confirm uncertain generals
+/*	KOFGameTeam *teamA_info = GameEX->getTeam(teamA);
+	KOFGameTeam *teamB_info = GameEX->getTeam(teamB);
+	if (teamA_info->hasUncertainGeneral()) {
+		doRequest(playerA, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamA, true);
+	}
+	if (teamB_info->hasUncertainGeneral()) {
+		doRequest(playerB, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamB, true);
+	}*/
+	// update
+	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(game_info.toString()));
+	// general
+	_setPlayerGeneral(playerA, "sujiang", true);
+	_setPlayerGeneral(playerB, "sujiangf", true);
+}
+
 void Room::arrangeGeneralsForEndless()
 {
 	ServerPlayer *challenger = m_players.first();
@@ -2855,6 +2954,11 @@ void Room::run()
 	}
 	else if (mode == "02_rank") {
 		arrangeGeneralsForRankMode();
+		startGame();
+	}
+	else if (mode == "06_teams") {
+		arrangeGeneralsForKOFGameMode();
+		//chooseGenerals();
 		startGame();
 	}
 	else if (mode == "07_arcade") {

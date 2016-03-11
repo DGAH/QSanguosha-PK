@@ -38,6 +38,7 @@ public:
         AskForShowOrPindian = 0x0C,
         AskForGeneralTaken = 0x0D,
         AskForArrangement = 0x0E,
+		Notice = 0x0F,
 
         RespondingUse = 0x11,
         RespondingForDiscard = 0x21,
@@ -361,9 +362,15 @@ public:
 	void updateTask(const QVariant &arg);
 	void checkProgress(const QVariant &);
 	void updateProgress(const QVariant &arg);
+	void showInformation(const QVariant &arg);
 	// 02_rank
 	void setRankModeInfo(RankModeInfoStruct &info);
 	RankModeInfoStruct getRankModeInfo();
+	// 06_teams
+	void askForKOFGameTeam(const QVariant &);
+	void confirmKOFGameUncertainGenerals(const QVariant &arg);
+	void setKOFGameInfo(KOFGameInfoStruct &info);
+	KOFGameInfoStruct getKOFGameInfo();
 	// 07_arcade
 	void setArcadeModeInfo(ArcadeModeInfoStruct &info);
 	ArcadeModeInfoStruct getArcadeModeInfo();
@@ -373,14 +380,23 @@ private:
 	QString m_task;
 	// 02_rank 
 	RankModeInfoStruct m_rank_info;
+	// 06_teams
+	KOFGameInfoStruct m_kofgame_info;
 	// 07_arcade
 	ArcadeModeInfoStruct m_arcade_info;
 
 signals:
 	// 02_rank
 	void rank_mode_game_over(RankModeInfoStruct info, char result);
+	// 06_teams
+	void kofgame_teams_got();
+	void kofgame_confirm_generals(QString team);
 	// 07_arcade
 	void arcade_mode_game_over(ArcadeModeInfoStruct info, bool standoff, bool win);
+
+public slots:
+	// 06_teams
+	void onPlayerChooseKOFGameTeam(QString team);
 };
 
 extern Client *ClientInstance;

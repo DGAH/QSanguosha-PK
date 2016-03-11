@@ -109,12 +109,15 @@ Client::Client(QObject *parent, const QString &filename)
     m_interactions[S_COMMAND_ARRANGE_GENERAL] = &Client::startArrange;
 	m_interactions[S_COMMAND_CHECK_TASK] = &Client::checkTask;
 	m_interactions[S_COMMAND_CHECK_PROGRESS] = &Client::checkProgress;
+	m_interactions[S_COMMAND_CHOOSE_KOFGAME_TEAM] = &Client::askForKOFGameTeam;
+	m_interactions[S_COMMAND_CONFIRM_KOFGAME_GENERALS] = &Client::confirmKOFGameUncertainGenerals;
 
     m_callbacks[S_COMMAND_FILL_GENERAL] = &Client::fillGenerals;
     m_callbacks[S_COMMAND_TAKE_GENERAL] = &Client::takeGeneral;
     m_callbacks[S_COMMAND_RECOVER_GENERAL] = &Client::recoverGeneral;
     m_callbacks[S_COMMAND_REVEAL_GENERAL] = &Client::revealGeneral;
     m_callbacks[S_COMMAND_UPDATE_SKILL] = &Client::updateSkill;
+	m_callbacks[S_COMMAND_SHOW_INFORMATION] = &Client::showInformation;
 	m_callbacks[S_COMMAND_UPDATE_TASK] = &Client::updateTask;
 	m_callbacks[S_COMMAND_UPDATE_PROGRESS] = &Client::updateProgress;
 
@@ -2131,8 +2134,19 @@ void Client::updateProgress(const QVariant &arg)
 {
 	if (ServerInfo.GameMode == "02_rank")
 		this->m_rank_info.fromString(arg.toString());
+	else if (ServerInfo.GameMode == "06_teams")
+		this->m_kofgame_info.fromString(arg.toString());
 	else if (ServerInfo.GameMode == "07_arcade")
 		this->m_arcade_info.fromString(arg.toString());
+}
+
+void Client::showInformation(const QVariant &arg)
+{
+	if (!arg.canConvert<QString>())
+		return;
+	QString info = arg.toString();
+	this->prompt_doc->setHtml(info);
+	setStatus(Notice);
 }
 
 // 02_rank
@@ -2145,6 +2159,36 @@ void Client::setRankModeInfo(RankModeInfoStruct &info)
 RankModeInfoStruct Client::getRankModeInfo()
 {
 	return this->m_rank_info;
+}
+
+// 06_teams
+
+void Client::askForKOFGameTeam(const QVariant &)
+{
+	emit kofgame_teams_got();
+	setStatus(ExecDialog);
+}
+
+void Client::confirmKOFGameUncertainGenerals(const QVariant &arg)
+{
+	QString team = arg.toString();
+	emit kofgame_confirm_generals(team);
+	setStatus(ExecDialog);
+}
+
+void Client::onPlayerChooseKOFGameTeam(QString team)
+{
+	replyToServer(S_COMMAND_CHOOSE_KOFGAME_TEAM, team);
+}
+
+void Client::setKOFGameInfo(KOFGameInfoStruct &info)
+{
+	this->m_kofgame_info = info;
+}
+
+KOFGameInfoStruct Client::getKOFGameInfo()
+{
+	return this->m_kofgame_info;
 }
 
 // 07_arcade

@@ -541,6 +541,7 @@ private:
     void assignGeneralsForPlayers(const QList<ServerPlayer *> &to_assign);
     void chooseGenerals(QList<ServerPlayer *> players = QList<ServerPlayer *>());
 	void arrangeGeneralsForRankMode();
+	void arrangeGeneralsForKOFGameMode();
 	void arrangeGeneralsForArcadeMode();
 	void arrangeGeneralsForEndless();
     AI *cloneAI(ServerPlayer *player);

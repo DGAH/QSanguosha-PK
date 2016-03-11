@@ -30,6 +30,8 @@ public:
 	QString getResourcePath() const;
 	void setOrderFixed(bool flag = true);
 	bool isOrderFixed() const;
+	QString getDescription() const;
+	bool hasUncertainGeneral() const;
 
 private:
 	QString level;
@@ -69,10 +71,18 @@ public:
 
 	void addTeamLevel(KOFGameTeamLevel *level);
 	KOFGameTeamLevel *getTeamLevel(const QString &level) const;
+	QStringList getAllLevelNames(bool include_boss = true) const;
+	QList<KOFGameTeamLevel *> getAllLevels(bool include_boss = true) const;
+
 	void addTeam(KOFGameTeam *team);
 	KOFGameTeam *getTeam(const QString &team) const;
+	QStringList getAllTeamNames(const QString &level = "") const;
+	QList<KOFGameTeam *> getAllTeams(const QString &level = "") const;
+	KOFGameTeam *getFreeChooseTeam() const;
+
 	void addStage(KOFGameStage *stage);
 	KOFGameStage *getStage(int stage) const;
+
 	bool isBossGeneral(const QString &general) const;
 
 	void setStartStage(int stage);
@@ -109,7 +119,9 @@ public:
 	int getCriticalRate(const QString &general) const;
 
 private:
+	QStringList level_names;
 	QHash<QString, KOFGameTeamLevel *> team_levels;
+	QStringList team_names;
 	QHash<QString, KOFGameTeam *> teams;
 	QStringList boss_generals;
 	KOFGameTeam *free_choose_team;

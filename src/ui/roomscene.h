@@ -451,6 +451,8 @@ signals:
 private:
 	// 02_rank
 	RankModeInfoStruct rank_mode_info;
+	// 06_teams
+	KOFGameInfoStruct kofgame_info;
 	// 07_arcade
 	ArcadeModeInfoStruct arcade_mode_info;
 
@@ -464,6 +466,9 @@ public slots:
 	// 02_rank
 	void onRankModeGameOver(RankModeInfoStruct info, char result);
 	void onRankModeWillGotoNextGame();
+	// 06_teams
+	void onKOFGameAskForTeam();
+	void onKOFGameConfirmGenerals(QString team);
 	// 07_arcade
 	void onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win);
 	void onArcadeModeWillGotoNextGame();
