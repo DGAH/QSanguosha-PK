@@ -563,17 +563,17 @@
 <context>
     <name>ChooseKOFGameTeamDialog</name>
     <message>
-        <location filename="../src/dialog/chooseteamdialog.cpp" line="34"/>
+        <location filename="../src/dialog/chooseteamdialog.cpp" line="38"/>
         <source>Please Choose A Team:</source>
         <translation>请选择参赛队：</translation>
     </message>
     <message>
-        <location filename="../src/dialog/chooseteamdialog.cpp" line="48"/>
+        <location filename="../src/dialog/chooseteamdialog.cpp" line="52"/>
         <source>Create your own team by choose some generals freely.</source>
         <translation>自由选择一些武将以组建一支属于你自己的参赛队。</translation>
     </message>
     <message>
-        <location filename="../src/dialog/chooseteamdialog.cpp" line="54"/>
+        <location filename="../src/dialog/chooseteamdialog.cpp" line="58"/>
         <source>Select an existing team randomly.</source>
         <translation>随机选择一个已存在的参赛队。</translation>
     </message>
@@ -1035,6 +1035,14 @@
         <location filename="../src/dialog/configdialog.cpp" line="163"/>
         <source>Audio files (*.wav *.mp3 *.ogg)</source>
         <translation>音频 (*.wav *.mp3 *.ogg)</translation>
+    </message>
+</context>
+<context>
+    <name>ConfirmKOFGameGeneralsDialog</name>
+    <message>
+        <location filename="../src/dialog/chooseteamdialog.cpp" line="174"/>
+        <source>confirm</source>
+        <translation>完成</translation>
     </message>
 </context>
 <context>
@@ -3316,34 +3324,34 @@
         <translation>对手正在选择参赛队，请稍候……</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="3241"/>
+        <location filename="../src/server/room.cpp" line="3269"/>
         <source>Unable to parse player</source>
         <translation>不可分析的玩家</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="3243"/>
+        <location filename="../src/server/room.cpp" line="3271"/>
         <source>Server is not waiting for reply from %1</source>
         <translation>服务器无法获取 %1 的响应</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="3245"/>
+        <location filename="../src/server/room.cpp" line="3273"/>
         <source>Reply command should be %1 instead of %2</source>
         <translation>应答指令应为 %1 而不是 %2</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="3248"/>
+        <location filename="../src/server/room.cpp" line="3276"/>
         <source>Reply serial should be %1 instead of %2</source>
         <translation>玩家序号应为 %1 而不是 %2</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="4613"/>
+        <location filename="../src/server/room.cpp" line="4641"/>
         <source>Card cannot be parsed:
  %1</source>
         <translation>卡牌字符串无法解析:
 %1</translation>
     </message>
     <message>
-        <location filename="../src/server/room.cpp" line="5885"/>
+        <location filename="../src/server/room.cpp" line="5913"/>
         <source>&lt;font color=#EEB422&gt;The network delay of player &lt;b&gt;%1&lt;/b&gt; is %2 milliseconds.&lt;/font&gt;</source>
         <translation>&lt;font color=#EEB422&gt;玩家 &lt;b&gt;%1&lt;/b&gt; 的网络延迟为 %2 毫秒&lt;/font&gt;</translation>
     </message>
@@ -3550,14 +3558,14 @@
         <location filename="../src/ui/roomscene.cpp" line="2830"/>
         <location filename="../src/ui/roomscene.cpp" line="2854"/>
         <location filename="../src/ui/roomscene.cpp" line="4550"/>
-        <location filename="../src/ui/roomscene.cpp" line="4836"/>
+        <location filename="../src/ui/roomscene.cpp" line="4837"/>
         <source>&lt;font color=&apos;%1&apos;&gt;---------- Game Finish ----------&lt;/font&gt;</source>
         <translation>&lt;font color=&apos;%1&apos;&gt;────────游戏结束────────&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../src/ui/roomscene.cpp" line="2837"/>
         <location filename="../src/ui/roomscene.cpp" line="4563"/>
-        <location filename="../src/ui/roomscene.cpp" line="4850"/>
+        <location filename="../src/ui/roomscene.cpp" line="4851"/>
         <source>Standoff</source>
         <translation>平局</translation>
     </message>
@@ -3565,7 +3573,7 @@
         <location filename="../src/ui/roomscene.cpp" line="2878"/>
         <location filename="../src/ui/roomscene.cpp" line="4573"/>
         <location filename="../src/ui/roomscene.cpp" line="4584"/>
-        <location filename="../src/ui/roomscene.cpp" line="4860"/>
+        <location filename="../src/ui/roomscene.cpp" line="4861"/>
         <source>Victory</source>
         <translation>胜利</translation>
     </message>
@@ -3573,8 +3581,8 @@
         <location filename="../src/ui/roomscene.cpp" line="2878"/>
         <location filename="../src/ui/roomscene.cpp" line="4571"/>
         <location filename="../src/ui/roomscene.cpp" line="4586"/>
-        <location filename="../src/ui/roomscene.cpp" line="4858"/>
-        <location filename="../src/ui/roomscene.cpp" line="4873"/>
+        <location filename="../src/ui/roomscene.cpp" line="4859"/>
+        <location filename="../src/ui/roomscene.cpp" line="4874"/>
         <source>Failure</source>
         <translation>败北</translation>
     </message>
@@ -3602,7 +3610,7 @@
         <location filename="../src/ui/roomscene.cpp" line="352"/>
         <location filename="../src/ui/roomscene.cpp" line="2923"/>
         <location filename="../src/ui/roomscene.cpp" line="4777"/>
-        <location filename="../src/ui/roomscene.cpp" line="5004"/>
+        <location filename="../src/ui/roomscene.cpp" line="5005"/>
         <source>Return to main menu</source>
         <translation>返回主菜单</translation>
     </message>
@@ -3618,7 +3626,7 @@
     <message>
         <location filename="../src/ui/roomscene.cpp" line="2928"/>
         <location filename="../src/ui/roomscene.cpp" line="4771"/>
-        <location filename="../src/ui/roomscene.cpp" line="4996"/>
+        <location filename="../src/ui/roomscene.cpp" line="4997"/>
         <source>Save record</source>
         <translation>保存录像</translation>
     </message>
@@ -3841,7 +3849,7 @@
     </message>
     <message>
         <location filename="../src/ui/roomscene.cpp" line="4685"/>
-        <location filename="../src/ui/roomscene.cpp" line="4942"/>
+        <location filename="../src/ui/roomscene.cpp" line="4943"/>
         <source>current game information:</source>
         <translation>本局游戏信息：</translation>
     </message>
@@ -3875,7 +3883,7 @@
     <message>
         <location filename="../src/ui/roomscene.cpp" line="4720"/>
         <location filename="../src/ui/roomscene.cpp" line="4724"/>
-        <location filename="../src/ui/roomscene.cpp" line="4871"/>
+        <location filename="../src/ui/roomscene.cpp" line="4872"/>
         <source>win</source>
         <translation>胜利</translation>
     </message>
@@ -3900,90 +3908,90 @@
     </message>
     <message>
         <location filename="../src/ui/roomscene.cpp" line="4765"/>
-        <location filename="../src/ui/roomscene.cpp" line="4984"/>
+        <location filename="../src/ui/roomscene.cpp" line="4985"/>
         <source>Next game</source>
         <translation>下一局</translation>
     </message>
     <message>
         <location filename="../src/ui/roomscene.cpp" line="4779"/>
-        <location filename="../src/ui/roomscene.cpp" line="5002"/>
+        <location filename="../src/ui/roomscene.cpp" line="5003"/>
         <source>Give up</source>
         <translation>放弃</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4893"/>
+        <location filename="../src/ui/roomscene.cpp" line="4894"/>
         <source>Thank you!</source>
         <translation>谢谢你！</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4895"/>
+        <location filename="../src/ui/roomscene.cpp" line="4896"/>
         <source>Congratulations!</source>
         <translation>恭喜通关！</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4898"/>
+        <location filename="../src/ui/roomscene.cpp" line="4899"/>
         <source>Game Over!</source>
         <translation>游戏结束！</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4909"/>
+        <location filename="../src/ui/roomscene.cpp" line="4910"/>
         <source>voiceover</source>
         <translation>画外音</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4915"/>
+        <location filename="../src/ui/roomscene.cpp" line="4916"/>
         <source>You&apos;re really a kind-hearted boss! Though the challenger cannot defeat you, you still give him/her a chance.</source>
         <translation>你真是一个心地善良的BOSS！虽然挑战者没能击败你，你还是给了TA一个继续前进的机会，让TA过关了。</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4917"/>
+        <location filename="../src/ui/roomscene.cpp" line="4918"/>
         <source>Although you did not defeat your opponent, the boss still let you pass.</source>
         <translation>虽然你没能击败你的对手，但是好心的BOSS还是让你通过了。</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4921"/>
+        <location filename="../src/ui/roomscene.cpp" line="4922"/>
         <source>You&apos;re really strick in your work! So the challenger have to go home now.</source>
         <translation>你真是一个要求严格的BOSS！于是我们的挑战者现在只能打道回府了……</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4923"/>
+        <location filename="../src/ui/roomscene.cpp" line="4924"/>
         <source>You cannot defeat the boss, so the game is over.</source>
         <translation>你没能击败BOSS，于是很不幸地，闯关失败了。</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4928"/>
+        <location filename="../src/ui/roomscene.cpp" line="4929"/>
         <source>The challenger will remember and appreciate the ordeal which you bring to him/her. Thank you.</source>
         <translation>挑战者会记得和感激你为TA带来的那些磨难的。谢谢你。</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4930"/>
+        <location filename="../src/ui/roomscene.cpp" line="4931"/>
         <source>You have won this game! Good job!</source>
         <translation>你赢得了这场比赛！干得漂亮！</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4934"/>
+        <location filename="../src/ui/roomscene.cpp" line="4935"/>
         <source>You have defeated the challenger. Good job!</source>
         <translation>你击败了挑战者。干得漂亮！</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4936"/>
+        <location filename="../src/ui/roomscene.cpp" line="4937"/>
         <source>I&apos;m sorry to tell you that you just lost this game. Good luck next time.</source>
         <translation>我不得不很遗憾地通知阁下，你失败了。祝你下次好运吧。</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4953"/>
+        <location filename="../src/ui/roomscene.cpp" line="4954"/>
         <source>game progress:</source>
         <translation>关卡进程：</translation>
     </message>
     <message>
-        <location filename="../src/ui/roomscene.cpp" line="4972"/>
+        <location filename="../src/ui/roomscene.cpp" line="4973"/>
         <source>???</source>
         <translation>？？？</translation>
     </message>
     <message>
         <location filename="../src/ui/roomscene.cpp" line="2922"/>
         <location filename="../src/ui/roomscene.cpp" line="4759"/>
-        <location filename="../src/ui/roomscene.cpp" line="4990"/>
+        <location filename="../src/ui/roomscene.cpp" line="4991"/>
         <source>Restart Game</source>
         <translation>重新开始</translation>
     </message>
