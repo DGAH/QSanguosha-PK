@@ -37,13 +37,33 @@ ChooseKOFGameTeamDialog::ChooseKOFGameTeamDialog()
 	bool include_boss = GameEX->canSelectBossTeam();
 	QStringList levels = GameEX->getAllLevelNames(include_boss);
 
-	QTabWidget *tab_widget = new QTabWidget;
+	this->tab_widget = new QTabWidget;
 	foreach(QString level, levels) {
-		tab_widget->addTab(createTeamBox(level), Sanguosha->translate(level));
+		this->tab_widget->addTab(createTeamBox(level), Sanguosha->translate(level));
 	}
+
+	QToolButton *free_button = new QToolButton;
+	free_button->setIconSize(QSize(252, 36));
+	free_button->setIcon(QIcon(QString("%1/%2").arg(GameEX->getFreeChooseTeam()->getResourcePath()).arg("teambar.png")));
+	free_button->setToolTip(tr("Create your own team by choose some generals freely."));
+	connect(free_button, SIGNAL(clicked()), this, SLOT(onFreeButtonClicked()));
+
+	QToolButton *random_button = new QToolButton;
+	random_button->setIconSize(QSize(252, 36));
+	random_button->setIcon(QIcon("image/system/06_teams/random_select.png"));
+	random_button->setToolTip(tr("Select an existing team randomly."));
+	connect(random_button, SIGNAL(clicked()), this, SLOT(onRandomButtonClicked()));
+
+	QHBoxLayout *button_layout = new QHBoxLayout;
+	button_layout->addStretch();
+	button_layout->addWidget(free_button);
+	button_layout->addStretch();
+	button_layout->addWidget(random_button);
+	button_layout->addStretch();
 
 	QVBoxLayout *main_layout = new QVBoxLayout;
 	main_layout->addWidget(tab_widget);
+	main_layout->addLayout(button_layout);
 	this->setLayout(main_layout);
 
 	connect(this, SIGNAL(rejected()), this, SLOT(onCanceled()));
@@ -81,10 +101,29 @@ void ChooseKOFGameTeamDialog::onTeamButtonClicked(const QString &team)
 	this->accept();
 }
 
+void ChooseKOFGameTeamDialog::onFreeButtonClicked()
+{
+	emit this->team_chosen(GameEX->getFreeChooseTeamName());
+	this->accept();
+}
+
+void ChooseKOFGameTeamDialog::onRandomButtonClicked()
+{
+	QWidget *widget = this->tab_widget->currentWidget();
+	QList<TeamButton *> buttons = widget->findChildren<TeamButton *>();
+	if (buttons.isEmpty()) {
+		this->onFreeButtonClicked();
+		return;
+	}
+	int index = qrand() % buttons.length();
+	QString team = buttons.at(index)->objectName();
+	emit this->team_chosen(team);
+	this->accept();
+}
+
 void ChooseKOFGameTeamDialog::onCanceled()
 {
-	QString team = GameEX->getFreeChooseTeam()->objectName();
-	emit this->team_chosen(team);
+	emit this->team_chosen(GameEX->getFreeChooseTeamName());
 }
 
 //****************ConfirmKOFGameGeneralsDialog****************//

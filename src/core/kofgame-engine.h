@@ -79,6 +79,7 @@ public:
 	QStringList getAllTeamNames(const QString &level = "") const;
 	QList<KOFGameTeam *> getAllTeams(const QString &level = "") const;
 	KOFGameTeam *getFreeChooseTeam() const;
+	QString getFreeChooseTeamName() const;
 
 	void addStage(KOFGameStage *stage);
 	KOFGameStage *getStage(int stage) const;

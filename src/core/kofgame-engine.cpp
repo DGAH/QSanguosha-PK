@@ -179,8 +179,8 @@ QString KOFGameTeam::getDescription() const
 	}
 	QString description;
 	description.append(QString("<font color=blue><b>%1</b></font>:<br/><br/>").arg(name));
-	description.append(QString("<b>%1</b>:%2<br/><br/>").arg(tr("team level")).arg(role));
-	description.append(QString("<b>%1</b>:%2<br/>").arg(tr("members")).arg(generalnames.join(",")));
+	description.append(QString("<b>%1</b>: %2<br/><br/>").arg(tr("team level")).arg(role));
+	description.append(QString("<b>%1</b>: %2<br/>").arg(tr("members")).arg(generalnames.join(tr(", "))));
 	return description;
 }
 
@@ -362,6 +362,11 @@ QList<KOFGameTeam *> KOFGameEngine::getAllTeams(const QString &level) const
 KOFGameTeam *KOFGameEngine::getFreeChooseTeam() const
 {
 	return this->free_choose_team;
+}
+
+QString KOFGameEngine::getFreeChooseTeamName() const
+{
+	return this->free_choose_team->objectName();
 }
 
 void KOFGameEngine::addStage(KOFGameStage *stage)

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QToolButton>
-#include <QGroupBox>
+#include <QTabWidget>
 #include "kofgame-engine.h"
 
 class TeamButton : public QToolButton
@@ -33,11 +33,16 @@ public:
 protected:
 	QWidget *createTeamBox(const QString &level);
 
+private:
+	QTabWidget *tab_widget;
+
 signals:
 	void team_chosen(QString team);
 
 public slots:
 	void onTeamButtonClicked(const QString &team);
+	void onFreeButtonClicked();
+	void onRandomButtonClicked();
 	void onCanceled();
 };
 
