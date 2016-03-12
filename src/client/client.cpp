@@ -2181,6 +2181,11 @@ void Client::onPlayerChooseKOFGameTeam(QString team)
 	replyToServer(S_COMMAND_CHOOSE_KOFGAME_TEAM, team);
 }
 
+void Client::onPlayerConfirmKOFGameTeamGenerals(QStringList generals)
+{
+	replyToServer(S_COMMAND_CONFIRM_KOFGAME_GENERALS, generals);
+}
+
 void Client::setKOFGameInfo(KOFGameInfoStruct &info)
 {
 	this->m_kofgame_info = info;

@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QToolButton>
 #include <QTabWidget>
+#include <QScrollArea>
+#include "general.h"
 #include "kofgame-engine.h"
 
 class TeamButton : public QToolButton
@@ -53,8 +55,28 @@ class ConfirmKOFGameGeneralsDialog : public QDialog
 public:
 	ConfirmKOFGameGeneralsDialog(const QString &team_name);
 
+protected:
+	QStringList getUsableGeneralNames(const QString &format);
+	QWidget *createPage(QList<const General *> &generals);
+
 private:
 	KOFGameTeam *team;
+	QTabWidget *tab_widget;
+	QList<QToolButton *> icons;
+	QToolButton *current_icon;
+	QList<QToolButton *> all_icons;
+	QList<QScrollArea *> pages;
+	QButtonGroup *group;
+	QPushButton *ok_button;
+
+signals:
+	void generals_confirmed(QStringList names);
+
+public slots:
+	void onGeneralIconClicked();
+	void onGeneralButtonClicked(QAbstractButton *button);
+	void onBtnOK();
+	void onBtnCancel();
 };
 
 #endif

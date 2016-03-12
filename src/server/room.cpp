@@ -2696,7 +2696,7 @@ void Room::arrangeGeneralsForKOFGameMode()
 		to_wait.append(playerB);
 	bool may_need_wait = !to_ask.isEmpty();
 	QString teamA, teamB;
-	QString default_team = GameEX->getFreeChooseTeam()->objectName();
+	QString default_team = GameEX->getFreeChooseTeamName();
 	if (may_need_wait && !to_wait.isEmpty())
 		doBroadcastNotify(to_wait, S_COMMAND_SHOW_INFORMATION, QVariant(tr("Your opponent is choosing team. Please wait...")));
 	if (may_need_wait) {
@@ -2724,14 +2724,42 @@ void Room::arrangeGeneralsForKOFGameMode()
 	game_info.playerA_team = teamA;
 	game_info.playerB_team = teamB;
 	// confirm uncertain generals
-/*	KOFGameTeam *teamA_info = GameEX->getTeam(teamA);
+	KOFGameTeam *teamA_info = GameEX->getTeam(teamA);
 	KOFGameTeam *teamB_info = GameEX->getTeam(teamB);
+	bool uncertainA = false, uncertainB = false;
+	bool successA = false, successB = false;
 	if (teamA_info->hasUncertainGeneral()) {
-		doRequest(playerA, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamA, true);
+		successA = doRequest(playerA, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamA, true);
+		uncertainA = true;
 	}
 	if (teamB_info->hasUncertainGeneral()) {
-		doRequest(playerB, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamB, true);
-	}*/
+		successB = doRequest(playerB, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamB, true);
+		uncertainB = true;
+	}
+	if (uncertainA && successA) {
+		QStringList reply = playerA->getClientReply().toStringList();
+		if (reply.length() > 0) {
+			game_info.playerA_generals = reply;
+			uncertainA = false;
+		}
+	}
+	if (uncertainB && successB) {
+		QStringList reply = playerB->getClientReply().toStringList();
+		if (reply.length() > 0) {
+			game_info.playerB_generals = reply;
+			uncertainB = false;
+		}
+	}
+	if (uncertainA) {
+		foreach(QString name, teamA_info->getGenerals()) {
+			game_info.playerA_generals << (name.startsWith("?") ? "sujiangf" : name);
+		}
+	}
+	if (uncertainB) {
+		foreach(QString name, teamB_info->getGenerals()) {
+			game_info.playerB_generals << (name.startsWith("?") ? "sujiangf" : name);
+		}
+	}
 	// update
 	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(game_info.toString()));
 	// general

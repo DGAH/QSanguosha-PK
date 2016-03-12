@@ -4825,6 +4825,7 @@ void RoomScene::onKOFGameAskForTeam()
 void RoomScene::onKOFGameConfirmGenerals(QString team)
 {
 	ConfirmKOFGameGeneralsDialog *dialog = new ConfirmKOFGameGeneralsDialog(team);
+	connect(dialog, SIGNAL(generals_confirmed(QStringList)), ClientInstance, SLOT(onPlayerConfirmKOFGameTeamGenerals(QStringList)));
 	delete m_choiceDialog;
 	m_choiceDialog = dialog;
 }

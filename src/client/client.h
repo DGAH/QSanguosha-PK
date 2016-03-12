@@ -397,6 +397,7 @@ signals:
 public slots:
 	// 06_teams
 	void onPlayerChooseKOFGameTeam(QString team);
+	void onPlayerConfirmKOFGameTeamGenerals(QStringList generals);
 };
 
 extern Client *ClientInstance;
