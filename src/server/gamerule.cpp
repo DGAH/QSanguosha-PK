@@ -527,6 +527,11 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
 					break;
 			}
 		}
+		else if (room->getMode() == "06_teams") {
+			QStringList list = player->tag["1v1Arrange"].toStringList();
+			if (list.length() > 0)
+				break;
+		}
 		else if (room->getMode() == "08_endless") {
 			if (player->getTask() == "boss") {
 				break;
@@ -576,6 +581,19 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
             else
                 player->setFlags("Global_DebutFlag");
             return false;
+		}
+		else if (game_mode == "06_teams") {
+			QStringList list = player->tag["1v1Arrange"].toStringList();
+			if (list.length() <= 0)
+				break;
+			player->tag["1v1ChangeGeneral"] = list.takeFirst();
+			player->tag["1v1Arrange"] = list;
+			changeGeneral1v1(player);
+			if (death.damage == NULL)
+				room->getThread()->trigger(Debut, room, player);
+			else
+				player->setFlags("Global_DebutFlag");
+			return false;
 		}
 		else if (game_mode == "08_endless") {
 			if (player->getTask() == "boss") {
@@ -662,7 +680,8 @@ void GameRule::changeGeneral1v1(ServerPlayer *player) const
     Config.AIDelay = Config.OriginAIDelay;
 
     Room *room = player->getRoom();
-    bool classical = (Config.value("GameMode", "04_kof_2013").toString() == "03_kof");
+	const QString mode = Config.value("GameMode", "04_kof_2013").toString();
+    bool classical = (mode == "03_kof" || mode == "06_teams");
     QString new_general;
     if (classical) {
         new_general = player->tag["1v1ChangeGeneral"].toString();

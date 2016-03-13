@@ -3266,12 +3266,13 @@ void RoomScene::killPlayer(const QString &who)
 {
     const General *general = NULL;
     m_roomMutex.lock();
+	const QString mode = ServerInfo.GameMode;
     if (who == Self->objectName()) {
         dashboard->killPlayer();
         dashboard->update();
         general = Self->getGeneral();
         item2player.remove(dashboard);
-        if (ServerInfo.GameMode.contains("kof")) self_box->killPlayer(general->objectName());
+        if (mode.contains("kof") || mode == "06_teams") self_box->killPlayer(general->objectName());
     } else {
         Photo *photo = name2photo[who];
         photo->killPlayer();
@@ -3279,7 +3280,7 @@ void RoomScene::killPlayer(const QString &who)
         photo->update();
         item2player.remove(photo);
         general = photo->getPlayer()->getGeneral();
-        if (ServerInfo.GameMode.contains("kof")) enemy_box->killPlayer(general->objectName());
+        if (mode.contains("kof") || mode == "06_teams") enemy_box->killPlayer(general->objectName());
     }
 
     ClientPlayer *player = ClientInstance->getPlayer(who);
@@ -3608,7 +3609,8 @@ void KOFOrderBox::killPlayer(const QString &general_name)
 void RoomScene::onGameStart()
 {
     main_window->activateWindow();
-    if (ServerInfo.GameMode.contains("kof")) {
+	const QString mode = ServerInfo.GameMode;
+    if (mode.contains("kof") || mode == "06_teams") {
         log_box->show();
 
         if (self_box && enemy_box) {

@@ -2765,13 +2765,31 @@ void Room::arrangeGeneralsForKOFGameMode()
 		}
 	}
 	if (uncertainA) {
+		int count = 0;
 		foreach(QString name, teamA_info->getGenerals()) {
-			game_info.playerA_generals << (name.startsWith("?") ? "sujiangf" : name);
+			if (!name.startsWith("?")) {
+				game_info.playerA_generals << name;
+				count++;
+				if (count >= countA)
+					break;
+			}
+		}
+		for (; count < countA; count++) {
+			game_info.playerA_generals << "sujiangf";
 		}
 	}
 	if (uncertainB) {
+		int count = 0;
 		foreach(QString name, teamB_info->getGenerals()) {
-			game_info.playerB_generals << (name.startsWith("?") ? "sujiangf" : name);
+			if (!name.startsWith("?")) {
+				game_info.playerB_generals << name;
+				count++;
+				if (count >= countB)
+					break;
+			}
+		}
+		for (; count < countB; count++) {
+			game_info.playerB_generals << "sujiangf";
 		}
 	}
 	// arrange generals order
@@ -2816,8 +2834,22 @@ void Room::arrangeGeneralsForKOFGameMode()
 	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(game_info.toString()));
 	doBroadcastNotify(m_players, S_COMMAND_UPDATE_KOFGAME_ROOMSCENE, QVariant());
 	// general
-	_setPlayerGeneral(playerA, "sujiang", true);
-	_setPlayerGeneral(playerB, "sujiangf", true);
+	if (game_info.playerA_generals.length() > 1) {
+		QStringList list = game_info.playerA_generals.mid(1);
+		playerA->tag["1v1Arrange"] = QVariant::fromValue(list);
+	}
+	if (game_info.playerB_generals.length() > 1) {
+		QStringList list = game_info.playerB_generals.mid(1);
+		playerB->tag["1v1Arrange"] = QVariant::fromValue(list);
+	}
+	foreach(QString name, game_info.playerA_generals) {
+		doNotify(playerA, S_COMMAND_REVEAL_GENERAL, JsonUtils::toJsonArray(QStringList() << playerA->objectName() << name));
+	}
+	foreach(QString name, game_info.playerB_generals) {
+		doNotify(playerB, S_COMMAND_REVEAL_GENERAL, JsonUtils::toJsonArray(QStringList() << playerB->objectName() << name));
+	}
+	_setPlayerGeneral(playerA, game_info.playerA_generals.first(), true);
+	_setPlayerGeneral(playerB, game_info.playerB_generals.first(), true);
 }
 
 void Room::arrangeGeneralsForEndless()
@@ -3807,12 +3839,12 @@ void Room::startGame()
     foreach (ServerPlayer *player, m_players) {
         broadcastProperty(player, "general");
 
-        if (mode.contains("kof"))
+        if (mode.contains("kof") || mode == "06_teams")
             doBroadcastNotify(getOtherPlayers(player, true), S_COMMAND_REVEAL_GENERAL, JsonArray() << player->objectName() << player->getGeneralName());
 
-        if (Config.Enable2ndGeneral
-            && (!mode.contains("kof")))
-            broadcastProperty(player, "general2");
+		if (Config.Enable2ndGeneral
+			&& ((mode != "06_teams") && (!mode.contains("kof"))))
+			broadcastProperty(player, "general2");
 
         broadcastProperty(player, "hp");
         broadcastProperty(player, "maxhp");
