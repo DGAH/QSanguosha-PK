@@ -2200,6 +2200,7 @@ void Client::arrangeKOFGameGenerals(const QVariant &arg)
 void Client::updateKOFGameRoomScene(const QVariant &)
 {
 	emit kofgame_update_roomscene(this->m_kofgame_info);
+	setStatus(NotActive);
 }
 
 void Client::onPlayerChooseKOFGameTeam(QString team)

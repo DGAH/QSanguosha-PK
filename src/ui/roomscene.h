@@ -89,12 +89,12 @@ private slots:
 class KOFOrderBox : public QGraphicsPixmapItem
 {
 public:
-    KOFOrderBox(bool self, QGraphicsScene *scene);
+    KOFOrderBox(const QString &mode, bool self, int count, QGraphicsScene *scene);
     void revealGeneral(const QString &name);
     void killPlayer(const QString &general_name);
 
 private:
-    QSanSelectableItem *avatars[3];
+	QList<QSanSelectableItem *> avatars;
     int revealed;
 };
 
@@ -470,6 +470,7 @@ public slots:
 	void onKOFGameAskForTeam();
 	void onKOFGameConfirmGenerals(QString team);
 	void onKOFGameArrangeGenerals(int max_count, QStringList generals);
+	void onKOFGameUpdateRoomScene(KOFGameInfoStruct info);
 	// 07_arcade
 	void onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win);
 	void onArcadeModeWillGotoNextGame();

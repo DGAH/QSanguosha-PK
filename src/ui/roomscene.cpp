@@ -190,6 +190,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
 	connect(ClientInstance, SIGNAL(kofgame_teams_got()), this, SLOT(onKOFGameAskForTeam()));
 	connect(ClientInstance, SIGNAL(kofgame_confirm_generals(QString)), this, SLOT(onKOFGameConfirmGenerals(QString)));
 	connect(ClientInstance, SIGNAL(kofgame_arrange_generals(int, QStringList)), this, SLOT(onKOFGameArrangeGenerals(int, QStringList)));
+	connect(ClientInstance, SIGNAL(kofgame_update_roomscene(KOFGameInfoStruct)), this, SLOT(onKOFGameUpdateRoomScene(KOFGameInfoStruct)));
 	// 07_arcade
 	connect(ClientInstance, SIGNAL(arcade_mode_game_over(ArcadeModeInfoStruct, bool, bool)), this, SLOT(onArcadeModeGameOver(ArcadeModeInfoStruct, bool, bool)));
 
@@ -230,8 +231,8 @@ RoomScene::RoomScene(QMainWindow *main_window)
 
         arrange_button = NULL;
 
-            enemy_box = new KOFOrderBox(false, this);
-            self_box = new KOFOrderBox(true, this);
+            enemy_box = new KOFOrderBox("1v1", false, 0, this);
+            self_box = new KOFOrderBox("1v1", true, 0, this);
 
             enemy_box->hide();
             self_box->hide();
@@ -3550,19 +3551,27 @@ void RoomScene::showPlayerCards()
     }
 }
 
-KOFOrderBox::KOFOrderBox(bool self, QGraphicsScene *scene)
+KOFOrderBox::KOFOrderBox(const QString &mode, bool self, int count, QGraphicsScene *scene)
 {
     QString basename = self ? "self" : "enemy";
-    QString path = QString("image/system/1v1/%1.png").arg(basename);
+	QString index = count > 0 ? QString::number(count) : "";
+    QString path = QString("image/system/%1/%2%3.png").arg(mode).arg(basename).arg(index);
     setPixmap(QPixmap(path));
     scene->addItem(this);
 
-    for (int i = 0; i < 3; i++) {
-        avatars[i] = new QSanSelectableItem;
-        avatars[i]->load("image/system/1v1/unknown.png", QSize(122, 50));
-        avatars[i]->setParentItem(this);
-        avatars[i]->setPos(5, 23 + 62 * i);
-        avatars[i]->setObjectName("unknown");
+	QString avatar_path = QString("image/system/%1/unknown.png").arg(mode);
+	int avatar_width = 122;
+	int avatar_height = 50;
+	QSize avatar_size = QSize(avatar_width, avatar_height);
+	if (count <= 0)
+		count = 3;
+    for (int i = 0; i < count; i++) {
+		QSanSelectableItem *avatar = new QSanSelectableItem;
+        avatar->load(avatar_path, avatar_size);
+        avatar->setParentItem(this);
+        avatar->setPos(5, 23 + 62 * i);
+        avatar->setObjectName("unknown");
+		this->avatars.append(avatar);
     }
 
     revealed = 0;
@@ -3570,7 +3579,7 @@ KOFOrderBox::KOFOrderBox(bool self, QGraphicsScene *scene)
 
 void KOFOrderBox::revealGeneral(const QString &name)
 {
-    if (revealed < 3) {
+    if (revealed < this->avatars.count()) {
         avatars[revealed]->setPixmap(G_ROOM_SKIN.getGeneralPixmap(name, QSanRoomSkin::S_GENERAL_ICON_SIZE_KOF));
         avatars[revealed]->setObjectName(name);
         const General *general = Sanguosha->getGeneral(name);
@@ -3591,7 +3600,6 @@ void KOFOrderBox::killPlayer(const QString &general_name)
             death->moveBy(15, 0);
             avatar->makeGray();
             avatar->setEnabled(false);
-
             return;
         }
     }
@@ -4838,6 +4846,28 @@ void RoomScene::onKOFGameArrangeGenerals(int max_count, QStringList generals)
 	connect(dialog, SIGNAL(team_arranged(QStringList, QString)), ClientInstance, SLOT(onPlayerArrangeKOFGameTeamGenerals(QStringList, QString)));
 	delete m_choiceDialog;
 	m_choiceDialog = dialog;
+}
+
+void RoomScene::onKOFGameUpdateRoomScene(KOFGameInfoStruct info)
+{
+	this->kofgame_info = info;
+	if (this->self_box)
+		delete this->self_box;
+	if (this->enemy_box)
+		delete this->enemy_box;
+	int self_count = 0, enemy_count = 0;
+	if (Self->getTask() == "playerA") {
+		self_count = info.playerA_generals.length();
+		enemy_count = info.playerB_generals.length();
+	}
+	else {
+		self_count = info.playerB_generals.length();
+		enemy_count = info.playerA_generals.length();
+	}
+	this->self_box = new KOFOrderBox("06_teams", true, self_count, this);
+	this->enemy_box = new KOFOrderBox("06_teams", false, enemy_count, this);
+	this->adjustItems();
+	connect(ClientInstance, SIGNAL(general_revealed(bool, QString)), this, SLOT(revealGeneral(bool, QString)));
 }
 
 // 07_arcade

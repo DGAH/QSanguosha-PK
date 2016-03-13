@@ -2814,6 +2814,7 @@ void Room::arrangeGeneralsForKOFGameMode()
 	}
 	// update
 	doBroadcastNotify(m_players, S_COMMAND_UPDATE_PROGRESS, QVariant(game_info.toString()));
+	doBroadcastNotify(m_players, S_COMMAND_UPDATE_KOFGAME_ROOMSCENE, QVariant());
 	// general
 	_setPlayerGeneral(playerA, "sujiang", true);
 	_setPlayerGeneral(playerB, "sujiangf", true);
