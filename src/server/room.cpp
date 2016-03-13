@@ -2674,7 +2674,8 @@ void Room::arrangeGeneralsForKOFGameMode()
 	KOFGameInfoStruct game_info;
 	if (pk_mode) {
 		game_info.pk = true;
-	} else {
+	}
+	else {
 		if (infoA_loaded && infoA.valid)
 			game_info = infoA;
 		else if (infoB_loaded && infoB.valid)
@@ -2723,6 +2724,13 @@ void Room::arrangeGeneralsForKOFGameMode()
 	}
 	game_info.playerA_team = teamA;
 	game_info.playerB_team = teamB;
+	// confirm team generals count
+	int countA = 3, countB = 3;
+	if (!game_info.pk) {
+		KOFGameStage *stage = GameEX->getStage(game_info.stage);
+		if (stage->isSpecialStage())
+			countB = 4;
+	}
 	// confirm uncertain generals
 	KOFGameTeam *teamA_info = GameEX->getTeam(teamA);
 	KOFGameTeam *teamB_info = GameEX->getTeam(teamB);
@@ -2732,9 +2740,15 @@ void Room::arrangeGeneralsForKOFGameMode()
 		successA = doRequest(playerA, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamA, true);
 		uncertainA = true;
 	}
+	else {
+		game_info.playerA_generals = teamA_info->getGenerals();
+	}
 	if (teamB_info->hasUncertainGeneral()) {
 		successB = doRequest(playerB, S_COMMAND_CONFIRM_KOFGAME_GENERALS, teamB, true);
 		uncertainB = true;
+	}
+	else {
+		game_info.playerB_generals = teamB_info->getGenerals();
 	}
 	if (uncertainA && successA) {
 		QStringList reply = playerA->getClientReply().toStringList();
@@ -2758,6 +2772,44 @@ void Room::arrangeGeneralsForKOFGameMode()
 	if (uncertainB) {
 		foreach(QString name, teamB_info->getGenerals()) {
 			game_info.playerB_generals << (name.startsWith("?") ? "sujiangf" : name);
+		}
+	}
+	// arrange generals order
+	bool need_arrangeA = true, need_arrangeB = true;
+	if (!game_info.pk) {
+		if (teamA_info->isOrderFixed())
+			need_arrangeA = false;
+		if (teamB_info->isOrderFixed())
+			need_arrangeB = false;
+	}
+	if (need_arrangeA) {
+		JsonArray msgA;
+		msgA << countA << game_info.playerA_generals;
+		successA = doRequest(playerA, S_COMMAND_ARRANGE_KOFGAME_GENERALS, msgA, true);
+		if (successA) {
+			QVariant rp = playerA->getClientReply();
+			if (rp.canConvert<JsonArray>()) {
+				JsonArray data = rp.value<JsonArray>();
+				if (data.size() == 2) {
+					game_info.playerA_generals = data.first().toStringList();
+					game_info.playerA_striker = data.at(1).toString();
+				}
+			}
+		}
+	}
+	if (need_arrangeB) {
+		JsonArray msgB;
+		msgB << countB << game_info.playerB_generals;
+		successB = doRequest(playerB, S_COMMAND_ARRANGE_KOFGAME_GENERALS, msgB, true);
+		if (successB) {
+			QVariant rp = playerB->getClientReply();
+			if (rp.canConvert<JsonArray>()) {
+				JsonArray data = rp.value<JsonArray>();
+				if (data.size() == 2) {
+					game_info.playerB_generals = data.first().toStringList();
+					game_info.playerB_striker = data.at(1).toString();
+				}
+			}
 		}
 	}
 	// update

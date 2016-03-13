@@ -369,6 +369,8 @@ public:
 	// 06_teams
 	void askForKOFGameTeam(const QVariant &);
 	void confirmKOFGameUncertainGenerals(const QVariant &arg);
+	void arrangeKOFGameGenerals(const QVariant &arg);
+	void updateKOFGameRoomScene(const QVariant &);
 	void setKOFGameInfo(KOFGameInfoStruct &info);
 	KOFGameInfoStruct getKOFGameInfo();
 	// 07_arcade
@@ -391,6 +393,8 @@ signals:
 	// 06_teams
 	void kofgame_teams_got();
 	void kofgame_confirm_generals(QString team);
+	void kofgame_arrange_generals(int max_count, QStringList generals);
+	void kofgame_update_roomscene(KOFGameInfoStruct info);
 	// 07_arcade
 	void arcade_mode_game_over(ArcadeModeInfoStruct info, bool standoff, bool win);
 
@@ -398,6 +402,7 @@ public slots:
 	// 06_teams
 	void onPlayerChooseKOFGameTeam(QString team);
 	void onPlayerConfirmKOFGameTeamGenerals(QStringList generals);
+	void onPlayerArrangeKOFGameTeamGenerals(QStringList generals, QString striker);
 };
 
 extern Client *ClientInstance;

@@ -111,6 +111,7 @@ Client::Client(QObject *parent, const QString &filename)
 	m_interactions[S_COMMAND_CHECK_PROGRESS] = &Client::checkProgress;
 	m_interactions[S_COMMAND_CHOOSE_KOFGAME_TEAM] = &Client::askForKOFGameTeam;
 	m_interactions[S_COMMAND_CONFIRM_KOFGAME_GENERALS] = &Client::confirmKOFGameUncertainGenerals;
+	m_interactions[S_COMMAND_ARRANGE_KOFGAME_GENERALS] = &Client::arrangeKOFGameGenerals;
 
     m_callbacks[S_COMMAND_FILL_GENERAL] = &Client::fillGenerals;
     m_callbacks[S_COMMAND_TAKE_GENERAL] = &Client::takeGeneral;
@@ -120,6 +121,7 @@ Client::Client(QObject *parent, const QString &filename)
 	m_callbacks[S_COMMAND_SHOW_INFORMATION] = &Client::showInformation;
 	m_callbacks[S_COMMAND_UPDATE_TASK] = &Client::updateTask;
 	m_callbacks[S_COMMAND_UPDATE_PROGRESS] = &Client::updateProgress;
+	m_callbacks[S_COMMAND_UPDATE_KOFGAME_ROOMSCENE] = &Client::updateKOFGameRoomScene;
 
     m_noNullificationThisTime = false;
     m_noNullificationTrickName = ".";
@@ -2176,6 +2178,30 @@ void Client::confirmKOFGameUncertainGenerals(const QVariant &arg)
 	setStatus(ExecDialog);
 }
 
+void Client::arrangeKOFGameGenerals(const QVariant &arg)
+{
+	if (!arg.canConvert<JsonArray>())
+		return;
+	JsonArray msg = arg.value<JsonArray>();
+	if (msg.size() != 2)
+		return;
+	int max_count = msg.first().toInt();
+	if (max_count <= 0)
+		return;
+	QStringList generals = msg.at(1).toStringList();
+	if (generals.length() == 1) {
+		onPlayerArrangeKOFGameTeamGenerals(generals, "");
+		return;
+	}
+	emit kofgame_arrange_generals(max_count, generals);
+	setStatus(ExecDialog);
+}
+
+void Client::updateKOFGameRoomScene(const QVariant &)
+{
+	emit kofgame_update_roomscene(this->m_kofgame_info);
+}
+
 void Client::onPlayerChooseKOFGameTeam(QString team)
 {
 	replyToServer(S_COMMAND_CHOOSE_KOFGAME_TEAM, team);
@@ -2184,6 +2210,13 @@ void Client::onPlayerChooseKOFGameTeam(QString team)
 void Client::onPlayerConfirmKOFGameTeamGenerals(QStringList generals)
 {
 	replyToServer(S_COMMAND_CONFIRM_KOFGAME_GENERALS, generals);
+}
+
+void Client::onPlayerArrangeKOFGameTeamGenerals(QStringList generals, QString striker)
+{
+	JsonArray reply;
+	reply << generals << striker;
+	replyToServer(S_COMMAND_ARRANGE_KOFGAME_GENERALS, reply);
 }
 
 void Client::setKOFGameInfo(KOFGameInfoStruct &info)

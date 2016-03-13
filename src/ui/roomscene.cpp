@@ -7,6 +7,7 @@
 #include "playercarddialog.h"
 #include "choosegeneraldialog.h"
 #include "chooseteamdialog.h"
+#include "arrangeteamdialog.h"
 #include "window.h"
 #include "button.h"
 #include "cardcontainer.h"
@@ -188,6 +189,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
 	// 06_teams
 	connect(ClientInstance, SIGNAL(kofgame_teams_got()), this, SLOT(onKOFGameAskForTeam()));
 	connect(ClientInstance, SIGNAL(kofgame_confirm_generals(QString)), this, SLOT(onKOFGameConfirmGenerals(QString)));
+	connect(ClientInstance, SIGNAL(kofgame_arrange_generals(int, QStringList)), this, SLOT(onKOFGameArrangeGenerals(int, QStringList)));
 	// 07_arcade
 	connect(ClientInstance, SIGNAL(arcade_mode_game_over(ArcadeModeInfoStruct, bool, bool)), this, SLOT(onArcadeModeGameOver(ArcadeModeInfoStruct, bool, bool)));
 
@@ -4826,6 +4828,14 @@ void RoomScene::onKOFGameConfirmGenerals(QString team)
 {
 	ConfirmKOFGameGeneralsDialog *dialog = new ConfirmKOFGameGeneralsDialog(team);
 	connect(dialog, SIGNAL(generals_confirmed(QStringList)), ClientInstance, SLOT(onPlayerConfirmKOFGameTeamGenerals(QStringList)));
+	delete m_choiceDialog;
+	m_choiceDialog = dialog;
+}
+
+void RoomScene::onKOFGameArrangeGenerals(int max_count, QStringList generals)
+{
+	ArrangeTeamDialog *dialog = new ArrangeTeamDialog(max_count, generals);
+	connect(dialog, SIGNAL(team_arranged(QStringList, QString)), ClientInstance, SLOT(onPlayerArrangeKOFGameTeamGenerals(QStringList, QString)));
 	delete m_choiceDialog;
 	m_choiceDialog = dialog;
 }

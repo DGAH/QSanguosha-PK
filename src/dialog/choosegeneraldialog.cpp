@@ -19,7 +19,7 @@
 
 using namespace QSanProtocol;
 
-OptionButton::OptionButton(QString icon_path, const QString &caption, QWidget *parent)
+OptionButton::OptionButton(QString icon_path, const QString &caption, QWidget *parent, bool always_show_caption)
     : QToolButton(parent)
 {
     QPixmap pixmap(icon_path);
@@ -28,7 +28,7 @@ OptionButton::OptionButton(QString icon_path, const QString &caption, QWidget *p
     setIcon(icon);
     setIconSize(pixmap.size());
 
-    if (!caption.isEmpty()) {
+    if (always_show_caption || !caption.isEmpty()) {
         setText(caption);
         setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 

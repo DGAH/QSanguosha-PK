@@ -469,6 +469,7 @@ public slots:
 	// 06_teams
 	void onKOFGameAskForTeam();
 	void onKOFGameConfirmGenerals(QString team);
+	void onKOFGameArrangeGenerals(int max_count, QStringList generals);
 	// 07_arcade
 	void onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win);
 	void onArcadeModeWillGotoNextGame();
