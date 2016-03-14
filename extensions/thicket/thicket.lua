@@ -679,7 +679,9 @@ HaoShi = sgs.CreateLuaSkill{
 								end
 							end
 							local skillcard = HaoShiCard:clone()
-							skillcard:addSubcards(to_give)
+							for _,id in sgs.qlist(to_give) do
+								skillcard:addSubcard(id)
+							end
 							local use = sgs.CardUseStruct()
 							use.from = player
 							use.to:append(target)

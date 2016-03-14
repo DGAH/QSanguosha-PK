@@ -431,6 +431,8 @@ HuWei = sgs.CreateLuaSkill{
 			if player:isProhibited(opponent, drowning) then
 			elseif trick:isAvailable(player) then
 				if player:askForSkillInvoke("kofHuWei", data) then
+					local room = player:getRoom()
+					room:broadcastSkillInvoke("kofHuWei")
 					local use = sgs.CardUseStruct()
 					use.from = player
 					use.to:append(opponent)

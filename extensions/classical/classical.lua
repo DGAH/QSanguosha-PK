@@ -1119,7 +1119,10 @@ FanJianCard = sgs.CreateSkillCard{
 	target_fixed = false,
 	will_throw = true,
 	filter = function(self, targets, to_select)
-		return to_select:objectName() ~= sgs.Self:objectName()
+		if #targets == 0 then
+			return to_select:objectName() ~= sgs.Self:objectName()
+		end
+		return false
 	end,
 	on_effect = function(self, effect)
 		local source = effect.from
