@@ -350,6 +350,8 @@ void MainWindow::enterRoom()
     connect(room_scene, SIGNAL(game_over_dialog_rejected()), this, SLOT(enableDialogButtons()));
 	// 02_rank
 	connect(room_scene, SIGNAL(rank_mode_goto_next_game(RankModeInfoStruct, QString)), this, SLOT(rankModeRestart(RankModeInfoStruct, QString)));
+	// 06_teams
+	connect(room_scene, SIGNAL(kofgame_goto_next_game(KOFGameInfoStruct, QString)), this, SLOT(KOFGameRestart(KOFGameInfoStruct, QString)));
 	// 07_arcade
 	connect(room_scene, SIGNAL(arcade_mode_goto_next_game(ArcadeModeInfoStruct, QString)), this, SLOT(arcadeModeRestart(ArcadeModeInfoStruct, QString)));
 
@@ -945,6 +947,18 @@ void MainWindow::rankModeRestart(RankModeInfoStruct info, QString task)
 	Client *client = new Client(this);
 	client->setTask(task);
 	client->setRankModeInfo(info);
+
+	connect(client, SIGNAL(version_checked(QString, QString)), SLOT(checkVersion(QString, QString)));
+	connect(client, SIGNAL(error_message(QString)), SLOT(networkError(QString)));
+}
+
+// 06_teams
+
+void MainWindow::KOFGameRestart(KOFGameInfoStruct info, QString task)
+{
+	Client *client = new Client(this);
+	client->setTask(task);
+	client->setKOFGameInfo(info);
 
 	connect(client, SIGNAL(version_checked(QString, QString)), SLOT(checkVersion(QString, QString)));
 	connect(client, SIGNAL(error_message(QString)), SLOT(networkError(QString)));

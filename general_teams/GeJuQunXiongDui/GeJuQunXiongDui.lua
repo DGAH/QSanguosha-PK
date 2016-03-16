@@ -5,11 +5,11 @@ return {
 	name = "GeJuQunXiongDui",
 	translation = "割据群雄队",
 	category = "LevelFormal",
-	needpack = {"classical"},
+	needpack = {"classical", "sp", "yjcm2012"},
 	generals = {
 		--袁术
 		"lvbu", --经典标准版·吕布·
-		--公孙瓒
-		--刘表
+		"sp_gongsunzan", --SP·公孙瓒
+		"yj_ii_liubiao", --二将成名·刘表
 	},
 }

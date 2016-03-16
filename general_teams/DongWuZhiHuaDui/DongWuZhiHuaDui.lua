@@ -5,11 +5,11 @@ return {
 	name = "DongWuZhiHuaDui",
 	translation = "东吴之花队",
 	category = "LevelSpecial",
-	needpack = {"classical", "wind"},
+	needpack = {"classical", "wind", "yjcm2012"},
 	generals = {
 		"daqiao", --经典标准版·大乔
 		"xiaoqiao", --风·小乔
 		"sunshangxiang", --经典标准版·孙尚香
-		--步练师
+		"yj_ii_bulianshi", --二将成名·步练师
 	},
 }

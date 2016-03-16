@@ -244,7 +244,7 @@ bool KOFGameStage::containsLevel(const QString &level) const
 //****************KOFGameEngine****************//
 
 KOFGameEngine::KOFGameEngine()
-:QObject(), start_stage(1), final_stage(1), can_select_boss_team(false), record_free_choose_result(true), time_limit(false), 
+:QObject(), start_stage(0), final_stage(0), can_select_boss_team(false), record_free_choose_result(true), time_limit(false), 
 striker_mode(false), striker_count(5), default_striker_skill("gedang"), 
 critical_mode(false), default_critical_rate(20), fight_boss(true), evolution_mode(false), send_server_log(false)
 {
@@ -377,13 +377,18 @@ void KOFGameEngine::addStage(KOFGameStage *stage)
 
 KOFGameStage *KOFGameEngine::getStage(int stage) const
 {
-	if (stage < 0)
+	if (stage < 1)
 		return NULL;
 
-	if (stage >= this->stages.length())
+	if (stage > this->stages.length())
 		return NULL;
 	
 	return this->stages.at(stage - 1);
+}
+
+int KOFGameEngine::getStageCount() const
+{
+	return this->stages.length();
 }
 
 bool KOFGameEngine::isBossGeneral(const QString &general) const
@@ -396,10 +401,10 @@ void KOFGameEngine::setStartStage(int stage)
 	if (stage < 1)
 		return;
 
-	if (stage >= this->stages.length())
+	if (stage > this->stages.length())
 		return;
 	
-	this->start_stage = stage - 1;
+	this->start_stage = stage;
 }
 
 int KOFGameEngine::getStartStage() const
@@ -412,7 +417,7 @@ void KOFGameEngine::setFinalStage(int stage)
 	if (stage < 1)
 		return;
 
-	if (stage >= this->stages.length())
+	if (stage > this->stages.length())
 		return;
 	
 	this->final_stage = stage;

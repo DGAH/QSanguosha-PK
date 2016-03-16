@@ -191,6 +191,7 @@ RoomScene::RoomScene(QMainWindow *main_window)
 	connect(ClientInstance, SIGNAL(kofgame_confirm_generals(QString)), this, SLOT(onKOFGameConfirmGenerals(QString)));
 	connect(ClientInstance, SIGNAL(kofgame_arrange_generals(int, QStringList)), this, SLOT(onKOFGameArrangeGenerals(int, QStringList)));
 	connect(ClientInstance, SIGNAL(kofgame_update_roomscene(KOFGameInfoStruct)), this, SLOT(onKOFGameUpdateRoomScene(KOFGameInfoStruct)));
+	connect(ClientInstance, SIGNAL(kofgame_game_over(KOFGameInfoStruct, bool, bool)), this, SLOT(onKOFGameGameOver(KOFGameInfoStruct, bool, bool)));
 	// 07_arcade
 	connect(ClientInstance, SIGNAL(arcade_mode_game_over(ArcadeModeInfoStruct, bool, bool)), this, SLOT(onArcadeModeGameOver(ArcadeModeInfoStruct, bool, bool)));
 
@@ -4870,6 +4871,98 @@ void RoomScene::onKOFGameUpdateRoomScene(KOFGameInfoStruct info)
 	this->enemy_box = new KOFOrderBox("06_teams", false, enemy_count, this);
 	this->adjustItems();
 	connect(ClientInstance, SIGNAL(general_revealed(bool, QString)), this, SLOT(revealGeneral(bool, QString)));
+}
+
+void RoomScene::onKOFGameGameOver(KOFGameInfoStruct info, bool standoff, bool win)
+{
+	log_box->append(QString(tr("<font color='%1'>---------- Game Finish ----------</font>").arg(Config.TextEditColor.name())));
+
+	m_roomMutex.lock();
+	freeze();
+
+	bool pass = false, will_continue = false;
+
+	QDialog *dialog = new QDialog(main_window);
+	dialog->resize(800, 600);
+	if (standoff) {
+		pass = (qrand() % 2 == 1);
+		dialog->setWindowTitle(tr("Standoff"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("standoff");
+#endif
+	}
+	else if (win) {
+		pass = true;
+		dialog->setWindowTitle(tr("Victory"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("win");
+#endif
+	}
+	else {
+		dialog->setWindowTitle(tr("Failure"));
+#ifdef AUDIO_SUPPORT
+		Sanguosha->playSystemAudioEffect("lose");
+#endif
+	}
+
+	if (pass)
+		will_continue = (info.stage < GameEX->getFinalStage());
+
+	QLabel *this_hint = new QLabel(tr("current game information:"));
+	QHBoxLayout *this_layout = new QHBoxLayout;
+	this_layout->addWidget(this_hint);
+	this_layout->addStretch();
+
+	QTableWidget *this_game = new QTableWidget;
+	fillTable(this_game, ClientInstance->getPlayers());
+	this_game->setMinimumHeight(120);
+
+	QHBoxLayout *button_layout = new QHBoxLayout;
+	button_layout->addStretch();
+
+	if (will_continue) {
+		QPushButton *next_button = new QPushButton(tr("Next game"));
+		connect(next_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(next_button, SIGNAL(clicked()), this, SLOT(onKOFGameWillGotoNextGame()));
+		button_layout->addWidget(next_button);
+	}
+	else {
+		QPushButton *restart_button = new QPushButton(tr("Restart Game"));
+		connect(restart_button, SIGNAL(clicked()), dialog, SLOT(accept()));
+		connect(restart_button, SIGNAL(clicked()), this, SIGNAL(restart()));
+		button_layout->addWidget(restart_button);
+	}
+
+	QPushButton *save_button = new QPushButton(tr("Save record"));
+	connect(save_button, SIGNAL(clicked()), this, SLOT(saveReplayRecord()));
+	button_layout->addWidget(save_button);
+
+	QPushButton *cancel_button = NULL;
+	if (will_continue)
+		cancel_button = new QPushButton(tr("Give up"));
+	else
+		cancel_button = new QPushButton(tr("Return to main menu"));
+	connect(cancel_button, SIGNAL(clicked()), dialog, SLOT(reject()));
+	connect(cancel_button, SIGNAL(clicked()), this, SIGNAL(return_to_start()));
+	connect(dialog, SIGNAL(rejected()), this, SIGNAL(game_over_dialog_rejected()));
+	button_layout->addWidget(cancel_button);
+
+	QVBoxLayout *main_layout = new QVBoxLayout;
+	main_layout->addLayout(this_layout);
+	main_layout->addWidget(this_game);
+	main_layout->addLayout(button_layout);
+	dialog->setLayout(main_layout);
+
+	info.defeated_teams.append(info.playerB_team);
+	this->kofgame_info = info;
+
+	m_roomMutex.unlock();
+	dialog->exec();
+}
+
+void RoomScene::onKOFGameWillGotoNextGame()
+{
+	emit this->kofgame_goto_next_game(this->kofgame_info, Self->getTask());
 }
 
 // 07_arcade

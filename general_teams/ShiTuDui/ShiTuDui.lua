@@ -5,11 +5,11 @@ return {
 	name = "ShiTuDui",
 	translation = "师徒队",
 	category = "LevelSpecial",
-	needpack = {"mountain"},
+	needpack = {"mountain", "yjcm2011", "wisdom"},
 	generals = {
-		--司马徽
+		"wis_simahui", --智·司马徽
 		"zhugeliang", --审核包·诸葛亮
 		"jiangwei", --山·姜维
-		--马谡
+		"yj_i_masu", --一将成名·马谡
 	},
 }

@@ -1301,6 +1301,13 @@ void Client::gameOver(const QVariant &arg)
 			return;
 		}
 	}
+	else if (ServerInfo.GameMode == "06_teams") {
+		if (this->m_kofgame_info.valid && !this->m_kofgame_info.pk) {
+			bool win = Self->property("win").toBool();
+			emit this->kofgame_game_over(this->m_kofgame_info, stand_off, win);
+			return;
+		}
+	}
 	else if (ServerInfo.GameMode == "07_arcade") {
 		const ClientPlayer *challenger = NULL;
 		foreach(const ClientPlayer *player, players) {
@@ -2126,6 +2133,8 @@ void Client::checkProgress(const QVariant &)
 {
 	if (this->m_rank_info.valid && ServerInfo.GameMode == "02_rank")
 		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_rank_info.toString());
+	else if (this->m_kofgame_info.valid && ServerInfo.GameMode == "06_teams")
+		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_kofgame_info.toString());
 	else if (this->m_arcade_info.valid && ServerInfo.GameMode == "07_arcade")
 		replyToServer(S_COMMAND_CHECK_PROGRESS, this->m_arcade_info.toString());
 	else

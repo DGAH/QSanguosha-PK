@@ -459,6 +459,8 @@ private:
 signals:
 	// 02_rank
 	void rank_mode_goto_next_game(RankModeInfoStruct info, QString task);
+	// 06_teams
+	void kofgame_goto_next_game(KOFGameInfoStruct info, QString task);
 	// 07_arcade
 	void arcade_mode_goto_next_game(ArcadeModeInfoStruct info, QString task);
 
@@ -471,6 +473,8 @@ public slots:
 	void onKOFGameConfirmGenerals(QString team);
 	void onKOFGameArrangeGenerals(int max_count, QStringList generals);
 	void onKOFGameUpdateRoomScene(KOFGameInfoStruct info);
+	void onKOFGameGameOver(KOFGameInfoStruct info, bool standoff, bool win);
+	void onKOFGameWillGotoNextGame();
 	// 07_arcade
 	void onArcadeModeGameOver(ArcadeModeInfoStruct info, bool standoff, bool win);
 	void onArcadeModeWillGotoNextGame();

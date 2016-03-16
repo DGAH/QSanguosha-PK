@@ -83,6 +83,7 @@ public:
 
 	void addStage(KOFGameStage *stage);
 	KOFGameStage *getStage(int stage) const;
+	int getStageCount() const;
 
 	bool isBossGeneral(const QString &general) const;
 

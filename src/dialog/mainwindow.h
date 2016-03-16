@@ -73,6 +73,8 @@ public slots:
     void startConnection();
 	// 02_rank
 	void rankModeRestart(RankModeInfoStruct info, QString task);
+	// 06_teams
+	void KOFGameRestart(KOFGameInfoStruct info, QString task);
 	// 07_arcade
 	void arcadeModeRestart(ArcadeModeInfoStruct info, QString task);
 

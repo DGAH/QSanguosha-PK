@@ -5,11 +5,11 @@ return {
 	name = "SiWangZhiWuDui",
 	translation = "死亡之舞队",
 	category = "LevelSpecial",
-	needpack = {"mountain", "gods"},
+	needpack = {"mountain", "gods", "yjcm2011", "yitian"},
 	generals = {
-		--马谡
+		"yj_i_masu", --一将成名·马谡
 		"caiwenji", --山·蔡文姬
-		--贾文和
+		"yt_jiawenhe", --倚天·贾文和
 		"shenguanyu", --神·关羽
 	},
 }

@@ -5,11 +5,11 @@ return {
 	name = "QunXiongWangZheDui",
 	translation = "群雄王者队",
 	category = "LevelFormal",
-	needpack = {"wind", "fire", "thicket"},
+	needpack = {"wind", "fire", "thicket", "sp"},
 	generals = {
 		"zhangjiao", --风·张角
 		"yuanshao", --火·袁绍
 		"dongzhuo", --林·董卓
-		--袁术
+		"sp_yuanshu", --SP·袁术
 	},
 }

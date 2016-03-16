@@ -105,7 +105,7 @@ XingShang = sgs.CreateLuaSkill{
 		local victim = death.who
 		if victim and victim:objectName() == player:objectName() then
 			local room = player:getRoom()
-			local alives = player:getAlivePlayers()
+			local alives = room:getAlivePlayers()
 			for _,source in sgs.qlist(alives) do
 				if source:hasSkill("XingShang") then
 					if source:askForSkillInvoke("XingShang", data) then

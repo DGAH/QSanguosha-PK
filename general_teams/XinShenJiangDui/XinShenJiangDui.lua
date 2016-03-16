@@ -5,11 +5,11 @@ return {
 	name = "XinShenJiangDui",
 	translation = "新神将队",
 	category = "LevelTinyBoss",
-	needpack = {"gods"},
+	needpack = {"gods", "sp"},
 	generals = {
 		"shenlvmeng", --神·吕蒙
 		"shenzhaoyun", --审核包·神赵云
 		"shensimayi", --神·司马懿
-		--SP神吕布
+		"sp_lvbu", --SP·神吕布
 	},
 }

@@ -5,12 +5,12 @@ return {
 	name = "WuZiLiangJiangDui",
 	translation = "五子良将队",
 	category = "LevelFormal",
-	needpack = {"classical", "thicket", "mountain"},
+	needpack = {"classical", "thicket", "mountain", "sp", "yjcm2011"},
 	generals = {
 		"zhangliao", --经典标准版·张辽
 		"zhanghe", --山·张郃
-		--于禁
+		"yj_i_yujin", --一将成名·于禁
 		"xuhuang", --林·徐晃
-		--乐进
+		"sp_yuejin", --SP·乐进
 	},
 }

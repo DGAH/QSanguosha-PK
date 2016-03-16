@@ -5,12 +5,12 @@ return {
 	name = "ShenJiaoXinYangDui",
 	translation = "神教信仰队",
 	category = "LevelSpecial",
-	needpack = {"classical"},
+	needpack = {"classical", "yjcm2011"},
 	generals = {
 		"luxun", --经典标准版·陆逊
-		--张春华
+		"yj_i_zhangchunhua", --一将成名·张春华
 		--诸葛恪
-		--马谡
-		--于禁
+		"yj_i_masu", --一将成名·马谡
+		"yj_i_yujin", --一将成名·于禁
 	},
 }

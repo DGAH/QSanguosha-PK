@@ -5,11 +5,11 @@ return {
 	name = "TuoLianDangDui",
 	translation = "托脸党队",
 	category = "LevelSpecial",
-	needpack = {"classical", "thicket"},
+	needpack = {"classical", "thicket", "sp", "yitian"},
 	generals = {
 		"luxun", --经典标准版·陆逊
 		"jiaxu", --林·贾诩
-		--杨修
-		--蔡昭姬
+		"sp_yangxiu", --SP·杨修
+		"yt_caizhaoji", --倚天·蔡昭姬
 	},
 }

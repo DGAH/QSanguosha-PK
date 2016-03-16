@@ -5,12 +5,12 @@ return {
 	name = "ShuangShengZiDui",
 	translation = "双生子队",
 	category = "LevelSpecial",
-	needpack = {"fire", "mountain"},
+	needpack = {"fire", "mountain", "yjcm2012", "yjcm2013"},
 	generals = {
-		--关兴张苞
+		"yj_ii_guanxingzhangbao", --二将成名·关兴张苞
 		--蒋琬费祎
 		"zhangzhaozhanghong", --山·张昭张纮
-		--潘璋马忠
+		"yj_iii_panzhangmazhong", --三将成名·潘璋马忠
 		"yanliangwenchou", --火·颜良文丑
 	},
 }

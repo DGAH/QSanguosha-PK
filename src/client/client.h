@@ -395,6 +395,7 @@ signals:
 	void kofgame_confirm_generals(QString team);
 	void kofgame_arrange_generals(int max_count, QStringList generals);
 	void kofgame_update_roomscene(KOFGameInfoStruct info);
+	void kofgame_game_over(KOFGameInfoStruct info, bool standoff, bool win);
 	// 07_arcade
 	void arcade_mode_game_over(ArcadeModeInfoStruct info, bool standoff, bool win);
 

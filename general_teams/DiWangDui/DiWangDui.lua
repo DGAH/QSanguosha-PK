@@ -5,11 +5,11 @@ return {
 	name = "DiWangDui",
 	translation = "帝王队",
 	category = "LevelFormal",
-	needpack = {"classical"},
+	needpack = {"classical", "sp"},
 	generals = {
 		"caocao", --经典标准版·曹操
 		"liubei", --经典标准版·刘备
 		"sunquan", --审核包·孙权
-		--刘协
+		"sp_liuxie", --SP·刘协
 	},
 }

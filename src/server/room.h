@@ -485,6 +485,7 @@ private:
     QList<CardsMoveStruct> _separateMoves(QList<CardsMoveOneTimeStruct> moveOneTimes);
     QString _chooseDefaultGeneral(ServerPlayer *player) const;
     bool _setPlayerGeneral(ServerPlayer *player, const QString &generalName, bool isFirst);
+	QString _assignKOFGameTeam(ServerPlayer *player, KOFGameInfoStruct &info);
     QString mode;
     QList<ServerPlayer *> m_players, m_alivePlayers;
     int player_count;

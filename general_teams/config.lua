@@ -42,6 +42,7 @@ list = {
 	"WuHuShangJiangDui", --五虎上将队
 	"DongWuMingXingDui", --东吴明星队
 	"JiangDongWuHuDui", --江东五虎队
+	"QunXiongMingXingDui", --群雄明星队
 	"GeJuQunXiongDui", --割据群雄队
 	"CaoJiaXiongDiDui", --曹家兄弟队
 	--特殊参赛队

@@ -5,11 +5,11 @@ return {
 	name = "YinShiQianShenDui",
 	translation = "隐士前身队",
 	category = "LevelSpecial",
-	needpack = {"wind"},
+	needpack = {"wind", "sp"},
 	generals = {
 		"sunquan", --审核包·孙权
 		"zhugeliang", --审核包·诸葛亮
-		--袁术
+		"sp_yuanshu", --SP·袁术
 		"caoren", --风·曹仁
 	},
 }

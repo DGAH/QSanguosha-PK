@@ -2687,14 +2687,18 @@ void Room::arrangeGeneralsForKOFGameMode()
 	game_info.valid = true;
 	// choose team
 	QList<ServerPlayer *> to_ask, to_wait;
-	if (pk_mode || game_info.playerA_team.isEmpty())
-		to_ask.append(playerA);
-	else
-		to_wait.append(playerA);
-	if (pk_mode || game_info.playerB_team.isEmpty())
-		to_ask.append(playerB);
-	else
-		to_wait.append(playerB);
+	if (playerA->getState() != "robot") {
+		if (pk_mode || game_info.playerA_team.isEmpty())
+			to_ask.append(playerA);
+		else
+			to_wait.append(playerA);
+	}
+	if (playerB->getState() != "robot") {
+		if (pk_mode || game_info.playerB_team.isEmpty())
+			to_ask.append(playerB);
+		else
+			to_wait.append(playerB);
+	}
 	bool may_need_wait = !to_ask.isEmpty();
 	QString teamA, teamB;
 	QString default_team = GameEX->getFreeChooseTeamName();
@@ -2713,14 +2717,10 @@ void Room::arrangeGeneralsForKOFGameMode()
 		}
 	}
 	if (teamA.isEmpty()) {
-		teamA = game_info.playerA_team;
-		if (teamA.isEmpty())
-			teamA = default_team;
+		teamA = _assignKOFGameTeam(playerA, game_info);
 	}
 	if (teamB.isEmpty()) {
-		teamB = game_info.playerB_team;
-		if (teamB.isEmpty())
-			teamB = default_team;
+		teamB = _assignKOFGameTeam(playerB, game_info);
 	}
 	game_info.playerA_team = teamA;
 	game_info.playerB_team = teamB;
@@ -2794,6 +2794,7 @@ void Room::arrangeGeneralsForKOFGameMode()
 	}
 	// arrange generals order
 	bool need_arrangeA = true, need_arrangeB = true;
+	bool arrangeA_success = false, arrangeB_success = false;
 	if (!game_info.pk) {
 		if (teamA_info->isOrderFixed())
 			need_arrangeA = false;
@@ -2811,6 +2812,7 @@ void Room::arrangeGeneralsForKOFGameMode()
 				if (data.size() == 2) {
 					game_info.playerA_generals = data.first().toStringList();
 					game_info.playerA_striker = data.at(1).toString();
+					arrangeA_success = true;
 				}
 			}
 		}
@@ -2826,8 +2828,33 @@ void Room::arrangeGeneralsForKOFGameMode()
 				if (data.size() == 2) {
 					game_info.playerB_generals = data.first().toStringList();
 					game_info.playerB_striker = data.at(1).toString();
+					arrangeB_success = true;
 				}
 			}
+		}
+	}
+	if (!arrangeA_success) {
+		QStringList generals = game_info.playerA_generals;
+		if (need_arrangeA)
+			qShuffle(generals);
+		if (generals.length() <= countA)
+			game_info.playerA_generals = generals;
+		else {
+			game_info.playerA_generals = generals.mid(0, countA);
+			if (GameEX->useStrikerMode())
+				game_info.playerA_striker = generals.at(countA);
+		}
+	}
+	if (!arrangeB_success) {
+		QStringList generals = game_info.playerB_generals;
+		if (need_arrangeB)
+			qShuffle(generals);
+		if (generals.length() <= countB)
+			game_info.playerB_generals = generals;
+		else {
+			game_info.playerB_generals = generals.mid(0, countB);
+			if (GameEX->useStrikerMode())
+				game_info.playerB_striker = generals.at(countB);
 		}
 	}
 	// update
@@ -6005,4 +6032,47 @@ void Room::sortByActionOrder(QList<ServerPlayer *> &players)
 {
     if (players.length() > 1)
         qSort(players.begin(), players.end(), ServerPlayer::CompareByActionOrder);
+}
+
+QString Room::_assignKOFGameTeam(ServerPlayer *player, KOFGameInfoStruct &info)
+{
+	bool isPlayerA = (player->getTask() == "playerA");
+	// pk mode
+	if (info.pk) {
+		if (!isPlayerA) {
+			QStringList teams;
+			QStringList levels = GameEX->getAllLevelNames(false);
+			foreach(QString level, levels) {
+				teams.append(GameEX->getAllTeamNames(level));
+			}
+			int count = teams.length();
+			if (count > 0)
+				return teams.at(qrand() % count);
+		}
+	}
+	// stage mode
+	else {
+		if (isPlayerA) {
+			if (!info.playerA_team.isEmpty())
+				return info.playerA_team;
+		}
+		else {
+			KOFGameStage *stage = GameEX->getStage(info.stage);
+			if (stage) {
+				QStringList levels = stage->getTeamLevels();
+				QStringList teams;
+				foreach(QString level, levels) {
+					QStringList names = GameEX->getAllTeamNames(level);
+					foreach(QString name, names) {
+						if (!info.defeated_teams.contains(name))
+							teams.append(name);
+					}
+				}
+				int count = teams.length();
+				if (count > 0)
+					return teams.at(qrand() % count);
+			}
+		}
+	}
+	return GameEX->getFreeChooseTeamName();
 }

@@ -5,11 +5,11 @@ return {
 	name = "ShuHanMingXingDui",
 	translation = "蜀汉明星队",
 	category = "LevelFormal",
-	needpack = {"fire"},
+	needpack = {"fire", "yjcm2011"},
 	generals = {
 		"zhugeliang", --审核包·诸葛亮
 		"pangtong", --火·庞统
-		--徐庶
-		--法正
+		"yj_i_xushu", --一将成名·徐庶
+		"yj_i_fazheng", --一将成名·法正
 	},
 }

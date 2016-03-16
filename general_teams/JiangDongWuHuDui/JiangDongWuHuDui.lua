@@ -5,12 +5,12 @@ return {
 	name = "JiangDongWuHuDui",
 	translation = "江东五虎队",
 	category = "LevelFormal",
-	needpack = {"classical", "fire"},
+	needpack = {"classical", "fire", "yjcm2011"},
 	generals = {
 		"taishici", --火·太史慈
 		"ganning", --经典标准版·甘宁
-		--徐盛
-		--凌统
+		"yj_i_xusheng", --一将成名·徐盛
+		"yj_i_lingtong", --一将成名·凌统
 		"huanggai", --经典标准版·黄盖
 	},
 }
