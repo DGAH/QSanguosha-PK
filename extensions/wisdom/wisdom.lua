@@ -30,6 +30,22 @@
 	技能：恃才（锁定技）
 	描述：若你向其他角色发起拼点且你拼点赢时，或其他角色向你发起拼点且拼点没赢时，你摸一张牌。
 ]]--
+--武将信息：许攸
+XuYou = sgs.CreateLuaGeneral{
+	name = "wis_xuyou",
+	real_name = "xuyou",
+	translation = "智·许攸",
+	show_name = "许攸",
+	title = "恃才傲物",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 4,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "xuyou",
+}
 --[[****************************************************************
 	称号：天水麒麟
 	武将：姜维
@@ -45,6 +61,22 @@
 	技能：北伐（锁定技）
 	描述：当你失去最后的手牌时，视为你对一名其他角色使用了一张【杀】，若不能如此做，则视为你对自己使用了一张【杀】。
 ]]--
+--武将信息：姜维
+JiangWei = sgs.CreateLuaGeneral{
+	name = "wis_jiangwei",
+	real_name = "jiangwei",
+	translation = "智·姜维",
+	show_name = "姜维",
+	title = "天水麒麟",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 5,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "jiangwei",
+}
 --[[****************************************************************
 	称号：武侯后继
 	武将：蒋琬
@@ -60,6 +92,22 @@
 	技能：筹粮
 	描述：回合结束阶段开始时，若你手牌少于三张，你可以从牌堆顶亮出4-X张牌（X为你的手牌数），你获得其中的基本牌，将其余的牌置入弃牌堆。
 ]]--
+--武将信息：蒋琬
+JiangWan = sgs.CreateLuaGeneral{
+	name = "wis_jiangwan",
+	real_name = "jiangwan",
+	translation = "智·蒋琬",
+	show_name = "蒋琬",
+	title = "武侯后继",
+	kingdom = "shu",
+	maxhp = 3,
+	order = 7,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "jiangwan",
+}
 --[[****************************************************************
 	称号：江东的小霸王
 	武将：孙策
@@ -75,6 +123,22 @@
 	技能：危殆（主公技）[空壳技能]
 	描述：当你需要使用一张【酒】时，你可以令其他吴势力角色将一张黑桃2~9的手牌置入弃牌堆，视为你将该牌当【酒】使用。
 ]]--
+--武将信息：孙策
+SunCe = sgs.CreateLuaGeneral{
+	name = "wis_sunce",
+	real_name = "sunce",
+	translation = "智·孙策",
+	show_name = "孙策",
+	title = "江东的小霸王",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 4,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "sunce",
+}
 --[[****************************************************************
 	称号：东吴重臣
 	武将：张昭
@@ -94,6 +158,22 @@
 	技能：尽瘁
 	描述：当你死亡时，可选择一名角色，令该角色摸三张牌或者弃置三张牌。
 ]]--
+--武将信息：张昭
+ZhangZhao = sgs.CreateLuaGeneral{
+	name = "wis_zhangzhao",
+	real_name = "zhangzhao",
+	translation = "智·张昭",
+	show_name = "张昭",
+	title = "东吴重臣",
+	kingdom = "wu",
+	maxhp = 3,
+	order = 1,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "zhangzhao",
+}
 --[[****************************************************************
 	称号：心高命薄
 	武将：华雄
@@ -109,6 +189,22 @@
 	技能：温酒（锁定技）
 	描述：你使用黑色的【杀】造成的伤害+1，你无法闪避红色的【杀】。
 ]]--
+--武将信息：华雄
+HuaXiong = sgs.CreateLuaGeneral{
+	name = "wis_huaxiong",
+	real_name = "huaxiong",
+	translation = "智·华雄",
+	show_name = "华雄",
+	title = "心高命薄",
+	kingdom = "qun",
+	maxhp = 4,
+	order = 5,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "huaxiong",
+}
 --[[****************************************************************
 	称号：甘冒虎口
 	武将：田丰
@@ -128,6 +224,22 @@
 	技能：狱刎（锁定技）
 	描述：当你死亡时，伤害来源为自己。
 ]]--
+--武将信息：田丰
+TianFeng = sgs.CreateLuaGeneral{
+	name = "wis_tianfeng",
+	real_name = "tianfeng",
+	translation = "智·田丰",
+	show_name = "田丰",
+	title = "甘冒虎口",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 5,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "tianfeng",
+}
 --[[****************************************************************
 	称号：水镜先生
 	武将：司马徽
@@ -147,3 +259,30 @@
 	技能：师恩
 	描述：其他角色使用非延时锦囊时，可以让你摸一张牌。
 ]]--
+--武将信息：司马徽
+SiMaHui = sgs.CreateLuaGeneral{
+	name = "wis_simahui",
+	real_name = "simahui",
+	translation = "智·司马徽",
+	show_name = "司马徽",
+	title = "水镜先生",
+	kingdom = "qun",
+	maxhp = 4,
+	order = 1,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "simahui",
+}
+--[[****************************************************************
+	智武将包
+]]--****************************************************************
+return sgs.CreateLuaPackage{
+	name = "wisdom",
+	translation = "智包",
+	generals = {
+		XuYou, JiangWei, JiangWan, SunCe,
+		ZhangZhao, HuaXiong, TianFeng, SiMaHui,
+	},
+}

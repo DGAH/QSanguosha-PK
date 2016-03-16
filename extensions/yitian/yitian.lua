@@ -36,6 +36,21 @@
 	技能：飞影（锁定技）
 	描述：其他角色与你的距离+1。
 ]]--
+--武将信息：魏武帝
+CaoCao = sgs.CreateLuaGeneral{
+	name = "yt_weiwudi",
+	real_name = "caocao",
+	translation = "魏武帝",
+	title = "超世之英杰",
+	kingdom = "god",
+	maxhp = 3,
+	order = 2,
+	cv = "",
+	illustrator = "",
+	skills = {"FeiYing"},
+	last_word = "",
+	resource = "weiwudi",
+}
 --[[****************************************************************
 	称号：早夭的神童
 	武将：曹冲
@@ -55,6 +70,21 @@
 	技能：聪慧（锁定技）
 	描述：你跳过弃牌阶段。
 ]]--
+--武将信息：曹冲
+CaoChong = sgs.CreateLuaGeneral{
+	name = "yt_caochong",
+	real_name = "caochong",
+	translation = "曹冲",
+	title = "早夭的神童",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 5,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "caochong",
+}
 --[[****************************************************************
 	称号：计谋巧变
 	武将：张儁乂
@@ -66,6 +96,21 @@
 	技能：绝汲（阶段技）
 	描述：你可以与一名角色拼点：当你赢后，你获得对方的拼点牌。你可以重复此流程，直到你拼点没赢为止。
 ]]--
+--武将信息：张儁乂
+ZhangHe = sgs.CreateLuaGeneral{
+	name = "yt_zhangjunyi",
+	real_name = "zhanghe",
+	translation = "张儁乂",
+	title = "计谋巧变",
+	kingdom = "qun",
+	maxhp = 4,
+	order = 6,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "zhangjunyi",
+}
 --[[****************************************************************
 	称号：最后的良将
 	武将：陆抗
@@ -85,6 +130,21 @@
 	技能：连营
 	描述：每当你失去最后的手牌后，你可以摸一张牌。
 ]]--
+--武将信息：陆抗
+LuKang = sgs.CreateLuaGeneral{
+	name = "yt_lukang",
+	real_name = "lukang",
+	translation = "陆抗",
+	title = "最后的良将",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 7,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "lukang",
+}
 --[[****************************************************************
 	称号：祁山里的术士
 	武将：晋宣帝
@@ -101,6 +161,21 @@
 		[火]一名角色受到的伤害均视为火焰伤害。
 		[土]一名角色受到的属性伤害大于1时，防止多余的伤害。
 ]]--
+--武将信息：晋宣帝
+SiMaYi = sgs.CreateLuaGeneral{
+	name = "yt_jinxuandi",
+	real_name = "simayi",
+	translation = "晋宣帝",
+	title = "祁山里的术士",
+	kingdom = "god",
+	maxhp = 4,
+	order = 2,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "jinxuandi",
+}
 --[[****************************************************************
 	称号：樵采的美人
 	武将：夏侯涓
@@ -120,6 +195,21 @@
 	技能：离迁（锁定技）
 	描述：若你处于连理状态，势力与连理对象的势力相同；当你处于未连理状态时，势力为魏。
 ]]--
+--武将信息：夏侯涓
+XiaHouJuan = sgs.CreateLuaGeneral{
+	name = "yt_xiahoujuan",
+	real_name = "xiahoujuan",
+	translation = "夏侯涓",
+	title = "樵采的美人",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 1,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "xiahoujuan",
+}
 --[[****************************************************************
 	称号：乱世才女
 	武将：蔡昭姬
@@ -135,6 +225,21 @@
 	技能：胡笳
 	描述：结束阶段开始时，你可以进行一次判定：若结果为红色，你获得此判定牌，若如此做，你可以重复此流程。若你在一个阶段内发动“胡笳”判定过至少三次，你将武将牌翻面。
 ]]--
+--武将信息：蔡昭姬
+CaiYan = sgs.CreateLuaGeneral{
+	name = "yt_caizhaoji",
+	real_name = "caiyan",
+	translation = "蔡昭姬",
+	title = "乱世才女",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 7,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "caizhaoji",
+}
 --[[****************************************************************
 	称号：玩火的少年
 	武将：陆伯言
@@ -154,6 +259,21 @@
 	技能：纵火（锁定技）
 	描述：你使用的【杀】视为火【杀】。
 ]]--
+--武将信息：陆伯言
+LuXun = sgs.CreateLuaGeneral{
+	name = "yt_luboyan",
+	real_name = "luxun",
+	translation = "陆伯言",
+	title = "玩火的少年",
+	kingdom = "wu",
+	maxhp = 3,
+	order = 4,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "luboyan",
+}
 --[[****************************************************************
 	称号：狠毒的野心家
 	武将：钟士季
@@ -165,6 +285,21 @@
 	技能：共谋
 	描述：结束阶段开始时，你可以选择一名其他角色，若如此做，其于其下个摸牌阶段摸牌后，将X张手牌交给你（X为你手牌数与对方手牌数的较小值），然后你将X张手牌交给其。
 ]]--
+--武将信息：钟士季
+ZhongHui = sgs.CreateLuaGeneral{
+	name = "yt_zhongshiji",
+	real_name = "zhonghui",
+	translation = "钟士季",
+	title = "狠毒的野心家",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 6,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "zhongshiji",
+}
 --[[****************************************************************
 	称号：赤胆的贤将
 	武将：姜伯约
@@ -180,6 +315,21 @@
 	技能：殉志
 	描述：出牌阶段，你可以摸三张牌，然后变身为游戏外的一名蜀势力武将，若如此做，回合结束后，你死亡。
 ]]--
+--武将信息：姜伯约
+JiangWei = sgs.CreateLuaGeneral{
+	name = "yt_jiangboyue",
+	real_name = "jiangwei",
+	translation = "姜伯约",
+	title = "赤胆的贤将",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 5,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "jiangboyue",
+}
 --[[****************************************************************
 	称号：明哲保身
 	武将：贾文和
@@ -200,6 +350,21 @@
 	技能：崩坏（锁定技）
 	描述：结束阶段开始时，若你的体力值不为场上最少（或之一），你须选择一项：失去1点体力，或失去1点体力上限。
 ]]--
+--武将信息：贾文和
+JiaXu = sgs.CreateLuaGeneral{
+	name = "yt_jiawenhe",
+	real_name = "jiaxu",
+	translation = "贾文和",
+	title = "明哲保身",
+	kingdom = "qun",
+	maxhp = 4,
+	order = 4,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "jiawenhe",
+}
 --[[****************************************************************
 	称号：不坠悍将
 	武将：古之恶来
@@ -215,6 +380,21 @@
 	技能：神力（锁定技）
 	描述：你于出牌阶段内第一次使用【杀】造成伤害时，此伤害+X（X为当前死战标记数且最大为3）。
 ]]--
+--武将信息：古之恶来
+DianWei = sgs.CreateLuaGeneral{
+	name = "yt_guzhielai",
+	real_name = "dianwei",
+	translation = "古之恶来",
+	title = "不坠悍将",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 4,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "guzhielai",
+}
 --[[****************************************************************
 	称号：破蜀首功
 	武将：邓士载
@@ -230,6 +410,21 @@
 	技能：偷渡
 	描述：每当你受到一次伤害后，若你的武将牌背面朝上，你可以弃置一张手牌，将你的武将牌翻面，然后视为使用一张【杀】。
 ]]--
+--武将信息：邓士载
+DengAi = sgs.CreateLuaGeneral{
+	name = "yt_dengshizai",
+	real_name = "dengai",
+	translation = "邓士载",
+	title = "破蜀首功",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 6,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "dengshizai",
+}
 --[[****************************************************************
 	称号：五斗米道
 	武将：张公祺
@@ -246,6 +441,21 @@
 	技能：惜粮
 	描述：每当其他角色于其弃牌阶段因弃置失去一张红色牌后，你可以选择一项：1.将之置于你的武将牌上，称为“米”；2.获得之。
 ]]--
+--武将信息：张公祺
+ZhangLu = sgs.CreateLuaGeneral{
+	name = "yt_zhanggongqi",
+	real_name = "zhanglu",
+	translation = "张公祺",
+	title = "五斗米道",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 7,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "zhanggongqi",
+}
 --[[****************************************************************
 	称号：跨海斩长鲸
 	武将：倚天剑
@@ -265,6 +475,21 @@
 	技能：倚天（联动技）
 	描述：每当你对曹操造成伤害时，你可以令该伤害-1。
 ]]--
+--武将信息：倚天剑
+YiTianJian = sgs.CreateLuaGeneral{
+	name = "yt_yitianjian",
+	real_name = "yitianjian",
+	translation = "倚天剑",
+	title = "跨海斩长鲸",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 0,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "yitianjian",
+}
 --[[****************************************************************
 	称号：抬榇之悟
 	武将：庞令明
@@ -276,3 +501,31 @@
 	技能：抬榇
 	描述：出牌阶段，你可以失去1点体力或弃置一张武器牌，依次弃置你攻击范围内的一名角色区域内的两张牌。
 ]]--
+--武将信息：庞令明
+PangDe = sgs.CreateLuaGeneral{
+	name = "yt_panglingming",
+	real_name = "pangde",
+	translation = "庞令明",
+	title = "抬榇之悟",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 8,
+	cv = "",
+	illustrator = "",
+	skills = {},
+	last_word = "",
+	resource = "panglingming",
+}
+--[[****************************************************************
+	倚天武将包
+]]--****************************************************************
+return sgs.CreateLuaPackage{
+	name = "yitian",
+	translation = "倚天包",
+	generals = {
+		CaoCao, CaoChong, ZhangHe, LuKang,
+		SiMaYi, XiaHouJuan, CaiYan, LuXun,
+		ZhongHui, JiangWei, JiaXu, DianWei,
+		DengAi, ZhangLu, YiTianJian, PangDe,
+	},
+}

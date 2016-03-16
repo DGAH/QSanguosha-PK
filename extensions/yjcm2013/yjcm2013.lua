@@ -19,6 +19,13 @@
 		15、朱然·改（胆守）
 ]]--
 --[[****************************************************************
+	版本控制
+]]--****************************************************************
+local old_version = true --原版武将开关，开启后将出现 曹冲、伏皇后、李儒、朱然 四位武将
+local new_version = true --新版武将开关，开启后将出现 曹冲·改、伏皇后·改、李儒·改、朱然·改 四位武将
+local yjcm2013 = {}
+if old_version then
+--[[****************************************************************
 	称号：仁爱的神童
 	武将：曹冲
 	势力：魏
@@ -33,6 +40,21 @@
 	技能：仁心
 	描述：每当一名其他角色处于濒死状态时，若你有手牌，你可以将武将牌翻面并将所有手牌交给该角色：若如此做，该角色回复1点体力。
 ]]--
+--武将信息：曹冲
+CaoChong = sgs.CreateLuaGeneral{
+	name = "yj_iii_caochong",
+	real_name = "caochong",
+	translation = "曹冲",
+	title = "仁爱的神童",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 3,
+	illustrator = "Amo",
+	skills = {},
+	last_word = "子桓哥哥……",
+	resource = "caochong_v1",
+}
+table.insert(yjcm2013, CaoChong)
 --[[****************************************************************
 	称号：孤注一掷
 	武将：伏皇后
@@ -48,6 +70,23 @@
 	技能：求援
 	描述：每当你成为【杀】的目标时，你可以令一名除此【杀】使用者外的有手牌的其他角色正面朝上交给你一张手牌：若此牌不为【闪】，该角色也成为此【杀】的目标。
 ]]--
+--武将信息：伏皇后
+FuShou = sgs.CreateLuaGeneral{
+	name = "yj_iii_fuhuanghou",
+	real_name = "fushou",
+	translation = "伏皇后",
+	title = "孤注一掷",
+	kingdom = "qun",
+	maxhp = 3,
+	female = true,
+	order = 2,
+	illustrator = "小莘",
+	skills = {},
+	last_word = "陛下为何不救……臣妾……",
+	resource = "fuhuanghou_v1",
+}
+table.insert(yjcm2013, FuShou)
+end
 --[[****************************************************************
 	称号：垂问秦雍
 	武将：郭淮
@@ -59,6 +98,22 @@
 	技能：精策
 	描述：出牌阶段结束时，若你本回合已使用的牌数大于或等于你的体力值，你可以摸两张牌。
 ]]--
+--武将信息：郭淮
+GuoHuai = sgs.CreateLuaGeneral{
+	name = "yj_iii_guohuai",
+	real_name = "guohuai",
+	translation = "郭淮",
+	title = "垂问秦雍",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 5,
+	designer = "雪•五月",
+	illustrator = "DH",
+	skills = {},
+	last_word = "姜维小儿，竟然……",
+	resource = "guohuai",
+}
+table.insert(yjcm2013, GuoHuai)
 --[[****************************************************************
 	称号：忠臣孝子
 	武将：关平
@@ -70,6 +125,22 @@
 	技能：龙吟
 	描述：每当一名角色于出牌阶段内使用【杀】时，你可以弃置一张牌：若如此做，此【杀】不计入次数限制，若此【杀】为红色，你摸一张牌。
 ]]--
+--武将信息：关平
+GuanPing = sgs.CreateLuaGeneral{
+	name = "yj_iii_guanping",
+	real_name = "guanping",
+	translation = "关平",
+	title = "忠臣孝子",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 2,
+	designer = "昂翼天使",
+	illustrator = "樱花闪乱",
+	skills = {},
+	last_word = "父亲快走！孩儿……断后……",
+	resource = "guanping",
+}
+table.insert(yjcm2013, GuanPing)
 --[[****************************************************************
 	称号：优游风议
 	武将：简雍
@@ -85,6 +156,23 @@
 	技能：纵适
 	描述：每当你拼点赢，你可以获得对方的拼点牌。每当你拼点没赢，你可以获得你的拼点牌。
 ]]--
+--武将信息：简雍
+JianYong = sgs.CreateLuaGeneral{
+	name = "yj_iii_jianyong",
+	real_name = "jianyong",
+	translation = "简雍",
+	title = "优游风议",
+	kingdom = "shu",
+	maxhp = 3,
+	order = 4,
+	designer = "Nocihoo",
+	illustrator = "Thinking",
+	skills = {},
+	last_word = "诶诶……两国交战，不斩……",
+	resource = "jianyong",
+}
+table.insert(yjcm2013, JianYong)
+if old_version then
 --[[****************************************************************
 	称号：魔仕
 	武将：李儒
@@ -104,6 +192,22 @@
 	技能：焚城（限定技）
 	描述：出牌阶段，你可以令所有其他角色弃置X张牌，否则你对该角色造成1点火焰伤害。（X为该角色装备区牌的数量且至少为1）
 ]]--
+--武将信息：李儒
+LiRu = sgs.CreateLuaGeneral{
+	name = "yj_iii_liru",
+	real_name = "liru",
+	translation = "李儒",
+	title = "魔仕",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 3,
+	illustrator = "MSNZero",
+	skills = {},
+	last_word = "如遇明主，大业必成……",
+	resource = "liru_v1",
+}
+table.insert(yjcm2013, LiRu)
+end
 --[[****************************************************************
 	称号：骑虎之殇
 	武将：刘封
@@ -115,6 +219,22 @@
 	技能：陷嗣
 	描述：准备阶段开始时，你可以将一至两名角色的各一张牌置于你的武将牌上，称为“逆”。其他角色可以将两张“逆”置入弃牌堆，视为对你使用一张【杀】（计入次数限制）。
 ]]--
+--武将信息：刘封
+LiuFeng = sgs.CreateLuaGeneral{
+	name = "yj_iii_liufeng",
+	real_name = "liufeng",
+	translation = "刘封",
+	title = "骑虎之殇",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 6,
+	designer = "香蒲神殇",
+	illustrator = "Thinking",
+	skills = {},
+	last_word = "父亲！为什么？！……",
+	resource = "liufeng",
+}
+table.insert(yjcm2013, LiuFeng)
 --[[****************************************************************
 	称号：政法兵谋
 	武将：满宠
@@ -130,6 +250,22 @@
 	技能：御策
 	描述：每当你受到伤害后，你可以展示一张手牌：若如此做且此伤害有来源，伤害来源须弃置一张与此牌类型不同的手牌，否则你回复1点体力。
 ]]--
+--武将信息：满宠
+ManChong = sgs.CreateLuaGeneral{
+	name = "yj_iii_manchong",
+	real_name = "manchong",
+	translation = "满宠",
+	title = "政法兵谋",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 4,
+	designer = "SamRosen",
+	illustrator = "Aimer彩三",
+	skills = {},
+	last_word = "援军……为何迟迟未到？！……",
+	resource = "manchong",
+}
+table.insert(yjcm2013, ManChong)
 --[[****************************************************************
 	称号：擒龙伏虎
 	武将：潘璋马忠
@@ -145,6 +281,23 @@
 	技能：暗箭
 	描述：每当你使用【杀】对目标角色造成伤害时，若你不在其攻击范围内，此伤害+1。
 ]]--
+--武将信息：潘璋马忠
+PanZhangMaZhong = sgs.CreateLuaGeneral{
+	name = "yj_iii_panzhangmazhong",
+	real_name = "panzhangmazhong",
+	translation = "潘璋马忠",
+	title = "擒龙伏虎",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 3,
+	crowded = true,
+	designer = "風残葉落",
+	illustrator = "zzyzzyy",
+	skills = {},
+	last_word = "怎么可能，我明明亲手将你……",
+	resource = "panzhangmazhong",
+}
+table.insert(yjcm2013, PanZhangMaZhong)
 --[[****************************************************************
 	称号：狂直之士
 	武将：虞翻
@@ -160,6 +313,23 @@
 	技能：直言
 	描述：结束阶段开始时，你可以令一名角色摸一张牌并展示之：若此牌为装备牌，该角色回复1点体力，然后使用之。
 ]]--
+--武将信息：虞翻
+YuFan = sgs.CreateLuaGeneral{
+	name = "yj_iii_yufan",
+	real_name = "yufan",
+	translation = "虞翻",
+	title = "狂直之士",
+	kingdom = "wu",
+	maxhp = 3,
+	order = 7,
+	designer = "幻岛",
+	illustrator = "L",
+	skills = {},
+	last_word = "我枉称……东方朔再世……",
+	resource = "yufan",
+}
+table.insert(yjcm2013, YuFan)
+if old_version then
 --[[****************************************************************
 	称号：不动之督
 	武将：朱然
@@ -171,6 +341,23 @@
 	技能：胆守
 	描述：每当你造成伤害后，你可以摸一张牌，然后结束当前回合并结束一切结算。
 ]]--
+--武将信息：朱然
+ZhuRan = sgs.CreateLuaGeneral{
+	name = "yj_iii_zhuran",
+	real_name = "zhuran",
+	translation = "朱然",
+	title = "不动之督",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 5,
+	illustrator = "Ccat",
+	skills = {},
+	last_word = "何人……竟有如此之胆？！……",
+	resource = "zhuran_v1",
+}
+table.insert(yjcm2013, ZhuRan)
+end
+if new_version then
 --[[****************************************************************
 	称号：仁爱的神童
 	武将：曹冲·改
@@ -186,6 +373,22 @@
 	技能：仁心
 	描述：每当一名体力值为1的其他角色受到伤害时，你可以将武将牌翻面并弃置一张装备牌：若如此做，防止此伤害。
 ]]--
+--武将信息：曹冲·改
+CaoChong = sgs.CreateLuaGeneral{
+	name = "yj_iii_new_caochong",
+	real_name = "caochong",
+	translation = "曹冲·改",
+	show_name = "曹冲",
+	title = "仁爱的神童",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 3,
+	illustrator = "Amo",
+	skills = {},
+	last_word = "子桓哥哥……",
+	resource = "caochong_v2",
+}
+table.insert(yjcm2013, CaoChong)
 --[[****************************************************************
 	称号：孤注一掷
 	武将：伏皇后·改
@@ -201,6 +404,23 @@
 	技能：求援
 	描述：每当你成为【杀】的目标时，你可以令一名除此【杀】使用者外的的其他角色交给你一张【闪】，否则该角色也成为此【杀】的目标。
 ]]--
+--武将信息：伏皇后·改
+FuShou = sgs.CreateLuaGeneral{
+	name = "yj_iii_new_fuhuanghou",
+	real_name = "fushou",
+	translation = "伏皇后·改",
+	show_name = "伏皇后",
+	title = "孤注一掷",
+	kingdom = "qun",
+	maxhp = 3,
+	female = true,
+	order = 2,
+	illustrator = "小莘",
+	skills = {},
+	last_word = "陛下为何不救……臣妾……",
+	resource = "fuhuanghou_v2",
+}
+table.insert(yjcm2013, FuShou)
 --[[****************************************************************
 	称号：魔仕
 	武将：李儒·改
@@ -220,6 +440,22 @@
 	技能：焚城（限定技）
 	描述：出牌阶段，你可以令所有其他角色：弃置至少X张牌，否则受到2点火焰伤害。（X为上一名进行选择的角色以此法弃置的牌数+1）
 ]]--
+--武将信息：李儒·改
+LiRu = sgs.CreateLuaGeneral{
+	name = "yj_iii_new_liru",
+	real_name = "liru",
+	translation = "李儒·改",
+	show_name = "李儒",
+	title = "魔仕",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 3,
+	illustrator = "MSNZero",
+	skills = {},
+	last_word = "如遇明主，大业必成……",
+	resource = "liru_v2",
+}
+table.insert(yjcm2013, LiRu)
 --[[****************************************************************
 	称号：不动之督
 	武将：朱然·改
@@ -231,3 +467,28 @@
 	技能：胆守
 	描述：出牌阶段，你可以弃置X张牌并选择攻击范围内的一名角色：若X为1，你弃置该角色的一张牌；若X为2，你令该角色交给你一张牌；若X为3，你对该角色造成一点伤害；若X大于或等于4，你与该角色各摸两张牌。（X为本阶段你已发动“胆守”的次数+1）
 ]]--
+--武将信息：朱然·改
+ZhuRan = sgs.CreateLuaGeneral{
+	name = "yj_iii_new_zhuran",
+	real_name = "zhuran",
+	translation = "朱然·改",
+	show_name = "朱然",
+	title = "不动之督",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 6,
+	illustrator = "Ccat",
+	skills = {},
+	last_word = "何人……竟有如此之胆？！……",
+	resource = "zhuran_v2",
+}
+table.insert(yjcm2013, ZhuRan)
+end
+--[[****************************************************************
+	一将成名2013武将包
+]]--****************************************************************
+return sgs.CreateLuaPackage{
+	name = "yjcm2013",
+	translation = "三将成名",
+	generals = yjcm2013,
+}

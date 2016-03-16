@@ -33,6 +33,18 @@
 	技能：兴衰（主公技、限定技）[空壳技能]
 	描述：当你进入濒死状态时，其他魏势力角色可依次令你回复1点体力，然后这些角色依次受到1点伤害。
 ]]--
+--武将信息：曹叡
+CaoRui = sgs.CreateLuaGeneral{
+	name = "yj_v_caorui",
+	real_name = "caorui",
+	translation = "曹叡",
+	title = "天资的明君",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 3,
+	skills = {},
+	resource = "caorui",
+}
 --[[****************************************************************
 	称号：千里骐骥
 	武将：曹休
@@ -44,6 +56,18 @@
 	技能：讨袭（阶段技）
 	描述：你使用牌指定一名其他角色为唯一目标后，你可以亮出其一张手牌直到回合结束，并且你可以于此回合内将此牌如手牌般使用。回合结束时，若该角色未失去此手牌，则你失去1点体力。
 ]]--
+--武将信息：曹休
+CaoXiu = sgs.CreateLuaGeneral{
+	name = "yj_v_caoxiu",
+	real_name = "caoxiu",
+	translation = "曹休",
+	title = "千里骐骥",
+	kingdom = "wei",
+	maxhp = 4,
+	order = 4,
+	skills = {},
+	resource = "caoxiu",
+}
 --[[****************************************************************
 	称号：狡徒悬海
 	武将：公孙渊
@@ -55,6 +79,18 @@
 	技能：怀异（阶段技）
 	描述：你可以展示所有手牌，若其中包含不止一种颜色，则你选择一种颜色并弃置该颜色的所有手牌，然后你获得至多X名其他角色的各一张牌（X为你以此法弃置的手牌数）；若你以此法获得的牌不少于两张，你失去1点体力。
 ]]--
+--武将信息：公孙渊
+GongSunYuan = sgs.CreateLuaGeneral{
+	name = "yj_v_gongsunyuan",
+	real_name = "gongsunyuan",
+	translation = "公孙渊",
+	title = "狡徒悬海",
+	kingdom = "qun",
+	maxhp = 4,
+	order = 5,
+	skills = {},
+	resource = "gongsunyuan",
+}
 --[[****************************************************************
 	称号：凶蛇两端
 	武将：郭图逄纪
@@ -70,6 +106,19 @@
 	技能：饰非
 	描述：当你需要使用或打出【闪】时，你可以令当前回合角色摸一张牌，然后若其手牌数不为全场最多，则你弃置全场手牌数最多（或之一）角色的一张牌，视为你使用或打出了一张【闪】。
 ]]--
+--武将信息：郭图逄纪
+GuoTuPangJi = sgs.CreateLuaGeneral{
+	name = "yj_v_guotupangji",
+	real_name = "guotupangji",
+	translation = "郭图逄纪",
+	title = "凶蛇两端",
+	kingdom = "qun",
+	maxhp = 3,
+	order = 2,
+	crowded = true,
+	skills = {},
+	resource = "guotupangji",
+}
 --[[****************************************************************
 	称号：血荐轩辕
 	武将：刘谌
@@ -85,6 +134,18 @@
 	技能：勤王（主公技）[空壳技能]
 	描述：你可以弃置一张牌，然后视为你发动“激将”。若有角色响应，则该角色打出【杀】时摸一张牌。
 ]]--
+--武将信息：刘谌
+LiuChen = sgs.CreateLuaGeneral{
+	name = "yj_v_liuchen",
+	real_name = "liuchen",
+	translation = "刘谌",
+	title = "血荐轩辕",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 6,
+	skills = {},
+	resource = "liuchen",
+}
 --[[****************************************************************
 	称号：慕势耀族
 	武将：全琮
@@ -96,6 +157,18 @@
 	技能：振赡
 	描述：每名角色的回合限一次，每当你需要使用或打出一张基本牌时，你可以与一名手牌数少于你的角色交换手牌。若如此做，视为你使用或打出了此牌。
 ]]--
+--武将信息：全琮
+QuanCong = sgs.CreateLuaGeneral{
+	name = "yj_v_quancong",
+	real_name = "quancong",
+	translation = "全琮",
+	title = "慕势耀族",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 4,
+	skills = {},
+	resource = "quancong",
+}
 --[[****************************************************************
 	称号：弥殇的景君
 	武将：孙休
@@ -115,6 +188,18 @@
 	技能：诏缚（主公技、锁定技）[空壳技能]
 	描述：你距离为1的角色视为在其他吴势力角色的攻击范围内。
 ]]--
+--武将信息：孙休
+SunXiu = sgs.CreateLuaGeneral{
+	name = "yj_v_sunxiu",
+	real_name = "sunxiu",
+	translation = "孙休",
+	title = "弥殇的景君",
+	kingdom = "wu",
+	maxhp = 3,
+	order = 3,
+	skills = {},
+	resource = "sunxiu",
+}
 --[[****************************************************************
 	称号：采缘撷睦
 	武将：夏侯氏
@@ -130,6 +215,19 @@
 	技能：燕语
 	描述：出牌阶段，你可以重铸【杀】。出牌阶段结束时，若你于此阶段以此法重铸了两张或更多的【杀】，则你可以令一名男性角色摸两张牌。
 ]]--
+--武将信息：夏侯氏
+XiaHouJuan = sgs.CreateLuaGeneral{
+	name = "yj_v_xiahoushi",
+	real_name = "xiahoujuan",
+	translation = "夏侯氏",
+	title = "采缘撷睦",
+	kingdom = "shu",
+	maxhp = 3,
+	female = true,
+	order = 2,
+	skills = {},
+	resource = "xiahoushi",
+}
 --[[****************************************************************
 	称号：通壮逾古
 	武将：张嶷
@@ -145,6 +243,18 @@
 	技能：矢志（锁定技）
 	描述：当你体力为1时，你的【闪】均视为【杀】。
 ]]--
+--武将信息：张嶷
+ZhangYi = sgs.CreateLuaGeneral{
+	name = "yj_v_zhangyi",
+	real_name = "zhangyi",
+	translation = "张嶷",
+	title = "通壮愈古",
+	kingdom = "shu",
+	maxhp = 4,
+	order = 6,
+	skills = {},
+	resource = "zhangyi",
+}
 --[[****************************************************************
 	称号：正楷萧曹
 	武将：钟繇
@@ -160,6 +270,18 @@
 	技能：佐定
 	描述：一名其他角色于其出牌阶段内使用黑桃牌指定目标后，若此阶段没有角色受到过伤害，则你可以令其中一名目标角色摸一张牌。
 ]]--
+--武将信息：钟繇
+ZhongYao = sgs.CreateLuaGeneral{
+	name = "yj_v_zhongyao",
+	real_name = "zhongyao",
+	translation = "钟繇",
+	title = "正楷萧曹",
+	kingdom = "wei",
+	maxhp = 3,
+	order = 6,
+	skills = {},
+	resource = "zhongyao",
+}
 --[[****************************************************************
 	称号：王事靡盬
 	武将：朱治
@@ -171,3 +293,26 @@
 	技能：安国（阶段技）
 	描述：你可以选择一名其他角色装备区里的一张牌，令其将此牌收回手牌。然后若该角色攻击范围内的角色数因此减少，你摸一张牌。
 ]]--
+--武将信息：朱治
+ZhuZhi = sgs.CreateLuaGeneral{
+	name = "yj_v_zhuzhi",
+	real_name = "zhuzhi",
+	translation = "朱治",
+	title = "王事靡盬",
+	kingdom = "wu",
+	maxhp = 4,
+	order = 4,
+	skills = {},
+	resource = "zhuzhi",
+}
+--[[****************************************************************
+	一将成名2015武将包
+]]--****************************************************************
+return sgs.CreateLuaPackage{
+	name = "yjcm2015",
+	translation = "五将成名",
+	generals = {
+		CaoRui, CaoXiu, GongSunYuan, GuoTuPangJi, LiuChen,
+		QuanCong, SunXiu, XiaHouJuan, ZhangYi, ZhongYao, ZhuZhi,
+	},
+}
