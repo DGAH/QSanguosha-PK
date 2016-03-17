@@ -481,12 +481,12 @@ int KOFGameEngine::getStrikerCount() const
 	return this->striker_count;
 }
 
-void KOFGameEngine::setStrikerSkill(const QString &skill)
+void KOFGameEngine::setDefaultStrikerSkill(const QString &skill)
 {
 	this->default_striker_skill = skill;
 }
 
-QString KOFGameEngine::getStrikerSkill() const
+QString KOFGameEngine::getDefaultStrikerSkill() const
 {
 	return this->default_striker_skill;
 }

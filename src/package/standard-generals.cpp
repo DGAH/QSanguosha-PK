@@ -1,5 +1,6 @@
 #include "standard.h"
 #include "engine.h"
+#include "kofgame-engine.h"
 #include "client.h"
 #include "standard-skillcards.h"
 #include "auxpack.h"
@@ -681,6 +682,7 @@ public:
 	GeDang() :TriggerSkill("gedang")
 	{
 		events << DamageForseen;
+		global = true;
 	}
 
 	virtual bool trigger(TriggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
@@ -703,7 +705,54 @@ public:
 
 	virtual bool triggerable(ServerPlayer *target) const
 	{
-		return target->getMark("@striker") > 0;
+		return target && target->getMark("@striker") > 0 && target->getMark("GeDangForbidden") == 0;
+	}
+};
+// 援护 ： “格斗之王”模式启用援护技能时的专属技能
+class KOFGameYuanHuSkill : public ZeroCardViewAsSkill
+{
+public:
+	KOFGameYuanHuSkill() : ZeroCardViewAsSkill("call_striker")
+	{
+		attached_lord_skill = true;
+	}
+
+	virtual const Card *viewAs() const
+	{
+		return new KOFGameYuanHuCard;
+	}
+
+	virtual bool isEnabledAtPlay(ServerPlayer *player) const
+	{
+		return player->getMark("@striker") > 0;
+	}
+};
+
+class KOFGameYuanHuGlobalEffect : public TriggerSkill
+{
+public:
+	KOFGameYuanHuGlobalEffect() : TriggerSkill("striker_manager")
+	{
+		events << CardUsed << EventPhaseStart;
+		global = true;
+	}
+
+	virtual bool trigger(TriggerEvent , Room *room, ServerPlayer *player, QVariant &) const
+	{
+		QString striker_skill = player->tag["StrikerSkill"].toString();
+		room->detachSkillFromPlayer(player, striker_skill, false, true);
+		player->tag["StrikerSkill"] = "";
+		return false;
+	}
+
+	virtual bool triggerable(ServerPlayer *target) const
+	{
+		return target && !target->tag["StrikerSkill"].toString().isEmpty();
+	}
+
+	virtual int getPriority() const
+	{
+		return 10;
 	}
 };
 // 非锁定技无效
@@ -783,7 +832,8 @@ void StandardPackage::addGenerals()
     addMetaObject<ZhihengCard>();
 	addMetaObject<HuanhuoCard>();
 	addMetaObject<XianzhuoCard>();
+	addMetaObject<KOFGameYuanHuCard>();
 
-    skills << new Xiaoxi << new GeDang << new NonCompulsoryInvalidity;
+    skills << new Xiaoxi << new GeDang << new NonCompulsoryInvalidity << new KOFGameYuanHuSkill << new KOFGameYuanHuGlobalEffect;
 }
 

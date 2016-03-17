@@ -101,8 +101,8 @@ public:
 	bool useStrikerMode() const;
 	void setStrikerCount(int count);
 	int getStrikerCount() const;
-	void setStrikerSkill(const QString &skill);
-	QString getStrikerSkill() const;
+	void setDefaultStrikerSkill(const QString &skill);
+	QString getDefaultStrikerSkill() const;
 	void setCriticalMode(bool open);
 	bool useCriticalMode() const;
 	void setDefaultCriticalRate(int rate);

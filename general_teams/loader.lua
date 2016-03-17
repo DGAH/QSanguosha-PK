@@ -25,7 +25,7 @@ function loadStrikers(info, options)
 	end
 	sgs.GameEX:setStrikerMode(options["striker_mode"])
 	sgs.GameEX:setStrikerCount(options["striker_count"])
-	sgs.GameEX:setStrikerSkill(options["striker_skill"])
+	sgs.GameEX:setDefaultStrikerSkill(options["striker_skill"])
 end
 
 function loadCriticalSettings(info, options)

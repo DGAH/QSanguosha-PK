@@ -23,6 +23,8 @@ public:
 	QString getResourcePath() const;
 	void setOrderFixed(bool flag = true);
 	bool isOrderFixed() const;
+	QString getDescription() const;
+	bool hasUncertainGeneral() const;
 };
 
 class KOFGameStage : public QObject
@@ -43,10 +45,20 @@ class KOFGameEngine : public QObject
 public:
 	void addTeamLevel(KOFGameTeamLevel *level);
 	KOFGameTeamLevel *getTeamLevel(const char *level) const;
+	QStringList getAllLevelNames(bool include_boss = true) const;
+	QList<KOFGameTeamLevel *> getAllLevels(bool include_boss = true) const;
+
 	void addTeam(KOFGameTeam *team);
 	KOFGameTeam *getTeam(const char *team) const;
+	QStringList getAllTeamNames(const char *level = "") const;
+	QList<KOFGameTeam *> getAllTeams(const char *level = "") const;
+	KOFGameTeam *getFreeChooseTeam() const;
+	QString getFreeChooseTeamName() const;
+
 	void addStage(KOFGameStage *stage);
 	KOFGameStage *getStage(int stage) const;
+	int getStageCount() const;
+
 	bool isBossGeneral(const char *general) const;
 
 	void setStartStage(int stage);
@@ -63,8 +75,8 @@ public:
 	bool useStrikerMode() const;
 	void setStrikerCount(int count);
 	int getStrikerCount() const;
-	void setStrikerSkill(const char *skill);
-	QString getStrikerSkill() const;
+	void setDefaultStrikerSkill(const char *skill);
+	QString getDefaultStrikerSkill() const;
 	void setCriticalMode(bool open);
 	bool useCriticalMode() const;
 	void setDefaultCriticalRate(int rate);

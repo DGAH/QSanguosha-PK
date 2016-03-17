@@ -2,6 +2,7 @@
 #include "room.h"
 #include "clientplayer.h"
 #include "engine.h"
+#include "kofgame-engine.h"
 #include "settings.h"
 
 ZhihengCard::ZhihengCard()
@@ -172,4 +173,21 @@ void XianzhuoCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &
 		room->loseMaxHp(target);
 	}
 	room->killPlayer(source);
+}
+
+KOFGameYuanHuCard::KOFGameYuanHuCard()
+{
+	target_fixed = true;
+	will_throw = true;
+	mute = true;
+	m_skillName = "call_striker";
+}
+
+void KOFGameYuanHuCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &) const
+{
+	QString striker = source->tag["KOFGameStriker"].toString();
+	QString skill = GameEX->getStrikerSkill(striker);
+	source->tag["StrikerSkill"] = skill;
+	room->acquireSkill(source, skill);
+	source->loseMark("@striker");
 }

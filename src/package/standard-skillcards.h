@@ -37,4 +37,14 @@ public:
 	virtual void use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &targets) const;
 };
 
+class KOFGameYuanHuCard : public SkillCard
+{
+	Q_OBJECT
+
+public:
+	Q_INVOKABLE KOFGameYuanHuCard();
+
+	virtual void use(Room *room, ServerPlayer *source, QList<ServerPlayer *> &) const;
+};
+
 #endif

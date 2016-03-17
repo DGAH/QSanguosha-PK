@@ -4,6 +4,7 @@
 #include "standard.h"
 #include "maneuvering.h"
 #include "engine.h"
+#include "kofgame-engine.h"
 #include "settings.h"
 #include "json.h"
 
@@ -114,6 +115,8 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
     // Handle global events
     if (player == NULL) {
         if (triggerEvent == GameStart) {
+			bool striker_mode = (room->getMode() == "06_teams" && GameEX->useStrikerMode());
+			int striker_count = GameEX->getStrikerCount();
             foreach (ServerPlayer *player, room->getPlayers()) {
                 if (player->getGeneral()->getKingdom() == "god" && player->getGeneralName() != "anjiang")
                     room->setPlayerProperty(player, "kingdom", room->askForKingdom(player));
@@ -121,6 +124,17 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
                     if (skill->getFrequency() == Skill::Limited && !skill->getLimitMark().isEmpty())
                         room->addPlayerMark(player, skill->getLimitMark());
                 }
+				if (striker_mode && striker_count > 0) {
+					QString striker = player->tag["KOFGameStriker"].toString();
+					if (!striker.isEmpty()) {
+						QString striker_skill = GameEX->getStrikerSkill(striker);
+						if (striker_skill == GameEX->getDefaultStrikerSkill())
+							room->attachSkillToPlayer(player, striker_skill);
+						else
+							room->attachSkillToPlayer(player, "call_striker");
+						room->addPlayerMark(player, "@striker", striker_count);
+					}
+				}
             }
             room->setTag("FirstRound", true);
 			bool kof_mode = room->getMode().contains("kof") && room->getMode() != "03_kof";
@@ -548,6 +562,12 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
     }
     case BuryVictim: {
         DeathStruct death = data.value<DeathStruct>();
+		QString game_mode = room->getMode();
+		
+		int striker_count = 0;
+		if (game_mode == "06_teams")
+			striker_count = player->getMark("@striker");
+
         player->bury();
 
         if (room->getTag("SkipNormalDeathProcess").toBool())
@@ -557,7 +577,6 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
         if (killer)
             rewardAndPunish(killer, player);
 
-		QString game_mode = room->getMode();
         if (game_mode.contains("kof")) {
             QStringList list = player->tag["1v1Arrange"].toStringList();
 			if (game_mode == "04_kof_2013") {
@@ -589,6 +608,7 @@ bool GameRule::trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *play
 			player->tag["1v1ChangeGeneral"] = list.takeFirst();
 			player->tag["1v1Arrange"] = list;
 			changeGeneral1v1(player);
+			room->setPlayerMark(player, "@striker", striker_count);
 			if (death.damage == NULL)
 				room->getThread()->trigger(Debut, room, player);
 			else

@@ -2875,6 +2875,13 @@ void Room::arrangeGeneralsForKOFGameMode()
 	foreach(QString name, game_info.playerB_generals) {
 		doNotify(playerB, S_COMMAND_REVEAL_GENERAL, JsonUtils::toJsonArray(QStringList() << playerB->objectName() << name));
 	}
+	// striker
+	if (!game_info.playerA_striker.isEmpty()) {
+		playerA->tag["KOFGameStriker"] = game_info.playerA_striker;
+	}
+	if (!game_info.playerB_striker.isEmpty()) {
+		playerB->tag["KOFGameStriker"] = game_info.playerB_striker;
+	}
 	_setPlayerGeneral(playerA, game_info.playerA_generals.first(), true);
 	_setPlayerGeneral(playerB, game_info.playerB_generals.first(), true);
 }
@@ -3098,7 +3105,6 @@ void Room::run()
 	}
 	else if (mode == "06_teams") {
 		arrangeGeneralsForKOFGameMode();
-		//chooseGenerals();
 		startGame();
 	}
 	else if (mode == "07_arcade") {

@@ -1936,47 +1936,49 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 #define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[70]
 #define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[71]
 #define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[72]
-#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[73]
-#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[74]
-#define SWIGTYPE_p_QListT_Player__Place_t swig_types[75]
-#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[76]
-#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[77]
-#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[78]
-#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[79]
-#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[80]
-#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[81]
-#define SWIGTYPE_p_QListT_bool_t swig_types[82]
-#define SWIGTYPE_p_QListT_int_t swig_types[83]
-#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[84]
-#define SWIGTYPE_p_QObject swig_types[85]
-#define SWIGTYPE_p_QSetT_QString_t swig_types[86]
-#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[87]
-#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[88]
-#define SWIGTYPE_p_QString swig_types[89]
-#define SWIGTYPE_p_QStringList swig_types[90]
-#define SWIGTYPE_p_QThread swig_types[91]
-#define SWIGTYPE_p_QVariant swig_types[92]
-#define SWIGTYPE_p_RankModeInfoStruct swig_types[93]
-#define SWIGTYPE_p_RecoverStruct swig_types[94]
-#define SWIGTYPE_p_Room swig_types[95]
-#define SWIGTYPE_p_RoomThread swig_types[96]
-#define SWIGTYPE_p_Scenario swig_types[97]
-#define SWIGTYPE_p_ServerPlayer swig_types[98]
-#define SWIGTYPE_p_Skill swig_types[99]
-#define SWIGTYPE_p_SkillCard swig_types[100]
-#define SWIGTYPE_p_Slash swig_types[101]
-#define SWIGTYPE_p_SlashEffectStruct swig_types[102]
-#define SWIGTYPE_p_TargetModSkill swig_types[103]
-#define SWIGTYPE_p_Treasure swig_types[104]
-#define SWIGTYPE_p_TrickCard swig_types[105]
-#define SWIGTYPE_p_TriggerSkill swig_types[106]
-#define SWIGTYPE_p_TrustAI swig_types[107]
-#define SWIGTYPE_p_ViewAsSkill swig_types[108]
-#define SWIGTYPE_p_Weapon swig_types[109]
-#define SWIGTYPE_p_WrappedCard swig_types[110]
-#define SWIGTYPE_p_lua_State swig_types[111]
-static swig_type_info *swig_types[113];
-static swig_module_info swig_module = {swig_types, 112, 0, 0, 0, 0};
+#define SWIGTYPE_p_QListT_KOFGameTeamLevel_p_t swig_types[73]
+#define SWIGTYPE_p_QListT_KOFGameTeam_p_t swig_types[74]
+#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[75]
+#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[76]
+#define SWIGTYPE_p_QListT_Player__Place_t swig_types[77]
+#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[78]
+#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[79]
+#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[80]
+#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[81]
+#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[82]
+#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[83]
+#define SWIGTYPE_p_QListT_bool_t swig_types[84]
+#define SWIGTYPE_p_QListT_int_t swig_types[85]
+#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[86]
+#define SWIGTYPE_p_QObject swig_types[87]
+#define SWIGTYPE_p_QSetT_QString_t swig_types[88]
+#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[89]
+#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[90]
+#define SWIGTYPE_p_QString swig_types[91]
+#define SWIGTYPE_p_QStringList swig_types[92]
+#define SWIGTYPE_p_QThread swig_types[93]
+#define SWIGTYPE_p_QVariant swig_types[94]
+#define SWIGTYPE_p_RankModeInfoStruct swig_types[95]
+#define SWIGTYPE_p_RecoverStruct swig_types[96]
+#define SWIGTYPE_p_Room swig_types[97]
+#define SWIGTYPE_p_RoomThread swig_types[98]
+#define SWIGTYPE_p_Scenario swig_types[99]
+#define SWIGTYPE_p_ServerPlayer swig_types[100]
+#define SWIGTYPE_p_Skill swig_types[101]
+#define SWIGTYPE_p_SkillCard swig_types[102]
+#define SWIGTYPE_p_Slash swig_types[103]
+#define SWIGTYPE_p_SlashEffectStruct swig_types[104]
+#define SWIGTYPE_p_TargetModSkill swig_types[105]
+#define SWIGTYPE_p_Treasure swig_types[106]
+#define SWIGTYPE_p_TrickCard swig_types[107]
+#define SWIGTYPE_p_TriggerSkill swig_types[108]
+#define SWIGTYPE_p_TrustAI swig_types[109]
+#define SWIGTYPE_p_ViewAsSkill swig_types[110]
+#define SWIGTYPE_p_Weapon swig_types[111]
+#define SWIGTYPE_p_WrappedCard swig_types[112]
+#define SWIGTYPE_p_lua_State swig_types[113]
+static swig_type_info *swig_types[115];
+static swig_module_info swig_module = {swig_types, 114, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -75032,6 +75034,54 @@ fail:
 }
 
 
+static int _wrap_KOFGameTeam_getDescription(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameTeam::getDescription",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::getDescription",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_getDescription",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = ((KOFGameTeam const *)arg1)->getDescription();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameTeam_hasUncertainGeneral(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameTeam *arg1 = (KOFGameTeam *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("KOFGameTeam::hasUncertainGeneral",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameTeam::hasUncertainGeneral",1,"KOFGameTeam const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameTeam,0))){
+    SWIG_fail_ptr("KOFGameTeam_hasUncertainGeneral",1,SWIGTYPE_p_KOFGameTeam);
+  }
+  
+  result = (bool)((KOFGameTeam const *)arg1)->hasUncertainGeneral();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_KOFGameTeam(void *obj) {
 KOFGameTeam *arg1 = (KOFGameTeam *) obj;
 delete arg1;
@@ -75045,6 +75095,8 @@ static swig_lua_method swig_KOFGameTeam_methods[] = {
     {"getResourcePath", _wrap_KOFGameTeam_getResourcePath}, 
     {"setOrderFixed", _wrap_KOFGameTeam_setOrderFixed}, 
     {"isOrderFixed", _wrap_KOFGameTeam_isOrderFixed}, 
+    {"getDescription", _wrap_KOFGameTeam_getDescription}, 
+    {"hasUncertainGeneral", _wrap_KOFGameTeam_hasUncertainGeneral}, 
     {0,0}
 };
 static swig_lua_attribute swig_KOFGameTeam_attributes[] = {
@@ -75484,6 +75536,232 @@ fail:
 }
 
 
+static int _wrap_KOFGameEngine_getAllLevelNames__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllLevelNames",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllLevelNames",1,"KOFGameEngine const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::getAllLevelNames",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllLevelNames",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = ((KOFGameEngine const *)arg1)->getAllLevelNames(arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllLevelNames__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllLevelNames",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllLevelNames",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllLevelNames",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getAllLevelNames();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllLevelNames(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameEngine_getAllLevelNames__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameEngine_getAllLevelNames__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getAllLevelNames'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameEngine::getAllLevelNames(bool) const\n"
+    "    KOFGameEngine::getAllLevelNames() const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameEngine_getAllLevels__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  bool arg2 ;
+  SwigValueWrapper< QList< KOFGameTeamLevel * > > result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllLevels",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllLevels",1,"KOFGameEngine const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("KOFGameEngine::getAllLevels",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllLevels",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = ((KOFGameEngine const *)arg1)->getAllLevels(arg2);
+  {
+    QList< KOFGameTeamLevel * > * resultptr = new QList< KOFGameTeamLevel * >((const QList< KOFGameTeamLevel * > &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_QListT_KOFGameTeamLevel_p_t,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllLevels__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  SwigValueWrapper< QList< KOFGameTeamLevel * > > result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllLevels",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllLevels",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllLevels",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getAllLevels();
+  {
+    QList< KOFGameTeamLevel * > * resultptr = new QList< KOFGameTeamLevel * >((const QList< KOFGameTeamLevel * > &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_QListT_KOFGameTeamLevel_p_t,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllLevels(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameEngine_getAllLevels__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameEngine_getAllLevels__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getAllLevels'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameEngine::getAllLevels(bool) const\n"
+    "    KOFGameEngine::getAllLevels() const\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_KOFGameEngine_addTeam(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
@@ -75541,6 +75819,280 @@ fail:
 }
 
 
+static int _wrap_KOFGameEngine_getAllTeamNames__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllTeamNames",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllTeamNames",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getAllTeamNames",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllTeamNames",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((KOFGameEngine const *)arg1)->getAllTeamNames((char const *)arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllTeamNames__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllTeamNames",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllTeamNames",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllTeamNames",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getAllTeamNames();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllTeamNames(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameEngine_getAllTeamNames__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameEngine_getAllTeamNames__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getAllTeamNames'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameEngine::getAllTeamNames(char const *) const\n"
+    "    KOFGameEngine::getAllTeamNames() const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameEngine_getAllTeams__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  SwigValueWrapper< QList< KOFGameTeam * > > result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllTeams",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllTeams",1,"KOFGameEngine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::getAllTeams",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllTeams",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((KOFGameEngine const *)arg1)->getAllTeams((char const *)arg2);
+  {
+    QList< KOFGameTeam * > * resultptr = new QList< KOFGameTeam * >((const QList< KOFGameTeam * > &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_QListT_KOFGameTeam_p_t,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllTeams__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  SwigValueWrapper< QList< KOFGameTeam * > > result;
+  
+  SWIG_check_num_args("KOFGameEngine::getAllTeams",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getAllTeams",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getAllTeams",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getAllTeams();
+  {
+    QList< KOFGameTeam * > * resultptr = new QList< KOFGameTeam * >((const QList< KOFGameTeam * > &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_QListT_KOFGameTeam_p_t,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getAllTeams(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_KOFGameEngine_getAllTeams__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_KOFGameEngine_getAllTeams__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getAllTeams'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    KOFGameEngine::getAllTeams(char const *) const\n"
+    "    KOFGameEngine::getAllTeams() const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_KOFGameEngine_getFreeChooseTeam(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  KOFGameTeam *result = 0 ;
+  
+  SWIG_check_num_args("KOFGameEngine::getFreeChooseTeam",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getFreeChooseTeam",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getFreeChooseTeam",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (KOFGameTeam *)((KOFGameEngine const *)arg1)->getFreeChooseTeam();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameTeam,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getFreeChooseTeamName(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("KOFGameEngine::getFreeChooseTeamName",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getFreeChooseTeamName",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getFreeChooseTeamName",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = ((KOFGameEngine const *)arg1)->getFreeChooseTeamName();
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_KOFGameEngine_addStage(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
@@ -75588,6 +76140,30 @@ static int _wrap_KOFGameEngine_getStage(lua_State* L) {
   arg2 = (int)lua_tonumber(L, 2);
   result = (KOFGameStage *)((KOFGameEngine const *)arg1)->getStage(arg2);
   SWIG_NewPointerObj(L,result,SWIGTYPE_p_KOFGameStage,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_KOFGameEngine_getStageCount(lua_State* L) {
+  int SWIG_arg = 0;
+  KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("KOFGameEngine::getStageCount",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStageCount",1,"KOFGameEngine const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
+    SWIG_fail_ptr("KOFGameEngine_getStageCount",1,SWIGTYPE_p_KOFGameEngine);
+  }
+  
+  result = (int)((KOFGameEngine const *)arg1)->getStageCount();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -75975,21 +76551,21 @@ fail:
 }
 
 
-static int _wrap_KOFGameEngine_setStrikerSkill(lua_State* L) {
+static int _wrap_KOFGameEngine_setDefaultStrikerSkill(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
   char *arg2 = (char *) 0 ;
   
-  SWIG_check_num_args("KOFGameEngine::setStrikerSkill",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setStrikerSkill",1,"KOFGameEngine *");
-  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::setStrikerSkill",2,"char const *");
+  SWIG_check_num_args("KOFGameEngine::setDefaultStrikerSkill",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::setDefaultStrikerSkill",1,"KOFGameEngine *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("KOFGameEngine::setDefaultStrikerSkill",2,"char const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
-    SWIG_fail_ptr("KOFGameEngine_setStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+    SWIG_fail_ptr("KOFGameEngine_setDefaultStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
   }
   
   arg2 = (char *)lua_tostring(L, 2);
-  (arg1)->setStrikerSkill((char const *)arg2);
+  (arg1)->setDefaultStrikerSkill((char const *)arg2);
   
   return SWIG_arg;
   
@@ -76001,19 +76577,19 @@ fail:
 }
 
 
-static int _wrap_KOFGameEngine_getStrikerSkill__SWIG_0(lua_State* L) {
+static int _wrap_KOFGameEngine_getDefaultStrikerSkill(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
   QString result;
   
-  SWIG_check_num_args("KOFGameEngine::getStrikerSkill",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getStrikerSkill",1,"KOFGameEngine const *");
+  SWIG_check_num_args("KOFGameEngine::getDefaultStrikerSkill",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("KOFGameEngine::getDefaultStrikerSkill",1,"KOFGameEngine const *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_KOFGameEngine,0))){
-    SWIG_fail_ptr("KOFGameEngine_getStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
+    SWIG_fail_ptr("KOFGameEngine_getDefaultStrikerSkill",1,SWIGTYPE_p_KOFGameEngine);
   }
   
-  result = ((KOFGameEngine const *)arg1)->getStrikerSkill();
+  result = ((KOFGameEngine const *)arg1)->getDefaultStrikerSkill();
   lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
   return SWIG_arg;
   
@@ -76304,7 +76880,7 @@ fail:
 }
 
 
-static int _wrap_KOFGameEngine_getStrikerSkill__SWIG_1(lua_State* L) {
+static int _wrap_KOFGameEngine_getStrikerSkill(lua_State* L) {
   int SWIG_arg = 0;
   KOFGameEngine *arg1 = (KOFGameEngine *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -76328,55 +76904,6 @@ static int _wrap_KOFGameEngine_getStrikerSkill__SWIG_1(lua_State* L) {
 fail:
   lua_error(L);
   return SWIG_arg;
-}
-
-
-static int _wrap_KOFGameEngine_getStrikerSkill(lua_State* L) {
-  int argc;
-  int argv[3]={
-    1,2,3
-  };
-  
-  argc = lua_gettop(L);
-  if (argc == 1) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      return _wrap_KOFGameEngine_getStrikerSkill__SWIG_0(L);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    {
-      void *ptr;
-      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_KOFGameEngine, 0)) {
-        _v = 0;
-      } else {
-        _v = 1;
-      }
-    }
-    if (_v) {
-      {
-        _v = SWIG_lua_isnilstring(L,argv[1]);
-      }
-      if (_v) {
-        return _wrap_KOFGameEngine_getStrikerSkill__SWIG_1(L);
-      }
-    }
-  }
-  
-  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'KOFGameEngine_getStrikerSkill'\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    KOFGameEngine::getStrikerSkill() const\n"
-    "    KOFGameEngine::getStrikerSkill(char const *) const\n");
-  lua_error(L);return 0;
 }
 
 
@@ -76460,10 +76987,17 @@ delete arg1;
 static swig_lua_method swig_KOFGameEngine_methods[] = {
     {"addTeamLevel", _wrap_KOFGameEngine_addTeamLevel}, 
     {"getTeamLevel", _wrap_KOFGameEngine_getTeamLevel}, 
+    {"getAllLevelNames", _wrap_KOFGameEngine_getAllLevelNames}, 
+    {"getAllLevels", _wrap_KOFGameEngine_getAllLevels}, 
     {"addTeam", _wrap_KOFGameEngine_addTeam}, 
     {"getTeam", _wrap_KOFGameEngine_getTeam}, 
+    {"getAllTeamNames", _wrap_KOFGameEngine_getAllTeamNames}, 
+    {"getAllTeams", _wrap_KOFGameEngine_getAllTeams}, 
+    {"getFreeChooseTeam", _wrap_KOFGameEngine_getFreeChooseTeam}, 
+    {"getFreeChooseTeamName", _wrap_KOFGameEngine_getFreeChooseTeamName}, 
     {"addStage", _wrap_KOFGameEngine_addStage}, 
     {"getStage", _wrap_KOFGameEngine_getStage}, 
+    {"getStageCount", _wrap_KOFGameEngine_getStageCount}, 
     {"isBossGeneral", _wrap_KOFGameEngine_isBossGeneral}, 
     {"setStartStage", _wrap_KOFGameEngine_setStartStage}, 
     {"getStartStage", _wrap_KOFGameEngine_getStartStage}, 
@@ -76479,7 +77013,8 @@ static swig_lua_method swig_KOFGameEngine_methods[] = {
     {"useStrikerMode", _wrap_KOFGameEngine_useStrikerMode}, 
     {"setStrikerCount", _wrap_KOFGameEngine_setStrikerCount}, 
     {"getStrikerCount", _wrap_KOFGameEngine_getStrikerCount}, 
-    {"setStrikerSkill", _wrap_KOFGameEngine_setStrikerSkill}, 
+    {"setDefaultStrikerSkill", _wrap_KOFGameEngine_setDefaultStrikerSkill}, 
+    {"getDefaultStrikerSkill", _wrap_KOFGameEngine_getDefaultStrikerSkill}, 
     {"setCriticalMode", _wrap_KOFGameEngine_setCriticalMode}, 
     {"useCriticalMode", _wrap_KOFGameEngine_useCriticalMode}, 
     {"setDefaultCriticalRate", _wrap_KOFGameEngine_setDefaultCriticalRate}, 
@@ -77315,6 +77850,8 @@ static swig_type_info _swigt__p_QListT_CardsMoveStruct_t = {"_p_QListT_CardsMove
 static swig_type_info _swigt__p_QListT_DelayedTrick_const_p_t = {"_p_QListT_DelayedTrick_const_p_t", "QList< DelayedTrick const * > *", 0, 0, (void*)&_wrap_class_QList_Sl_DelayedTrick_SS_const_Sm__Sg_, 0};
 static swig_type_info _swigt__p_QListT_DistanceSkill_const_p_t = {"_p_QListT_DistanceSkill_const_p_t", "QList< DistanceSkill const * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_QListT_InvaliditySkill_const_p_t = {"_p_QListT_InvaliditySkill_const_p_t", "QList< InvaliditySkill const * > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_QListT_KOFGameTeamLevel_p_t = {"_p_QListT_KOFGameTeamLevel_p_t", "QList< KOFGameTeamLevel * > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_QListT_KOFGameTeam_p_t = {"_p_QListT_KOFGameTeam_p_t", "QList< KOFGameTeam * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_QListT_MaxCardsSkill_const_p_t = {"_p_QListT_MaxCardsSkill_const_p_t", "QList< MaxCardsSkill const * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_QListT_Player__Phase_t = {"_p_QListT_Player__Phase_t", "QList< Player::Phase > *", 0, 0, (void*)&_wrap_class_QList_Sl_Player_Phase_Sg_, 0};
 static swig_type_info _swigt__p_QListT_Player__Place_t = {"_p_QListT_Player__Place_t", "QList< Player::Place > *", 0, 0, (void*)&_wrap_class_QList_Sl_Player_Place_Sg_, 0};
@@ -77429,6 +77966,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_QListT_DelayedTrick_const_p_t,
   &_swigt__p_QListT_DistanceSkill_const_p_t,
   &_swigt__p_QListT_InvaliditySkill_const_p_t,
+  &_swigt__p_QListT_KOFGameTeamLevel_p_t,
+  &_swigt__p_QListT_KOFGameTeam_p_t,
   &_swigt__p_QListT_MaxCardsSkill_const_p_t,
   &_swigt__p_QListT_Player__Phase_t,
   &_swigt__p_QListT_Player__Place_t,
@@ -77543,6 +78082,8 @@ static swig_cast_info _swigc__p_QListT_CardsMoveStruct_t[] = {  {&_swigt__p_QLis
 static swig_cast_info _swigc__p_QListT_DelayedTrick_const_p_t[] = {  {&_swigt__p_QListT_DelayedTrick_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_DistanceSkill_const_p_t[] = {  {&_swigt__p_QListT_DistanceSkill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_InvaliditySkill_const_p_t[] = {  {&_swigt__p_QListT_InvaliditySkill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QListT_KOFGameTeamLevel_p_t[] = {  {&_swigt__p_QListT_KOFGameTeamLevel_p_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QListT_KOFGameTeam_p_t[] = {  {&_swigt__p_QListT_KOFGameTeam_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_MaxCardsSkill_const_p_t[] = {  {&_swigt__p_QListT_MaxCardsSkill_const_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_Player__Phase_t[] = {  {&_swigt__p_QListT_Player__Phase_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_QListT_Player__Place_t[] = {  {&_swigt__p_QListT_Player__Place_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -77657,6 +78198,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_QListT_DelayedTrick_const_p_t,
   _swigc__p_QListT_DistanceSkill_const_p_t,
   _swigc__p_QListT_InvaliditySkill_const_p_t,
+  _swigc__p_QListT_KOFGameTeamLevel_p_t,
+  _swigc__p_QListT_KOFGameTeam_p_t,
   _swigc__p_QListT_MaxCardsSkill_const_p_t,
   _swigc__p_QListT_Player__Phase_t,
   _swigc__p_QListT_Player__Place_t,
