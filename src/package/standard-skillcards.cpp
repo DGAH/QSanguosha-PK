@@ -8,6 +8,7 @@
 ZhihengCard::ZhihengCard()
 {
     target_fixed = true;
+	m_skillName = "zhiheng";
     mute = true;
 }
 
@@ -24,6 +25,7 @@ HuanhuoCard::HuanhuoCard()
 {
 	mute = true;
 	will_throw = true;
+	m_skillName = "crhuanhuo";
 	handling_method = Card::MethodNone;
 }
 
@@ -190,4 +192,5 @@ void KOFGameYuanHuCard::use(Room *room, ServerPlayer *source, QList<ServerPlayer
 	source->tag["StrikerSkill"] = skill;
 	room->acquireSkill(source, skill);
 	source->loseMark("@striker");
+	room->setPlayerMark(source, "KOFGameCallStriker", 1);
 }

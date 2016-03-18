@@ -722,9 +722,9 @@ public:
 		return new KOFGameYuanHuCard;
 	}
 
-	virtual bool isEnabledAtPlay(ServerPlayer *player) const
+	virtual bool isEnabledAtPlay(const Player *player) const
 	{
-		return player->getMark("@striker") > 0;
+		return player->getMark("@striker") > 0 && player->getMark("KOFGameCallStriker") == 0;
 	}
 };
 
@@ -733,21 +733,26 @@ class KOFGameYuanHuGlobalEffect : public TriggerSkill
 public:
 	KOFGameYuanHuGlobalEffect() : TriggerSkill("striker_manager")
 	{
-		events << CardUsed << EventPhaseStart;
+		events << CardUsed << EventPhaseStart << EventLoseSkill;
 		global = true;
 	}
 
-	virtual bool trigger(TriggerEvent , Room *room, ServerPlayer *player, QVariant &) const
+	virtual bool trigger(TriggerEvent triggerEvent, Room *room, ServerPlayer *player, QVariant &data) const
 	{
 		QString striker_skill = player->tag["StrikerSkill"].toString();
-		room->detachSkillFromPlayer(player, striker_skill, false, true);
+		if ((triggerEvent == EventLoseSkill) && (data.toString() != striker_skill))
+			return false;
 		player->tag["StrikerSkill"] = "";
+		room->setPlayerMark(player, "KOFGameCallStriker", 0);
+		if (striker_skill.isEmpty())
+			return false;
+		room->detachSkillFromPlayer(player, striker_skill, false, true);
 		return false;
 	}
 
 	virtual bool triggerable(ServerPlayer *target) const
 	{
-		return target && !target->tag["StrikerSkill"].toString().isEmpty();
+		return target && target->getMark("KOFGameCallStriker") > 0;
 	}
 
 	virtual int getPriority() const
