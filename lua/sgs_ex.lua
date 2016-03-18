@@ -1,5 +1,11 @@
 -- this script file defines all functions written by Lua
 
+lua_cards = {}
+lua_skills = {}
+lua_vs_skills = {}
+lua_generals = {}
+lua_packages = {}
+
 on_trigger_default = function(self, event, player, data)
 	return false
 end
@@ -285,7 +291,7 @@ function sgs.CreateSkillCard(spec)
 	card.on_effect = spec.on_effect
 	card.on_validate = spec.on_validate
 	card.on_validate_in_response = spec.on_validate_in_response
-
+	table.insert(lua_cards, card)
 	return card
 end
 
@@ -312,7 +318,7 @@ function sgs.CreateBasicCard(spec)
 	card.about_to_use = spec.about_to_use
 	card.on_use = spec.on_use
 	card.on_effect = spec.on_effect
-
+	table.insert(lua_cards, card)
 	return card
 end
 
@@ -533,7 +539,7 @@ function sgs.CreateTrickCard(spec)
 	card.about_to_use = spec.about_to_use
 	card.on_use = spec.on_use
 	card.on_effect = spec.on_effect
-
+	table.insert(lua_cards, card)
 	return card
 end
 
@@ -708,8 +714,6 @@ function sgs.CreateGeneralLevel(spec)
 	return level
 end
 
-lua_skills = {}
-
 function sgs.CreateLuaSkill(info)
 	local class = type(info.class) == "string" and info.class or "DummySkill"
 	local method = sgs["Create"..class]
@@ -769,11 +773,17 @@ function sgs.CreateLuaSkill(info)
 					end
 				end
 			end
-			table.insert(lua_skills, skill)
+			if skill:inherits("ViewAsSkill") then
+				table.insert(lua_vs_skills, skill)
+			else
+				table.insert(lua_skills, skill)
+			end
 			return skill
 		end
 	end
-	return sgs.CreateDummySkill(info)
+	local dsk = sgs.CreateDummySkill(info)
+	table.insert(lua_skills, dsk)
+	return dsk
 end
 
 local function addSkillToGeneral(general, skill)
@@ -948,12 +958,11 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.last_word) == "string" then
 			sgs.AddTranslationEntry("~"..info.name, info.last_word)
 		end
+		table.insert(lua_generals, general)
 		return general
 	end
 	return info
 end
-
-lua_package_items = {}
 
 function sgs.CreateLuaPackage(info)
 	if type(info.name) == "string" then
@@ -980,7 +989,6 @@ function sgs.CreateLuaPackage(info)
 			for _,general in ipairs(info.generals) do
 				if type(general) == "userdata" and general:inherits("General") then
 					pack:addGeneral(general)
-					table.insert(lua_package_items, general)
 				end
 			end
 		end
@@ -988,7 +996,6 @@ function sgs.CreateLuaPackage(info)
 			for _,card in ipairs(info.cards) do
 				if type(card) == "userdata" and card:inherits("Card") then
 					pack:addCard(card)
-					table.insert(lua_package_items, card)
 				end
 			end
 		end
@@ -996,10 +1003,10 @@ function sgs.CreateLuaPackage(info)
 			for _,skill in ipairs(info.skills) do
 				if type(skill) == "userdata" and skill:inherits("Skill") then
 					pack:addSkill(skill)
-					table.insert(lua_package_items, skill)
 				end
 			end
 		end
+		table.insert(lua_packages, pack)
 		return pack
 	end
 	return info

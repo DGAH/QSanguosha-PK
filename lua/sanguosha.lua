@@ -6,8 +6,6 @@ dofile "lua/utilities.lua"
 dofile "lua/sgs_ex.lua"
 dofile "lua/levels.lua"
 
-lua_packages = {}
-lua_generals = {}
 global_path = "lua"
 
 function load_translation(file)
@@ -38,6 +36,7 @@ function load_extensions()
 		return false
 	end
 	global_path = "extensions"
+	local names = {}
 	for _,name in pairs(list) do
 		global_path = "extensions/"..name
 		local pack = dofile(string.format("extensions/%s/%s.lua", name, name))
@@ -45,25 +44,23 @@ function load_extensions()
 			pack = sgs.CreateLuaPackage(pack)
 		end
 		if type(pack) == "userdata" and pack:inherits("Package") then
-			table.insert(lua_packages, pack)
+			table.insert(names, pack:objectName())
+			sgs.Sanguosha:addPackage(pack)
 		elseif type(pack) == "table" then
 			for k, v in pairs(pack) do
 				if type(k) == "userdata" and k:inherits("Package") then
 					if type(v) == "boolean" and v then
-						table.insert(lua_packages, k)
+						table.insert(names, k:objectName())
+						sgs.Sanguosha:addPackage(k)
 					end
 				elseif type(k) == "number" and type(v) == "userdata" and v:inherits("Package") then
-					table.insert(lua_packages, v)
+					table.insert(names, v:objectName())
+					sgs.Sanguosha:addPackage(v)
 				end
 			end
 		end
 	end
 	global_path = "extensions"
-	local names = {}
-	for _,pack in ipairs(lua_packages) do
-		table.insert(names, pack:objectName())
-		sgs.Sanguosha:addPackage(pack)
-	end
 	sgs.SetConfig("LuaPackages", table.concat(names, "+"))
 	return true
 end
@@ -82,23 +79,20 @@ function load_generals()
 			general = sgs.CreateLuaGeneral(general)
 		end
 		if type(general) == "userdata" and general:inherits("General") then
-			table.insert(lua_generals, general)
+			sgs.Sanguosha:addGeneral(general)
 		elseif type(general) == "table" then
 			for k, v in pairs(general) do
 				if type(k) == "userdata" and k:inherits("General") then
 					if type(v) == "boolean" and v then
-						table.insert(lua_generals, k)
+						sgs.Sanguosha:addGeneral(k)
 					end
 				elseif type(k) == "number" and type(v) == "userdata" and v:inherits("General") then
-					table.insert(lua_generals, v)
+					sgs.Sanguosha:addGeneral(v)
 				end
 			end
 		end
 	end
 	global_path = "generals"
-	for _,general in ipairs(lua_generals) do
-		sgs.Sanguosha:addGeneral(general)
-	end
 	return true
 end
 
