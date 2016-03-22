@@ -1,463 +1,101 @@
--- this script file defines all functions written by Lua
-
-lua_cards = {}
-lua_skills = {}
-lua_vs_skills = {}
-lua_generals = {}
-lua_packages = {}
-
-on_trigger_default = function(self, event, player, data)
+--[[
+	太阳神三国杀武将单挑对战平台·Lua扩展入口文件
+]]--
+ex = {}
+ex_packages = {}
+ex_generals = {}
+ex_skills = {}
+ex_cards = {}
+ex_levels = {}
+--[[****************************************************************
+	添加翻译
+]]--****************************************************************
+function sgs.LoadTranslationTable(t)
+	for key, value in pairs(t) do
+		sgs.AddTranslationEntry(key, value)
+	end
+end
+--[[****************************************************************
+	缺省函数
+]]--****************************************************************
+function TriggerSkill_OnTrigger(skill, event, player, data)
 	return false
 end
-
--- trigger skills
-function sgs.CreateTriggerSkill(spec)
-	assert(type(spec.name) == "string")
-	if spec.frequency then assert(type(spec.frequency) == "number") end
-	if spec.limit_mark then assert(type(spec.limit_mark) == "string") end
-	
-	local frequency = spec.frequency or sgs.Skill_NotFrequent
-	local limit_mark = spec.limit_mark or ""
-	local skill = sgs.LuaTriggerSkill(spec.name, frequency, limit_mark)
-	
-	if type(spec.guhuo_type) == "string" and spec.guhuo_type ~= "" then skill:setGuhuoDialog(guhuo_type) end
-
-	if type(spec.events) == "number" then
-		skill:addEvent(spec.events)
-	elseif type(spec.events) == "table" then
-		for _, event in ipairs(spec.events) do
-			skill:addEvent(event)
-		end
-	end
-
-	if type(spec.global) == "boolean" then skill:setGlobal(spec.global) end
-
-	if type(spec.on_trigger) == "function" then
-		skill.on_trigger = spec.on_trigger
-	else
-		skill.on_trigger = on_trigger_default
-	end
-
-	if spec.can_trigger then
-		skill.can_trigger = spec.can_trigger
-	end
-	if spec.view_as_skill then
-		skill:setViewAsSkill(spec.view_as_skill)
-	end
-	if type(spec.priority) == "number" then
-		skill.priority = spec.priority
-	elseif type(spec.priority) == "table" then
-		for triggerEvent, priority in pairs(spec.priority) do
-			skill:insertPriorityTable(triggerEvent, priority)
-		end
-	end
-    if type(dynamic_frequency) == "function" then
-        skill.dynamic_frequency = spec.dynamic_frequency
-    end
-	return skill
-end
-
-function sgs.CreateDummySkill(spec)
-	assert(type(spec.name) == "string")
-	return sgs.LuaDummySkill(spec.name, spec.frequency or sgs.Skill_Compulsory)
-end
-
-function sgs.CreateProhibitSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.is_prohibited) == "function")
-
-	local skill = sgs.LuaProhibitSkill(spec.name)
-	skill.is_prohibited = spec.is_prohibited
-
-	return skill
-end
-
-function sgs.CreateFilterSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.view_filter) == "function")
-	assert(type(spec.view_as) == "function")
-
-	local skill = sgs.LuaFilterSkill(spec.name)
-	skill.view_filter = spec.view_filter
-	skill.view_as = spec.view_as
-
-	return skill
-end
-
-function sgs.CreateDistanceSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.correct_func) == "function")
-
-	local skill = sgs.LuaDistanceSkill(spec.name)
-	skill.correct_func = spec.correct_func
-
-	return skill
-end
-
-function sgs.CreateMaxCardsSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.extra_func) == "function" or type(spec.fixed_func) == "function")
-
-	local skill = sgs.LuaMaxCardsSkill(spec.name)
-	if spec.extra_func then
-		skill.extra_func = spec.extra_func
-	else
-		skill.fixed_func = spec.fixed_func
-	end
-
-	return skill
-end
-
-function sgs.CreateTargetModSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.residue_func) == "function" or type(spec.distance_limit_func) == "function" or type(spec.extra_target_func) == "function")
-	if spec.pattern then assert(type(spec.pattern) == "string") end
-
-	local skill = sgs.LuaTargetModSkill(spec.name, spec.pattern or "Slash")
-	if spec.residue_func then
-		skill.residue_func = spec.residue_func
-	end
-	if spec.distance_limit_func then
-		skill.distance_limit_func = spec.distance_limit_func
-	end
-	if spec.extra_target_func then
-		skill.extra_target_func = spec.extra_target_func
-	end
-
-	return skill
-end
-
-function sgs.CreateInvaliditySkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.skill_valid) == "function")
-
-	local skill = sgs.LuaInvaliditySkill(spec.name)
-	skill.skill_valid = spec.skill_valid
-
-	return skill
-end
-
-function sgs.CreateAttackRangeSkill(spec)
-	assert(type(spec.name) == "string")
-	assert(type(spec.extra_func) == "function" or type(spec.fixed.func) == "function")
-
-	local skill = sgs.LuaAttackRangeSkill(spec.name)
-
-	if spec.extra_func then
-		skill.extra_func = spec.extra_func or 0
-	end
-	if spec.fixed_func then
-		skill.fixed_func = spec.fixed_func or -1
-	end
-
-	return skill
-end
-
-function sgs.CreateMasochismSkill(spec)
-	assert(type(spec.on_damaged) == "function")
-
-	spec.events = sgs.Damaged
-
-	function spec.on_trigger(skill, event, player, data)
-		local damage = data:toDamage()
-		spec.on_damaged(skill, player, damage)
-		return false
-	end
-	
-	return sgs.CreateTriggerSkill(spec)
-end
-
-function sgs.CreatePhaseChangeSkill(spec)
-	assert(type(spec.on_phasechange) == "function")
-
-	spec.events = sgs.EventPhaseStart
-
-	function spec.on_trigger(skill, event, player, data)
-		return spec.on_phasechange(skill, player)
-	end
-
-	return sgs.CreateTriggerSkill(spec)
-end
-
-function sgs.CreateDrawCardsSkill(spec)
-	assert(type(spec.draw_num_func) == "function")
-
-	if spec.is_initial then spec.events = sgs.DrawNCards else spec.events = sgs.DrawInitialCards end
-
-	function spec.on_trigger(skill, event, player, data)
-		local n = data:toInt()
-		local nn = spec.draw_num_func(skill, player, n)
-		data:setValue(nn)
-		return false
-	end
-
-	return sgs.CreateTriggerSkill(spec)
-end
-
-function sgs.CreateGameStartSkill(spec)
-	assert(type(spec.on_gamestart) == "function")
-
-	spec.events = sgs.GameStart
-
-	function spec.on_trigger(skill, event, player, data)
-		spec.on_gamestart(skill, player)
-		return false
-	end
-
-	return sgs.CreateTriggerSkill(spec)
-end
-
-function sgs.CreateDetachEffectSkill(spec)
-	assert(type(spec.on_skill_detached) == "function")
-	
-	spec.events = sgs.EventLoseSkill
-	
-	function spec.on_trigger(skill, event, player, data)
-		spec.on_skill_detached(skill, player:getRoom(), player)
-		return false
-	end
-	
-	function spec.can_trigger(skill, target)
-		return target ~= nil
-	end
-	
-	return sgs.CreateTriggerSkill(spec)
-end
-
-function sgs.CreateMarkAssignSkill(spec)
-	assert(type(spec.mark) == "string")
-	spec.n = spec.n or 1
-	assert(type(spec.n) == "number")
-	spec.name = spec.name or string.format("#%s-%d", spec.mark, spec.n)
-	
-	spec.events = sgs.GameStart
-	
-	spec.on_trigger = function(skill, event, player, data)
-		player:gainMark(spec.mark, spec.n)
-		return false
-	end
-	
-	return sgs.CreateTriggerSkill(spec)
-end
-
---------------------------------------------
-
--- skill cards
-
-function sgs.CreateSkillCard(spec)
-	assert(spec.name)
-	if spec.skill_name then assert(type(spec.skill_name) == "string") end
-
-	local card = sgs.LuaSkillCard(spec.name, spec.skill_name)
-
-	if type(spec.target_fixed) == "boolean" then
-		card:setTargetFixed(spec.target_fixed)
-	end
-
-	if type(spec.will_throw) == "boolean" then
-		card:setWillThrow(spec.will_throw)
-	end
-
-	if type(spec.can_recast) == "boolean" then
-		card:setCanRecast(spec.can_recast)
-	end
-		
-	if type(spec.handling_method) == "number" then
-		card:setHandlingMethod(spec.handling_method)
-	end
-
-	if type(spec.mute) == "boolean" then
-		card:setMute(spec.mute)
-	end
-
-	if type(spec.filter) == "function" then
-		function card:filter(...)
-			local result,vote = spec.filter(self,...)
-			if type(result) == "boolean" and type(vote) == "number" then
-				return result,vote
-			elseif type(result) == "boolean" and vote == nil then
-				if result then vote = 1 else vote = 0 end
-				return result,vote
-			elseif type(result) == "number" then
-				return result > 0,result
-			else
-				return false,0
-			end
-		end
-	end
-	card.feasible = spec.feasible
-	card.about_to_use = spec.about_to_use
-	card.on_use = spec.on_use
-	card.on_effect = spec.on_effect
-	card.on_validate = spec.on_validate
-	card.on_validate_in_response = spec.on_validate_in_response
-	table.insert(lua_cards, card)
-	return card
-end
-
-function sgs.CreateBasicCard(spec)
-	assert(type(spec.name) == "string" or type(spec.class_name) == "string")
-	if not spec.name then spec.name = spec.class_name
-	elseif not spec.class_name then spec.class_name = spec.name end
-	if spec.suit then assert(type(spec.suit) == "number") end
-	if spec.number then assert(type(spec.number) == "number") end
-	if spec.subtype then assert(type(spec.subtype) == "string") end
-	local card = sgs.LuaBasicCard(spec.suit or sgs.Card_NoSuit, spec.number or 0, spec.name, spec.class_name, spec.subtype or "BasicCard")
-
-	if type(spec.target_fixed) == "boolean" then
-		card:setTargetFixed(spec.target_fixed)
-	end
-
-	if type(spec.can_recast) == "boolean" then
-		card:setCanRecast(spec.can_recast)
-	end
-
-	card.filter = spec.filter
-	card.feasible = spec.feasible
-	card.available = spec.available
-	card.about_to_use = spec.about_to_use
-	card.on_use = spec.on_use
-	card.on_effect = spec.on_effect
-	table.insert(lua_cards, card)
-	return card
-end
-
--- ============================================
--- default functions for Trick cards
-
-function isAvailable_AOE(self, player)
-	local canUse = false
-	local players = player:getSiblings()
-	for _, p in sgs.qlist(players) do
-		if p:isDead() or player:isProhibited(p, self) then continue end
-		canUse = true
-		break
-	end
-	return canUse and self:cardIsAvailable(player)
-end
-
-function onUse_AOE(self, room, card_use)
-	local source = card_use.from
-	local targets = sgs.SPlayerList()
-	local other_players = room:getOtherPlayers(source)
-	for _, player in sgs.qlist(other_players) do
-		local skill = room:isProhibited(source, player, self)
-		if skill ~= nil then
-			local log_message = sgs.LogMessage()
-			log_message.type = "#SkillAvoid"
-			log_message.from = player
-			log_message.arg = skill:objectName()
-			log_message.arg2 = self:objectName()
-			room:broadcastSkillInvoke(skill:objectName())
-		else
-			targets:append(player)
-		end
-	end
-
-	local use = card_use
-	use.to = targets
-	self:cardOnUse(room, use)
-end
-
-function isAvailable_GlobalEffect(self, player)
-	local canUse = false
-	local players = player:getSiblings()
-	players:append(player)
-	for _, p in sgs.qlist(players) do
-		if p:isDead() or player:isProhibited(p, self) then continue end
-		canUse = true
-		break
-	end
-	return canUse and self:cardIsAvailable(player)
-end
-
-function onUse_GlobalEffect(self, room, card_use)
-	local source = card_use.from
-	local targets = sgs.SPlayerList()
-	local all_players = room:getAllPlayers()
-	for _, player in sgs.qlist(all_players) do
-		local skill = room:isProhibited(source, player, self)
-		if skill ~= nil then
-			local log_message = sgs.LogMessage()
-			log_message.type = "#SkillAvoid"
-			log_message.from = player
-			log_message.arg = skill:objectName()
-			log_message.arg2 = self:objectName()
-			room:broadcastSkillInvoke(skill:objectName())
-		else
-			targets:append(player)
-		end
-	end
-
-	local use = card_use
-	use.to = targets
-	self:cardOnUse(room, use)
-end
-
-function onUse_DelayedTrick(self, room, card_use)
-	local use = card_use
-	local wrapped = sgs.Sanguosha:getWrappedCard(self:getEffectiveId())
-	use.card = wrapped
-
+function LuaDelayedTrick_AboutToUse(trick, room, use)
+	local id = trick:getEffectiveId()
+	local wrapped = sgs.Sanguosha:getWrappedCard(id)
+	local new_use = use
+	new_use.card = wrapped
 	local data = sgs.QVariant()
-	data:setValue(use)
+	data:setValue(new_use)
+	local user = use.from
+	local targets = use.to
+	local target = targets:first()
 	local thread = room:getThread()
-	thread:trigger(sgs.PreCardUsed, room, use.from, data)
-	use = data:toCardUse()
-
-	local logm = sgs.LogMessage()
-	logm.from = use.from
-	logm.to = use.to
-	logm.type = "#UseCard"
-	logm.card_str = self:toString()
-	room:sendLog(logm)
-
-	local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_USE, use.from:objectName(), use.to:first():objectName(), self:getSkillName(), "")
-	room:moveCardTo(self, use.from, use.to:first(), sgs.Player_PlaceDelayedTrick, reason, true)
-
-	thread:trigger(sgs.CardUsed, room, use.from, data)
-	use = data:toCardUse()
-	thread:trigger(sgs.CardFinished, room, use.from, data)
+	thread:trigger(sgs.PreCardUsed, room, user, data)
+	new_use = data:toCardUse()
+	local msg = sgs.LogMessage()
+	msg.type = "#UseCard"
+	msg.from = user
+	msg.to = targets
+	msg.card_str = trick:toString()
+	room:sendLog(msg)
+	local reason = sgs.CardMoveReason(
+		sgs.CardMoveReason_S_REASON_USE, 
+		user:objectName(), 
+		target:objectName(), 
+		trick:getSkillName(), 
+		""
+	)
+	room:moveCardTo(trick, user, target, sgs.Player_PlaceDelayedTrick, reason, true)
+	thread:trigger(sgs.CardUsed, room, user, data)
+	new_use = data:toCardUse()
+	thread:trigger(sgs.CardFinished, room, user, data)
 end
-
-function use_DelayedTrick(self, room, source, targets)
+function LuaDelayedTrick_OnUse(trick, room, user, targets)
 	if #targets == 0 then
-		local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_USE, source:objectName(), "", self:getSkillName(), "")
-		room:moveCardTo(self, room:getCardOwner(self:getEffectiveId()), nil, sgs.Player_DiscardPile, reason, true)
+		local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_USE, user:objectName(), "", self:getSkillName(), "")
+		local id = trick:getEffectiveId()
+		local owner = room:getCardOwner(id)
+		room:moveCardTo(self, owner, nil, sgs.Player_DiscardPile, reason, true)
 	end
 end
-
-function onNullified_DelayedTrick_movable(self, target)
+function LuaDelayedTrick_OnNullified_Movable(trick, target)
 	local room = target:getRoom()
 	local thread = room:getThread()
-	local players = room:getOtherPlayers(target)
-	players:append(target)
+	local alives = room:getOtherPlayers(target)
+	alives:append(target)
 	local p = nil
-
-	for _, player in sgs.qlist(players) do
-		if player:containsTrick(self:objectName()) then continue end
-
-		local skill = room:isProhibited(target, player, self)
-		if skill then
-			local logm = sgs.LogMessage()
-			logm.type = "#SkillAvoid"
-			logm.from = player
-			logm.arg = skill:objectName()
-			logm.arg2 = self:objectName()
-			room:sendLog(logm)
-
-			room:broadcastSkillInvoke(skill:objectName())
+	for _, player in sgs.qlist(alives) do
+		if player:containsTrick(trick:objectName()) then
 			continue
 		end
-
-		local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_TRANSFER, target:objectName(), "", self:getSkillName(), "")
-		room:moveCardTo(self, target, player, sgs.Player_PlaceDelayedTrick, reason, true)
-		if target:objectName() == player:objectName() then break end
-
+		local skill = room:isProhibited(target, player, trick)
+		if skill then
+			room:broadcastSkillInvoke(skill:objectName())
+			local msg = sgs.LogMessage()
+			msg.type = "#SkillAvoid"
+			msg.from = player
+			msg.arg = skill:objectName()
+			msg.arg2 = trick:objectName()
+			room:sendLog(msg)
+			continue
+		end
+		local reason = sgs.CardMoveReason(
+			sgs.CardMoveReason_S_REASON_TRANSFER, 
+			target:objectName(), 
+			"", 
+			trick:getSkillName(), 
+			""
+		)
+		room:moveCardTo(trick, target, player, sgs.Player_PlaceDelayedTrick, reason, true)
+		if target:objectName() == player:objectName() then 
+			break 
+		end
 		local use = sgs.CardUseStruct()
 		use.from = nil
 		use.to:append(player)
-		use.card = self
+		use.card = trick
 		local data = sgs.QVariant()
 		data:setValue(use)
 		thread:trigger(sgs.TargetConfirming, room, player, data)
@@ -471,337 +109,228 @@ function onNullified_DelayedTrick_movable(self, target)
 		end
 		break
 	end
-	if p then self:on_nullified(p) end
+	if p then 
+		trick:on_nullified(p) 
+	end
 end
-
-function onNullified_DelayedTrick_unmovable(self, target)
+function LuaDelayedTrick_OnNullified_Unmovable(trick, target)
 	local reason = sgs.CardMoveReason(sgs.CardMoveReason_S_REASON_NATURAL_ENTER, target:objectName())
-	target:getRoom():throwCard(self, reason, nil)
+	local room = target:getRoom()
+	room:throwCard(trick, reason, nil)
 end
-
--- ============================================
-
-function sgs.CreateTrickCard(spec)
-	assert(type(spec.name) == "string" or type(spec.class_name) == "string")
-	if not spec.name then spec.name = spec.class_name
-	elseif not spec.class_name then spec.class_name = spec.name end
-	if spec.suit then assert(type(spec.suit) == "number") end
-	if spec.number then assert(type(spec.number) == "number") end
-
-	if spec.subtype then
-		assert(type(spec.subtype) == "string")
-	else
-		local subtype_table = { "TrickCard", "single_target_trick", "delayed_trick", "aoe", "global_effect" }
-		spec.subtype = subtype_table[(spec.subclass or 0) + 1]
-	end
-
-	local card = sgs.LuaTrickCard(spec.suit or sgs.Card_NoSuit, spec.number or 0, spec.name, spec.class_name, spec.subtype)
-
-	if type(spec.target_fixed) == "boolean" then
-		card:setTargetFixed(spec.target_fixed)
-	end
-
-	if type(spec.can_recast) == "boolean" then
-		card:setCanRecast(spec.can_recast)
-	end
-
-	if type(spec.subclass) == "number" then
-		card:setSubClass(spec.subclass)
-	else
-		card:setSubClass(sgs.LuaTrickCard_TypeNormal)
-	end
-
-	if spec.subclass then
-		if spec.subclass == sgs.LuaTrickCard_TypeDelayedTrick then
-			if not spec.about_to_use then spec.about_to_use = onUse_DelayedTrick end
-			if not spec.on_use then spec.on_use = use_DelayedTrick end
-			if not spec.on_nullified then
-				if spec.movable then spec.on_nullified = onNullified_DelayedTrick_movable
-				else spec.on_nullified = onNullified_DelayedTrick_unmovable
-				end
-			end
-		elseif spec.subclass == sgs.LuaTrickCard_TypeAOE then
-			if not spec.available then spec.available = isAvailable_AOE end
-			if not spec.about_to_use then spec.about_to_use = onUse_AOE end
-			if not spec.target_fixed then card:setTargetFixed(true) end
-		elseif spec.subclass == sgs.LuaTrickCard_TypeGlobalEffect then
-			if not spec.available then spec.available = isAvailable_GlobalEffect end
-			if not spec.about_to_use then spec.about_to_use = onUse_GlobalEffect end
-			if not spec.target_fixed then card:setTargetFixed(true) end
+function LuaAOE_Available(aoe, user)
+	local avail = false
+	local others = user:getSiblings()
+	for _,p in sgs.qlist(others) do
+		if p:isDead() or user:isProhibited(p, aoe) then
+		else
+			avail = true
+			break
 		end
 	end
-
-	card.filter = spec.filter
-	card.feasible = spec.feasible
-	card.available = spec.available
-	card.is_cancelable = spec.is_cancelable
-	card.on_nullified = spec.on_nullified
-	card.about_to_use = spec.about_to_use
-	card.on_use = spec.on_use
-	card.on_effect = spec.on_effect
-	table.insert(lua_cards, card)
-	return card
+	return avail and aoe:cardIsAvailable(user)
 end
-
-function sgs.CreateViewAsSkill(spec)
-	assert(type(spec.name) == "string")
-	if spec.response_pattern then assert(type(spec.response_pattern) == "string") end
-	local response_pattern = spec.response_pattern or ""
-	local response_or_use = spec.response_or_use or false
-	if spec.expand_pile then assert(type(spec.expand_pile) == "string") end
-	local expand_pile = spec.expand_pile or ""
-
-	local skill = sgs.LuaViewAsSkill(spec.name, response_pattern, response_or_use, expand_pile)
-	local n = spec.n or 0
-
-	function skill:view_as(cards)
-		return spec.view_as(self, cards)
-	end
-
-	function skill:view_filter(selected, to_select)
-		if #selected >= n then return false end
-		return spec.view_filter(self, selected, to_select)
-	end
-	if type(spec.guhuo_type) == "string" and spec.guhuo_type ~= "" then skill:setGuhuoDialog(guhuo_type) end
-
-	skill.should_be_visible = spec.should_be_visible
-	skill.effect_index = spec.effect_index
-	skill.enabled_at_play = spec.enabled_at_play
-	skill.enabled_at_response = spec.enabled_at_response
-	skill.enabled_at_nullification = spec.enabled_at_nullification
-
-	return skill
-end
-
-function sgs.CreateOneCardViewAsSkill(spec)
-	assert(type(spec.name) == "string")
-	if spec.response_pattern then assert(type(spec.response_pattern) == "string") end
-	local response_pattern = spec.response_pattern or ""
-	local response_or_use = spec.response_or_use or false
-	if spec.filter_pattern then assert(type(spec.filter_pattern) == "string") end
-	if spec.expand_pile then assert(type(spec.expand_pile) == "string") end
-	local expand_pile = spec.expand_pile or ""
-
-	local skill = sgs.LuaViewAsSkill(spec.name, response_pattern, response_or_use, expand_pile)
-	
-	if type(spec.guhuo_type) == "string" and spec.guhuo_type ~= "" then skill:setGuhuoDialog(guhuo_type) end
-
-	function skill:view_as(cards)
-		if #cards ~= 1 then return nil end
-		return spec.view_as(self, cards[1])
-	end
-
-	function skill:view_filter(selected, to_select)
-		if #selected >= 1 or to_select:hasFlag("using") then return false end
-		if spec.view_filter then return spec.view_filter(self, to_select) end
-		if spec.filter_pattern then
-			local pat = spec.filter_pattern
-			if string.endsWith(pat, "!") then
-				if sgs.Self:isJilei(to_select) then return false end
-				pat = string.sub(pat, 1, -2)
-			end
-			return sgs.Sanguosha:matchExpPattern(pat, sgs.Self, to_select)
+function LuaAOE_AboutToUse(aoe, room, use)
+	local user = use.from
+	local targets = sgs.SPlayerList()
+	local others = room:getOtherPlayers(user)
+	for _,p in sgs.qlist(others) do
+		local skill = room:isProhibited(user, p, aoe)
+		if skill then
+			room:broadcastSkillInvoke(skill:objectName())
+			local msg = sgs.LogMessage()
+			msg.type = "#SkillAvoid"
+			msg.from = p
+			msg.arg = skill:objectName()
+			msg.arg2 = aoe:objectName()
+		else
+			targets:append(p)
 		end
 	end
-
-	skill.enabled_at_play = spec.enabled_at_play
-	skill.enabled_at_response = spec.enabled_at_response
-	skill.enabled_at_nullification = spec.enabled_at_nullification
-
-	return skill
+	local new_use = use
+	new_use.to = targets
+	aoe:cardOnUse(room, new_use)
 end
-
-function sgs.CreateZeroCardViewAsSkill(spec)
-	assert(type(spec.name) == "string")
-	if spec.response_pattern then assert(type(spec.response_pattern) == "string") end
-	local response_pattern = spec.response_pattern or ""
-	local response_or_use = spec.response_or_use or false
-
-	local skill = sgs.LuaViewAsSkill(spec.name, response_pattern, response_or_use, "")
-
-	if type(spec.guhuo_type) == "string" and spec.guhuo_type ~= "" then skill:setGuhuoDialog(guhuo_type) end
-	
-	function skill:view_as(cards)
-		if #cards > 0 then return nil end
-		return spec.view_as(self)
-	end
-
-	function skill:view_filter(selected, to_select)
-		return false
-	end
-
-	skill.enabled_at_play = spec.enabled_at_play
-	skill.enabled_at_response = spec.enabled_at_response
-	skill.enabled_at_nullification = spec.enabled_at_nullification
-
-	return skill
-end
-
-function sgs.CreateEquipCard(spec)
-	assert(type(spec.location) == "number" and spec.location ~= sgs.EquipCard_DefensiveHorseLocation and spec.location ~= sgs.EquipCard_OffensiveHorseLocation)
-	assert(type(spec.name) == "string" or type(spec.class_name) == "string")
-	if not spec.name then spec.name = spec.class_name
-	elseif not spec.class_name then spec.class_name = spec.name end
-	if spec.suit then assert(type(spec.suit) == "number") end
-	if spec.number then assert(type(spec.number) == "number") end
-	if spec.location == sgs.EquipCard_WeaponLocation then assert(type(spec.range) == "number") end
-
-	local card = nil
-	if spec.location == sgs.EquipCard_WeaponLocation then
-		card = sgs.LuaWeapon(spec.suit or sgs.Card_NoSuit, spec.number or 0, spec.range, spec.name, spec.class_name)
-	elseif spec.location == sgs.EquipCard_ArmorLocation then
-		card = sgs.LuaArmor(spec.suit or sgs.Card_NoSuit, spec.number or 0, spec.name, spec.class_name)
-	elseif spec.location == sgs.EquipCard_TreasureLocation then
-		card = sgs.LuaTreasure(spec.suit or sgs.Card_NoSuit, spec.number or 0, spec.name, spec.class_name)
-	end
-	assert(card ~= nil)
-
-	card.on_install = spec.on_install
-	card.on_uninstall = spec.on_uninstall
-
-	return card
-end
-
-function sgs.CreateWeapon(spec)
-	spec.location = sgs.EquipCard_WeaponLocation
-	return sgs.CreateEquipCard(spec)
-end
-
-function sgs.CreateArmor(spec)
-	spec.location = sgs.EquipCard_ArmorLocation
-	return sgs.CreateEquipCard(spec)
-end
-
-function sgs.CreateTreasure(spec)
-	spec.location = sgs.EquipCard_TreasureLocation
-	return sgs.CreateEquipCard(spec)
-end
-
-function sgs.CreateGeneralLevel(spec)
-	assert(type(spec.name) == "string")
-	local level = sgs.GeneralLevel(spec.name)
-	if type(spec.translation) == "string" then
-		sgs.AddTranslationEntry(spec.name, spec.translation)
-	end
-	if type(spec.description) == "string" then
-		level:setDescription(spec.description)
-	end
-	if type(spec.gatekeepers) == "table" then
-		for _,gatekeeper in ipairs(spec.gatekeepers) do
-			level:addGateKeeper(gatekeeper)
-		end
-	elseif type(spec.gatekeepers) == "string" then
-		level:addGateKeeper(spec.gatekeepers)
-	end
-	if type(spec.share_gatekeepers) == "string" then
-		level:setShareGateKeepersLevel(spec.share_gatekeepers)
-	end
-	if type(spec.last_level) == "string" then
-		level:setLastLevel(spec.last_level)
-	end
-	if type(spec.next_level) == "string" then
-		level:setNextLevel(spec.next_level)
-	end
-	if type(spec.parent_level) == "string" then
-		level:setParentLevel(spec.parent_level)
-	end
-	if type(spec.sub_levels) == "table" then
-		for _,sublevel in ipairs(spec.sub_levels) do
-			level:addSubLevel(sublevel)
+function LuaGlobalEffect_Available(trick, user)
+	local avail = false
+	local targets = user:getSiblings()
+	targets:append(user)
+	for _,p in sgs.qlist(targets) do
+		if p:isDead() or user:isProhibited(p, trick) then
+		else
+			avail = true
+			break
 		end
 	end
-	sgs.Sanguosha:addGeneralLevel(level)
-	return level
+	return avail and trick:cardIsAvailable(user)
 end
-
-function sgs.CreateLuaSkill(info)
-	local class = type(info.class) == "string" and info.class or "DummySkill"
-	local method = sgs["Create"..class]
-	if type(method) == "function" then
-		local skill = method(info)
-		if type(skill) == "userdata" and skill:inherits("Skill") then
-			if type(info.translation) == "string" then
-				sgs.AddTranslationEntry(info.name, info.translation)
-			end
-			if type(info.description) == "string" then
-				sgs.AddTranslationEntry(":"..info.name, info.description)
-			end
-			if type(info.audio) == "table" then
-				local onlyone = not info.audio[2]
-				for k, v in pairs(info.audio) do
-					if type(k) == "number" and type(v) == "string" then
-						if onlyone and k == 1 then
-							sgs.AddTranslationEntry("$"..info.name, v)
-						else
-							sgs.AddTranslationEntry("$"..info.name..k, v)
-						end
-					elseif type(k) == "string" and type(v) == "string" then
-						sgs.AddTranslationEntry("$"..k, v)
-					end
-				end
-			elseif type(info.audio) == "string" then
-				sgs.AddTranslationEntry("$"..info.name, info.audio)
-			end
-			if type(info.resource) == "string" then
-				skill:setAudioPath(info.resource)
-				if type(info.marks) == "table" then
-					for _,mark in ipairs(info.marks) do
-						if type(mark) == "string" then
-							local path = string.format("%s/%s.png", info.resource, mark)
-							sgs.Sanguosha:addMarkPath(mark, path)
-						end
-					end
-				end
-			end
-			if type(info.translations) == "table" then
-				for k, v in pairs(info.translations) do
-					sgs.AddTranslationEntry(k, v)
-				end
-			end
-			if type(info.related_skills) == "userdata" and info.related_skills:inherits("Skill") then
-				if not sgs.Sanguosha:getSkill(info.related_skills:objectName()) then
-					sgs.Sanguosha:addSkill(info.related_skills)
-				end
-				sgs.Sanguosha:addRelatedSkill(info.name, info.related_skills:objectName())
-			elseif type(info.related_skills) == "table" then
-				for _,skill in ipairs(info.related_skills) do
-					if type(skill) == "userdata" and skill:inherits("Skill") then
-						if not sgs.Sanguosha:getSkill(skill:objectName()) then
-							sgs.Sanguosha:addSkill(skill)
-						end
-						sgs.Sanguosha:addRelatedSkill(info.name, skill:objectName())
-					end
-				end
-			end
-			if skill:inherits("ViewAsSkill") then
-				table.insert(lua_vs_skills, skill)
-			else
-				table.insert(lua_skills, skill)
-			end
-			return skill
+function LuaGlobalEffect_AboutToUse(trick, room, use)
+	local user = use.from
+	local targets = sgs.SPlayerList()
+	local alives = room:getAlivePlayers()
+	for _,p in sgs.qlist(alives) do
+		local skill = room:isProhibited(user, p, trick)
+		if skill then
+			room:broadcastSkillInvoke(skill:objectName())
+			local msg = sgs.LogMessage()
+			msg.type = "#SkillAvoid"
+			msg.from = p
+			msg.arg = skill:objectName()
+			msg.arg2 = trick:objectName()
+		else
+			targets:append(p)
 		end
 	end
-	local dsk = sgs.CreateDummySkill(info)
-	table.insert(lua_skills, dsk)
-	return dsk
+	local new_use = use
+	new_use.to = targets
+	trick:cardOnUse(room, new_use)
 end
-
-local function addSkillToGeneral(general, skill)
+--[[****************************************************************
+	创建扩展包
+]]--****************************************************************
+function sgs.CreateLuaPackage(info)
+	if type(info.name) == "string" then
+		local category = sgs.Package_GeneralPack
+		if type(info.category) == "number" then
+			category = info.category
+		elseif info.GeneralPack and type(info.GeneralPack) == "boolean" then
+			category = sgs.Package_GeneralPack
+		elseif info.CardPack and type(info.CardPack) == "boolean" then
+			category = sgs.Package_CardPack
+		elseif info.infoialPack and type(info.infoialPack) == "boolean" then
+			category = sgs.Package_infoialPack
+		end
+		local pack = sgs.Package(info.name, category)
+		if type(info.translations) == "table" then
+			for key, value in pairs(info.translations) do
+				sgs.AddTranslationEntry(key, value)
+			end
+		end
+		if type(info.translation) == "string" then
+			sgs.AddTranslationEntry(info.name, info.translation)
+		end
+		if type(info.generals) == "table" then
+			for _,general in ipairs(info.generals) do
+				if type(general) == "userdata" and general:inherits("General") then
+					pack:addGeneral(general)
+				end
+			end
+		end
+		if type(info.cards) == "table" then
+			for _,card in ipairs(info.cards) do
+				if type(card) == "userdata" and card:inherits("Card") then
+					pack:addCard(card)
+				end
+			end
+		end
+		if type(info.skills) == "table" then
+			for _,skill in ipairs(info.skills) do
+				if type(skill) == "userdata" and skill:inherits("Skill") then
+					pack:addSkill(skill)
+				end
+			end
+		end
+		table.insert(ex_packages, pack)
+		return pack
+	end
+	return info
+end
+--[[****************************************************************
+	创建武将
+]]--****************************************************************
+--辅助函数：
+function addSkillToGeneral(general, skill)
 	general:addSkill(skill)
 	local related_skills = sgs.Sanguosha:getRelatedSkills(skill:objectName())
 	for _,rsk in sgs.qlist(related_skills) do
 		general:addSkill(rsk:objectName())
 	end
 end
-
-local function addSkillToGeneralByName(general, skname)
+--辅助函数：
+function addSkillToGeneralByName(general, skname)
 	general:addSkill(skname)
 	local related_skills = sgs.Sanguosha:getRelatedSkills(skname)
 	for _,rsk in sgs.qlist(related_skills) do
 		general:addSkill(rsk:objectName())
 	end
 end
-
+--辅助函数：
+function addGeneralSkills(general, skills, resource)
+	if type(skills) == "table" then
+		for _,skill in ipairs(skills) do
+			if type(skill) == "string" then
+				addSkillToGeneralByName(general, skill)
+			elseif type(skill) == "userdata" and skill:inherits("Skill") then
+				if resource and skill:getAudioPath() == "" then
+					skill:setAudioPath(resource)
+				end
+				local skname = skill:objectName()
+				if sgs.Sanguosha:getSkill(skname) then
+					addSkillToGeneralByName(general, skname)
+				else
+					addSkillToGeneral(general, skill)
+				end
+			end
+		end
+	elseif type(skills) == "userdata" and skills:inherits("Skill") then
+		if resource and skills:getAudioPath() == "" then
+			skills:setAudioPath(resource)
+		end
+		local skname = skills:objectName()
+		if sgs.Sanguosha:getSkill(skname) then
+			addSkillToGeneralByName(general, skname)
+		else
+			addSkillToGeneral(general, skills)
+		end
+	elseif type(skills) == "string" then
+		local sknames = skills:split("+")
+		for _,skill in ipairs(sknames) do
+			addSkillToGeneralByName(general, skill)
+		end
+	end
+end
+--辅助函数：
+function addGeneralRelatedSkills(general, skills, resource, pack)
+	if type(skills) == "string" then
+		local sknames = skills:split("+")
+		for _,skill in ipairs(sknames) do
+			general:addRelateSkill(skill)
+		end
+	elseif type(skills) == "userdata" and skills:inherits("Skill") then
+		local skname = skills:objectName()
+		if resource and skills:getAudioPath() == "" then
+			skills:setAudioPath(resource)
+		end
+		if not sgs.Sanguosha:getSkill(skname) then
+			if pack then
+				pack:addSkill(skills)
+			else
+				sgs.Sanguosha:addSkill(skills)
+			end
+		end
+		general:addRelateSkill(skname)
+	elseif type(skills) == "table" then
+		for _,skill in ipairs(skills) do
+			if type(skill) == "string" then
+				general:addRelateSkill(skill)
+			elseif type(skill) == "userdata" and skill:inherits("Skill") then
+				if resource and skill:getAudioPath() == "" then
+					skill:setAudioPath(resource)
+				end
+				local skname = skill:objectName()
+				if not sgs.Sanguosha:getSkill(skname) then
+					if pack then
+						pack:addSkill(skill)
+					else
+						sgs.Sanguosha:addSkill(skill)
+					end
+				end
+				general:addRelateSkill(skname)
+			end
+		end
+	end
+end
+--主函数：
 function sgs.CreateLuaGeneral(info)
 	if type(info.name) == "string" and type(info.kingdom) == "string" then
 		local pack = nil
@@ -866,72 +395,8 @@ function sgs.CreateLuaGeneral(info)
 				end
 			end
 		end
-		if type(info.skills) == "table" then
-			for _,skill in ipairs(info.skills) do
-				if type(skill) == "string" then
-					addSkillToGeneralByName(general, skill)
-				elseif type(skill) == "userdata" and skill:inherits("Skill") then
-					if resource and skill:getAudioPath() == "" then
-						skill:setAudioPath(resource)
-					end
-					if sgs.Sanguosha:getSkill(skill:objectName()) then
-						addSkillToGeneralByName(general, skill:objectName())
-					else
-						addSkillToGeneral(general, skill)
-					end
-				end
-			end
-		elseif type(info.skills) == "userdata" and info.skills:inherits("Skill") then
-			if resource and info.skills:getAudioPath() == "" then
-				info.skills:setAudioPath(resource)
-			end
-			if sgs.Sanguosha:getSkill(info.skills:objectName()) then
-				addSkillToGeneralByName(general, info.skills:objectName())
-			else
-				addSkillToGeneral(general, info.skills)
-			end
-		elseif type(info.skills) == "string" then
-			local skills = info.skills:split("+")
-			for _,skill in ipairs(skills) do
-				addSkillToGeneralByName(general, skill)
-			end
-		end
-		if type(info.related_skills) == "string" then
-			local skills = info.related_skills:split("+")
-			for _,skill in ipairs(skills) do
-				general:addRelateSkill(skill)
-			end
-		elseif type(info.related_skills) == "userdata" and info.related_skills:inherits("Skill") then
-			if not sgs.Sanguosha:getSkill(info.related_skills:objectName()) then
-				if resource and info.related_skills:getAudioPath() == "" then
-					info.related_skills:setAudioPath(resource)
-				end
-				if pack then
-					pack:addSkill(info.related_skills)
-				else
-					sgs.Sanguosha:addSkill(info.related_skills)
-				end
-			end
-			general:addRelateSkill(info.related_skills:objectName())
-		elseif type(info.related_skills) == "table" then
-			for _,skill in ipairs(info.related_skills) do
-				if type(skill) == "string" then
-					general:addRelateSkill(skill)
-				elseif type(skill) == "userdata" and skill:inherits("Skill") then
-					if resource and skill:getAudioPath() == ""then
-						skill:setAudioPath(resource)
-					end
-					if not sgs.Sanguosha:getSkill(skill:objectName()) then
-						if pack then
-							pack:addSkill(skill)
-						else
-							sgs.Sanguosha:addSkill(skill)
-						end
-					end
-					general:addRelateSkill(skill:objectName())
-				end
-			end
-		end
+		addGeneralSkills(general, info.skills, resource)
+		addGeneralRelatedSkills(general, info.related_skills, resource, pack)
 		if type(info.translations) == "table" then
 			for key, value in pairs(info.translations) do
 				sgs.AddTranslationEntry(key, value)
@@ -958,62 +423,679 @@ function sgs.CreateLuaGeneral(info)
 		if type(info.last_word) == "string" then
 			sgs.AddTranslationEntry("~"..info.name, info.last_word)
 		end
-		table.insert(lua_generals, general)
+		table.insert(ex_generals, general)
 		return general
 	end
 	return info
 end
-
-function sgs.CreateLuaPackage(info)
-	if type(info.name) == "string" then
-		local category = sgs.Package_GeneralPack
-		if type(info.category) == "number" then
-			category = info.category
-		elseif info.GeneralPack and type(info.GeneralPack) == "boolean" then
-			category = sgs.Package_GeneralPack
-		elseif info.CardPack and type(info.CardPack) == "boolean" then
-			category = sgs.Package_CardPack
-		elseif info.SpecialPack and type(info.SpecialPack) == "boolean" then
-			category = sgs.Package_SpecialPack
+--[[****************************************************************
+	创建卡牌
+]]--****************************************************************
+--辅助函数：创建基本牌
+function ex.CreateBasicCard(info)
+	local subtype = type(info.subtype) == "string" and info.subtype or "BasicCard"
+	local card = sgs.LuaBasicCard(info.suit, info.point, info.name, info.class_name, subtype)
+	if type(info.target_fixed) == "boolean" then
+		card:setTargetFixed(info.target_fixed)
+	end
+	if type(info.can_recast) == "boolean" then
+		card:setCanRecast(info.can_recast)
+	end
+	card.filter = info.filter
+	card.feasible = info.feasible
+	card.available = info.available
+	card.about_to_use = info.about_to_use
+	card.on_use = info.on_use
+	card.on_effect = info.on_effect
+	return card
+end
+--辅助函数：创建锦囊牌
+local submatch = {"TrickCard", "single_target_trick", "delayed_trick", "aoe", "global_effect"}
+function ex.CreateTrickCard(info)
+	local subclass = type(info.subclass) == "number" and info.subclass or sgs.LuaTrickCard_TypeNormal
+	local subtype = info.subtype
+	if type(subtype) ~= "string" then
+		subtype = submatch[subclass] or "TrickCard"
+	end
+	local card = sgs.LuaTrickCard(info.suit, info.point, info.name, info.class_name, subtype)
+	card:setSubClass(subclass)
+	if type(info.target_fixed) == "boolean" then
+		card:setTargetFixed(info.target_fixed)
+	end
+	if type(info.can_recast) == "boolean" then
+		card:setCanRecast(info.can_recast)
+	end
+	if subclass == sgs.LuaTrickCard_TypeDelayedTrick then
+		info.about_to_use = info.about_to_use or LuaDelayedTrick_AboutToUse
+		info.on_use = info.on_use or LuaDelayedTrick_OnUse
+		if info.movable then
+			info.on_nullified = info.on_nullified or LuaDelayedTrick_OnNullified_Movable
+		else
+			info.on_nullified = info.on_nullified or LuaDelayedTrick_OnNullified_Unmovable
 		end
-		local pack = sgs.Package(info.name, category)
-		if type(info.translations) == "table" then
-			for key, value in pairs(info.translations) do
-				sgs.AddTranslationEntry(key, value)
+	elseif subclass == sgs.LuaTrickCard_TypeAOE then
+		info.available = info.available or LuaAOE_Available
+		info.about_to_use = info.about_to_use or LuaAOE_AboutToUse
+		if not info.target_fixed then
+			card:setTargetFixed(true)
+		end
+	elseif subclass == sgs.LuaTrickCard_TypeGlobalEffect then
+		info.available = info.available or LuaGlobalEffect_Available
+		info.about_to_use = info.about_to_use or LuaGlobalEffect_AboutToUse
+		if not info.target_fixed then
+			card:setTargetFixed(true)
+		end
+	end
+	card.filter = info.filter
+	card.feasible = info.feasible
+	card.available = info.available
+	card.is_cancelable = info.is_cancelable
+	card.on_nullified = info.on_nullified
+	card.about_to_use = info.about_to_use
+	card.on_use = info.on_use
+	card.on_effect = info.on_effect
+	return card
+end
+--辅助函数：创建武器牌
+function ex.CreateWeapon(info)
+	assert(type(info.range) == "number")
+	local card = sgs.LuaWeapon(info.suit, info.point, info.range, info.name, info.class_name)
+	card.on_install = info.on_install
+	card.on_uninstall = info.on_uninstall
+	return card
+end
+--辅助函数：创建防具牌
+function ex.CreateArmor(info)
+	local card = sgs.LuaArmor(info.suit, info.point, info.name, info.class_name)
+	card.on_install = info.on_install
+	card.on_uninstall = info.on_uninstall
+	return card
+end
+--辅助函数：创建宝物牌
+function ex.CreateTreasure(info)
+	local card = sgs.LuaTreasure(info.suit, info.point, info.name, info.class_name)
+	card.on_install = info.on_install
+	card.on_uninstall = info.on_uninstall
+	return card
+end
+--辅助函数：创建装备牌
+function ex.CreateEquipCard(info)
+	local location = info.location
+	assert(type(location) == "number")
+	if location == sgs.EquipCard_WeaponLocation then
+		return ex.CreateWeapon(info)
+	elseif location == sgs.EquipCard_ArmorLocation then
+		return ex.CreateArmor(info)
+	elseif location == sgs.EquipCard_TreasureLocation then
+		return ex.CreateTreasure(info)
+	end
+	assert(false)
+end
+--主函数
+function sgs.CreateLuaCard(info)
+	assert(type(info.class) == "string")
+	local method = ex[string.format("Create%s", info.class)]
+	assert(type(method) == "function")
+	local name, class = info.name, info.class_name
+	info.name = name or class
+	info.class_name = class or name
+	assert(type(info.name) == "string")
+	info.suit = type(info.suit) == "number" and info.suit or sgs.Card_NoSuit
+	info.point = type(info.point) == "number" and info.point or 0
+	local card = method(info)
+	table.insert(ex_cards, card)
+	if type(info.translation) == "string" then
+		sgs.AddTranslationEntry(info.name, info.translation)
+	end
+	if type(info.description) == "string" then
+		sgs.AddTranslationEntry(":"..info.name, info.description)
+	end
+	if type(info.translations) == "table" then
+		for key, value in pairs(info.translations) do
+			sgs.AddTranslationEntry(key, value)
+		end
+	end
+	table.insert(ex_cards, card)
+	return card
+end
+--[[****************************************************************
+	创建技能卡
+]]--****************************************************************
+function sgs.CreateSkillCard(info)
+	assert(info.name)
+	local skname = type(info.skill_name) == "string" and info.skill_name or ""
+	local card = sgs.LuaSkillCard(info.name, skname)
+	assert(type(card) == "userdata" and card:inherits("SkillCard"))
+	if type(info.target_fixed) == "boolean" then
+		card:setTargetFixed(info.target_fixed)
+	end
+	if type(info.will_throw) == "boolean" then
+		card:setWillThrow(info.will_throw)
+	end
+	if type(info.can_recast) == "boolean" then
+		card:setCanRecast(info.can_recast)
+	end
+	if type(info.handling_method) == "number" then
+		card:setHandlingMethod(info.handling_method)
+	end
+	if type(info.mute) == "boolean" then
+		card:setMute(info.mute)
+	end
+	if type(info.filter) == "function" then
+		function card:filter(...)
+			local result, vote = info.filter(self, ...)
+			if type(result) == "boolean" and type(vote) == "number" then
+				return result, vote
+			elseif type(result) == "boolean" and type(vote) == "nil" then
+				return result, result and 1 or 0
+			elseif type(result) == "number" then
+				return result > 0, result
+			end
+			return false, 0
+		end
+	end
+	card.feasible = info.feasible
+	card.about_to_use = info.about_to_use
+	card.on_use = info.on_use
+	card.on_effect = info.on_effect
+	card.on_validate = info.on_validate
+	card.on_validate_in_response = info.on_validate_in_response
+	table.insert(ex_cards, card)
+	return card
+end
+--[[****************************************************************
+	创建技能
+]]--****************************************************************
+--辅助函数：创建空壳技能
+function ex.CreateDummySkill(info)
+	local frequency = type(info.frequency) == "number" and info.frequency or sgs.Skill_Compulsory
+	return sgs.LuaDummySkill(info.name, frequency)
+end
+--辅助函数：创建触发技
+function ex.CreateTriggerSkill(info)
+	local frequency = type(info.frequency) == "number" and info.frequency or sgs.Skill_NotFrequent
+	local limit_mark = type(info.limit_mark) == "string" and info.limit_mark or ""
+	local skill = sgs.LuaTriggerSkill(info.name, frequency, limit_mark)
+	local guhuo_type = info.guhuo_type
+	if type(guhuo_type) == "string" and guhuo_type ~= "" then
+		skill:setGuhuoDialog(guhuo_type)
+	end
+	local events = info.events
+	if type(events) == "number" then
+		skill:addEvent(events)
+	elseif type(events) == "table" then
+		for _,event in ipairs(events) do
+			skill:addEvent(event)
+		end
+	end
+	if type(info.global) == "boolean" then
+		skill:setGlobal(info.global)
+	end
+	skill.on_trigger = type(info.on_trigger) == "function" and info.on_trigger or TriggerSkill_OnTrigger
+	if type(info.can_trigger) == "function" then
+		skill.can_trigger = info.can_trigger
+	end
+	local vs_skill = info.view_as_skill
+	if type(vs_skill) == "userdata" and vs_skill:inherits("ViewAsSkill") then
+		skill:setViewAsSkill(vs_skill)
+	end
+	if type(info.priority) == "number" then
+		skill.priority = info.priority
+	elseif type(info.priority) == "table" then
+		for event, priority in pairs(info.priority) do
+			skill:insertPriorityTable(event, priority)
+		end
+	end
+    if type(info.dynamic_frequency) == "function" then
+        skill.dynamic_frequency = info.dynamic_frequency
+    end
+	return skill
+end
+--辅助函数：创建视为技
+function ex.CreateViewAsSkill(info)
+	local response_pattern = type(info.response_pattern) == "string" and info.response_pattern or ""
+	local response_or_use = type(info.response_or_use) == "boolean" and info.response_or_use or false
+	local expand_pile = type(info.expand_pile) == "string" and info.expand_pile or ""
+	local skill = sgs.LuaViewAsSkill(info.name, response_pattern, response_or_use, expand_pile)
+	local n = type(info.n) == "number" and info.n or 0
+	function skill:view_as(cards)
+		return info.view_as(self, cards)
+	end
+	function skill:view_filter(selected, to_select)
+		if #selected < n then
+			return info.view_filter(self, selected, to_select)
+		end
+		return false
+	end
+	local guhuo_type = info.guhuo_type
+	if type(guhuo_type) == "string" and guhuo_type ~= "" then
+		skill:setGuhuoDialog(guhuo_type)
+	end
+	skill.should_be_visible = info.should_be_visible
+	skill.effect_index = info.effect_index
+	skill.enabled_at_play = info.enabled_at_play
+	skill.enabled_at_response = info.enabled_at_response
+	skill.enabled_at_nullification = info.enabled_at_nullification
+	return skill
+end
+--辅助函数：创建禁止技
+function ex.CreateProhibitSkill(info)
+	assert(type(info.is_prohibited) == "function")
+	local skill = sgs.LuaProhibitSkill(info.name)
+	skill.is_prohibited = info.is_prohibited
+	return skill
+end
+--辅助函数：创建距离修正技
+function ex.CreateDistanceSkill(info)
+	assert(type(info.correct_func) == "function")
+	local skill = sgs.LuaDistanceSkill(info.name)
+	skill.correct_func = info.correct_func
+	return skill
+end
+--辅助函数：创建手牌上限技
+function ex.CreateMaxCardsSkill(info)
+	local skill = sgs.LuaMaxCardsSkill(info.name)
+	local check = false
+	if type(info.extra_func) == "function" then
+		skill.extra_func = info.extra_func
+		check = true
+	end
+	if type(info.fixed_func) == "function" then
+		skill.fixed_func = info.fixed_func
+		check = true
+	end
+	assert(check)
+	return skill
+end
+--辅助函数：创建目标增强技
+function ex.CreateTargetModSkill(info)
+	local pattern = type(info.pattern) == "string" and info.pattern or "Slash"
+	local skill = sgs.LuaTargetModSkill(info.name, pattern)
+	local check = false
+	if type(info.residue_func) == "function" then
+		skill.residue_func = info.residue_func
+		check = true
+	end
+	if type(info.distance_limit_func) == "function" then
+		skill.distance_limit_func = info.distance_limit_func
+		check = true
+	end
+	if type(info.extra_target_func) == "function" then
+		skill.extra_target_func = info.extra_target_func
+		check = true
+	end
+	assert(check)
+	return skill
+end
+--辅助函数：创建攻击范围技
+function ex.CreateAttackRangeSkill(info)
+	local skill = sgs.LuaAttackRangeSkill(info.name)
+	local check = false
+	if type(info.extra_func) == "function" then
+		skill.extra_func = info.extra_func or 0
+		check = true
+	end
+	if type(info.fixed_func) == "function" then
+		skill.fixed_func = info.fixed_func or -1
+		check = true
+	end
+	assert(check)
+	return skill
+end
+--辅助函数：创建技能失效技
+function ex.CreateInvaliditySkill(info)
+	assert(type(info.skill_valid) == "function")
+	local skill = sgs.LuaInvaliditySkill(info.name)
+	skill.skill_valid = info.skill_valid
+	return skill
+end
+--辅助函数：创建零卡牌视为技
+function ex.CreateZeroCardViewAsSkill(info)
+	local response_pattern = type(info.response_pattern) == "string" and info.response_pattern or ""
+	local response_or_use = type(info.response_or_use) == "boolean" and info.response_or_use or false
+	local skill = sgs.LuaViewAsSkill(info.name, response_pattern, response_or_use, "")
+	function skill:view_as(cards)
+		if #cards == 0 then
+			return info.view_as(self)
+		end
+	end
+	function skill:view_filter(selected, to_select)
+		return false
+	end
+	local guhuo_type = info.guhuo_type
+	if type(guhuo_type) == "string" and guhuo_type ~= "" then
+		skill:setGuhuoDialog(guhuo_type)
+	end
+	skill.should_be_visible = info.should_be_visible
+	skill.effect_index = info.effect_index
+	skill.enabled_at_play = info.enabled_at_play
+	skill.enabled_at_response = info.enabled_at_response
+	skill.enabled_at_nullification = info.enabled_at_nullification
+	return skill
+end
+--辅助函数：创建单卡牌视为技
+function ex.CreateOneCardViewAsSkill(info)
+	local response_pattern = type(info.response_pattern) == "string" and info.response_pattern or ""
+	local response_or_use = type(info.response_or_use) == "boolean" and info.response_or_use or false
+	local expand_pile = type(info.expand_pile) == "string" and info.expand_pile or ""
+	local filter_pattern = info.filter_pattern
+	local must_response = false
+	if filter_pattern then
+		assert(type(filter_pattern) == "string")
+		if string.sub(filter_pattern, -1, 1) == "!" then
+			filter_pattern = string.sub(filter_pattern, 1, -2)
+			must_response = true
+		end
+	end
+	if info.view_filter then
+		assert(type(info.view_filter) == "function")
+	end
+	local skill = sgs.LuaViewAsSkill(info.name, response_pattern, response_or_use, expand_pile)
+	function skill:view_as(cards)
+		if #cards == 1 then
+			return info.view_as(self, cards[1])
+		end
+	end
+	function skill:view_filter(selected, to_select)
+		if to_select:hasFlag("using") then
+			return false
+		elseif #selected == 0 then
+			if info.view_filter then
+				return info.view_filter(self, to_select)
+			elseif filter_pattern then
+				if must_response and sgs.Self:isJilei(to_select) then 
+					return false 
+				end
+				return sgs.Sanguosha:matchExpPattern(filter_pattern, sgs.Self, to_select)
 			end
 		end
+		return false
+	end
+	local guhuo_type = info.guhuo_type
+	if type(guhuo_type) == "string" and guhuo_type ~= "" then
+		skill:setGuhuoDialog(guhuo_type)
+	end
+	skill.should_be_visible = info.should_be_visible
+	skill.effect_index = info.effect_index
+	skill.enabled_at_play = info.enabled_at_play
+	skill.enabled_at_response = info.enabled_at_response
+	skill.enabled_at_nullification = info.enabled_at_nullification
+	return skill
+end
+--辅助函数：创建锁定视为技
+function ex.CreateFilterSkill(info)
+	assert(type(info.view_filter) == "function")
+	assert(type(info.view_as) == "function")
+	local skill = sgs.LuaFilterSkill(info.name)
+	skill.view_filter = info.view_filter
+	skill.view_as = info.view_as
+	return skill
+end
+--辅助函数：创建卖血触发技
+function ex.CreateMasochismSkill(info)
+	assert(type(info.on_damaged) == "function")
+	info.events = sgs.Damaged
+	function info.on_trigger(skill, event, player, data)
+		local damage = data:toDamage()
+		info.on_damaged(skill, player, damage)
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建阶段触发技
+function ex.CreatePhaseChangeSkill(info)
+	assert(type(info.on_phasechange) == "function")
+	info.events = sgs.EventPhaseStart
+	function info.on_trigger(skill, event, player, data)
+		return info.on_phasechange(skill, player)
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建摸牌触发技
+function ex.CreateDrawCardsSkill(info)
+	assert(type(info.draw_num_func) == "function")
+	info.events = info.is_initial and sgs.DrawInitialCards or sgs.DrawNCards
+	function info.on_trigger(skill, event, player, data)
+		local x = data:toInt()
+		local n = info.draw_num_func(skill, player, x)
+		data:setValue(n)
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建游戏启动触发技
+function ex.CreateGameStartSkill(info)
+	assert(type(info.on_gamestart) == "function")
+	info.events = sgs.GameStart
+	function info.on_trigger(skill, event, player, data)
+		info.on_gamestart(skill, player)
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建虚拟移动触发技
+function ex.CreateFakeMoveSkill(info)
+	info.events = {sgs.BeforeCardsMove, sgs.CardsMoveOneTime}
+	info.priority = 10
+	info.flag = string.format("%s_InTempMoving", info.name)
+	info.on_trigger = function(self, event, player, data)
+		local room = player:getRoom()
+		local alives = room:getAlivePlayers()
+		for _,p in sgs.qlist(alives) do
+			if p:hasFlag(info.flag) then
+				return true
+			end
+		end
+		return false
+	end
+	info.can_trigger = function(self, target)
+		return target ~= nil
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建技能解除触发技
+function ex.CreateDetachEffectSkill(info)
+	assert(type(info.on_skill_detached) == "function")
+	info.events = sgs.EventLoseSkill
+	if type(info.skill) ~= "string" then
+		info.skill = info.name
+		info.name = string.format("#%s-clear", info.skill)
+	end
+	function info.on_trigger(skill, event, player, data)
+		if data:toString() == info.skill then
+			local room = player:getRoom()
+			info.on_skill_detached(skill, room, player)
+		end
+		return false
+	end
+	function info.can_trigger(skill, target)
+		return target ~= nil
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建标记分配技
+function ex.CreateMarkAssignSkill(info)
+	local n = type(info.n) and info.n or 1
+	if type(info.mark) ~= "string" then
+		info.mark = info.name
+		info.name = string.format("#%s-%d", info.mark, n)
+	end
+	info.events = sgs.GameStart
+	info.on_trigger = function(skill, event, player, data)
+		player:gainMark(info.mark, info.n)
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建杀无限距离技
+function ex.CreateSlashNoDistanceLimitSkill(info)
+	local pattern = type(info.pattern) == "string" and info.pattern or "Slash"
+	local skill = sgs.LuaTargetModSkill(info.name, pattern)
+	skill.distance_limit_func = function(self, from, card)
+		if from:hasSkill(info.name) and card:getSkillName() == info.name then
+			return 1000
+		end
+		return 0
+	end
+	return skill
+end
+--辅助函数：创建武器技能
+function ex.CreateWeaponSkill(info)
+	info.global = true
+	info.vs_mark = string.format("View_As_%s", info.name)
+	info.can_trigger = function(self, target)
+		if target and target:getMark("Equips_Nullified_to_Yourself") == 0 then
+			if target:getMark(info.vs_mark) > 0 then
+				return true
+			elseif target:hasWeapon(info.name) then
+				return true
+			end
+		end
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建防具技能
+function ex.CreateArmorSkill(info)
+	info.global = true
+	info.vs_mark = string.format("View_As_%s", info.name)
+	info.can_trigger = function(self, target)
+		if target and target:getMark("Equips_Nullified_to_Yourself") == 0 then
+			if target:getMark(info.vs_mark) > 0 then
+				return true
+			elseif not target:getArmor() then
+				return false
+			elseif target:hasArmorEffect(info.name) then
+				return true
+			end
+		end
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--辅助函数：创建宝物技能
+function ex.CreateTreasureSkill(info)
+	info.global = true
+	info.vs_mark = string.format("View_As_%s", info.name)
+	info.can_trigger = function(self, target)
+		if target and target:getMark("Equips_Nullified_to_Yourself") == 0 then
+			if target:getMark(info.vs_mark) > 0 then
+				return true
+			elseif not target:getTreasure() then
+				return false
+			elseif target:hasTreasure(info.name) then
+				return true
+			end
+		end
+		return false
+	end
+	return ex.CreateTriggerSkill(info)
+end
+--主函数：
+function sgs.CreateLuaSkill(info)
+	assert(type(info.name) == "string")
+	local class = type(info.class) == "string" and info.class or "DummySkill"
+	local method = ex[string.format("Create%s", class)]
+	assert(type(method) == "function")
+	local skill = method(info)
+	if type(skill) == "userdata" and skill:inherits("Skill") then
 		if type(info.translation) == "string" then
 			sgs.AddTranslationEntry(info.name, info.translation)
 		end
-		if type(info.generals) == "table" then
-			for _,general in ipairs(info.generals) do
-				if type(general) == "userdata" and general:inherits("General") then
-					pack:addGeneral(general)
+		if type(info.description) == "string" then
+			sgs.AddTranslationEntry(":"..info.name, info.description)
+		end
+		if type(info.audio) == "table" then
+			local onlyone = not info.audio[2]
+			for k, v in pairs(info.audio) do
+				if type(k) == "number" and type(v) == "string" then
+					if onlyone and k == 1 then
+						sgs.AddTranslationEntry("$"..info.name, v)
+					else
+						sgs.AddTranslationEntry("$"..info.name..k, v)
+					end
+				elseif type(k) == "string" and type(v) == "string" then
+					sgs.AddTranslationEntry("$"..k, v)
+				end
+			end
+		elseif type(info.audio) == "string" then
+			sgs.AddTranslationEntry("$"..info.name, info.audio)
+		end
+		if type(info.resource) == "string" then
+			skill:setAudioPath(info.resource)
+			if type(info.marks) == "table" then
+				for _,mark in ipairs(info.marks) do
+					if type(mark) == "string" then
+						local path = string.format("%s/%s.png", info.resource, mark)
+						sgs.Sanguosha:addMarkPath(mark, path)
+					end
 				end
 			end
 		end
-		if type(info.cards) == "table" then
-			for _,card in ipairs(info.cards) do
-				if type(card) == "userdata" and card:inherits("Card") then
-					pack:addCard(card)
+		if type(info.translations) == "table" then
+			for k, v in pairs(info.translations) do
+				sgs.AddTranslationEntry(k, v)
+			end
+		end
+		local rsks = info.related_skills
+		if type(rsks) == "userdata" and rsks:inherits("Skill") then
+			local rskname = rsks:objectName()
+			if not sgs.Sanguosha:getSkill(rskname) then
+				sgs.Sanguosha:addSkill(rsks)
+			end
+			sgs.Sanguosha:addRelatedSkill(info.name, rskname)
+		elseif type(rsks) == "table" then
+			for _,rsk in ipairs(rsks) do
+				if type(rsk) == "userdata" and rsk:inherits("Skill") then
+					local rskname = rsk:objectName()
+					if not sgs.Sanguosha:getSkill(rskname) then
+						sgs.Sanguosha:addSkill(rsk)
+					end
+					sgs.Sanguosha:addRelatedSkill(info.name, rskname)
 				end
 			end
 		end
-		if type(info.skills) == "table" then
-			for _,skill in ipairs(info.skills) do
-				if type(skill) == "userdata" and skill:inherits("Skill") then
-					pack:addSkill(skill)
-				end
-			end
-		end
-		table.insert(lua_packages, pack)
-		return pack
 	end
-	return info
+	table.insert(ex_skills, skill)
+	return skill
 end
-
-function sgs.LoadTranslationTable(t)
-	for key, value in pairs(t) do
-		sgs.AddTranslationEntry(key, value)
+--[[****************************************************************
+	创建武将级别
+]]--****************************************************************
+function sgs.CreateGeneralLevel(info)
+	assert(type(info.name) == "string")
+	local level = sgs.GeneralLevel(info.name)
+	if type(info.translation) == "string" then
+		sgs.AddTranslationEntry(info.name, info.translation)
 	end
+	if type(info.description) == "string" then
+		level:setDescription(info.description)
+	end
+	if type(info.gatekeepers) == "table" then
+		for _,gatekeeper in ipairs(info.gatekeepers) do
+			level:addGateKeeper(gatekeeper)
+		end
+	elseif type(info.gatekeepers) == "string" then
+		level:addGateKeeper(info.gatekeepers)
+	end
+	if type(info.share_gatekeepers) == "string" then
+		level:setShareGateKeepersLevel(info.share_gatekeepers)
+	end
+	if type(info.last_level) == "string" then
+		level:setLastLevel(info.last_level)
+	end
+	if type(info.next_level) == "string" then
+		level:setNextLevel(info.next_level)
+	end
+	if type(info.parent_level) == "string" then
+		level:setParentLevel(info.parent_level)
+	end
+	if type(info.sub_levels) == "table" then
+		for _,sublevel in ipairs(info.sub_levels) do
+			level:addSubLevel(sublevel)
+		end
+	end
+	table.insert(ex_levels, level)
+	sgs.Sanguosha:addGeneralLevel(level)
+	return level
 end

@@ -695,7 +695,7 @@ public:
 				msg.type = "#striker";
 				msg.from = player;
 				msg.to.append(damage.from);
-				msg.arg = damage.damage;
+				msg.arg = QString::number(damage.damage);
 				room->sendLog(msg);
 				return true;
 			}
@@ -703,9 +703,11 @@ public:
 		return false;
 	}
 
-	virtual bool triggerable(ServerPlayer *target) const
+	virtual bool triggerable(const ServerPlayer *target, Room *room) const
 	{
-		return target && target->getMark("@striker") > 0 && target->getMark("GeDangForbidden") == 0;
+		if (room->getMode() == "06_teams")
+			return target && target->getMark("@striker") > 0 && target->getMark("GeDangForbidden") == 0;
+		return false;
 	}
 };
 // 援护 ： “格斗之王”模式启用援护技能时的专属技能

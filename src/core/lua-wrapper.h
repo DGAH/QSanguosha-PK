@@ -3,6 +3,7 @@
 
 #include "skill.h"
 #include "standard.h"
+#include "engine.h"
 
 typedef int LuaFunction;
 
