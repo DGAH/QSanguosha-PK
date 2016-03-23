@@ -2997,6 +2997,29 @@ void LuaSkillCard::pushSelf(lua_State *L) const
     SWIG_NewPointerObj(L, self, SWIGTYPE_p_LuaSkillCard, 0);
 }
 
+bool LuaSkillCard::targetFixed() const
+{
+	if (fixed == 0)
+		return SkillCard::targetFixed();
+	
+	lua_State *L = Sanguosha->getLuaState();
+
+	// the callback
+	lua_rawgeti(L, LUA_REGISTRYINDEX, fixed);
+
+	pushSelf(L);
+	
+	int error = lua_pcall(L, 1, 1, 0);
+    if (error) {
+        Error(L);
+        return SkillCard::targetFixed();
+    } else {
+        bool result = lua_toboolean(L, -1);
+        lua_pop(L, 1);
+        return result;
+    }
+}
+
 bool LuaSkillCard::targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *self,
     int &maxVotes) const
 {
@@ -39163,7 +39186,7 @@ fail:
 }
 
 
-static int _wrap_Engine_getGeneralNames(lua_State* L) {
+static int _wrap_Engine_getGeneralNames__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   Engine *arg1 = (Engine *) 0 ;
   QStringList result;
@@ -39194,6 +39217,149 @@ static int _wrap_Engine_getGeneralNames(lua_State* L) {
 fail:
   lua_error(L);
   return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGeneralNames__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  char *arg2 = (char *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGeneralNames",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGeneralNames",1,"Engine const *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("Engine::getGeneralNames",2,"char const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGeneralNames",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  result = ((Engine const *)arg1)->getGeneralNames((char const *)arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGeneralNames__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  int arg2 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Engine::getGeneralNames",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Engine::getGeneralNames",1,"Engine const *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("Engine::getGeneralNames",2,"int");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Engine,0))){
+    SWIG_fail_ptr("Engine_getGeneralNames",1,SWIGTYPE_p_Engine);
+  }
+  
+  arg2 = (int)lua_tonumber(L, 2);
+  result = ((Engine const *)arg1)->getGeneralNames(arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Engine_getGeneralNames(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_Engine_getGeneralNames__SWIG_0(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isnumber(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Engine_getGeneralNames__SWIG_2(L);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Engine, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Engine_getGeneralNames__SWIG_1(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Engine_getGeneralNames'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Engine::getGeneralNames() const\n"
+    "    Engine::getGeneralNames(char const *) const\n"
+    "    Engine::getGeneralNames(int) const\n");
+  lua_error(L);return 0;
 }
 
 
@@ -68315,6 +68481,65 @@ fail:
 }
 
 
+static int _wrap_LuaSkillCard_fixed_set(lua_State* L) {
+  int SWIG_arg = 0;
+  LuaSkillCard *arg1 = (LuaSkillCard *) 0 ;
+  LuaFunction arg2 ;
+  
+  SWIG_check_num_args("LuaSkillCard::fixed",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("LuaSkillCard::fixed",1,"LuaSkillCard *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_LuaSkillCard,0))){
+    SWIG_fail_ptr("LuaSkillCard_fixed_set",1,SWIGTYPE_p_LuaSkillCard);
+  }
+  
+  
+  if (lua_isfunction(L, 2)) {
+    lua_pushvalue(L, 2);
+    arg2 = luaL_ref(L, LUA_REGISTRYINDEX);
+  } else {
+    arg2 = 0;
+  }
+  
+  if (arg1) (arg1)->fixed = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_LuaSkillCard_fixed_get(lua_State* L) {
+  int SWIG_arg = 0;
+  LuaSkillCard *arg1 = (LuaSkillCard *) 0 ;
+  LuaFunction result;
+  
+  SWIG_check_num_args("LuaSkillCard::fixed",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("LuaSkillCard::fixed",1,"LuaSkillCard *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_LuaSkillCard,0))){
+    SWIG_fail_ptr("LuaSkillCard_fixed_get",1,SWIGTYPE_p_LuaSkillCard);
+  }
+  
+  result =  ((arg1)->fixed);
+  
+  lua_rawgeti(L, LUA_REGISTRYINDEX, result);
+  SWIG_arg ++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_LuaSkillCard_filter_set(lua_State* L) {
   int SWIG_arg = 0;
   LuaSkillCard *arg1 = (LuaSkillCard *) 0 ;
@@ -68742,6 +68967,7 @@ static swig_lua_method swig_LuaSkillCard_methods[] = {
     {0,0}
 };
 static swig_lua_attribute swig_LuaSkillCard_attributes[] = {
+    { "fixed", _wrap_LuaSkillCard_fixed_get, _wrap_LuaSkillCard_fixed_set},
     { "filter", _wrap_LuaSkillCard_filter_get, _wrap_LuaSkillCard_filter_set},
     { "feasible", _wrap_LuaSkillCard_feasible_get, _wrap_LuaSkillCard_feasible_set},
     { "about_to_use", _wrap_LuaSkillCard_about_to_use_get, _wrap_LuaSkillCard_about_to_use_set},

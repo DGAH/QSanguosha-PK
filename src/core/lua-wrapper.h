@@ -225,6 +225,7 @@ public:
     virtual QString toString(bool hidden = false) const;
 
     // these functions are defined at swig/luaskills.i
+	virtual bool targetFixed() const;
     virtual bool targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *Self, int &maxVotes) const;
     virtual bool targetsFeasible(const QList<const Player *> &targets, const Player *Self) const;
     virtual void onUse(Room *room, const CardUseStruct &card_use) const;
@@ -234,6 +235,7 @@ public:
     virtual const Card *validateInResponse(ServerPlayer *user) const;
 
     // the lua callbacks
+	LuaFunction fixed;
     LuaFunction filter;
     LuaFunction feasible;
     LuaFunction about_to_use;

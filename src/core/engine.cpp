@@ -438,6 +438,26 @@ QStringList Engine::getGeneralNames() const
 	return names;
 }
 
+QStringList Engine::getGeneralNames(const QString &real_name) const
+{
+	QStringList names;
+	foreach(const General *general, this->findChildren<const General *>()) {
+		if (general->isGeneral(real_name))
+			names << general->objectName();
+	}
+	return names;
+}
+
+QStringList Engine::getGeneralNames(int order) const
+{
+	QStringList names;
+	foreach(const General *general, this->findChildren<const General *>()) {
+		if (general->getOrder() == order)
+			names << general->objectName();
+	}
+	return names;
+}
+
 void Engine::addGeneralLevel(GeneralLevel *level)
 {
 	if (!level)

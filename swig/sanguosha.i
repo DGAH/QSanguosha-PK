@@ -1144,6 +1144,9 @@ public:
     int getGeneralCount(bool include_banned = false, const char *kingdom = "") const;
 	void addGeneral(General *general);
 	QStringList getGeneralNames() const;
+	QStringList getGeneralNames(const char *real_name) const;
+	QStringList getGeneralNames(int order) const;
+
     const Skill *getSkill(const char *skill_name) const;
     const TriggerSkill *getTriggerSkill(const char *skill_name) const;
     const ViewAsSkill *getViewAsSkill(const char *skill_name) const;

@@ -230,6 +230,7 @@ public:
     void setMute(bool mute);
     LuaSkillCard *clone() const;
 
+	LuaFunction fixed;
     LuaFunction filter;
     LuaFunction feasible;
     LuaFunction about_to_use;
@@ -966,6 +967,29 @@ void LuaSkillCard::pushSelf(lua_State *L) const
 {
     LuaSkillCard *self = const_cast<LuaSkillCard *>(this);
     SWIG_NewPointerObj(L, self, SWIGTYPE_p_LuaSkillCard, 0);
+}
+
+bool LuaSkillCard::targetFixed() const
+{
+	if (fixed == 0)
+		return SkillCard::targetFixed();
+	
+	lua_State *L = Sanguosha->getLuaState();
+
+	// the callback
+	lua_rawgeti(L, LUA_REGISTRYINDEX, fixed);
+
+	pushSelf(L);
+	
+	int error = lua_pcall(L, 1, 1, 0);
+    if (error) {
+        Error(L);
+        return SkillCard::targetFixed();
+    } else {
+        bool result = lua_toboolean(L, -1);
+        lua_pop(L, 1);
+        return result;
+    }
 }
 
 bool LuaSkillCard::targetFilter(const QList<const Player *> &targets, const Player *to_select, const Player *self,

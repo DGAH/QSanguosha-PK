@@ -2681,8 +2681,12 @@ void Room::arrangeGeneralsForKOFGameMode()
 		else if (infoB_loaded && infoB.valid)
 			game_info = infoB;
 		pk_mode = game_info.pk;
-		if (!pk_mode)
-			game_info.stage++;
+		if (!pk_mode) {
+			if (game_info.valid)
+				game_info.stage++;
+			else
+				game_info.stage = GameEX->getStartStage();
+		}
 	}
 	game_info.valid = true;
 	// choose team

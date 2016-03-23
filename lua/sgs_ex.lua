@@ -580,6 +580,11 @@ function sgs.CreateSkillCard(info)
 	if type(info.mute) == "boolean" then
 		card:setMute(info.mute)
 	end
+	if type(info.fixed) == "function" then
+		function card:fixed()
+			return info.fixed(self)
+		end
+	end
 	if type(info.filter) == "function" then
 		function card:filter(...)
 			local result, vote = info.filter(self, ...)

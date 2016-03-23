@@ -1451,7 +1451,7 @@ YanXiaoCard = sgs.CreateLuaCard{
 }
 YanXiaoVS = sgs.CreateLuaSkill{
 	name = "bgmYanXiao",
-	--class = "OneCardViewAsSkill",
+	class = "OneCardViewAsSkill",
 	filter_pattern = ".|diamond",
 	view_as = function(self, card)
 		local suit = card:getSuit()
@@ -1471,7 +1471,7 @@ YanXiao = sgs.CreateLuaSkill{
 		"言笑之间，忧散愁消。",
 		"吾夫有忧色，妾当为解之。",
 	},
-	--class = "PhaseChangeSkill",
+	class = "PhaseChangeSkill",
 	frequency = sgs.Skill_NotFrequent,
 	view_as_skill = YanXiaoVS,
 	on_phasechange = function(self, player)
