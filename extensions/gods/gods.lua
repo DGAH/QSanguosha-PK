@@ -1113,9 +1113,9 @@ CaoCao = sgs.CreateLuaGeneral{
 	技能：狂暴（锁定技）
 	描述：游戏开始时，你获得两枚“暴怒”标记。每当你造成或受到1点伤害后，你获得一枚“暴怒”标记。
 ]]--
-KuangBaoStart = sgs.CreateMarkAssignSkill{
-	name = "#KuangBaoStart",
-	mark = "@wrath",
+KuangBaoStart = sgs.CreateLuaSkill{
+	class = "MarkAssignSkill",
+	name = "@wrath",
 	n = 2,
 }
 KuangBao = sgs.CreateLuaSkill{

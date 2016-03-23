@@ -543,7 +543,6 @@ function sgs.CreateLuaCard(info)
 	info.suit = type(info.suit) == "number" and info.suit or sgs.Card_NoSuit
 	info.point = type(info.point) == "number" and info.point or 0
 	local card = method(info)
-	table.insert(ex_cards, card)
 	if type(info.translation) == "string" then
 		sgs.AddTranslationEntry(info.name, info.translation)
 	end
@@ -779,12 +778,12 @@ function ex.CreateOneCardViewAsSkill(info)
 	local response_or_use = type(info.response_or_use) == "boolean" and info.response_or_use or false
 	local expand_pile = type(info.expand_pile) == "string" and info.expand_pile or ""
 	local filter_pattern = info.filter_pattern
-	local must_response = false
+	local discard_flag = false
 	if filter_pattern then
 		assert(type(filter_pattern) == "string")
-		if string.sub(filter_pattern, -1, 1) == "!" then
+		if string.sub(filter_pattern, -1) == "!" then
 			filter_pattern = string.sub(filter_pattern, 1, -2)
-			must_response = true
+			discard_flag = true
 		end
 	end
 	if info.view_filter then
@@ -803,7 +802,7 @@ function ex.CreateOneCardViewAsSkill(info)
 			if info.view_filter then
 				return info.view_filter(self, to_select)
 			elseif filter_pattern then
-				if must_response and sgs.Self:isJilei(to_select) then 
+				if discard_flag and sgs.Self:isJilei(to_select) then 
 					return false 
 				end
 				return sgs.Sanguosha:matchExpPattern(filter_pattern, sgs.Self, to_select)

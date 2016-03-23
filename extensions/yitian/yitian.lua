@@ -32,6 +32,13 @@
 		1. 改变一名其他角色的势力；
 		2. 获得一个未加入游戏的武将牌上的主公技。
 ]]--
+GuiXin = sgs.CreateLuaSkill{
+	name = "ytGuiXin",
+	translation = "归心",
+	description = "结束阶段开始时，你可以选择一项：\
+1. 改变一名其他角色的势力；\
+2. 获得一个未加入游戏的武将牌上的主公技。",
+}
 --[[
 	技能：飞影（锁定技）
 	描述：其他角色与你的距离+1。
@@ -47,7 +54,7 @@ CaoCao = sgs.CreateLuaGeneral{
 	order = 2,
 	cv = "",
 	illustrator = "",
-	skills = {"FeiYing"},
+	skills = {GuiXin, "FeiYing"},
 	last_word = "",
 	resource = "weiwudi",
 }
@@ -62,14 +69,29 @@ CaoCao = sgs.CreateLuaGeneral{
 	技能：称象
 	描述：每当你受到一次伤害后，你可以弃置X张点数之和与造成伤害的牌的点数相等的牌并选择至多X名角色，这些角色：已受伤，回复1点体力；未受伤，摸两张牌。
 ]]--
+ChengXiang = sgs.CreateLuaSkill{
+	name = "ytChengXiang",
+	translation = "称象",
+	description = "每当你受到一次伤害后，你可以弃置X张点数之和与造成伤害的牌的点数相等的牌并选择至多X名角色，这些角色：已受伤，回复1点体力；未受伤，摸两张牌。",
+}
 --[[
 	技能：早夭（锁定技）
 	描述：结束阶段开始时，若你的手牌数大于13，你须弃置所有手牌并失去1点体力。
 ]]--
+ZaoYao = sgs.CreateLuaSkill{
+	name = "ytZaoYao",
+	translation = "早夭",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，结束阶段开始时，若你的手牌数大于13，你须弃置所有手牌并失去1点体力。",
+}
 --[[
 	技能：聪慧（锁定技）
 	描述：你跳过弃牌阶段。
 ]]--
+CongHui = sgs.CreateLuaSkill{
+	name = "ytCongHui",
+	translation = "聪慧",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，你跳过弃牌阶段。",
+}
 --武将信息：曹冲
 CaoChong = sgs.CreateLuaGeneral{
 	name = "yt_caochong",
@@ -81,7 +103,7 @@ CaoChong = sgs.CreateLuaGeneral{
 	order = 5,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {ChengXiang, ZaoYao, CongHui},
 	last_word = "",
 	resource = "caochong",
 }
@@ -96,6 +118,11 @@ CaoChong = sgs.CreateLuaGeneral{
 	技能：绝汲（阶段技）
 	描述：你可以与一名角色拼点：当你赢后，你获得对方的拼点牌。你可以重复此流程，直到你拼点没赢为止。
 ]]--
+JueJi = sgs.CreateLuaSkill{
+	name = "ytJueJi",
+	translation = "绝汲",
+	description = "<font color=\"green\"><b>阶段技</b></font>，你可以与一名角色拼点：当你赢后，你获得对方的拼点牌。你可以重复此流程，直到你拼点没赢为止。",
+}
 --武将信息：张儁乂
 ZhangHe = sgs.CreateLuaGeneral{
 	name = "yt_zhangjunyi",
@@ -107,7 +134,7 @@ ZhangHe = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = JueJi,
 	last_word = "",
 	resource = "zhangjunyi",
 }
@@ -122,10 +149,20 @@ ZhangHe = sgs.CreateLuaGeneral{
 	技能：围堰
 	描述：你可以将摸牌阶段视为出牌阶段，将出牌阶段视为摸牌阶段。
 ]]--
+WeiYan = sgs.CreateLuaSkill{
+	name = "ytWeiYan",
+	translation = "围堰",
+	description = "你可以将摸牌阶段视为出牌阶段，将出牌阶段视为摸牌阶段。",
+}
 --[[
 	技能：克构（觉醒技）
 	描述：准备阶段开始时，若你是除主公外唯一的吴势力角色，你减少1点体力上限，获得技能“连营”。
 ]]--
+KeGou = sgs.CreateLuaSkill{
+	name = "ytKeGou",
+	translation = "克构",
+	description = "<font color=\"purple\"><b>觉醒技</b></font>，准备阶段开始时，若你是除主公外唯一的吴势力角色，你减少1点体力上限，获得技能“连营”。",
+}
 --[[
 	技能：连营
 	描述：每当你失去最后的手牌后，你可以摸一张牌。
@@ -141,7 +178,8 @@ LuKang = sgs.CreateLuaGeneral{
 	order = 7,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {WeiYan, KeGou},
+	related_skills = "LianYing",
 	last_word = "",
 	resource = "lukang",
 }
@@ -161,6 +199,16 @@ LuKang = sgs.CreateLuaGeneral{
 		[火]一名角色受到的伤害均视为火焰伤害。
 		[土]一名角色受到的属性伤害大于1时，防止多余的伤害。
 ]]--
+WuLing = sgs.CreateLuaSkill{
+	name = "ytWuLing",
+	translation = "五灵",
+	description = "准备阶段开始时，你可选择一种五灵效果，该效果对场上所有角色生效。该效果直到你的下回合开始为止，你选择的五灵效果不可与上回合重复。\
+[风]一名角色受到火属性伤害时，此伤害+1。\
+[雷]一名角色受到雷属性伤害时，此伤害+1。\
+[水]一名角色受【桃】效果影响回复的体力+1。\
+[火]一名角色受到的伤害均视为火焰伤害。\
+[土]一名角色受到的属性伤害大于1时，防止多余的伤害。",
+}
 --武将信息：晋宣帝
 SiMaYi = sgs.CreateLuaGeneral{
 	name = "yt_jinxuandi",
@@ -172,7 +220,7 @@ SiMaYi = sgs.CreateLuaGeneral{
 	order = 2,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = WuLing,
 	last_word = "",
 	resource = "jinxuandi",
 }
@@ -187,14 +235,29 @@ SiMaYi = sgs.CreateLuaGeneral{
 	技能：连理
 	描述：准备阶段开始时，你可以选择一名男性角色，你与其进入连理状态直到你的下回合开始：其可以替你使用或打出【闪】，你可以替其使用或打出【杀】。
 ]]--
+LianLi = sgs.CreateLuaSkill{
+	name = "ytLianLi",
+	translation = "连理",
+	description = "准备阶段开始时，你可以选择一名男性角色，你与其进入连理状态直到你的下回合开始：其可以替你使用或打出【闪】，你可以替其使用或打出【杀】。",
+}
 --[[
 	技能：同心
 	描述：每当一名处于连理状态的角色受到1点伤害后，你可以令处于连理状态的角色各摸一张牌。
 ]]--
+TongXin = sgs.CreateLuaSkill{
+	name = "ytTongXin",
+	translation = "同心",
+	description = "每当一名处于连理状态的角色受到1点伤害后，你可以令处于连理状态的角色各摸一张牌。",
+}
 --[[
 	技能：离迁（锁定技）
 	描述：若你处于连理状态，势力与连理对象的势力相同；当你处于未连理状态时，势力为魏。
 ]]--
+LiQian = sgs.CreateLuaSkill{
+	name = "ytLiQian",
+	translation = "离迁",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，若你处于连理状态，势力与连理对象的势力相同；当你处于未连理状态时，势力为魏。",
+}
 --武将信息：夏侯涓
 XiaHouJuan = sgs.CreateLuaGeneral{
 	name = "yt_xiahoujuan",
@@ -206,7 +269,7 @@ XiaHouJuan = sgs.CreateLuaGeneral{
 	order = 1,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {LianLi, TongXin, LiQian},
 	last_word = "",
 	resource = "xiahoujuan",
 }
@@ -221,10 +284,20 @@ XiaHouJuan = sgs.CreateLuaGeneral{
 	技能：归汉（阶段技）
 	描述：你可以弃置两张花色相同的红色手牌并选择一名其他角色，与其交换位置。
 ]]--
+GuiHan = sgs.CreateLuaSkill{
+	name = "ytGuiHan",
+	translation = "归汉",
+	description = "<font color=\"green\"><b>阶段技</b></font>，你可以弃置两张花色相同的红色手牌并选择一名其他角色，与其交换位置。",
+}
 --[[
 	技能：胡笳
 	描述：结束阶段开始时，你可以进行一次判定：若结果为红色，你获得此判定牌，若如此做，你可以重复此流程。若你在一个阶段内发动“胡笳”判定过至少三次，你将武将牌翻面。
 ]]--
+HuJia = sgs.CreateLuaSkill{
+	name = "ytHuJia",
+	translation = "胡笳",
+	description = "结束阶段开始时，你可以进行一次判定：若结果为红色，你获得此判定牌，若如此做，你可以重复此流程。若你在一个阶段内发动“胡笳”判定过至少三次，你将武将牌翻面。",
+}
 --武将信息：蔡昭姬
 CaiYan = sgs.CreateLuaGeneral{
 	name = "yt_caizhaoji",
@@ -236,7 +309,7 @@ CaiYan = sgs.CreateLuaGeneral{
 	order = 7,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {GuiHan, HuJia},
 	last_word = "",
 	resource = "caizhaoji",
 }
@@ -251,14 +324,29 @@ CaiYan = sgs.CreateLuaGeneral{
 	技能：神君（锁定技）
 	描述：游戏开始时，你选择自己的性别；准备阶段开始时，你须改变性别；每当你受到异性角色造成的非雷属性伤害时，你防止之。
 ]]--
+ShenJun = sgs.CreateLuaSkill{
+	name = "ytShenJun",
+	translation = "神君",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，游戏开始时，你选择自己的性别；准备阶段开始时，你须改变性别；每当你受到异性角色造成的非雷属性伤害时，你防止之。",
+}
 --[[
 	技能：烧营
 	描述：每当你对一名不处于连环状态的角色造成一次火焰伤害扣减体力前，你可选择一名其距离为1的一名角色，若如此做，此伤害结算完毕后，你进行一次判定：若结果为红色，你对其造成1点火属性伤害。
 ]]--
+ShaoYing = sgs.CreateLuaSkill{
+	name = "ytShaoYing",
+	translation = "烧营",
+	description = "每当你对一名不处于连环状态的角色造成一次火焰伤害扣减体力前，你可选择一名其距离为1的一名角色，若如此做，此伤害结算完毕后，你进行一次判定：若结果为红色，你对其造成1点火属性伤害。",
+}
 --[[
 	技能：纵火（锁定技）
 	描述：你使用的【杀】视为火【杀】。
 ]]--
+ZongHuo = sgs.CreateLuaSkill{
+	name = "ytZongHuo",
+	translation = "纵火",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，你使用的【杀】视为火【杀】。",
+}
 --武将信息：陆伯言
 LuXun = sgs.CreateLuaGeneral{
 	name = "yt_luboyan",
@@ -270,7 +358,7 @@ LuXun = sgs.CreateLuaGeneral{
 	order = 4,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {ShenJun, ZongHuo, ShaoYing},
 	last_word = "",
 	resource = "luboyan",
 }
@@ -285,6 +373,11 @@ LuXun = sgs.CreateLuaGeneral{
 	技能：共谋
 	描述：结束阶段开始时，你可以选择一名其他角色，若如此做，其于其下个摸牌阶段摸牌后，将X张手牌交给你（X为你手牌数与对方手牌数的较小值），然后你将X张手牌交给其。
 ]]--
+GongMou = sgs.CreateLuaSkill{
+	name = "ytGongMou",
+	translation = "共谋",
+	description = "结束阶段开始时，你可以选择一名其他角色，若如此做，其于其下个摸牌阶段摸牌后，将X张手牌交给你（X为你手牌数与对方手牌数的较小值），然后你将X张手牌交给其。",
+}
 --武将信息：钟士季
 ZhongHui = sgs.CreateLuaGeneral{
 	name = "yt_zhongshiji",
@@ -296,7 +389,7 @@ ZhongHui = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = GongMou,
 	last_word = "",
 	resource = "zhongshiji",
 }
@@ -311,10 +404,20 @@ ZhongHui = sgs.CreateLuaGeneral{
 	技能：乐学（阶段技）
 	描述：你可以令一名其他角色展示一张手牌：若此牌为基本牌或非延时类锦囊牌，你于当前回合内可以将与此牌同花色的牌当作该牌使用或打出；否则，你获得之。
 ]]--
+LeXue = sgs.CreateLuaSkill{
+	name = "ytLeXue",
+	translation = "乐学",
+	description = "<font color=\"green\"><b>阶段技</b></font>，你可以令一名其他角色展示一张手牌：若此牌为基本牌或非延时类锦囊牌，你于当前回合内可以将与此牌同花色的牌当作该牌使用或打出；否则，你获得之。",
+}
 --[[
 	技能：殉志
 	描述：出牌阶段，你可以摸三张牌，然后变身为游戏外的一名蜀势力武将，若如此做，回合结束后，你死亡。
 ]]--
+XunZhi = sgs.CreateLuaSkill{
+	name = "ytXunZhi",
+	translation = "殉志",
+	description = "出牌阶段，你可以摸三张牌，然后变身为游戏外的一名蜀势力武将，若如此做，回合结束后，你死亡。",
+}
 --武将信息：姜伯约
 JiangWei = sgs.CreateLuaGeneral{
 	name = "yt_jiangboyue",
@@ -326,7 +429,7 @@ JiangWei = sgs.CreateLuaGeneral{
 	order = 5,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {LeXue, XunZhi},
 	last_word = "",
 	resource = "jiangboyue",
 }
@@ -342,10 +445,21 @@ JiangWei = sgs.CreateLuaGeneral{
 	描述：准备阶段开始时，你可以选择一名其他角色：其所有手牌于当前回合内对你可见。
 		注：你以此法选择的角色的操作不公开，换言之，只有你知道洞察的目标。
 ]]--
+DongCha = sgs.CreateLuaSkill{
+	name = "ytDongCha",
+	translation = "洞察",
+	description = "准备阶段开始时，你可以选择一名其他角色：其所有手牌于当前回合内对你可见。\
+注：你以此法选择的角色的操作不公开，换言之，只有你知道洞察的目标。",
+}
 --[[
 	技能：毒士（锁定技）
 	描述：当你死亡时，杀死你的角色获得技能“崩坏”。
 ]]--
+DuShi = sgs.CreateLuaSkill{
+	name = "ytDuShi",
+	translation = "毒士",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，当你死亡时，杀死你的角色获得技能“崩坏”。",
+}
 --[[
 	技能：崩坏（锁定技）
 	描述：结束阶段开始时，若你的体力值不为场上最少（或之一），你须选择一项：失去1点体力，或失去1点体力上限。
@@ -361,7 +475,8 @@ JiaXu = sgs.CreateLuaGeneral{
 	order = 4,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {DongCha, DuShi},
+	related_skills = "BengHuai",
 	last_word = "",
 	resource = "jiawenhe",
 }
@@ -376,10 +491,20 @@ JiaXu = sgs.CreateLuaGeneral{
 	技能：死战（锁定技）
 	描述：每当你受到一次伤害时，你防止此伤害并获得等同于伤害点数的“死战”标记；结束阶段开始时，你失去等量于你拥有的“死战”标记数的体力并弃所有的“死战”标记。
 ]]--
+SiZhan = sgs.CreateLuaSkill{
+	name = "ytSiZhan",
+	translation = "死战",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，每当你受到一次伤害时，你防止此伤害并获得等同于伤害点数的“死战”标记；结束阶段开始时，你失去等量于你拥有的“死战”标记数的体力并弃所有的“死战”标记。",
+}
 --[[
 	技能：神力（锁定技）
 	描述：你于出牌阶段内第一次使用【杀】造成伤害时，此伤害+X（X为当前死战标记数且最大为3）。
 ]]--
+ShenLi = sgs.CreateLuaSkill{
+	name = "ytShenLi",
+	translation = "神力",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，你于出牌阶段内第一次使用【杀】造成伤害时，此伤害+X（X为当前死战标记数且最大为3）。",
+}
 --武将信息：古之恶来
 DianWei = sgs.CreateLuaGeneral{
 	name = "yt_guzhielai",
@@ -391,7 +516,7 @@ DianWei = sgs.CreateLuaGeneral{
 	order = 4,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {SiZhan, ShenLi},
 	last_word = "",
 	resource = "guzhielai",
 }
@@ -406,10 +531,20 @@ DianWei = sgs.CreateLuaGeneral{
 	技能：争功
 	描述：其他角色的回合开始前，若你的武将牌正面朝上，你可以获得一个额外的回合，此回合结束后，你将武将牌翻面。
 ]]--
+ZhengGong = sgs.CreateLuaSkill{
+	name = "ytZhengGong",
+	translation = "争功",
+	description = "其他角色的回合开始前，若你的武将牌正面朝上，你可以获得一个额外的回合，此回合结束后，你将武将牌翻面。",
+}
 --[[
 	技能：偷渡
 	描述：每当你受到一次伤害后，若你的武将牌背面朝上，你可以弃置一张手牌，将你的武将牌翻面，然后视为使用一张【杀】。
 ]]--
+TouDu = sgs.CreateLuaSkill{
+	name = "ytTouDu",
+	translation = "偷渡",
+	description = "每当你受到一次伤害后，若你的武将牌背面朝上，你可以弃置一张手牌，将你的武将牌翻面，然后视为使用一张【杀】。",
+}
 --武将信息：邓士载
 DengAi = sgs.CreateLuaGeneral{
 	name = "yt_dengshizai",
@@ -421,7 +556,7 @@ DengAi = sgs.CreateLuaGeneral{
 	order = 6,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {ZhengGong, TouDu},
 	last_word = "",
 	resource = "dengshizai",
 }
@@ -437,10 +572,21 @@ DengAi = sgs.CreateLuaGeneral{
 	描述：出牌阶段，你可以将至少一张手牌置于你的武将牌上称为“米”（“米”不能多于五张）或获得至少一张“米”；
 		其他角色的出牌阶段限两次，其可选择一张“米”，你可以将之交给其。
 ]]--
+YiShe = sgs.CreateLuaSkill{
+	name = "ytYiShe",
+	translation = "义舍",
+	description = "出牌阶段，你可以将至少一张手牌置于你的武将牌上称为“米”（“米”不能多于五张）或获得至少一张“米”；\
+其他角色的出牌阶段限两次，其可选择一张“米”，你可以将之交给其。",
+}
 --[[
 	技能：惜粮
 	描述：每当其他角色于其弃牌阶段因弃置失去一张红色牌后，你可以选择一项：1.将之置于你的武将牌上，称为“米”；2.获得之。
 ]]--
+XiLiang = sgs.CreateLuaSkill{
+	name = "ytXiLiang",
+	translation = "惜粮",
+	description = "每当其他角色于其弃牌阶段因弃置失去一张红色牌后，你可以选择一项：1.将之置于你的武将牌上，称为“米”；2.获得之。",
+}
 --武将信息：张公祺
 ZhangLu = sgs.CreateLuaGeneral{
 	name = "yt_zhanggongqi",
@@ -452,7 +598,7 @@ ZhangLu = sgs.CreateLuaGeneral{
 	order = 7,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {YiShe, XiLiang},
 	last_word = "",
 	resource = "zhanggongqi",
 }
@@ -467,14 +613,29 @@ ZhangLu = sgs.CreateLuaGeneral{
 	技能：争锋（锁定技）
 	描述：若你的装备区没有武器牌，你的攻击范围为X（X为你的体力值）。
 ]]--
+ZhengFeng = sgs.CreateLuaSkill{
+	name = "ytZhengFeng",
+	translation = "争锋",
+	description = "<font color=\"blue\"><b>锁定技</b></font>，若你的装备区没有武器牌，你的攻击范围为X（X为你的体力值）。",
+}
 --[[
 	技能：镇威
 	描述：每当你使用的【杀】被【闪】抵消时，你可以获得处理区里的此【闪】。
 ]]--
+ZhenWei = sgs.CreateLuaSkill{
+	name = "ytZhenWei",
+	translation = "镇威",
+	description = "每当你使用的【杀】被【闪】抵消时，你可以获得处理区里的此【闪】。",
+}
 --[[
 	技能：倚天（联动技）
 	描述：每当你对曹操造成伤害时，你可以令该伤害-1。
 ]]--
+YiTian = sgs.CreateLuaSkill{
+	name = "ytYiTian",
+	translation = "倚天",
+	description = "<font color=\"pink\"><b>联动技</b></font>，每当你对曹操造成伤害时，你可以令该伤害-1。",
+}
 --武将信息：倚天剑
 YiTianJian = sgs.CreateLuaGeneral{
 	name = "yt_yitianjian",
@@ -486,7 +647,7 @@ YiTianJian = sgs.CreateLuaGeneral{
 	order = 0,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = {ZhengFeng, ZhenWei, YiTian},
 	last_word = "",
 	resource = "yitianjian",
 }
@@ -501,6 +662,11 @@ YiTianJian = sgs.CreateLuaGeneral{
 	技能：抬榇
 	描述：出牌阶段，你可以失去1点体力或弃置一张武器牌，依次弃置你攻击范围内的一名角色区域内的两张牌。
 ]]--
+TaiChen = sgs.CreateLuaSkill{
+	name = "ytTaiChen",
+	translation = "抬榇",
+	description = "出牌阶段，你可以失去1点体力或弃置一张武器牌，依次弃置你攻击范围内的一名角色区域内的两张牌。",
+}
 --武将信息：庞令明
 PangDe = sgs.CreateLuaGeneral{
 	name = "yt_panglingming",
@@ -512,7 +678,7 @@ PangDe = sgs.CreateLuaGeneral{
 	order = 8,
 	cv = "",
 	illustrator = "",
-	skills = {},
+	skills = TaiChen,
 	last_word = "",
 	resource = "panglingming",
 }
