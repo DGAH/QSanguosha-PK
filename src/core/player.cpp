@@ -210,10 +210,14 @@ int Player::getAttackRange(bool include_weapon) const
     return real_range;
 }
 
-bool Player::inMyAttackRange(const Player *other, int distance_fix) const
+bool Player::inMyAttackRange(const Player *other, bool include_weapon, bool include_offhorse, int distance_fix) const
 {
-    if (attack_range_pair.contains(other)) return true;
-    return this != other && distanceTo(other, distance_fix) <= getAttackRange();
+	if (attack_range_pair.contains(other)) return true;
+	if (this->offensive_horse && !include_offhorse) {
+		const Horse *horse = static_cast<const Horse *>(this->offensive_horse->getRealCard());
+		distance_fix += horse->getCorrect();
+	}
+	return this != other && distanceTo(other, distance_fix) <= getAttackRange(include_weapon);
 }
 
 void Player::setFixedDistance(const Player *player, int distance)

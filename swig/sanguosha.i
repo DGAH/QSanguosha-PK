@@ -102,6 +102,7 @@ public:
     enum Phase { RoundStart, Start, Judge, Draw, Play, Discard, Finish, NotActive, PhaseNone };
     enum Place { PlaceHand, PlaceEquip, PlaceDelayedTrick, PlaceJudge, PlaceSpecial, DiscardPile, DrawPile, PlaceTable, PlaceUnknown };
     enum Role { Lord, Loyalist, Rebel, Renegade };
+	enum PindianResult { PindianUnknown, PindianWin, PindianDraw, PindianLose, PindianStopped };
 
     explicit Player(QObject *parent);
 
@@ -158,7 +159,7 @@ public:
     void setPhase(Phase phase);
 
     int getAttackRange(bool include_weapon = true) const;
-    bool inMyAttackRange(const Player *other, int distance_fix = 0) const;
+	bool inMyAttackRange(const Player *other, bool include_weapon = true, bool include_offhorse = true, int distance_fix = 0) const;
 
     bool isAlive() const;
     bool isDead() const;
@@ -333,7 +334,7 @@ public:
     QList<const Card *> getCards(const char *flags) const;
     DummyCard *wholeHandCards() const;
     bool hasNullification() const;
-    bool pindian(ServerPlayer *target, const char *reason, const Card *card1 = NULL);
+    Player::PindianResult pindian(ServerPlayer *target, const char *reason, const Card *card1 = NULL);
     void turnOver();
     void play(QList<Player::Phase> set_phases = QList<Player::Phase>());
     bool changePhase(Player::Phase from, Player::Phase to);
@@ -813,6 +814,10 @@ struct JudgeStruct {
 struct PindianStruct {
     PindianStruct();
 
+	bool isSuccess() const;
+	bool isNotSuccess() const;
+	bool isStopped() const;
+
     ServerPlayer *from;
     ServerPlayer *to;
     const Card *from_card;
@@ -820,7 +825,7 @@ struct PindianStruct {
     int from_number;
     int to_number;
     QString reason;
-    bool success;
+    Player::PindianResult result;
 };
 
 struct PhaseChangeStruct {
@@ -871,6 +876,7 @@ enum TriggerEvent {
     FinishRetrial,
     FinishJudge,
 
+	BeforePindian,
     PindianVerifying,
     Pindian,
 

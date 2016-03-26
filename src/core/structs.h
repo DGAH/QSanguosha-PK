@@ -587,7 +587,10 @@ struct RecoverStruct
 struct PindianStruct
 {
     PindianStruct();
+
     bool isSuccess() const;
+	bool isNotSuccess() const;
+	bool isStopped() const;
 
     ServerPlayer *from;
     ServerPlayer *to;
@@ -596,7 +599,7 @@ struct PindianStruct
     int from_number;
     int to_number;
     QString reason;
-    bool success;
+	Player::PindianResult result;
 };
 
 struct JudgeStruct
@@ -728,6 +731,7 @@ enum TriggerEvent
     FinishRetrial,
     FinishJudge,
 
+	BeforePindian,
     PindianVerifying,
     Pindian,
 

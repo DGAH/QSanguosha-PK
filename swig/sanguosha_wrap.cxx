@@ -15912,13 +15912,17 @@ static int _wrap_Player_inMyAttackRange__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   Player *arg1 = (Player *) 0 ;
   Player *arg2 = (Player *) 0 ;
-  int arg3 ;
+  bool arg3 ;
+  bool arg4 ;
+  int arg5 ;
   bool result;
   
-  SWIG_check_num_args("Player::inMyAttackRange",3,3)
+  SWIG_check_num_args("Player::inMyAttackRange",5,5)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::inMyAttackRange",1,"Player const *");
   if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Player::inMyAttackRange",2,"Player const *");
-  if(!lua_isnumber(L,3)) SWIG_fail_arg("Player::inMyAttackRange",3,"int");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Player::inMyAttackRange",3,"bool");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("Player::inMyAttackRange",4,"bool");
+  if(!lua_isnumber(L,5)) SWIG_fail_arg("Player::inMyAttackRange",5,"int");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
     SWIG_fail_ptr("Player_inMyAttackRange",1,SWIGTYPE_p_Player);
@@ -15929,8 +15933,10 @@ static int _wrap_Player_inMyAttackRange__SWIG_0(lua_State* L) {
     SWIG_fail_ptr("Player_inMyAttackRange",2,SWIGTYPE_p_Player);
   }
   
-  arg3 = (int)lua_tonumber(L, 3);
-  result = (bool)((Player const *)arg1)->inMyAttackRange((Player const *)arg2,arg3);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  arg5 = (int)lua_tonumber(L, 5);
+  result = (bool)((Player const *)arg1)->inMyAttackRange((Player const *)arg2,arg3,arg4,arg5);
   lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
   return SWIG_arg;
   
@@ -15943,6 +15949,77 @@ fail:
 
 
 static int _wrap_Player_inMyAttackRange__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  Player *arg2 = (Player *) 0 ;
+  bool arg3 ;
+  bool arg4 ;
+  bool result;
+  
+  SWIG_check_num_args("Player::inMyAttackRange",4,4)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::inMyAttackRange",1,"Player const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Player::inMyAttackRange",2,"Player const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Player::inMyAttackRange",3,"bool");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("Player::inMyAttackRange",4,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_inMyAttackRange",1,SWIGTYPE_p_Player);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_inMyAttackRange",2,SWIGTYPE_p_Player);
+  }
+  
+  arg3 = (lua_toboolean(L, 3)!=0);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  result = (bool)((Player const *)arg1)->inMyAttackRange((Player const *)arg2,arg3,arg4);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_inMyAttackRange__SWIG_2(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  Player *arg2 = (Player *) 0 ;
+  bool arg3 ;
+  bool result;
+  
+  SWIG_check_num_args("Player::inMyAttackRange",3,3)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::inMyAttackRange",1,"Player const *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("Player::inMyAttackRange",2,"Player const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("Player::inMyAttackRange",3,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_inMyAttackRange",1,SWIGTYPE_p_Player);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_inMyAttackRange",2,SWIGTYPE_p_Player);
+  }
+  
+  arg3 = (lua_toboolean(L, 3)!=0);
+  result = (bool)((Player const *)arg1)->inMyAttackRange((Player const *)arg2,arg3);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_inMyAttackRange__SWIG_3(lua_State* L) {
   int SWIG_arg = 0;
   Player *arg1 = (Player *) 0 ;
   Player *arg2 = (Player *) 0 ;
@@ -15975,8 +16052,8 @@ fail:
 
 static int _wrap_Player_inMyAttackRange(lua_State* L) {
   int argc;
-  int argv[4]={
-    1,2,3,4
+  int argv[6]={
+    1,2,3,4,5,6
   };
   
   argc = lua_gettop(L);
@@ -16000,7 +16077,7 @@ static int _wrap_Player_inMyAttackRange(lua_State* L) {
         }
       }
       if (_v) {
-        return _wrap_Player_inMyAttackRange__SWIG_1(L);
+        return _wrap_Player_inMyAttackRange__SWIG_3(L);
       }
     }
   }
@@ -16025,10 +16102,83 @@ static int _wrap_Player_inMyAttackRange(lua_State* L) {
       }
       if (_v) {
         {
-          _v = lua_isnumber(L,argv[2]);
+          _v = lua_isboolean(L,argv[2]);
         }
         if (_v) {
-          return _wrap_Player_inMyAttackRange__SWIG_0(L);
+          return _wrap_Player_inMyAttackRange__SWIG_2(L);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (SWIG_isptrtype(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            return _wrap_Player_inMyAttackRange__SWIG_1(L);
+          }
+        }
+      }
+    }
+  }
+  if (argc == 5) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (SWIG_isptrtype(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            {
+              _v = lua_isnumber(L,argv[4]);
+            }
+            if (_v) {
+              return _wrap_Player_inMyAttackRange__SWIG_0(L);
+            }
+          }
         }
       }
     }
@@ -16036,7 +16186,9 @@ static int _wrap_Player_inMyAttackRange(lua_State* L) {
   
   SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Player_inMyAttackRange'\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Player::inMyAttackRange(Player const *,int) const\n"
+    "    Player::inMyAttackRange(Player const *,bool,bool,int) const\n"
+    "    Player::inMyAttackRange(Player const *,bool,bool) const\n"
+    "    Player::inMyAttackRange(Player const *,bool) const\n"
     "    Player::inMyAttackRange(Player const *) const\n");
   lua_error(L);return 0;
 }
@@ -21855,6 +22007,11 @@ static swig_lua_const_info swig_Player_cls_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("Loyalist", Player::Loyalist)},
     {SWIG_LUA_CONSTTAB_INT("Rebel", Player::Rebel)},
     {SWIG_LUA_CONSTTAB_INT("Renegade", Player::Renegade)},
+    {SWIG_LUA_CONSTTAB_INT("PindianUnknown", Player::PindianUnknown)},
+    {SWIG_LUA_CONSTTAB_INT("PindianWin", Player::PindianWin)},
+    {SWIG_LUA_CONSTTAB_INT("PindianDraw", Player::PindianDraw)},
+    {SWIG_LUA_CONSTTAB_INT("PindianLose", Player::PindianLose)},
+    {SWIG_LUA_CONSTTAB_INT("PindianStopped", Player::PindianStopped)},
     {0,0,0,0,0,0}
 };
 static swig_lua_class *swig_Player_bases[] = {0,0};
@@ -23268,7 +23425,7 @@ static int _wrap_ServerPlayer_pindian__SWIG_0(lua_State* L) {
   ServerPlayer *arg2 = (ServerPlayer *) 0 ;
   char *arg3 = (char *) 0 ;
   Card *arg4 = (Card *) 0 ;
-  bool result;
+  Player::PindianResult result;
   
   SWIG_check_num_args("ServerPlayer::pindian",4,4)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::pindian",1,"ServerPlayer *");
@@ -23291,8 +23448,8 @@ static int _wrap_ServerPlayer_pindian__SWIG_0(lua_State* L) {
     SWIG_fail_ptr("ServerPlayer_pindian",4,SWIGTYPE_p_Card);
   }
   
-  result = (bool)(arg1)->pindian(arg2,(char const *)arg3,(Card const *)arg4);
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  result = (Player::PindianResult)(arg1)->pindian(arg2,(char const *)arg3,(Card const *)arg4);
+  lua_pushnumber(L, (lua_Number)(int)(result)); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -23308,7 +23465,7 @@ static int _wrap_ServerPlayer_pindian__SWIG_1(lua_State* L) {
   ServerPlayer *arg1 = (ServerPlayer *) 0 ;
   ServerPlayer *arg2 = (ServerPlayer *) 0 ;
   char *arg3 = (char *) 0 ;
-  bool result;
+  Player::PindianResult result;
   
   SWIG_check_num_args("ServerPlayer::pindian",3,3)
   if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("ServerPlayer::pindian",1,"ServerPlayer *");
@@ -23325,8 +23482,8 @@ static int _wrap_ServerPlayer_pindian__SWIG_1(lua_State* L) {
   }
   
   arg3 = (char *)lua_tostring(L, 3);
-  result = (bool)(arg1)->pindian(arg2,(char const *)arg3);
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  result = (Player::PindianResult)(arg1)->pindian(arg2,(char const *)arg3);
+  lua_pushnumber(L, (lua_Number)(int)(result)); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -33811,6 +33968,78 @@ fail:
 }
 
 
+static int _wrap_PindianStruct_isSuccess(lua_State* L) {
+  int SWIG_arg = 0;
+  PindianStruct *arg1 = (PindianStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("PindianStruct::isSuccess",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::isSuccess",1,"PindianStruct const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_PindianStruct,0))){
+    SWIG_fail_ptr("PindianStruct_isSuccess",1,SWIGTYPE_p_PindianStruct);
+  }
+  
+  result = (bool)((PindianStruct const *)arg1)->isSuccess();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_PindianStruct_isNotSuccess(lua_State* L) {
+  int SWIG_arg = 0;
+  PindianStruct *arg1 = (PindianStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("PindianStruct::isNotSuccess",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::isNotSuccess",1,"PindianStruct const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_PindianStruct,0))){
+    SWIG_fail_ptr("PindianStruct_isNotSuccess",1,SWIGTYPE_p_PindianStruct);
+  }
+  
+  result = (bool)((PindianStruct const *)arg1)->isNotSuccess();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_PindianStruct_isStopped(lua_State* L) {
+  int SWIG_arg = 0;
+  PindianStruct *arg1 = (PindianStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("PindianStruct::isStopped",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::isStopped",1,"PindianStruct const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_PindianStruct,0))){
+    SWIG_fail_ptr("PindianStruct_isStopped",1,SWIGTYPE_p_PindianStruct);
+  }
+  
+  result = (bool)((PindianStruct const *)arg1)->isStopped();
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_PindianStruct_from_set(lua_State* L) {
   int SWIG_arg = 0;
   PindianStruct *arg1 = (PindianStruct *) 0 ;
@@ -34177,21 +34406,21 @@ fail:
 }
 
 
-static int _wrap_PindianStruct_success_set(lua_State* L) {
+static int _wrap_PindianStruct_result_set(lua_State* L) {
   int SWIG_arg = 0;
   PindianStruct *arg1 = (PindianStruct *) 0 ;
-  bool arg2 ;
+  Player::PindianResult arg2 ;
   
-  SWIG_check_num_args("PindianStruct::success",2,2)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::success",1,"PindianStruct *");
-  if(!lua_isboolean(L,2)) SWIG_fail_arg("PindianStruct::success",2,"bool");
+  SWIG_check_num_args("PindianStruct::result",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::result",1,"PindianStruct *");
+  if(!lua_isnumber(L,2)) SWIG_fail_arg("PindianStruct::result",2,"Player::PindianResult");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_PindianStruct,0))){
-    SWIG_fail_ptr("PindianStruct_success_set",1,SWIGTYPE_p_PindianStruct);
+    SWIG_fail_ptr("PindianStruct_result_set",1,SWIGTYPE_p_PindianStruct);
   }
   
-  arg2 = (lua_toboolean(L, 2)!=0);
-  if (arg1) (arg1)->success = arg2;
+  arg2 = (Player::PindianResult)(int)lua_tonumber(L, 2);
+  if (arg1) (arg1)->result = arg2;
   
   return SWIG_arg;
   
@@ -34203,20 +34432,20 @@ fail:
 }
 
 
-static int _wrap_PindianStruct_success_get(lua_State* L) {
+static int _wrap_PindianStruct_result_get(lua_State* L) {
   int SWIG_arg = 0;
   PindianStruct *arg1 = (PindianStruct *) 0 ;
-  bool result;
+  Player::PindianResult result;
   
-  SWIG_check_num_args("PindianStruct::success",1,1)
-  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::success",1,"PindianStruct *");
+  SWIG_check_num_args("PindianStruct::result",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("PindianStruct::result",1,"PindianStruct *");
   
   if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_PindianStruct,0))){
-    SWIG_fail_ptr("PindianStruct_success_get",1,SWIGTYPE_p_PindianStruct);
+    SWIG_fail_ptr("PindianStruct_result_get",1,SWIGTYPE_p_PindianStruct);
   }
   
-  result = (bool) ((arg1)->success);
-  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  result = (Player::PindianResult) ((arg1)->result);
+  lua_pushnumber(L, (lua_Number)(int)(result)); SWIG_arg++;
   return SWIG_arg;
   
   if(0) SWIG_fail;
@@ -34232,6 +34461,9 @@ PindianStruct *arg1 = (PindianStruct *) obj;
 delete arg1;
 }
 static swig_lua_method swig_PindianStruct_methods[] = {
+    {"isSuccess", _wrap_PindianStruct_isSuccess}, 
+    {"isNotSuccess", _wrap_PindianStruct_isNotSuccess}, 
+    {"isStopped", _wrap_PindianStruct_isStopped}, 
     {0,0}
 };
 static swig_lua_attribute swig_PindianStruct_attributes[] = {
@@ -34242,7 +34474,7 @@ static swig_lua_attribute swig_PindianStruct_attributes[] = {
     { "from_number", _wrap_PindianStruct_from_number_get, _wrap_PindianStruct_from_number_set},
     { "to_number", _wrap_PindianStruct_to_number_get, _wrap_PindianStruct_to_number_set},
     { "reason", _wrap_PindianStruct_reason_get, _wrap_PindianStruct_reason_set},
-    { "success", _wrap_PindianStruct_success_get, _wrap_PindianStruct_success_set},
+    { "result", _wrap_PindianStruct_result_get, _wrap_PindianStruct_result_set},
     {0,0,0}
 };
 static swig_lua_attribute swig_PindianStruct_cls_attributes[] = {
@@ -77372,6 +77604,11 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("Player_Loyalist", Player::Loyalist)},
     {SWIG_LUA_CONSTTAB_INT("Player_Rebel", Player::Rebel)},
     {SWIG_LUA_CONSTTAB_INT("Player_Renegade", Player::Renegade)},
+    {SWIG_LUA_CONSTTAB_INT("Player_PindianUnknown", Player::PindianUnknown)},
+    {SWIG_LUA_CONSTTAB_INT("Player_PindianWin", Player::PindianWin)},
+    {SWIG_LUA_CONSTTAB_INT("Player_PindianDraw", Player::PindianDraw)},
+    {SWIG_LUA_CONSTTAB_INT("Player_PindianLose", Player::PindianLose)},
+    {SWIG_LUA_CONSTTAB_INT("Player_PindianStopped", Player::PindianStopped)},
     {SWIG_LUA_CONSTTAB_INT("CardMoveReason_S_REASON_UNKNOWN", CardMoveReason::S_REASON_UNKNOWN)},
     {SWIG_LUA_CONSTTAB_INT("CardMoveReason_S_REASON_USE", CardMoveReason::S_REASON_USE)},
     {SWIG_LUA_CONSTTAB_INT("CardMoveReason_S_REASON_RESPONSE", CardMoveReason::S_REASON_RESPONSE)},
@@ -77447,6 +77684,7 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("AskForRetrial", AskForRetrial)},
     {SWIG_LUA_CONSTTAB_INT("FinishRetrial", FinishRetrial)},
     {SWIG_LUA_CONSTTAB_INT("FinishJudge", FinishJudge)},
+    {SWIG_LUA_CONSTTAB_INT("BeforePindian", BeforePindian)},
     {SWIG_LUA_CONSTTAB_INT("PindianVerifying", PindianVerifying)},
     {SWIG_LUA_CONSTTAB_INT("Pindian", Pindian)},
     {SWIG_LUA_CONSTTAB_INT("TurnedOver", TurnedOver)},

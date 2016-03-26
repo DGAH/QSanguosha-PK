@@ -42,6 +42,7 @@ class Player : public QObject
     Q_ENUMS(Phase)
     Q_ENUMS(Place)
     Q_ENUMS(Role)
+	Q_ENUMS(PindianResult)
 
 public:
     enum Phase
@@ -58,6 +59,13 @@ public:
     {
         Lord, Loyalist, Rebel, Renegade
     };
+	enum PindianResult {
+		PindianUnknown,
+		PindianWin,
+		PindianDraw,
+		PindianLose,
+		PindianStopped
+	};
 
     explicit Player(QObject *parent);
 
@@ -117,7 +125,7 @@ public:
     void setPhase(Phase phase);
 
     int getAttackRange(bool include_weapon = true) const;
-    bool inMyAttackRange(const Player *other, int distance_fix = 0) const;
+	bool inMyAttackRange(const Player *other, bool include_weapon = true, bool include_offhorse = true, int distance_fix = 0) const;
 
     bool isAlive() const;
     bool isDead() const;

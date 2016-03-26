@@ -93,13 +93,23 @@ RecoverStruct::RecoverStruct(ServerPlayer *who, const Card *card, int recover)
 }
 
 PindianStruct::PindianStruct()
-    : from(NULL), to(NULL), from_card(NULL), to_card(NULL), success(false)
+    : from(NULL), to(NULL), from_card(NULL), to_card(NULL), result(Player::PindianUnknown)
 {
 }
 
 bool PindianStruct::isSuccess() const
 {
-    return success;
+	return result == Player::PindianWin;
+}
+
+bool PindianStruct::isNotSuccess() const
+{
+	return (result == Player::PindianDraw) || (result == Player::PindianLose);
+}
+
+bool PindianStruct::isStopped() const
+{
+	return result == Player::PindianStopped;
 }
 
 JudgeStruct::JudgeStruct()
