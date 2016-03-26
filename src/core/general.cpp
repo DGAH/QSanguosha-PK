@@ -215,8 +215,12 @@ QString General::getSkillDescription(bool include_name) const
         QString color_str = Sanguosha->getKingdomColor(kingdom).name();
         QString name = QString("<font color=%1><b>%2</b></font>     ").arg(color_str).arg(Sanguosha->translate(objectName()));
         name.prepend(QString("<img src='image/kingdom/icon/%1.png'/>    ").arg(kingdom));
-        for (int i = 0; i < max_hp; i++)
-            name.append("<img src='image/system/magatamas/5.png' height = 12/>");
+		if (max_hp > 20)
+			name.append(QString("<img src='image/system/magatamas/5.png' height = 12><font color=green><b> %1 %2 </b></font>").arg(tr("X")).arg(QString::number(max_hp)));
+		else {
+			for (int i = 0; i < max_hp; i++)
+				name.append("<img src='image/system/magatamas/5.png' height = 12/>");
+		}
         name.append("<br/> <br/>");
         description.prepend(name);
     }
