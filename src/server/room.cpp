@@ -1923,48 +1923,63 @@ void Room::resetAI(ServerPlayer *player)
 void Room::changeHero(ServerPlayer *player, const QString &new_general, bool full_state, bool invokeStart,
     bool isSecondaryHero, bool sendLog)
 {
+	HeroChangeStruct change(player, new_general, full_state, invokeStart, isSecondaryHero, sendLog);
+	QVariant data = QVariant::fromValue(change);
+	if (thread->trigger(BeforeChangeHero, this, player, data))
+		return;
+
+	change = data.value<HeroChangeStruct>();
+	ServerPlayer *who = change.m_who;
+	if (!who)
+		return;
+	const QString general = change.m_general;
+	if (!Sanguosha->getGeneral(general))
+		return;
+
     JsonArray arg;
     arg << (int)S_GAME_EVENT_CHANGE_HERO;
-    arg << player->objectName();
-    arg << new_general;
-    arg << isSecondaryHero;
-    arg << sendLog;
+    arg << who->objectName();
+    arg << general;
+	arg << change.m_isSecondaryHero;
+    arg << change.m_sendLog;
     doBroadcastNotify(QSanProtocol::S_COMMAND_LOG_EVENT, arg);
 
-    if (isSecondaryHero)
-        changePlayerGeneral2(player, new_general);
+    if (change.m_isSecondaryHero)
+        changePlayerGeneral2(who, general);
     else
-        changePlayerGeneral(player, new_general);
-    player->setMaxHp(player->getGeneralMaxHp());
+        changePlayerGeneral(who, general);
+    who->setMaxHp(who->getGeneralMaxHp());
 
-    if (full_state)
-        player->setHp(player->getMaxHp());
-    broadcastProperty(player, "hp");
-    broadcastProperty(player, "maxhp");
+    if (change.m_isFullState)
+        who->setHp(who->getMaxHp());
+    broadcastProperty(who, "hp");
+    broadcastProperty(who, "maxhp");
 
-    QVariant void_data;
     QList<const TriggerSkill *> game_start;
-    const General *gen = isSecondaryHero ? player->getGeneral2() : player->getGeneral();
+    const General *gen = change.m_isSecondaryHero ? who->getGeneral2() : who->getGeneral();
     if (gen) {
         foreach (const Skill *skill, gen->getSkillList()) {
             if (skill->inherits("TriggerSkill")) {
                 const TriggerSkill *trigger = qobject_cast<const TriggerSkill *>(skill);
                 thread->addTriggerSkill(trigger);
-                if (invokeStart && trigger->getTriggerEvents().contains(GameStart) && trigger->triggerable(player, this))
+                if (change.m_invokeStart && trigger->getTriggerEvents().contains(GameStart) && trigger->triggerable(who, this))
                     game_start << trigger;
             }
             if (skill->getFrequency() == Skill::Limited && !skill->getLimitMark().isEmpty())
-                addPlayerMark(player, skill->getLimitMark());
+                addPlayerMark(who, skill->getLimitMark());
 
             QVariant _skillobjectName = skill->objectName();
-            thread->trigger(EventAcquireSkill, this, player, _skillobjectName);
+            thread->trigger(EventAcquireSkill, this, who, _skillobjectName);
         }
     }
-    if (invokeStart) {
+    if (change.m_invokeStart) {
+		QVariant void_data;
         foreach(const TriggerSkill *skill, game_start)
-            skill->trigger(GameStart, this, player, void_data);
+            skill->trigger(GameStart, this, who, void_data);
     }
-    resetAI(player);
+    resetAI(who);
+
+	thread->trigger(HeroChanged, this, who, data);
 }
 
 lua_State *Room::getLuaState() const

@@ -845,6 +845,35 @@ struct CardResponseStruct {
     bool m_isHandcard;
 };
 
+struct HeroChangeStruct
+{
+	HeroChangeStruct()
+	{
+		m_who = NULL;
+		m_isFullState = false;
+		m_invokeStart = true;
+		m_isSecondaryHero = false;
+		m_sendLog = true;
+	}
+
+	HeroChangeStruct(ServerPlayer *who, const char *general, bool fullstate, bool start, bool second, bool sendlog)
+	{
+		m_who = who;
+		m_general = general;
+		m_isFullState = fullstate;
+		m_invokeStart = start;
+		m_isSecondaryHero = second;
+		m_sendLog = sendlog;
+	}
+
+	ServerPlayer *m_who;
+	QString m_general;
+	bool m_isFullState;
+	bool m_invokeStart;
+	bool m_isSecondaryHero;
+	bool m_sendLog;
+};
+
 enum TriggerEvent {
     NonTrigger,
 
@@ -868,6 +897,8 @@ enum TriggerEvent {
     HpChanged,
     MaxHpChanged,
 
+	BeforeChangeHero,
+	HeroChanged,
     EventLoseSkill,
     EventAcquireSkill,
 

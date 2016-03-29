@@ -127,6 +127,14 @@ public:
         return $self->value<CardResponseStruct>();
     }
 
+	void setValue(HeroChangeStruct *change) {
+		$self->setValue(QVariant::fromValue(*change));
+	}
+
+	HeroChangeStruct toHeroChange() const{
+		return $self->value<HeroChangeStruct>();
+	}
+
     void setValue(QList<int> intlist) {
         QVariantList varlist;
         for (int i = 0; i < intlist.length(); i++)

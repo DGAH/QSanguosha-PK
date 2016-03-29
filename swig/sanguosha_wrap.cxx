@@ -1895,90 +1895,91 @@ SWIG_Lua_dostring(lua_State *L, const char* str) {
 #define SWIGTYPE_p_GameStartSkill swig_types[29]
 #define SWIGTYPE_p_General swig_types[30]
 #define SWIGTYPE_p_GeneralLevel swig_types[31]
-#define SWIGTYPE_p_Horse swig_types[32]
-#define SWIGTYPE_p_InvaliditySkill swig_types[33]
-#define SWIGTYPE_p_JudgeStruct swig_types[34]
-#define SWIGTYPE_p_KOFGameEngine swig_types[35]
-#define SWIGTYPE_p_KOFGameStage swig_types[36]
-#define SWIGTYPE_p_KOFGameTeam swig_types[37]
-#define SWIGTYPE_p_KOFGameTeamLevel swig_types[38]
-#define SWIGTYPE_p_LogMessage swig_types[39]
-#define SWIGTYPE_p_LuaAI swig_types[40]
-#define SWIGTYPE_p_LuaArmor swig_types[41]
-#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[42]
-#define SWIGTYPE_p_LuaBasicCard swig_types[43]
-#define SWIGTYPE_p_LuaDistanceSkill swig_types[44]
-#define SWIGTYPE_p_LuaDummySkill swig_types[45]
-#define SWIGTYPE_p_LuaFilterSkill swig_types[46]
-#define SWIGTYPE_p_LuaFunction swig_types[47]
-#define SWIGTYPE_p_LuaInvaliditySkill swig_types[48]
-#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[49]
-#define SWIGTYPE_p_LuaProhibitSkill swig_types[50]
-#define SWIGTYPE_p_LuaSkillCard swig_types[51]
-#define SWIGTYPE_p_LuaTargetModSkill swig_types[52]
-#define SWIGTYPE_p_LuaTreasure swig_types[53]
-#define SWIGTYPE_p_LuaTrickCard swig_types[54]
-#define SWIGTYPE_p_LuaTriggerSkill swig_types[55]
-#define SWIGTYPE_p_LuaViewAsSkill swig_types[56]
-#define SWIGTYPE_p_LuaWeapon swig_types[57]
-#define SWIGTYPE_p_MaxCardsSkill swig_types[58]
-#define SWIGTYPE_p_OffensiveHorse swig_types[59]
-#define SWIGTYPE_p_OneCardViewAsSkill swig_types[60]
-#define SWIGTYPE_p_Package swig_types[61]
-#define SWIGTYPE_p_PhaseChangeStruct swig_types[62]
-#define SWIGTYPE_p_PindianStruct swig_types[63]
-#define SWIGTYPE_p_Player swig_types[64]
-#define SWIGTYPE_p_ProhibitSkill swig_types[65]
-#define SWIGTYPE_p_QColor swig_types[66]
-#define SWIGTYPE_p_QDialog swig_types[67]
-#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[68]
-#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[69]
-#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[70]
-#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[71]
-#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[72]
-#define SWIGTYPE_p_QListT_KOFGameTeamLevel_p_t swig_types[73]
-#define SWIGTYPE_p_QListT_KOFGameTeam_p_t swig_types[74]
-#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[75]
-#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[76]
-#define SWIGTYPE_p_QListT_Player__Place_t swig_types[77]
-#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[78]
-#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[79]
-#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[80]
-#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[81]
-#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[82]
-#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[83]
-#define SWIGTYPE_p_QListT_bool_t swig_types[84]
-#define SWIGTYPE_p_QListT_int_t swig_types[85]
-#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[86]
-#define SWIGTYPE_p_QObject swig_types[87]
-#define SWIGTYPE_p_QSetT_QString_t swig_types[88]
-#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[89]
-#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[90]
-#define SWIGTYPE_p_QString swig_types[91]
-#define SWIGTYPE_p_QStringList swig_types[92]
-#define SWIGTYPE_p_QThread swig_types[93]
-#define SWIGTYPE_p_QVariant swig_types[94]
-#define SWIGTYPE_p_RankModeInfoStruct swig_types[95]
-#define SWIGTYPE_p_RecoverStruct swig_types[96]
-#define SWIGTYPE_p_Room swig_types[97]
-#define SWIGTYPE_p_RoomThread swig_types[98]
-#define SWIGTYPE_p_Scenario swig_types[99]
-#define SWIGTYPE_p_ServerPlayer swig_types[100]
-#define SWIGTYPE_p_Skill swig_types[101]
-#define SWIGTYPE_p_SkillCard swig_types[102]
-#define SWIGTYPE_p_Slash swig_types[103]
-#define SWIGTYPE_p_SlashEffectStruct swig_types[104]
-#define SWIGTYPE_p_TargetModSkill swig_types[105]
-#define SWIGTYPE_p_Treasure swig_types[106]
-#define SWIGTYPE_p_TrickCard swig_types[107]
-#define SWIGTYPE_p_TriggerSkill swig_types[108]
-#define SWIGTYPE_p_TrustAI swig_types[109]
-#define SWIGTYPE_p_ViewAsSkill swig_types[110]
-#define SWIGTYPE_p_Weapon swig_types[111]
-#define SWIGTYPE_p_WrappedCard swig_types[112]
-#define SWIGTYPE_p_lua_State swig_types[113]
-static swig_type_info *swig_types[115];
-static swig_module_info swig_module = {swig_types, 114, 0, 0, 0, 0};
+#define SWIGTYPE_p_HeroChangeStruct swig_types[32]
+#define SWIGTYPE_p_Horse swig_types[33]
+#define SWIGTYPE_p_InvaliditySkill swig_types[34]
+#define SWIGTYPE_p_JudgeStruct swig_types[35]
+#define SWIGTYPE_p_KOFGameEngine swig_types[36]
+#define SWIGTYPE_p_KOFGameStage swig_types[37]
+#define SWIGTYPE_p_KOFGameTeam swig_types[38]
+#define SWIGTYPE_p_KOFGameTeamLevel swig_types[39]
+#define SWIGTYPE_p_LogMessage swig_types[40]
+#define SWIGTYPE_p_LuaAI swig_types[41]
+#define SWIGTYPE_p_LuaArmor swig_types[42]
+#define SWIGTYPE_p_LuaAttackRangeSkill swig_types[43]
+#define SWIGTYPE_p_LuaBasicCard swig_types[44]
+#define SWIGTYPE_p_LuaDistanceSkill swig_types[45]
+#define SWIGTYPE_p_LuaDummySkill swig_types[46]
+#define SWIGTYPE_p_LuaFilterSkill swig_types[47]
+#define SWIGTYPE_p_LuaFunction swig_types[48]
+#define SWIGTYPE_p_LuaInvaliditySkill swig_types[49]
+#define SWIGTYPE_p_LuaMaxCardsSkill swig_types[50]
+#define SWIGTYPE_p_LuaProhibitSkill swig_types[51]
+#define SWIGTYPE_p_LuaSkillCard swig_types[52]
+#define SWIGTYPE_p_LuaTargetModSkill swig_types[53]
+#define SWIGTYPE_p_LuaTreasure swig_types[54]
+#define SWIGTYPE_p_LuaTrickCard swig_types[55]
+#define SWIGTYPE_p_LuaTriggerSkill swig_types[56]
+#define SWIGTYPE_p_LuaViewAsSkill swig_types[57]
+#define SWIGTYPE_p_LuaWeapon swig_types[58]
+#define SWIGTYPE_p_MaxCardsSkill swig_types[59]
+#define SWIGTYPE_p_OffensiveHorse swig_types[60]
+#define SWIGTYPE_p_OneCardViewAsSkill swig_types[61]
+#define SWIGTYPE_p_Package swig_types[62]
+#define SWIGTYPE_p_PhaseChangeStruct swig_types[63]
+#define SWIGTYPE_p_PindianStruct swig_types[64]
+#define SWIGTYPE_p_Player swig_types[65]
+#define SWIGTYPE_p_ProhibitSkill swig_types[66]
+#define SWIGTYPE_p_QColor swig_types[67]
+#define SWIGTYPE_p_QDialog swig_types[68]
+#define SWIGTYPE_p_QListT_Card_const_p_t swig_types[69]
+#define SWIGTYPE_p_QListT_CardsMoveStruct_t swig_types[70]
+#define SWIGTYPE_p_QListT_DelayedTrick_const_p_t swig_types[71]
+#define SWIGTYPE_p_QListT_DistanceSkill_const_p_t swig_types[72]
+#define SWIGTYPE_p_QListT_InvaliditySkill_const_p_t swig_types[73]
+#define SWIGTYPE_p_QListT_KOFGameTeamLevel_p_t swig_types[74]
+#define SWIGTYPE_p_QListT_KOFGameTeam_p_t swig_types[75]
+#define SWIGTYPE_p_QListT_MaxCardsSkill_const_p_t swig_types[76]
+#define SWIGTYPE_p_QListT_Player__Phase_t swig_types[77]
+#define SWIGTYPE_p_QListT_Player__Place_t swig_types[78]
+#define SWIGTYPE_p_QListT_Player_const_p_t swig_types[79]
+#define SWIGTYPE_p_QListT_ServerPlayer_p_t swig_types[80]
+#define SWIGTYPE_p_QListT_Skill_const_p_t swig_types[81]
+#define SWIGTYPE_p_QListT_TargetModSkill_const_p_t swig_types[82]
+#define SWIGTYPE_p_QListT_TriggerEvent_t swig_types[83]
+#define SWIGTYPE_p_QListT_TriggerSkill_const_p_t swig_types[84]
+#define SWIGTYPE_p_QListT_bool_t swig_types[85]
+#define SWIGTYPE_p_QListT_int_t swig_types[86]
+#define SWIGTYPE_p_QMapT_QString_QString_t swig_types[87]
+#define SWIGTYPE_p_QObject swig_types[88]
+#define SWIGTYPE_p_QSetT_QString_t swig_types[89]
+#define SWIGTYPE_p_QSetT_Skill_const_p_t swig_types[90]
+#define SWIGTYPE_p_QSetT_TriggerSkill_const_p_t swig_types[91]
+#define SWIGTYPE_p_QString swig_types[92]
+#define SWIGTYPE_p_QStringList swig_types[93]
+#define SWIGTYPE_p_QThread swig_types[94]
+#define SWIGTYPE_p_QVariant swig_types[95]
+#define SWIGTYPE_p_RankModeInfoStruct swig_types[96]
+#define SWIGTYPE_p_RecoverStruct swig_types[97]
+#define SWIGTYPE_p_Room swig_types[98]
+#define SWIGTYPE_p_RoomThread swig_types[99]
+#define SWIGTYPE_p_Scenario swig_types[100]
+#define SWIGTYPE_p_ServerPlayer swig_types[101]
+#define SWIGTYPE_p_Skill swig_types[102]
+#define SWIGTYPE_p_SkillCard swig_types[103]
+#define SWIGTYPE_p_Slash swig_types[104]
+#define SWIGTYPE_p_SlashEffectStruct swig_types[105]
+#define SWIGTYPE_p_TargetModSkill swig_types[106]
+#define SWIGTYPE_p_Treasure swig_types[107]
+#define SWIGTYPE_p_TrickCard swig_types[108]
+#define SWIGTYPE_p_TriggerSkill swig_types[109]
+#define SWIGTYPE_p_TrustAI swig_types[110]
+#define SWIGTYPE_p_ViewAsSkill swig_types[111]
+#define SWIGTYPE_p_Weapon swig_types[112]
+#define SWIGTYPE_p_WrappedCard swig_types[113]
+#define SWIGTYPE_p_lua_State swig_types[114]
+static swig_type_info *swig_types[116];
+static swig_module_info swig_module = {swig_types, 115, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2245,7 +2246,13 @@ SWIGINTERN void QVariant_setValue__SWIG_14(QVariant *self,CardResponseStruct *re
 SWIGINTERN CardResponseStruct QVariant_toCardResponse(QVariant const *self){
         return self->value<CardResponseStruct>();
     }
-SWIGINTERN void QVariant_setValue__SWIG_15(QVariant *self,QList< int > intlist){
+SWIGINTERN void QVariant_setValue__SWIG_15(QVariant *self,HeroChangeStruct *change){
+		self->setValue(QVariant::fromValue(*change));
+	}
+SWIGINTERN HeroChangeStruct QVariant_toHeroChange(QVariant const *self){
+		return self->value<HeroChangeStruct>();
+	}
+SWIGINTERN void QVariant_setValue__SWIG_16(QVariant *self,QList< int > intlist){
         QVariantList varlist;
         for (int i = 0; i < intlist.length(); i++)
             varlist.append(QVariant::fromValue(intlist.at(i)));
@@ -5190,6 +5197,63 @@ fail:
 static int _wrap_QVariant_setValue__SWIG_15(lua_State* L) {
   int SWIG_arg = 0;
   QVariant *arg1 = (QVariant *) 0 ;
+  HeroChangeStruct *arg2 = (HeroChangeStruct *) 0 ;
+  
+  SWIG_check_num_args("QVariant::setValue",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("QVariant::setValue",1,"QVariant *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("QVariant::setValue",2,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_QVariant,0))){
+    SWIG_fail_ptr("QVariant_setValue",1,SWIGTYPE_p_QVariant);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("QVariant_setValue",2,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  QVariant_setValue__SWIG_15(arg1,arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_QVariant_toHeroChange(lua_State* L) {
+  int SWIG_arg = 0;
+  QVariant *arg1 = (QVariant *) 0 ;
+  HeroChangeStruct result;
+  
+  SWIG_check_num_args("QVariant::toHeroChange",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("QVariant::toHeroChange",1,"QVariant const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_QVariant,0))){
+    SWIG_fail_ptr("QVariant_toHeroChange",1,SWIGTYPE_p_QVariant);
+  }
+  
+  result = QVariant_toHeroChange((QVariant const *)arg1);
+  {
+    HeroChangeStruct * resultptr = new HeroChangeStruct((const HeroChangeStruct &) result);
+    SWIG_NewPointerObj(L,(void *) resultptr,SWIGTYPE_p_HeroChangeStruct,1); SWIG_arg++;
+  }
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_QVariant_setValue__SWIG_16(lua_State* L) {
+  int SWIG_arg = 0;
+  QVariant *arg1 = (QVariant *) 0 ;
   QList< int > arg2 ;
   QList< int > *argp2 ;
   
@@ -5207,7 +5271,7 @@ static int _wrap_QVariant_setValue__SWIG_15(lua_State* L) {
   }
   arg2 = *argp2;
   
-  QVariant_setValue__SWIG_15(arg1,arg2);
+  QVariant_setValue__SWIG_16(arg1,arg2);
   
   return SWIG_arg;
   
@@ -5575,7 +5639,7 @@ static int _wrap_QVariant_setValue(lua_State* L) {
     if (_v) {
       {
         void *ptr;
-        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QListT_int_t, 0)) {
+        if (SWIG_isptrtype(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_HeroChangeStruct, 0)) {
           _v = 0;
         } else {
           _v = 1;
@@ -5583,6 +5647,30 @@ static int _wrap_QVariant_setValue(lua_State* L) {
       }
       if (_v) {
         return _wrap_QVariant_setValue__SWIG_15(L);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_QVariant, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QListT_int_t, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        return _wrap_QVariant_setValue__SWIG_16(L);
       }
     }
   }
@@ -5623,6 +5711,7 @@ static int _wrap_QVariant_setValue(lua_State* L) {
     "    QVariant::setValue(PhaseChangeStruct *)\n"
     "    QVariant::setValue(CardsMoveOneTimeStruct *)\n"
     "    QVariant::setValue(CardResponseStruct *)\n"
+    "    QVariant::setValue(HeroChangeStruct *)\n"
     "    QVariant::setValue(QList< int >)\n");
   lua_error(L);return 0;
 }
@@ -5678,6 +5767,7 @@ static swig_lua_method swig_QVariant_methods[] = {
     {"toPhaseChange", _wrap_QVariant_toPhaseChange}, 
     {"toMoveOneTime", _wrap_QVariant_toMoveOneTime}, 
     {"toCardResponse", _wrap_QVariant_toCardResponse}, 
+    {"toHeroChange", _wrap_QVariant_toHeroChange}, 
     {"setValue", _wrap_QVariant_setValue}, 
     {"toIntList", _wrap_QVariant_toIntList}, 
     {0,0}
@@ -34934,6 +35024,453 @@ static swig_lua_const_info swig_CardResponseStruct_cls_constants[] = {
 static swig_lua_class *swig_CardResponseStruct_bases[] = {0};
 static const char *swig_CardResponseStruct_base_names[] = {0};
 static swig_lua_class _wrap_class_CardResponseStruct = { "CardResponseStruct", &SWIGTYPE_p_CardResponseStruct,_wrap_new_CardResponseStruct, swig_delete_CardResponseStruct, swig_CardResponseStruct_methods, swig_CardResponseStruct_attributes, { "CardResponseStruct", swig_CardResponseStruct_cls_methods, swig_CardResponseStruct_cls_attributes, swig_CardResponseStruct_cls_constants }, swig_CardResponseStruct_bases, swig_CardResponseStruct_base_names };
+
+static int _wrap_new_HeroChangeStruct__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *result = 0 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::HeroChangeStruct",0,0)
+  result = (HeroChangeStruct *)new HeroChangeStruct();
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_HeroChangeStruct,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_HeroChangeStruct__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  ServerPlayer *arg1 = (ServerPlayer *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool arg3 ;
+  bool arg4 ;
+  bool arg5 ;
+  bool arg6 ;
+  HeroChangeStruct *result = 0 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::HeroChangeStruct",6,6)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",1,"ServerPlayer *");
+  if(!SWIG_lua_isnilstring(L,2)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",2,"char const *");
+  if(!lua_isboolean(L,3)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",3,"bool");
+  if(!lua_isboolean(L,4)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",4,"bool");
+  if(!lua_isboolean(L,5)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",5,"bool");
+  if(!lua_isboolean(L,6)) SWIG_fail_arg("HeroChangeStruct::HeroChangeStruct",6,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ServerPlayer,0))){
+    SWIG_fail_ptr("new_HeroChangeStruct",1,SWIGTYPE_p_ServerPlayer);
+  }
+  
+  arg2 = (char *)lua_tostring(L, 2);
+  arg3 = (lua_toboolean(L, 3)!=0);
+  arg4 = (lua_toboolean(L, 4)!=0);
+  arg5 = (lua_toboolean(L, 5)!=0);
+  arg6 = (lua_toboolean(L, 6)!=0);
+  result = (HeroChangeStruct *)new HeroChangeStruct(arg1,(char const *)arg2,arg3,arg4,arg5,arg6);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_HeroChangeStruct,1); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_new_HeroChangeStruct(lua_State* L) {
+  int argc;
+  int argv[7]={
+    1,2,3,4,5,6,7
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 0) {
+    return _wrap_new_HeroChangeStruct__SWIG_0(L);
+  }
+  if (argc == 6) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_ServerPlayer, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = SWIG_lua_isnilstring(L,argv[1]);
+      }
+      if (_v) {
+        {
+          _v = lua_isboolean(L,argv[2]);
+        }
+        if (_v) {
+          {
+            _v = lua_isboolean(L,argv[3]);
+          }
+          if (_v) {
+            {
+              _v = lua_isboolean(L,argv[4]);
+            }
+            if (_v) {
+              {
+                _v = lua_isboolean(L,argv[5]);
+              }
+              if (_v) {
+                return _wrap_new_HeroChangeStruct__SWIG_1(L);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'new_HeroChangeStruct'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    HeroChangeStruct::HeroChangeStruct()\n"
+    "    HeroChangeStruct::HeroChangeStruct(ServerPlayer *,char const *,bool,bool,bool,bool)\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_HeroChangeStruct_m_who_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  ServerPlayer *arg2 = (ServerPlayer *) 0 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_who",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_who",1,"HeroChangeStruct *");
+  if(!SWIG_isptrtype(L,2)) SWIG_fail_arg("HeroChangeStruct::m_who",2,"ServerPlayer *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_who_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_ServerPlayer,SWIG_POINTER_DISOWN))){
+    SWIG_fail_ptr("HeroChangeStruct_m_who_set",2,SWIGTYPE_p_ServerPlayer);
+  }
+  
+  if (arg1) (arg1)->m_who = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_who_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  ServerPlayer *result = 0 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_who",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_who",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_who_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result = (ServerPlayer *) ((arg1)->m_who);
+  SWIG_NewPointerObj(L,result,SWIGTYPE_p_ServerPlayer,0); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_general_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  QString arg2 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_general",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_general",1,"HeroChangeStruct *");
+  if(!lua_isstring(L,2)) SWIG_fail_arg("HeroChangeStruct::m_general",2,"QString");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_general_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  arg2 = lua_tostring(L, 2); 
+  if (arg1) (arg1)->m_general = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_general_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  QString result;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_general",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_general",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_general_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result =  ((arg1)->m_general);
+  lua_pushstring(L, (&result)->toUtf8()); SWIG_arg++; 
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_isFullState_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_isFullState",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_isFullState",1,"HeroChangeStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("HeroChangeStruct::m_isFullState",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_isFullState_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->m_isFullState = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_isFullState_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_isFullState",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_isFullState",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_isFullState_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result = (bool) ((arg1)->m_isFullState);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_invokeStart_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_invokeStart",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_invokeStart",1,"HeroChangeStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("HeroChangeStruct::m_invokeStart",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_invokeStart_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->m_invokeStart = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_invokeStart_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_invokeStart",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_invokeStart",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_invokeStart_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result = (bool) ((arg1)->m_invokeStart);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_isSecondaryHero_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_isSecondaryHero",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_isSecondaryHero",1,"HeroChangeStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("HeroChangeStruct::m_isSecondaryHero",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_isSecondaryHero_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->m_isSecondaryHero = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_isSecondaryHero_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_isSecondaryHero",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_isSecondaryHero",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_isSecondaryHero_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result = (bool) ((arg1)->m_isSecondaryHero);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_sendLog_set(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool arg2 ;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_sendLog",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_sendLog",1,"HeroChangeStruct *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("HeroChangeStruct::m_sendLog",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_sendLog_set",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  if (arg1) (arg1)->m_sendLog = arg2;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_HeroChangeStruct_m_sendLog_get(lua_State* L) {
+  int SWIG_arg = 0;
+  HeroChangeStruct *arg1 = (HeroChangeStruct *) 0 ;
+  bool result;
+  
+  SWIG_check_num_args("HeroChangeStruct::m_sendLog",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("HeroChangeStruct::m_sendLog",1,"HeroChangeStruct *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_HeroChangeStruct,0))){
+    SWIG_fail_ptr("HeroChangeStruct_m_sendLog_get",1,SWIGTYPE_p_HeroChangeStruct);
+  }
+  
+  result = (bool) ((arg1)->m_sendLog);
+  lua_pushboolean(L,(int)(result!=0)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static void swig_delete_HeroChangeStruct(void *obj) {
+HeroChangeStruct *arg1 = (HeroChangeStruct *) obj;
+delete arg1;
+}
+static swig_lua_method swig_HeroChangeStruct_methods[] = {
+    {0,0}
+};
+static swig_lua_attribute swig_HeroChangeStruct_attributes[] = {
+    { "m_who", _wrap_HeroChangeStruct_m_who_get, _wrap_HeroChangeStruct_m_who_set},
+    { "m_general", _wrap_HeroChangeStruct_m_general_get, _wrap_HeroChangeStruct_m_general_set},
+    { "m_isFullState", _wrap_HeroChangeStruct_m_isFullState_get, _wrap_HeroChangeStruct_m_isFullState_set},
+    { "m_invokeStart", _wrap_HeroChangeStruct_m_invokeStart_get, _wrap_HeroChangeStruct_m_invokeStart_set},
+    { "m_isSecondaryHero", _wrap_HeroChangeStruct_m_isSecondaryHero_get, _wrap_HeroChangeStruct_m_isSecondaryHero_set},
+    { "m_sendLog", _wrap_HeroChangeStruct_m_sendLog_get, _wrap_HeroChangeStruct_m_sendLog_set},
+    {0,0,0}
+};
+static swig_lua_attribute swig_HeroChangeStruct_cls_attributes[] = {
+    {0,0,0}
+};
+static swig_lua_method swig_HeroChangeStruct_cls_methods[] = {
+    {0,0}
+};
+static swig_lua_const_info swig_HeroChangeStruct_cls_constants[] = {
+    {0,0,0,0,0,0}
+};
+static swig_lua_class *swig_HeroChangeStruct_bases[] = {0};
+static const char *swig_HeroChangeStruct_base_names[] = {0};
+static swig_lua_class _wrap_class_HeroChangeStruct = { "HeroChangeStruct", &SWIGTYPE_p_HeroChangeStruct,_wrap_new_HeroChangeStruct, swig_delete_HeroChangeStruct, swig_HeroChangeStruct_methods, swig_HeroChangeStruct_attributes, { "HeroChangeStruct", swig_HeroChangeStruct_cls_methods, swig_HeroChangeStruct_cls_attributes, swig_HeroChangeStruct_cls_constants }, swig_HeroChangeStruct_bases, swig_HeroChangeStruct_base_names };
 
 static int _wrap_Card_AllSuits_get(lua_State* L) {
   int SWIG_arg = 0;
@@ -77678,6 +78215,8 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("HpLost", HpLost)},
     {SWIG_LUA_CONSTTAB_INT("HpChanged", HpChanged)},
     {SWIG_LUA_CONSTTAB_INT("MaxHpChanged", MaxHpChanged)},
+    {SWIG_LUA_CONSTTAB_INT("BeforeChangeHero", BeforeChangeHero)},
+    {SWIG_LUA_CONSTTAB_INT("HeroChanged", HeroChanged)},
     {SWIG_LUA_CONSTTAB_INT("EventLoseSkill", EventLoseSkill)},
     {SWIG_LUA_CONSTTAB_INT("EventAcquireSkill", EventAcquireSkill)},
     {SWIG_LUA_CONSTTAB_INT("StartJudge", StartJudge)},
@@ -78273,6 +78812,7 @@ static swig_type_info _swigt__p_FilterSkill = {"_p_FilterSkill", "FilterSkill *"
 static swig_type_info _swigt__p_GameStartSkill = {"_p_GameStartSkill", "GameStartSkill *", 0, 0, (void*)&_wrap_class_GameStartSkill, 0};
 static swig_type_info _swigt__p_General = {"_p_General", "General *", 0, 0, (void*)&_wrap_class_General, 0};
 static swig_type_info _swigt__p_GeneralLevel = {"_p_GeneralLevel", "GeneralLevel *", 0, 0, (void*)&_wrap_class_GeneralLevel, 0};
+static swig_type_info _swigt__p_HeroChangeStruct = {"_p_HeroChangeStruct", "HeroChangeStruct *", 0, 0, (void*)&_wrap_class_HeroChangeStruct, 0};
 static swig_type_info _swigt__p_Horse = {"_p_Horse", "Horse *", 0, 0, (void*)&_wrap_class_Horse, 0};
 static swig_type_info _swigt__p_InvaliditySkill = {"_p_InvaliditySkill", "InvaliditySkill *", 0, 0, (void*)&_wrap_class_InvaliditySkill, 0};
 static swig_type_info _swigt__p_JudgeStruct = {"_p_JudgeStruct", "JudgeStruct *", 0, 0, (void*)&_wrap_class_JudgeStruct, 0};
@@ -78389,6 +78929,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_GameStartSkill,
   &_swigt__p_General,
   &_swigt__p_GeneralLevel,
+  &_swigt__p_HeroChangeStruct,
   &_swigt__p_Horse,
   &_swigt__p_InvaliditySkill,
   &_swigt__p_JudgeStruct,
@@ -78505,6 +79046,7 @@ static swig_cast_info _swigc__p_FilterSkill[] = {  {&_swigt__p_FilterSkill, 0, 0
 static swig_cast_info _swigc__p_GameStartSkill[] = {  {&_swigt__p_GameStartSkill, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_General[] = {  {&_swigt__p_General, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GeneralLevel[] = {  {&_swigt__p_GeneralLevel, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_HeroChangeStruct[] = {  {&_swigt__p_HeroChangeStruct, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Horse[] = {  {&_swigt__p_OffensiveHorse, _p_OffensiveHorseTo_p_Horse, 0, 0},  {&_swigt__p_DefensiveHorse, _p_DefensiveHorseTo_p_Horse, 0, 0},  {&_swigt__p_Horse, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_InvaliditySkill[] = {  {&_swigt__p_InvaliditySkill, 0, 0, 0},  {&_swigt__p_LuaInvaliditySkill, _p_LuaInvaliditySkillTo_p_InvaliditySkill, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_JudgeStruct[] = {  {&_swigt__p_JudgeStruct, 0, 0, 0},{0, 0, 0, 0}};
@@ -78621,6 +79163,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_GameStartSkill,
   _swigc__p_General,
   _swigc__p_GeneralLevel,
+  _swigc__p_HeroChangeStruct,
   _swigc__p_Horse,
   _swigc__p_InvaliditySkill,
   _swigc__p_JudgeStruct,
