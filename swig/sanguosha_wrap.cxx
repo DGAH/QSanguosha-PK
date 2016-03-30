@@ -35981,6 +35981,30 @@ fail:
 }
 
 
+static int _wrap_Card_getColor(lua_State* L) {
+  int SWIG_arg = 0;
+  Card *arg1 = (Card *) 0 ;
+  Card::Color result;
+  
+  SWIG_check_num_args("Card::getColor",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Card::getColor",1,"Card const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Card,0))){
+    SWIG_fail_ptr("Card_getColor",1,SWIGTYPE_p_Card);
+  }
+  
+  result = (Card::Color)((Card const *)arg1)->getColor();
+  lua_pushnumber(L, (lua_Number)(int)(result)); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_Card_sameColorWith(lua_State* L) {
   int SWIG_arg = 0;
   Card *arg1 = (Card *) 0 ;
@@ -36598,7 +36622,7 @@ fail:
 }
 
 
-static int _wrap_Card_addSubcards(lua_State* L) {
+static int _wrap_Card_addSubcards__SWIG_0(lua_State* L) {
   int SWIG_arg = 0;
   Card *arg1 = (Card *) 0 ;
   QList< Card const * > *arg2 = 0 ;
@@ -36625,6 +36649,100 @@ static int _wrap_Card_addSubcards(lua_State* L) {
 fail:
   lua_error(L);
   return SWIG_arg;
+}
+
+
+static int _wrap_Card_addSubcards__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Card *arg1 = (Card *) 0 ;
+  QList< int > *arg2 = 0 ;
+  
+  SWIG_check_num_args("Card::addSubcards",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Card::addSubcards",1,"Card *");
+  if(!lua_isuserdata(L,2)) SWIG_fail_arg("Card::addSubcards",2,"QList< int > const &");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Card,0))){
+    SWIG_fail_ptr("Card_addSubcards",1,SWIGTYPE_p_Card);
+  }
+  
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,2,(void**)&arg2,SWIGTYPE_p_QListT_int_t,0))){
+    SWIG_fail_ptr("Card_addSubcards",2,SWIGTYPE_p_QListT_int_t);
+  }
+  
+  (arg1)->addSubcards((QList< int > const &)*arg2);
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Card_addSubcards(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Card, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QListT_Card_const_p_t, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        return _wrap_Card_addSubcards__SWIG_0(L);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Card, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        void *ptr;
+        if (lua_isuserdata(L,argv[1])==0 || SWIG_ConvertPtr(L,argv[1], (void **) &ptr, SWIGTYPE_p_QListT_int_t, 0)) {
+          _v = 0;
+        } else {
+          _v = 1;
+        }
+      }
+      if (_v) {
+        return _wrap_Card_addSubcards__SWIG_1(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Card_addSubcards'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Card::addSubcards(QList< Card const * > const &)\n"
+    "    Card::addSubcards(QList< int > const &)\n");
+  lua_error(L);return 0;
 }
 
 
@@ -37945,6 +38063,7 @@ static swig_lua_method swig_Card_methods[] = {
     {"getNumberString", _wrap_Card_getNumberString}, 
     {"getSuit", _wrap_Card_getSuit}, 
     {"setSuit", _wrap_Card_setSuit}, 
+    {"getColor", _wrap_Card_getColor}, 
     {"sameColorWith", _wrap_Card_sameColorWith}, 
     {"isEquipped", _wrap_Card_isEquipped}, 
     {"getPackage", _wrap_Card_getPackage}, 
@@ -38026,6 +38145,9 @@ static swig_lua_const_info swig_Card_cls_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("NoSuitRed", Card::NoSuitRed)},
     {SWIG_LUA_CONSTTAB_INT("NoSuit", Card::NoSuit)},
     {SWIG_LUA_CONSTTAB_INT("SuitToBeDecided", Card::SuitToBeDecided)},
+    {SWIG_LUA_CONSTTAB_INT("Red", Card::Red)},
+    {SWIG_LUA_CONSTTAB_INT("Black", Card::Black)},
+    {SWIG_LUA_CONSTTAB_INT("Colorless", Card::Colorless)},
     {SWIG_LUA_CONSTTAB_INT("MethodNone", Card::MethodNone)},
     {SWIG_LUA_CONSTTAB_INT("MethodUse", Card::MethodUse)},
     {SWIG_LUA_CONSTTAB_INT("MethodResponse", Card::MethodResponse)},
@@ -78507,6 +78629,9 @@ static swig_lua_const_info swig_constants[] = {
     {SWIG_LUA_CONSTTAB_INT("Card_NoSuitRed", Card::NoSuitRed)},
     {SWIG_LUA_CONSTTAB_INT("Card_NoSuit", Card::NoSuit)},
     {SWIG_LUA_CONSTTAB_INT("Card_SuitToBeDecided", Card::SuitToBeDecided)},
+    {SWIG_LUA_CONSTTAB_INT("Card_Red", Card::Red)},
+    {SWIG_LUA_CONSTTAB_INT("Card_Black", Card::Black)},
+    {SWIG_LUA_CONSTTAB_INT("Card_Colorless", Card::Colorless)},
     {SWIG_LUA_CONSTTAB_INT("Card_MethodNone", Card::MethodNone)},
     {SWIG_LUA_CONSTTAB_INT("Card_MethodUse", Card::MethodUse)},
     {SWIG_LUA_CONSTTAB_INT("Card_MethodResponse", Card::MethodResponse)},

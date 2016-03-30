@@ -980,6 +980,7 @@ class Card: public QObject {
 public:
     // enumeration type
     enum Suit { Spade, Club, Heart, Diamond, NoSuitBlack, NoSuitRed, NoSuit, SuitToBeDecided };
+	enum Color { Red, Black, Colorless };
     enum HandlingMethod { MethodNone, MethodUse, MethodResponse, MethodDiscard, MethodRecast, MethodPindian };
     static const Suit AllSuits[4];
 
@@ -1004,6 +1005,7 @@ public:
     Suit getSuit() const;
     void setSuit(Suit suit);
 
+	Color getColor() const;
     bool sameColorWith(const Card *other) const;
     bool isEquipped() const;
 
@@ -1024,6 +1026,7 @@ public:
     void clearSubcards();
     QString subcardString() const;
     void addSubcards(const QList<const Card *> &cards);
+	void addSubcards(const QList<int> &subcards_list);
     int subcardsLength() const;
 
     virtual QString getType() const = 0;
