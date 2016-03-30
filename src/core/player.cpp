@@ -1209,3 +1209,22 @@ QList<const Player *> Player::getAliveSiblings() const
     }
     return siblings;
 }
+
+QStringList Player::getGameKingdoms(bool include_death) const
+{
+	QStringList kingdoms;
+	if (parent()) {
+		foreach(const Player *p, parent()->findChildren<const Player *>()) {
+			if (p->isDead() && !include_death)
+				continue;
+			if (!kingdoms.contains(p->getKingdom()))
+				kingdoms.append(p->getKingdom());
+		}
+	}
+	return kingdoms;
+}
+
+int Player::getGameKingdomsCount(bool include_death) const
+{
+	return getGameKingdoms(include_death).length();
+}

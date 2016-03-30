@@ -259,6 +259,8 @@ public:
 
     QList<const Player *> getSiblings() const;
     QList<const Player *> getAliveSiblings() const;
+	QStringList getGameKingdoms(bool include_death = false) const;
+	int getGameKingdomsCount(bool include_death = false) const;
 
     QVariantMap tag;
 

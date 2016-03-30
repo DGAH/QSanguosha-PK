@@ -21830,6 +21830,226 @@ fail:
 }
 
 
+static int _wrap_Player_getGameKingdoms__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  bool arg2 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Player::getGameKingdoms",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::getGameKingdoms",1,"Player const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("Player::getGameKingdoms",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_getGameKingdoms",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = ((Player const *)arg1)->getGameKingdoms(arg2);
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_getGameKingdoms__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  QStringList result;
+  
+  SWIG_check_num_args("Player::getGameKingdoms",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::getGameKingdoms",1,"Player const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_getGameKingdoms",1,SWIGTYPE_p_Player);
+  }
+  
+  result = ((Player const *)arg1)->getGameKingdoms();
+  
+  lua_createtable(L, (&result)->length(), 0);
+  
+  for (int i = 0; i < (&result)->length(); i++) {
+    QString str = (&result)->at(i);
+    lua_pushstring(L, str.toUtf8());
+    lua_rawseti(L, -2, i + 1);
+  }
+  
+  SWIG_arg++;
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_getGameKingdoms(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_Player_getGameKingdoms__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Player_getGameKingdoms__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Player_getGameKingdoms'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Player::getGameKingdoms(bool) const\n"
+    "    Player::getGameKingdoms() const\n");
+  lua_error(L);return 0;
+}
+
+
+static int _wrap_Player_getGameKingdomsCount__SWIG_0(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  bool arg2 ;
+  int result;
+  
+  SWIG_check_num_args("Player::getGameKingdomsCount",2,2)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::getGameKingdomsCount",1,"Player const *");
+  if(!lua_isboolean(L,2)) SWIG_fail_arg("Player::getGameKingdomsCount",2,"bool");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_getGameKingdomsCount",1,SWIGTYPE_p_Player);
+  }
+  
+  arg2 = (lua_toboolean(L, 2)!=0);
+  result = (int)((Player const *)arg1)->getGameKingdomsCount(arg2);
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_getGameKingdomsCount__SWIG_1(lua_State* L) {
+  int SWIG_arg = 0;
+  Player *arg1 = (Player *) 0 ;
+  int result;
+  
+  SWIG_check_num_args("Player::getGameKingdomsCount",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("Player::getGameKingdomsCount",1,"Player const *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_Player,0))){
+    SWIG_fail_ptr("Player_getGameKingdomsCount",1,SWIGTYPE_p_Player);
+  }
+  
+  result = (int)((Player const *)arg1)->getGameKingdomsCount();
+  lua_pushnumber(L, (lua_Number) result); SWIG_arg++;
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_Player_getGameKingdomsCount(lua_State* L) {
+  int argc;
+  int argv[3]={
+    1,2,3
+  };
+  
+  argc = lua_gettop(L);
+  if (argc == 1) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      return _wrap_Player_getGameKingdomsCount__SWIG_1(L);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      void *ptr;
+      if (SWIG_isptrtype(L,argv[0])==0 || SWIG_ConvertPtr(L,argv[0], (void **) &ptr, SWIGTYPE_p_Player, 0)) {
+        _v = 0;
+      } else {
+        _v = 1;
+      }
+    }
+    if (_v) {
+      {
+        _v = lua_isboolean(L,argv[1]);
+      }
+      if (_v) {
+        return _wrap_Player_getGameKingdomsCount__SWIG_0(L);
+      }
+    }
+  }
+  
+  SWIG_Lua_pusherrstring(L,"Wrong arguments for overloaded function 'Player_getGameKingdomsCount'\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Player::getGameKingdomsCount(bool) const\n"
+    "    Player::getGameKingdomsCount() const\n");
+  lua_error(L);return 0;
+}
+
+
 static int _wrap_Player_setTag(lua_State* L) {
   int SWIG_arg = 0;
   Player *arg1 = (Player *) 0 ;
@@ -22060,6 +22280,8 @@ static swig_lua_method swig_Player_methods[] = {
     {"copyFrom", _wrap_Player_copyFrom}, 
     {"getSiblings", _wrap_Player_getSiblings}, 
     {"getAliveSiblings", _wrap_Player_getAliveSiblings}, 
+    {"getGameKingdoms", _wrap_Player_getGameKingdoms}, 
+    {"getGameKingdomsCount", _wrap_Player_getGameKingdomsCount}, 
     {"setTag", _wrap_Player_setTag}, 
     {"getTag", _wrap_Player_getTag}, 
     {"removeTag", _wrap_Player_removeTag}, 
